@@ -1,0 +1,50 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-color">
+  <div class="d-block d-md-none">
+    <div>
+      <button style="border: none;" id="collapse" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+        class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" *ngIf="isCollapsed"></span>
+        <span class="material-icons" *ngIf="!isCollapsed">close</span>
+      </button>
+    </div>
+  </div>
+
+
+
+
+  <div class="collapse navbar-collapse menu_center" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" id="navbarNav">
+    <ul class="navbar-nav menu_li">
+      <li>
+        <img src="./assets/Home/logo-icon.svg" alt="" width="50%">
+      </li>
+      <li class="pointer nav-item">
+        <a class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']"
+          (click)="isCollapsed = !isCollapsed">¿COMO FUNCIONA?</a>
+        <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/']">¿COMO FUNCIONA?</a>
+      </li>
+      <li class="pointer nav-item">
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="isCollapsed = !isCollapsed">NUESTROS SERVICIOS</a>
+        <a class="nav-link d-none d-md-block menu_opciones">NUESTROS SERVICIOS</a>
+      </li>
+      <li class="pointer nav-item">
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="isCollapsed = !isCollapsed">¿POR QUÉ ELEGIRNOS?</a>
+        <a class="nav-link d-none d-md-block menu_opciones">¿POR QUÉ ELEGIRNOS?</a>
+      </li>
+      <li class="pointer nav-item">
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="isCollapsed = !isCollapsed">ÚNETE A NOSOTROS</a>
+        <a class="nav-link d-none d-md-block menu_opciones">ÚNETE A NOSOTROS</a>
+      </li>
+      <li class="pointer nav-item">
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="isCollapsed = !isCollapsed">FAQ</a>
+        <a class="nav-link d-none d-md-block menu_opciones">FAQ</a>
+      </li>
+      <li class="pointer nav-item menu_text_center">
+        <img src="./assets/Home/event-icon.svg" alt="" width="40%">
+      </li>
+      <li class="pointer nav-item menu_text_center">
+        <img src="./assets/Home/event-icon.svg" alt="" width="40%">
+      </li>
+    </ul>
+  </div>
+</nav>

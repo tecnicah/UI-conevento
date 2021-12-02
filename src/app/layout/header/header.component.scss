@@ -1,0 +1,25 @@
+.bg-color {
+  background-color: #1E003A;
+}
+
+.menu {
+  &_opciones {
+    color: white !important;
+    font-size: 12px;
+  }
+
+  &_center {
+    justify-content: center;
+  }
+
+  &_li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &_text_center{
+      text-align: center;
+  }
+}
+

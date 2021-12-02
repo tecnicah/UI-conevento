@@ -1,0 +1,259 @@
+.cover {
+  &_width {
+    padding: 0;
+    margin: 0;
+  }
+
+  &_informacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 67.49px);
+  }
+
+  &_color_texto {
+    color: white;
+  }
+
+  &_size {
+    font-size: 35px;
+  }
+
+  &_contenedor_hijo {
+    width: 23%;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &_boton {
+    background: #DDB675;
+    color: black;
+    width: 137px;
+  }
+
+  &_botonOutline {
+    width: 137px;
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+  }
+}
+
+.bg {
+  width: 100%;
+  background-image: url('../../../assets/Home/banner-image.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: calc(100vh - 67.49px);
+}
+
+.bg_color {
+  background-color: #C3F1EF;
+}
+
+.titulo_seccion {
+  margin: 6%;
+  text-align: center;
+  color: #7800E7;
+  font-size: 25px;
+}
+
+.margen {
+  margin: 0px 70px 0px 70px;
+}
+
+.como_funciona {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.img {
+  width: 25%;
+}
+
+.subtitle {
+  font-size: 22px;
+  color: #00C3BD;
+}
+
+.descripcion {
+  font-size: 12px;
+  color: black;
+  text-align: center;
+}
+
+.contenedor_boton {
+  &_center {
+    text-align: center;
+    margin: 6%;
+  }
+
+  &_comienza {
+    background: #DDB675;
+    color: black;
+    width: 150px;
+  }
+}
+
+.nuestros_servicios {
+  &_subtitle {
+    text-align: center;
+    color: #00C3BD;
+    font-size: 16px;
+  }
+
+  &_img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    height: 180px;
+  }
+
+  &_title {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  &_bg {
+    background-image: url('../../../assets/Home/meseros.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto;
+  }
+
+  &_margin_top {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  &_comienza {
+    background: #DDB675;
+    color: black;
+    width: 200px;
+  }
+}
+
+.seccion_tres {
+  &_bg_color {
+    background-color: #00C3BD;
+  }
+
+  &_contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 5%;
+    color: white;
+  }
+
+  &_title {
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  &_contenedor_icon {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    text-align: center;
+    margin: auto;
+  }
+
+  &_contenedor_hijo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  &_icon {
+    font-size: 100px;
+    color: white;
+  }
+
+  &_icon_titulo {
+    margin-top: 20px;
+    font-size: 16px;
+    color: white;
+  }
+}
+
+.seccion_cuatro {
+  &_bg_color {
+    background-color: #F4EAE0;
+  }
+
+  &_title {
+    color: #7800E7;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: center;
+    margin: 6%;
+  }
+
+  &_descripcion {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  &_boton {
+    text-align: center;
+    margin: 6%;
+  }
+
+  &_center {
+    text-align: center;
+    margin: 4%;
+  }
+
+  &_solicitar {
+    background: #00C3BD;
+    color: white;
+    width: 200px;
+  }
+}
+
+.title_faq{
+  font-size: 16px;
+}
+
+.icon_color{
+    color: white;
+}
+
+.buttom{
+    margin-bottom: 70px;
+}
+
+@media only screen and (max-width: 575px) {
+  .cover {
+    &_color_texto {
+      text-align: center;
+      font-size: 25px;
+    }
+
+    &_contenedor_hijo {
+      width: 90%;
+    }
+  }
+
+  .titulo_seccion {
+    margin: 35px 0px;
+    font-size: 22px;
+  }
+
+  .margen {
+    margin: 0px 20px 0px 20px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+}
