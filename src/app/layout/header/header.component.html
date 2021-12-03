@@ -1,4 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-color">
+  <img src="./assets/Home/logo-icon.svg" alt="" width="15%" class="d-block d-md-none">
   <div class="d-block d-md-none">
     <div>
       <button style="border: none;" id="collapse" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
@@ -13,9 +14,10 @@
 
 
 
-  <div class="collapse navbar-collapse menu_center" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" id="navbarNav">
+  <div class="collapse navbar-collapse menu_center" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
+    id="navbarNav">
     <ul class="navbar-nav menu_li">
-      <li>
+      <li class="d-none d-md-block">
         <img src="./assets/Home/logo-icon.svg" alt="" width="50%">
       </li>
       <li class="pointer nav-item">
@@ -39,11 +41,20 @@
         <a class="nav-link d-block d-md-none menu_opciones" (click)="isCollapsed = !isCollapsed">FAQ</a>
         <a class="nav-link d-none d-md-block menu_opciones">FAQ</a>
       </li>
+      <li>&nbsp;</li>
       <li class="pointer nav-item menu_text_center">
-        <img src="./assets/Home/event-icon.svg" alt="" width="40%">
+        <span class="material-icons menu_icon" >
+          celebration
+          </span>
       </li>
+      <li>&nbsp;</li>
       <li class="pointer nav-item menu_text_center">
-        <img src="./assets/Home/event-icon.svg" alt="" width="40%">
+        <span class="material-icons menu_icon d-none d-md-block" (click)="loginDesktop();">
+          person_outline
+        </span>
+        <span class="material-icons menu_icon d-block d-sm-none" (click)="loginMobile(); isCollapsed = !isCollapsed">
+          person_outline
+        </span>
       </li>
     </ul>
   </div>

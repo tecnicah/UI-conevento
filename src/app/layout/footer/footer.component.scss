@@ -32,3 +32,19 @@
 .center{
     //text-align: center;
 }
+
+
+.mobile{
+  &_flex{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5%;
+  }
+  &_radius{
+    border-radius: 5px;
+  }
+  &_ancho{
+    width: 80%;
+  }
+}

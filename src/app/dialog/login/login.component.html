@@ -1,0 +1,245 @@
+<!--DESKTOP-->
+<div class="d-none d-md-block">
+  <div class="container-fluid seccion_uno_contenedor">
+    <div class="row seccion_uno_altura">
+      <div class="col-md-6 bg-color">
+        <div class="seccion_uno_flex">
+          <img src="../../../assets/Home/logo-banner.png" alt="">
+        </div>
+      </div>
+      <div class="col-md-6">
+
+        <!--LOGIN-->
+        <div class="seccion_uno_credenciales seccion_uno_ancho" *ngIf="show_box_credentials && !show_formulario">
+          <div class="seccion_uno_ancho">
+            <div class="flex_contenedor_input">
+              <p>Iniciar Sesión</p>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                  aria-describedby="basic-addon1">
+                <span class="material-icons-outlined icon">
+                  email
+                </span>
+              </div>
+            </div>
+
+            <div class="flex_contenedor_input">
+              <div class="input-group mb-3">
+                <input type="{{type}}" class="form-control" placeholder="password" aria-label="Password"
+                  aria-describedby="basic-addon1">
+                <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
+                  visibility
+                </span>
+                <span class="material-icons-outlined pointer icon" (click)="visibility(2)" *ngIf="show_eye">
+                  visibility_off
+                </span>
+              </div>
+
+            </div>
+
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button">Inicia Sesión</button>
+            </div>
+
+            <div class="flex_contenedor_input forgot">
+              <span class="pointer" (click)="createAccount()">Crear cuenta</span>
+              <br>
+              <span class="pointer" (click)="forgotPassword()">Olvidó su contraseña</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!--FORGOT PASSWORD-->
+        <div class="seccion_uno_credenciales seccion_uno_ancho" *ngIf="!show_box_credentials && !show_formulario">
+          <div class="seccion_uno_ancho">
+
+            <div class="flex_contenedor_input">
+              <p>Reestablecer contraseña</p>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                  aria-describedby="basic-addon1">
+                <span class="material-icons-outlined icon">
+                  email
+                </span>
+              </div>
+            </div>
+
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button">Restablecer</button>
+            </div>
+
+            <div class="flex_contenedor_input forgot">
+              <span class="pointer" (click)="startSession()">Iniciar Sesión</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!--CREATE ACCOUNT-->
+        <div class="seccion_uno_credenciales seccion_uno_ancho" *ngIf="show_formulario">
+          <div class="seccion_uno_ancho">
+
+            <div class="flex_contenedor_input">
+              <p>Registro</p>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                  aria-describedby="basic-addon1">
+              </div>
+            </div>
+
+            <div class="flex_contenedor_input">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
+                  aria-describedby="basic-addon1">
+              </div>
+            </div>
+
+            <div class="flex_contenedor_input">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
+                  aria-describedby="basic-addon1">
+              </div>
+            </div>
+
+            <div class="flex_contenedor_input">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                  aria-describedby="basic-addon1">
+              </div>
+            </div>
+
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button">Crear cuenta</button>
+            </div>
+
+            <div class="flex_contenedor_input forgot">
+              <span class="pointer" (click)="backLogin()">Iniciar Sesión</span>
+            </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--MOBILE-->
+<div class="d-block d-sm-none">
+  <div class="container-fluid seccion_uno_contenedor">
+    <div class="row">
+      <div class="col-sm-12 mobile_padding">
+        <div class="seccion_uno_center">
+          <div class="bg-color mobile_header">
+            <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
+          </div>
+
+          <div *ngIf="show_box_credentials && !show_formulario">
+            <div class="flex_contenedor_input">
+              <p>Iniciar Sesión</p>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                  aria-describedby="basic-addon1">
+                <span class="material-icons-outlined icon">
+                  email
+                </span>
+              </div>
+            </div>
+
+            <div class="flex_contenedor_input">
+              <div class="input-group mb-3">
+                <input type="{{type}}" class="form-control" placeholder="password" aria-label="Password"
+                  aria-describedby="basic-addon1">
+                <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
+                  visibility
+                </span>
+                <span class="material-icons-outlined pointer icon" (click)="visibility(2)" *ngIf="show_eye">
+                  visibility_off
+                </span>
+              </div>
+
+            </div>
+
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button">Inicia Sesión</button>
+            </div>
+
+            <div class="flex_contenedor_input forgot">
+              <span class="pointer" (click)="createAccount()">Crear cuenta</span>
+              <br>
+              <span class="pointer" (click)="forgotPassword()">Olvidó su contraseña</span>
+            </div>
+          </div>
+
+          <div *ngIf="!show_box_credentials && !show_formulario">
+            <div class="flex_contenedor_input">
+              <p>Reestablecer contraseña</p>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                  aria-describedby="basic-addon1">
+                <span class="material-icons-outlined icon">
+                  email
+                </span>
+              </div>
+            </div>
+
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button">Restablecer</button>
+            </div>
+
+            <div class="flex_contenedor_input forgot">
+              <span class="pointer" (click)="startSession()">Iniciar Sesión</span>
+            </div>
+          </div>
+
+          <div *ngIf="show_formulario">
+            <div class="seccion_uno_ancho">
+
+                <div class="flex_contenedor_input">
+                  <p>Registro</p>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                      aria-describedby="basic-addon1">
+                  </div>
+                </div>
+    
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
+                      aria-describedby="basic-addon1">
+                  </div>
+                </div>
+    
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
+                      aria-describedby="basic-addon1">
+                  </div>
+                </div>
+    
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                      aria-describedby="basic-addon1">
+                  </div>
+                </div>
+    
+                <div class="flex_contenedor">
+                  <button type="button" class="btn flex_button">Crear cuenta</button>
+                </div>
+    
+                <div class="flex_contenedor_input forgot">
+                  <span class="pointer" (click)="backLogin()">Iniciar Sesión</span>
+                </div>
+    
+              </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -240,7 +240,7 @@
     }
 
     &_contenedor_hijo {
-      width: 90%;
+      width: 80%;
     }
   }
 
@@ -255,5 +255,14 @@
 
   .subtitle {
     font-size: 18px;
+  }
+
+  .seccion_tres{
+    &_title{
+      text-align: center;
+    }
+    &_icon_titulo{
+      text-align: center;
+    }
   }
 }
