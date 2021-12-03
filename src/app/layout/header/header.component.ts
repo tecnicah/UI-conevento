@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog'; 
 import { LoginComponent } from 'src/app/dialog/login/login.component';
+import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 
 @Component({
   selector: 'app-header',
@@ -34,6 +35,22 @@ export class HeaderComponent implements OnInit {
     console.log("MOBILE");
     const dialogRef = this._dialog.open(LoginComponent, {
       width: "100%"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    })
+  }
+
+  public profile(type:any){
+    let widthModal:any;
+    if(type == 1){ widthModal = '50%' }else{ widthModal = '100%' }
+    console.log("MOBILE");
+    const dialogRef = this._dialog.open(ProfileComponent, {
+      width: widthModal,
+      height: '69%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
