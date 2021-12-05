@@ -1,13 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-color">
   <img src="./assets/Home/logo-icon.svg" alt="" width="10%" class="d-block d-md-none">
   <div class="d-block d-md-none">
-    <div>
-      <button style="border: none;" id="collapse" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+    <div class="header_icon">
+      <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" 
+          (click)="profile(2);">
+
+      <span id="collapse" (click)="collapse.toggle()" *ngIf="isCollapsed" [attr.aria-expanded]="!isCollapsed"
+        class="navbar-toggler material-icons icon" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        menu
+      </span>
+      <span class="material-icons icon" *ngIf="!isCollapsed" (click)="isCollapsed = !isCollapsed">close</span>
+      <!--button style="border: none;" id="collapse" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
         class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon" *ngIf="isCollapsed"></span>
         <span class="material-icons" *ngIf="!isCollapsed">close</span>
-      </button>
+      </button-->
     </div>
   </div>
 
@@ -41,22 +50,18 @@
         <a class="nav-link d-block d-md-none menu_opciones" (click)="isCollapsed = !isCollapsed">FAQ</a>
         <a class="nav-link d-none d-md-block menu_opciones">FAQ</a>
       </li>
-      <li>&nbsp;</li>
-      <li class="pointer nav-item menu_text_center">
-        <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" class="d-none d-md-block"  (click)="profile(1);">
-        <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" class="d-block d-sm-none"  (click)="profile(2);" (click)="isCollapsed = !isCollapsed">
-        <!--span class="material-icons menu_icon d-none d-md-block" (click)="profile(1);">
-          celebration
-        </span-->
-        <!--span class="material-icons menu_icon d-block d-sm-none" (click)="profile(2);" (click)="isCollapsed = !isCollapsed">
-          celebration
-        </span-->
-      </li>
-      <li>&nbsp;</li>
-      <li class="pointer nav-item menu_text_center">
+      <!--li class="pointer nav-item menu_text_center d-none d-md-block">
+        <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" 
+          (click)="profile(1);">
+      </li-->
+      <li class="pointer nav-item menu_text_center li_final">
+        <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" 
+          (click)="profile(1);" class="d-none d-md-block">
+
         <span class="material-icons menu_icon d-none d-md-block" (click)="loginDesktop();">
           person_outline
         </span>
+
         <span class="material-icons menu_icon d-block d-sm-none" (click)="loginMobile(); isCollapsed = !isCollapsed">
           person_outline
         </span>

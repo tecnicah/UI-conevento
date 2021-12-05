@@ -14,17 +14,39 @@
 
   &_li {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    width: 85%;
   }
 
-  &_text_center{
-      text-align: center;
+  &_text_center {
+    text-align: center;
   }
 
-  &_icon{
+  &_icon {
     font-size: 30px;
     color: white;
   }
 }
+
+.li_final {
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 7%;
+}
+
+.icon {
+  color: white;
+  font-size: 25px;
+}
+
+.header_icon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 85px;
+}
+
 

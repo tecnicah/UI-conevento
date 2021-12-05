@@ -11,6 +11,8 @@ import { LoginComponent } from './dialog/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileComponent } from './dialog/profile/profile.component';
+import { CreateAccountComponent } from './dialog/create-account/create-account.component';
+import { NosotrosComponent } from './dialog/nosotros/nosotros.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ProfileComponent } from './dialog/profile/profile.component';
     HeaderComponent,
     HomeComponent,
     LoginComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateAccountComponent,
+    NosotrosComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 <div class="container-fluid cover_width">
   <div class="bg">
     <div class="cover_informacion">
-      <img src="./assets/Home/logo-banner.png" alt="">
+      <img src="./assets/Home/logo-banner.png" alt="" class="banner_img">
       <p class="cover_color_texto cover_size">¡Tu Evento En Minutos!</p>
       <div class="cover_contenedor_hijo">
         <button type="button" class="btn cover_boton">Arma tu evento</button>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="como_funciona">
+      <div class="como_funciona comoFunciona">
         <img src="./assets/Home/calendar-conevento.svg" alt="" class="img">
         <p class="subtitle">1. Agenda</p>
         <p class="descripcion">Coloca la fecha, hora de inicio y termino del evento, Venue (lugar donde ocurrira) y
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="como_funciona">
+      <div class="como_funciona comoFunciona">
         <img src="./assets/Home/select-conevento.svg" alt="" class="img">
         <p class="subtitle">2. Selecciona y paga</p>
         <p class="descripcion">Selecciona los servicios de personal y articulos que requieras. ¡Paga con distintos
@@ -36,14 +36,14 @@
       </div>
     </div>
     <div class="col-md-4">
-      <div class="como_funciona">
+      <div class="como_funciona comoFunciona">
         <img src="./assets/Home/event-banner-conevento.svg" alt="" class="img">
         <p class="subtitle">3. Disfruta tu evento</p>
         <p class="descripcion">Se te asignara un asesor para coordinar que tu Evento sea un éxito</p>
       </div>
     </div>
-    <div class="col-md-12">
-      <div class="contenedor_boton_center">
+    <div class="col-md-12 abajo">
+      <div class="contenedor_boton_center abajo">
         <button type="button" class="btn contenedor_boton_comienza">Comienza ahora</button>
       </div>
     </div>
@@ -96,7 +96,7 @@
     <div class="col-md-4"></div>
 
     <div class="col-md-12">
-      <div>
+      <div class="spacer">
         <p class="nuestros_servicios_subtitle">Articulos</p>
       </div>
     </div>
@@ -142,37 +142,32 @@
 
     <div class="col-md-3 col-sm-6">
       <div class="seccion_tres_contenedor_hijo">
-        <span class="material-icons-outlined seccion_tres_icon">
+        <!--span class="material-icons-outlined seccion_tres_icon">
           schedule
-        </span>
-        <p class="seccion_tres_icon_titulo">Ahorro De Tiempo</p>
+        </span-->
+        <img src="./assets/Home/ahorro.png" alt="" width="60%">
+        <p class="seccion_tres_icon_titulo tamaño_letra">Ahorro De Tiempo</p>
       </div>
     </div>
 
     <div class="col-md-3 col-sm-6">
       <div class="seccion_tres_contenedor_hijo">
-        <span class="material-icons-outlined seccion_tres_icon">
-          schedule
-        </span>
-        <p class="seccion_tres_icon_titulo">Pago Seguro</p>
+        <img src="./assets/Home/pago.png" alt="" width="60%">
+        <p class="seccion_tres_icon_titulo tamaño_letra">Pago Seguro</p>
       </div>
     </div>
 
     <div class="col-md-3 col-sm-6">
       <div class="seccion_tres_contenedor_hijo">
-        <span class="material-icons-outlined seccion_tres_icon">
-          schedule
-        </span>
-        <p class="seccion_tres_icon_titulo">Calidad</p>
+        <img src="./assets/Home/calidad.png" alt="" width="60%">
+        <p class="seccion_tres_icon_titulo tamaño_letra">Calidad</p>
       </div>
     </div>
 
     <div class="col-md-3 col-sm-6">
       <div class="seccion_tres_contenedor_hijo">
-        <span class="material-icons-outlined seccion_tres_icon">
-          schedule
-        </span>
-        <p class="seccion_tres_icon_titulo">Confianza</p>
+        <img src="./assets/Home/confianza.png" alt="" width="60%">
+        <p class="seccion_tres_icon_titulo tamaño_letra">Confianza</p>
       </div>
     </div>
   </div>
@@ -183,7 +178,7 @@
 <div class="container-fluid seccion_cuatro_bg_color">
   <div class="row margen">
     <div class="col-md-12">
-      <div>
+      <div class="top_">
         <p class="seccion_cuatro_title">ÚNETE A NOSOTROS</p>
         <p class="seccion_cuatro_descripcion">¡Forma parte de aquellos que se encargan de hacer posible cada evento
           siendo nuestro proveedor de servicios!</p>
@@ -191,7 +186,8 @@
     </div>
     <div class="col-md-12">
       <div class="seccion_cuatro_center">
-        <button type="button" class="btn seccion_cuatro_solicitar">Solicitar</button>
+        <button type="button" class="btn seccion_cuatro_solicitar d-none d-md-block" (click)="nosotros(1)">Solicitar</button>
+        <button type="button" class="btn seccion_cuatro_solicitar d-block d-md-none" (click)="nosotros(2)">Solicitar</button>
       </div>
     </div>
   </div>
@@ -202,7 +198,7 @@
 <div class="container-fluid">
   <div class="row margen">
     <div class="col-md-12">
-      <div>
+      <div class="spacer">
         <p class="seccion_cuatro_title">FAQ</p>
       </div>
     </div>
@@ -241,7 +237,7 @@
 
         </ngb-accordion>
 
-        <div class="spacer"></div>
+        <div class="spacer_"></div>
 
         <ngb-accordion #a="ngbAccordion" class="faq_bg">
 
@@ -274,7 +270,7 @@
 
         </ngb-accordion>
 
-        <div class="spacer"></div>
+        <div class="spacer_"></div>
 
         <ngb-accordion #a="ngbAccordion" class="faq_bg">
 

@@ -95,7 +95,7 @@
   &_comienza {
     background: #DDB675;
     color: black;
-    width: 150px;
+    width: 200px;
   }
 }
 
@@ -141,7 +141,7 @@
 
 .seccion_tres {
   &_bg_color {
-    background-color: #00C3BD;
+    background-color: #00bbb9;
   }
 
   &_contenedor {
@@ -220,33 +220,68 @@
   }
 }
 
-.title_faq{
+.title_faq {
   font-size: 16px;
 }
 
-.icon_color{
-    color: white;
+.icon_color {
+  color: white;
 }
 
-.buttom{
-    margin-bottom: 70px;
+.buttom {
+  margin-bottom: 70px;
 }
 
 @media only screen and (max-width: 575px) {
+  .nuestros_servicios {
+    &_subtitle {
+      font-size: 30px;
+    }
+
+    &_comienza {
+      width: 100%;
+      font-size: 22px;
+      margin-top: 15%;
+      margin-bottom: 15%
+    }
+  }
+
+  .abajo {
+    margin-bottom: 40px;
+  }
+
+  .spacer {
+    margin: 15%;
+  }
+
   .cover {
     &_color_texto {
       text-align: center;
-      font-size: 25px;
+      margin: 8% 10%;
+      font-size: 40px;
     }
 
     &_contenedor_hijo {
       width: 80%;
+      display: flex;
+      flex-direction: column;
+      height: 120px;
+    }
+
+    &_boton {
+      width: 100%;
+      font-size: 22px;
+    }
+
+    &_botonOutline {
+      width: 100%;
+      font-size: 22px;
     }
   }
 
   .titulo_seccion {
     margin: 35px 0px;
-    font-size: 22px;
+    font-size: 31px;
   }
 
   .margen {
@@ -254,15 +289,77 @@
   }
 
   .subtitle {
+    font-size: 31px;
+    text-align: center;
+  }
+
+  .seccion_tres {
+    &_title {
+      text-align: center;
+      font-size: 31px;
+    }
+
+    &_icon_titulo {
+      font-size: 26px;
+      text-align: center;
+    }
+
+    &_contenedor {
+      margin: 15% 5%;
+    }
+
+    &_contenedor_hijo {
+      margin-bottom: 40px;
+    }
+  }
+
+  .tamaño_letra {
+    font-size: 23px !important;
+  }
+
+  .descripcion {
     font-size: 18px;
   }
 
-  .seccion_tres{
+  .comoFunciona {
+    margin-bottom: 15%;
+  }
+
+  .banner {
+    &_img {
+      width: 70%;
+    }
+  }
+
+  .contenedor_boton {
+    &_comienza {
+      font-size: 22px;
+      width: 100%;
+    }
+
+    &_center {
+      margin: 0%;
+    }
+  }
+
+  .seccion_cuatro{
     &_title{
-      text-align: center;
+      font-size: 31px;
     }
-    &_icon_titulo{
-      text-align: center;
+    &_descripcion{
+      font-size: 18px;
     }
+    &_solicitar{
+      width: 100%;
+      font-size: 22px;
+      margin-bottom: 15%;
+    }
+    &_center{
+      margin: 0%;
+    }
+  }
+
+  .top_{
+     margin-top: 20%;
   }
 }

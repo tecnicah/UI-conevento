@@ -16,7 +16,7 @@
               <p>Iniciar Sesión</p>
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                  aria-describedby="basic-addon1">
+                  aria-describedby="basic-addon1" required>
                 <span class="material-icons-outlined icon">
                   email
                 </span>
@@ -26,7 +26,7 @@
             <div class="flex_contenedor_input">
               <div class="input-group mb-3">
                 <input type="{{type}}" class="form-control" placeholder="password" aria-label="Password"
-                  aria-describedby="basic-addon1">
+                  aria-describedby="basic-addon1" required>
                 <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                   visibility
                 </span>
@@ -42,7 +42,7 @@
             </div>
 
             <div class="flex_contenedor_input forgot">
-              <span class="pointer" (click)="createAccount()">Crear cuenta</span>
+              <span class="pointer" (click)="createAccount(1)">Crear cuenta</span>
               <br>
               <span class="pointer" (click)="forgotPassword()">Olvidó su contraseña</span>
             </div>
@@ -58,7 +58,7 @@
               <p>Reestablecer contraseña</p>
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                  aria-describedby="basic-addon1">
+                  aria-describedby="basic-addon1" required>
                 <span class="material-icons-outlined icon">
                   email
                 </span>
@@ -75,58 +75,6 @@
 
           </div>
         </div>
-
-        <!--CREATE ACCOUNT-->
-        <div class="seccion_uno_credenciales seccion_uno_ancho" *ngIf="show_formulario">
-          <div class="seccion_uno_ancho">
-
-            <div class="flex_contenedor_input">
-              <p>Registro</p>
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                  aria-describedby="basic-addon1">
-              </div>
-            </div>
-
-            <div class="flex_contenedor_input">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
-                  aria-describedby="basic-addon1">
-              </div>
-            </div>
-
-            <div class="flex_contenedor_input">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
-                  aria-describedby="basic-addon1">
-              </div>
-            </div>
-
-            <div class="flex_contenedor_input">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                  aria-describedby="basic-addon1">
-              </div>
-            </div>
-
-            <div class="flex_contenedor_input">
-              <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
-                  aria-describedby="basic-addon1">
-              </div>
-            </div>
-         
-            <div class="flex_contenedor">
-              <button type="button" class="btn flex_button">Crear cuenta</button>
-            </div>
-
-            <div class="flex_contenedor_input forgot">
-              <span class="pointer" (click)="backLogin()">Iniciar Sesión</span>
-            </div>
-
-          </div>
-        </div>
-
 
       </div>
     </div>
@@ -149,7 +97,7 @@
               <p>Iniciar Sesión</p>
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                  aria-describedby="basic-addon1">
+                  aria-describedby="basic-addon1" required>
                 <span class="material-icons-outlined icon">
                   email
                 </span>
@@ -159,7 +107,7 @@
             <div class="flex_contenedor_input">
               <div class="input-group mb-3">
                 <input type="{{type}}" class="form-control" placeholder="password" aria-label="Password"
-                  aria-describedby="basic-addon1">
+                  aria-describedby="basic-addon1" required>
                 <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                   visibility
                 </span>
@@ -175,7 +123,7 @@
             </div>
 
             <div class="flex_contenedor_input forgot">
-              <span class="pointer" (click)="createAccount()">Crear cuenta</span>
+              <span class="pointer" (click)="createAccount(2)">Crear cuenta</span>
               <br>
               <span class="pointer" (click)="forgotPassword()">Olvidó su contraseña</span>
             </div>
@@ -186,7 +134,7 @@
               <p>Reestablecer contraseña</p>
               <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                  aria-describedby="basic-addon1">
+                  aria-describedby="basic-addon1" required>
                 <span class="material-icons-outlined icon">
                   email
                 </span>
@@ -202,56 +150,7 @@
             </div>
           </div>
 
-          <div *ngIf="show_formulario">
-            <div class="seccion_uno_ancho">
-
-              <div class="flex_contenedor_input">
-                <p>Registro</p>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                    aria-describedby="basic-addon1">
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
-                    aria-describedby="basic-addon1">
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
-                    aria-describedby="basic-addon1">
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                    aria-describedby="basic-addon1">
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
-                    aria-describedby="basic-addon1">
-                </div>
-              </div>
-
-              <div class="flex_contenedor">
-                <button type="button" class="btn flex_button">Crear cuenta</button>
-              </div>
-
-              <div class="flex_contenedor_input forgot">
-                <span class="pointer" (click)="backLogin()">Iniciar Sesión</span>
-              </div>
-
-            </div>
-          </div>
-
+         
         </div>
       </div>
     </div>

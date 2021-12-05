@@ -46,11 +46,10 @@ export class HeaderComponent implements OnInit {
 
   public profile(type:any){
     let widthModal:any;
-    if(type == 1){ widthModal = '50%' }else{ widthModal = '100%' }
+    if(type == 1){ widthModal = '70%' }else{ widthModal = '100%' }
     console.log("MOBILE");
     const dialogRef = this._dialog.open(ProfileComponent, {
-      width: widthModal,
-      height: '69%'
+      width: widthModal
     });
 
     dialogRef.afterClosed().subscribe(result => {
