@@ -84,6 +84,7 @@
   right: 10px;
   top: 8px;
   z-index: 9999;
+  background:#E8F0FE;
 }
 
 .forgot {
@@ -110,3 +111,19 @@
     width: 20%;
   }
 }
+
+.required {
+  margin: 0 0 8px;
+  color: #e91e63;
+  font-size: 12px;
+  text-align: justify;
+  margin-bottom: 15px;
+  &_center{
+    text-align: center;
+  }
+}
+
+.margen_cero{
+  margin: 0px !important;
+}
+

@@ -13,6 +13,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ProfileComponent } from './dialog/profile/profile.component';
 import { CreateAccountComponent } from './dialog/create-account/create-account.component';
 import { NosotrosComponent } from './dialog/nosotros/nosotros.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { GeneralMessageComponent } from './dialog/general-message/general-message.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { WizardComponent } from './pages/wizard/wizard.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +29,19 @@ import { NosotrosComponent } from './dialog/nosotros/nosotros.component';
     LoginComponent,
     ProfileComponent,
     CreateAccountComponent,
-    NosotrosComponent
+    NosotrosComponent,
+    GeneralMessageComponent,
+    WizardComponent
   ],
   imports: [
+    NgxSpinnerModule,
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

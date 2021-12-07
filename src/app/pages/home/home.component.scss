@@ -17,11 +17,12 @@
   }
 
   &_size {
-    font-size: 35px;
+    font-size: 48px;
+    font-weight: 500;
   }
 
   &_contenedor_hijo {
-    width: 23%;
+    width: 30%;
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -30,14 +31,18 @@
   &_boton {
     background: #DDB675;
     color: black;
-    width: 137px;
+    width: 200px;
+    font-size: 24px;
+    font-weight: 400;
   }
 
   &_botonOutline {
-    width: 137px;
+    width: 200px;
     background: transparent;
     color: white;
     border: 1px solid white;
+    font-size: 24px;
+    font-weight: 400;
   }
 }
 
@@ -57,7 +62,8 @@
   margin: 6%;
   text-align: center;
   color: #7800E7;
-  font-size: 25px;
+  font-size: 36px;
+  font-weight: 700;
 }
 
 .margen {
@@ -81,7 +87,7 @@
 }
 
 .descripcion {
-  font-size: 12px;
+  font-size: 17px;
   color: black;
   text-align: center;
 }
@@ -96,6 +102,8 @@
     background: #DDB675;
     color: black;
     width: 200px;
+    font-size: 20px;
+    font-weight: 400;
   }
 }
 
@@ -103,7 +111,7 @@
   &_subtitle {
     text-align: center;
     color: #00C3BD;
-    font-size: 16px;
+    font-size: 36px;
   }
 
   &_img {
@@ -135,7 +143,8 @@
   &_comienza {
     background: #DDB675;
     color: black;
-    width: 200px;
+    width: 215px;
+    font-size: 20px;
   }
 }
 
@@ -149,12 +158,13 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 5%;
+    //margin: 5%;
+    margin: 5% 5% 2% 5%;
     color: white;
   }
 
   &_title {
-    font-size: 25px;
+    font-size: 36px;
     font-weight: 600;
   }
 
@@ -180,9 +190,16 @@
 
   &_icon_titulo {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 36px;
     color: white;
   }
+
+  &_icon_titulo_ {
+    margin-top: 20px;
+    font-size: 24px;
+    color: white;
+  }
+
 }
 
 .seccion_cuatro {
@@ -192,15 +209,18 @@
 
   &_title {
     color: #7800E7;
-    font-size: 25px;
+    font-size: 36px;
     font-weight: 600;
     text-align: center;
-    margin: 6%;
+    //margin: 6%;
+    margin: 6% 6% 2% 6%;
   }
 
   &_descripcion {
     text-align: center;
-    font-size: 16px;
+    font-size: 36px;
+    padding-right: 5%;
+    padding-left: 5%;
   }
 
   &_boton {
@@ -209,19 +229,20 @@
   }
 
   &_center {
-    text-align: center;
+    text-align: -webkit-center;
     margin: 4%;
   }
 
   &_solicitar {
     background: #00C3BD;
     color: white;
+    font-size: 20px;
     width: 200px;
   }
 }
 
 .title_faq {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 .icon_color {
@@ -230,6 +251,10 @@
 
 .buttom {
   margin-bottom: 70px;
+}
+
+.center{
+  text-align: -webkit-center;
 }
 
 @media only screen and (max-width: 575px) {
@@ -327,7 +352,7 @@
 
   .banner {
     &_img {
-      width: 70%;
+      width: 90%;
     }
   }
 
@@ -342,24 +367,28 @@
     }
   }
 
-  .seccion_cuatro{
-    &_title{
+  .seccion_cuatro {
+    &_title {
       font-size: 31px;
     }
-    &_descripcion{
+
+    &_descripcion {
       font-size: 18px;
     }
-    &_solicitar{
+
+    &_solicitar {
       width: 100%;
       font-size: 22px;
       margin-bottom: 15%;
     }
-    &_center{
+
+    &_center {
       margin: 0%;
     }
   }
 
-  .top_{
-     margin-top: 20%;
+  .top_ {
+    margin-top: 20%;
   }
 }
+

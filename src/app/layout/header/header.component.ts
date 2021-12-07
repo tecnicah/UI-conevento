@@ -18,31 +18,30 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  public loginDesktop(){
-    console.log("DESKTOP");
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: "50%"
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-
+  public login(type:any){
+    //Si no existe un usuario logueado//
+    if(!localStorage.getItem('userData')){
+      let ancho = '';
+      if(type==1){
+        ancho = '50%';
+      }else{
+        ancho = '100%';
       }
-    })
+      const dialogRef = this._dialog.open(LoginComponent, {
+        width: ancho
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+  
+        }
+      })
+    }else{
+       //Si existe ya un usuario logueado//
+       this.profile(type)
+    }
   }
 
-  public loginMobile(){
-    console.log("MOBILE");
-    const dialogRef = this._dialog.open(LoginComponent, {
-      width: "100%"
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-
-      }
-    })
-  }
 
   public profile(type:any){
     let widthModal:any;

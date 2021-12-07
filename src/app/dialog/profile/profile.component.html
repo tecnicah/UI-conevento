@@ -4,7 +4,7 @@
     <div class="row seccion_uno_altura">
       <div class="col-md-4 bg-color">
         <div class="seccion_uno_flex">
-          <img src="../../../assets/Home/logo-banner.png" alt="">
+          <img src="./assets/Home/logo-banner.png" alt="">
         </div>
       </div>
       <div class="col-md-8">
@@ -14,64 +14,116 @@
               <div class="seccion_uno_ancho">
 
                 <div class="flex_contenedor_input">
-                  <p class="title">Perfil</p>
-                  <div class="input-group mb-3">
+                  <p class="title reboto-regular">Perfil</p>
+                  <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                      aria-describedby="basic-addon1" required>
+                      (focus)="nombre = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.nombres">
                   </div>
+                  <p class="required" *ngIf="!nombre">&nbsp;</p>
+                  <p class="required" *ngIf="nombre">Field is required</p>
                 </div>
 
                 <div class="flex_contenedor_input">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
-                      aria-describedby="basic-addon1" required>
+                      aria-describedby="basic-addon1" required [(ngModel)]="data_model.apellidos"
+                      (focus)="apellidos = false">
                   </div>
+                  <p class="required" *ngIf="!apellidos">&nbsp;</p>
+                  <p class="required" *ngIf="apellidos">Field is required</p>
                 </div>
 
                 <div class="flex_contenedor_input">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
-                      aria-describedby="basic-addon1" required>
+                      (focus)="telefono = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.telefono">
                   </div>
+                  <p class="required" *ngIf="!telefono">&nbsp;</p>
+                  <p class="required" *ngIf="telefono">Field is required</p>
                 </div>
 
                 <div class="flex_contenedor_input">
-                  <div class="input-group mb-3">
+                  <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                      aria-describedby="basic-addon1" required>
+                      (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo"
+                      (blur)="validateEmail()">
                   </div>
+                  <p class="required" *ngIf="!correo">&nbsp;</p>
+                  <p class="required" *ngIf="correo">Field is required</p>
+                  <p class="required" *ngIf="correo_incorrecto">Formato de correo incorrecto</p>
                 </div>
+
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="text" class="form-control" placeholder="Confirma email" aria-label="Email"
+                      (focus)="confirmacorreo = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.confirmacorreo" (blur)="validateEmailConfirmacion()">
+                  </div>
+                  <p class="required" *ngIf="!confirmacorreo">&nbsp;</p>
+                  <p class="required" *ngIf="confirmacorreo">Field is required</p>
+                  <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
+                </div>
+
               </div>
             </div>
           </div>
 
           <div class="col-md-6">
             <!--CREATE ACCOUNT-->
-            <div class="seccion_uno_credenciales seccion_uno_ancho">
-              <div class="seccion_uno_ancho">
+            <div class="seccion_uno_credenciales seccion_uno_ancho_">
+              <div class="seccion_uno_ancho_">
 
                 <div class="flex_contenedor_input">
-                  <p class="title">Cambiar Contraseña</p>
-                  <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
-                      aria-describedby="basic-addon1" required>
+                  <p class="title reboto-regular">Contraseña</p>
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="{{type}}" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
+                      aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass" (focus)="pass = false">
+                    <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
+                      visibility
+                    </span>
+                    <span class="material-icons-outlined pointer icon" (click)="visibility(2)" *ngIf="show_eye">
+                      visibility_off
+                    </span>
                   </div>
+                  <p class="required" *ngIf="!pass">&nbsp;</p>
+                  <p class="required" *ngIf="pass">Field is required</p>
                 </div>
 
                 <div class="flex_contenedor_input">
-                  <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Confirmar contraseña"
-                      aria-label="Confirmar contraseña" aria-describedby="basic-addon1" required>
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="{{type_}}" class="form-control" placeholder="Confirmar contraseña"
+                      (focus)="confirmapass = false" aria-label="Confirmar contraseña" aria-describedby="basic-addon1"
+                      required [(ngModel)]="data_model.confirmapass">
+                    <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(1)"
+                      *ngIf="!show_eye_">
+                      visibility
+                    </span>
+                    <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(2)"
+                      *ngIf="show_eye_">
+                      visibility_off
+                    </span>
                   </div>
+                  <p class="required" *ngIf="!confirmapass">&nbsp;</p>
+                  <p class="required" *ngIf="confirmapass">Field is required</p>
                 </div>
 
                 <div class="flex_contenedor">
-                  <button type="button" class="btn flex_button">Guardar</button>
+                  <button type="button" class="btn flex_button" (click)="guardar()">Guardar</button>
                 </div>
 
                 <div class="flex_contenedor_input forgot">
-                  <span class="pointer">Cerrar Sesión</span>
+                  <span class="pointer reboto-regular">
+                    <img src="./assets/Home/evento_user.png" alt="" height="25px" width="25px">
+                    Mis eventos
+                  </span>
                 </div>
+
+                <div class="flex_contenedor_input forgot">
+                  <span class="pointer reboto-regular" (click)="closeSession()">Cerrar Sesión</span>
+                </div>
+
               </div>
             </div>
             <!--FIN CREATE ACCOUNT-->
@@ -86,76 +138,117 @@
 
 <!--MOBILE-->
 <div class="d-block d-sm-none">
-
-  <div class="container-fluid seccion_uno_contenedor">
-    <div class="row">
-      <div class="col-sm-12 mobile_padding">
-        <div class="seccion_uno_center">
-          <div class="bg-color mobile_header">
-            <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
-          </div>
-
-
-          <div>
-            <div class="seccion_uno_ancho">
-
-              <div class="flex_contenedor_input">
-                <p class="title">Perfil</p>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
-                    aria-describedby="basic-addon1" required>
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
-                    aria-describedby="basic-addon1" required>
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
-                    aria-describedby="basic-addon1" required>
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                    aria-describedby="basic-addon1" required>
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <p class="title">Cambiar Contraseña</p>
-                <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
-                    aria-describedby="basic-addon1" required>
-                </div>
-              </div>
-
-              <div class="flex_contenedor_input">
-                <div class="input-group mb-3">
-                  <input type="password" class="form-control" placeholder="Confirmar contraseña"
-                    aria-label="Confirmar contraseña" aria-describedby="basic-addon1" required>
-                </div>
-              </div>
-
-              <div class="flex_contenedor">
-                <button type="button" class="btn flex_button">Guardar</button>
-              </div>
-
-              <div class="flex_contenedor_input forgot">
-                <span class="pointer">Cerrar Sesión</span>
-              </div>
-
+  <mat-dialog-content class="mat-typography">
+    <div class="container-fluid seccion_uno_contenedor">
+      <div class="row">
+        <div class="col-sm-12 mobile_padding">
+          <div class="seccion_uno_center">
+            <div class="bg-color mobile_header">
+              <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
             </div>
-          </div>
 
+
+            <div>
+              <div class="seccion_uno_ancho">
+
+                <div class="flex_contenedor_input">
+                  <p class="title reboto-regular">Crear cuenta</p>
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                      (focus)="nombre = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.nombres">
+                  </div>
+                  <p class="required" *ngIf="!nombre">&nbsp;</p>
+                  <p class="required" *ngIf="nombre">Field is required</p>
+                </div>
+
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
+                      (focus)="apellidos = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.apellidos">
+                  </div>
+                  <p class="required" *ngIf="!apellidos">&nbsp;</p>
+                  <p class="required" *ngIf="apellidos">Field is required</p>
+                </div>
+
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
+                      (focus)="telefono = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.telefono">
+                  </div>
+                  <p class="required" *ngIf="telefono">Field is required</p>
+                  <p class="required" *ngIf="!telefono">&nbsp;</p>
+                  <p class="required" *ngIf="telefono">Field is required</p>
+                </div>
+
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                      (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo">
+                  </div>
+                  <p class="required" *ngIf="!correo">&nbsp;</p>
+                  <p class="required" *ngIf="correo">Field is required</p>
+                  <p class="required" *ngIf="correo_incorrecto">Formato de correo incorrecto</p>
+                </div>
+
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="text" class="form-control" placeholder="Confirmar email" aria-label="Email"
+                      (focus)="confirmacorreo = false" aria-describedby="basic-addon1" required
+                      [(ngModel)]="data_model.confirmacorreo">
+                  </div>
+                  <p class="required" *ngIf="!confirmacorreo">&nbsp;</p>
+                  <p class="required" *ngIf="confirmacorreo">Field is required</p>
+                  <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
+                </div>
+
+                <div class="flex_contenedor_input">
+                  <p class="title reboto-regular">Contraseña</p>
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="{{type}}" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
+                      (focus)="pass = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass">
+                    <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
+                      visibility
+                    </span>
+                    <span class="material-icons-outlined pointer icon" (click)="visibility(2)" *ngIf="show_eye">
+                      visibility_off
+                    </span>
+                  </div>
+                  <p class="required" *ngIf="!pass">&nbsp;</p>
+                  <p class="required" *ngIf="pass">Field is required</p>
+                </div>
+
+                <div class="flex_contenedor_input">
+                  <div class="input-group mb-3 margen_cero">
+                    <input type="{{type_}}" class="form-control" placeholder="Confirmar contraseña"
+                      (focus)="confirmapass = false" aria-label="Confirmar contraseña" aria-describedby="basic-addon1"
+                      required [(ngModel)]="data_model.confirmapass">
+                    <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(1)"
+                      *ngIf="!show_eye_">
+                      visibility
+                    </span>
+                    <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(2)"
+                      *ngIf="show_eye_">
+                      visibility_off
+                    </span>
+                  </div>
+                  <p class="required" *ngIf="!confirmapass">&nbsp;</p>
+                  <p class="required" *ngIf="confirmapass">Field is required</p>
+                </div>
+
+                <div class="flex_contenedor">
+                  <button type="button" class="btn flex_button" (click)="guardar()">Guardar</button>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </mat-dialog-content>
 </div>

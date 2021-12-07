@@ -1,0 +1,35 @@
+.bg {
+  background-color: #F5F2F8;
+}
+
+.contenedor_uno {
+  background-color: white;
+  width: 80%;
+  padding: 5%;
+  margin: auto;
+
+  &_contenedor_botones {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 2%;
+    height: 170px;
+  }
+
+  &_siguiente {
+    background-color: #F6D788;
+    font-size: 15px;
+    color: black;
+  }
+
+  &_atras {
+    background-color: transparent;
+    font-size: 15px;
+    color: #7800E7;
+  }
+
+  &_title{
+      font-weight: 17px;
+  }
+}

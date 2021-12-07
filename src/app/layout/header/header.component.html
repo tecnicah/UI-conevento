@@ -2,8 +2,7 @@
   <img src="./assets/Home/logo-icon.svg" alt="" width="10%" class="d-block d-md-none">
   <div class="d-block d-md-none">
     <div class="header_icon">
-      <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" 
-          (click)="profile(2);">
+      <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" [routerLink]="['/Wizard']" routerLinkActive="router-link-active" >
 
       <span id="collapse" (click)="collapse.toggle()" *ngIf="isCollapsed" [attr.aria-expanded]="!isCollapsed"
         class="navbar-toggler material-icons icon" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -11,12 +10,6 @@
         menu
       </span>
       <span class="material-icons icon" *ngIf="!isCollapsed" (click)="isCollapsed = !isCollapsed">close</span>
-      <!--button style="border: none;" id="collapse" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-        class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon" *ngIf="isCollapsed"></span>
-        <span class="material-icons" *ngIf="!isCollapsed">close</span>
-      </button-->
     </div>
   </div>
 
@@ -56,13 +49,13 @@
       </li-->
       <li class="pointer nav-item menu_text_center li_final">
         <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" 
-          (click)="profile(1);" class="d-none d-md-block">
+           class="d-none d-md-block" [routerLink]="['/Wizard']" routerLinkActive="router-link-active" >
 
-        <span class="material-icons menu_icon d-none d-md-block" (click)="loginDesktop();">
+        <span class="material-icons menu_icon d-none d-md-block" (click)="login(1);">
           person_outline
         </span>
 
-        <span class="material-icons menu_icon d-block d-sm-none" (click)="loginMobile(); isCollapsed = !isCollapsed">
+        <span class="material-icons menu_icon d-block d-sm-none" (click)="login(2); isCollapsed = !isCollapsed">
           person_outline
         </span>
       </li>
