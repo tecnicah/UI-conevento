@@ -48,9 +48,9 @@
                   <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Email" aria-label="Email"
                       (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo"
-                      (blur)="validateEmail()">
+                      (change)="validateEmail()">
                   </div>
-                  <p class="required" *ngIf="!correo">&nbsp;</p>
+                  <p class="required" *ngIf="!correo && !correo_incorrecto">&nbsp;</p>
                   <p class="required" *ngIf="correo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto">Formato de correo incorrecto</p>
                 </div>
@@ -59,9 +59,9 @@
                   <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Confirma email" aria-label="Email"
                       (focus)="confirmacorreo = false" aria-describedby="basic-addon1" required
-                      [(ngModel)]="data_model.confirmacorreo" (blur)="validateEmailConfirmacion()">
+                      [(ngModel)]="data_model.confirmacorreo" (change)="validateEmailConfirmacion()">
                   </div>
-                  <p class="required" *ngIf="!confirmacorreo">&nbsp;</p>
+                  <p class="required" *ngIf="!confirmacorreo && !correo_incorrecto_confirmacion">&nbsp;</p>
                   <p class="required" *ngIf="confirmacorreo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
                 </div>
@@ -169,7 +169,6 @@
                   </div>
                   <p class="required" *ngIf="telefono">Field is required</p>
                   <p class="required" *ngIf="!telefono">&nbsp;</p>
-                  <p class="required" *ngIf="telefono">Field is required</p>
                 </div>
 
                 <div class="flex_contenedor_input">
@@ -177,7 +176,7 @@
                     <input type="text" class="form-control" placeholder="Email" aria-label="Email"
                       (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo">
                   </div>
-                  <p class="required" *ngIf="!correo">&nbsp;</p>
+                  <p class="required" *ngIf="!correo && !correo_incorrecto">&nbsp;</p>
                   <p class="required" *ngIf="correo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto">Formato de correo incorrecto</p>
                 </div>
@@ -188,7 +187,7 @@
                       (focus)="confirmacorreo = false" aria-describedby="basic-addon1" required
                       [(ngModel)]="data_model.confirmacorreo">
                   </div>
-                  <p class="required" *ngIf="!confirmacorreo">&nbsp;</p>
+                  <p class="required" *ngIf="!confirmacorreo && !correo_incorrecto_confirmacion">&nbsp;</p>
                   <p class="required" *ngIf="confirmacorreo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
                 </div>
