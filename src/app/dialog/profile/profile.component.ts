@@ -133,6 +133,7 @@ export class ProfileComponent implements OnInit {
     this.auth.service_general_post_with_url('User/UpdateUser', this.data_model).subscribe(r => {
       if (r.success) {
         console.log("respuesta exitosa: ", r);
+        localStorage.setItem('userData', JSON.parse(r.result));
         Swal.fire({
           position: 'top-end',
           icon: 'success',
