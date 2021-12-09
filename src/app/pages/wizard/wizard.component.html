@@ -1,124 +1,434 @@
 <div class="bg">
   <div class="container">
     <div>
-      <p>Agenda tu evento</p>
+      <p class="titleHeader reboto-regular">Agenda tu evento</p>
     </div>
 
+    <!--SECCION_UNO-->
+    <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
+      <div class="row contenedor_uno">
+        <div class="col-md-6">
+          <p class="reboto-regular title">¿Cuando será el momento de tu evento?</p>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <p>Fecha de inicio</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="date" class="form-control" placeholder="Fecha de inicio" aria-label="Fecha de inicio"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.fecha_inicio.errors }"
+              formControlName="fecha_inicio">
+            <div *ngIf="submitted && f.fecha_inicio.errors" class="invalid-feedback">
+              <div *ngIf="f.fecha_inicio.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
 
+          <p>Hora de inicio</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="time" class="form-control" placeholder="Hora de inicio" aria-label="Hora de inicio"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.hora_inicio.errors }"
+              formControlName="hora_inicio">
+            <div *ngIf="submitted && f.hora_inicio.errors" class="invalid-feedback">
+              <div *ngIf="f.hora_inicio.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <p>Fecha del final</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="date" class="form-control" placeholder="Fecha del final" aria-label="Fecha del final"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.fecha_final.errors }"
+              formControlName="fecha_final">
+            <div *ngIf="submitted && f.fecha_final.errors" class="invalid-feedback">
+              <div *ngIf="f.fecha_final.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+
+          <p>Hora del final</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="time" class="form-control" placeholder="Hora del final" aria-label="Hora del final"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.hora_final.errors }"
+              formControlName="hora_final">
+            <div *ngIf="submitted && f.hora_final.errors" class="invalid-feedback">
+              <div *ngIf="f.hora_final.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <p class="reboto-regular title">¿Qué lugar elejiste?</p>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4">
+          <p>Ciudad</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Ciudad" aria-label="Ciudad"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }"
+              formControlName="ciudad">
+            <div *ngIf="submitted && f.ciudad.errors" class="invalid-feedback">
+              <div *ngIf="f.ciudad.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <p>Código postal</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Código postal" aria-label="Código postal"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.codigoPostal.errors }"
+              formControlName="codigoPostal">
+            <div *ngIf="submitted && f.codigoPostal.errors" class="invalid-feedback">
+              <div *ngIf="f.codigoPostal.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <p>Alcaldia o municipio</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Alcaldia o municipio" aria-label="Alcaldia o municipio"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.alcaldia.errors }"
+              formControlName="alcaldia">
+            <div *ngIf="submitted && f.alcaldia.errors" class="invalid-feedback">
+              <div *ngIf="f.alcaldia.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <p>Calle y numero exterior</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Calle y numero exterior"
+              aria-label="Calle y numero exterior" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.calle.errors }" formControlName="calle">
+            <div *ngIf="submitted && f.calle.errors" class="invalid-feedback">
+              <div *ngIf="f.calle.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <p>Colonia</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Colonia" aria-label="Colonia"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.colonia.errors }"
+              formControlName="colonia">
+            <div *ngIf="submitted && f.colonia.errors" class="invalid-feedback">
+              <div *ngIf="f.colonia.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <p class="reboto-regular title">Datos de contacto</p>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <p>Nombre del contratante</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Nombre del contratante"
+              aria-label="Datos del contratante" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" formControlName="nombre">
+            <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+              <div *ngIf="f.nombre.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6"></div>
+
+        <div class="col-md-6">
+          <p>Correo electrónico</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }"
+              formControlName="correo">
+            <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
+              <div *ngIf="f.correo.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <p>Teléfono fijo o celular</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="tel" class="form-control" placeholder="Teléfono fijo o celular"
+              aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" formControlName="telefono">
+            <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
+              <div *ngIf="f.telefono.errors.required">Ingresa la fecha de inicio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contenedor_uno_contenedor_botones form-group">
+        <button class="btn contenedor_uno_siguiente reboto-regular">Siguiente</button>
+        <button class="btn contenedor_uno_atras reboto-regular">Regresar</button>
+      </div>
+    </form>
+    <!--SECCION_DOS-->
     <div class="row contenedor_uno">
-      <div class="col-md-6">
-        <p class="reboto-regular title">¿Cuando será el momento de tu evento?</p>
-      </div>
-      <div class="col-md-6"></div>
-      <div class="col-md-6">
-        <p>Fecha de inicio</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="date" class="form-control" placeholder="Fecha de inicio" aria-label="Fecha de inicio"
-            aria-describedby="basic-addon1" required>
-        </div>
+      <div class="col-md-7">
+        <div class="row">
 
-        <p>Hora de inicio</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="time" class="form-control" placeholder="Hora de inicio" aria-label="Hora de inicio"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
+          <div class="col-md-6">
+            <div class="servicios_contenedor_imagen" [routerLink]="['/SeleccionarServicios']"
+              routerLinkActive="router-link-active">
+              <p></p>
+              <img src="../../../assets/wizard/Group 105.png" alt="" class="servicios_img_principal">
+              <p class="servicios_color_texto reboto-regular">¡Necesito personal!</p>
+              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+            </div>
+          </div>
 
-      <div class="col-md-6">
-        <p>Hora de inicio</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="date" class="form-control" placeholder="Fecha del final" aria-label="Fecha del final"
-            aria-describedby="basic-addon1" required>
-        </div>
+          <div class="col-md-6">
+            <div class="servicios_contenedor_imagen">
+              <p></p>
+              <img src="../../../assets/wizard/Group 106.png" alt="" class="servicios_img_principal">
+              <p class="servicios_color_texto reboto-regular">Talento</p>
+              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+            </div>
+          </div>
 
-        <p>Hora de inicio</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="time" class="form-control" placeholder="Hora del final" aria-label="Hora del final"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
+          <div class="col-md-12">&nbsp;</div>
 
-      <div class="col-md-4">
-        <p class="reboto-regular title">¿Qué lugar elejiste?</p>
-      </div>
-      <div class="col-md-4"></div>
-      <div class="col-md-4"></div>
+          <div class="col-md-6">
+            <div class="servicios_contenedor_imagen">
+              <p></p>
+              <img src="../../../assets/wizard/Group 108.png" alt="" class="servicios_img_principal">
+              <p class="servicios_color_texto reboto-regular">Mobiliario</p>
+              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+            </div>
+          </div>
 
-      <div class="col-md-4">
-        <p>Ciudad</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Ciudad" aria-label="Ciudad"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
+          <div class="col-md-6">
+            <div class="servicios_contenedor_imagen">
+              <p></p>
+              <img src="../../../assets/wizard/Group 109.png" alt="" class="servicios_img_principal">
+              <p class="servicios_color_texto reboto-regular">Bebidas y Alimentos</p>
+              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+            </div>
+          </div>
 
-      <div class="col-md-4">
-        <p>Código postal</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Código postal" aria-label="Código postal"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
+          <div class="col-md-12">&nbsp;</div>
 
-      <div class="col-md-4">
-        <p>Alcaldia o municipio</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Alcaldia o municipio" aria-label="Alcaldia o municipio"
-            aria-describedby="basic-addon1" required>
+          <div class="col-md-6">
+            <div class="servicios_contenedor_imagen">
+              <p></p>
+              <img src="../../../assets/wizard/Group 109.png" alt="" class="servicios_img_principal">
+              <p class="servicios_color_texto reboto-regular">Luces y sonido</p>
+              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+            </div>
+          </div>
+
+          <div class="col-md-6"></div>
+
         </div>
       </div>
+      <div class="col-md-5">
+        <div class="servicios servicios_bgcolor">
+          <img src="../../../assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
 
-      <div class="col-md-6">
-        <p>Calle y numero exterior</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Calle y numero exterior"
-            aria-label="Calle y numero exterior" aria-describedby="basic-addon1" required>
+          <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+            <ngb-panel id="custom-panel-1">
+              <ng-template ngbPanelHeader let-opened="opened">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="reboto-regular">Solicitud de servicios</p>
+                  <button ngbPanelToggle class="btn btn-link p-0">
+                    <!--OPEN ICON-->
+                    <span class="material-icons icon_color" *ngIf="!opened">
+                      expand_more
+                    </span>
+                    <!--CLOSE ICON-->
+                    <span class="material-icons icon_color" *ngIf="opened">
+                      expand_less
+                    </span>
+                  </button>
+                </div>
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div class="servicios_justify">
+                  <p class="p">Personal</p>
+                  <p class="p">1. Mesero</p>
+                  <p class="p">2. Bartender</p>
+                  <p class="p">3. Bartender premium</p>
+                  <p class="p">Personal</p>
+                  <p class="p">1. Mesas y sillas</p>
+
+                  <div class="separator"></div>
+
+                  <div class="total">
+                    <span class="p">Subtotal del carrito</span>
+                    <span class="p">$199</span>
+                  </div>
+
+                  <div class="total">
+                    <span class="p">IVA</span>
+                    <span class="p">$31.84</span>
+                  </div>
+
+                  <div class="separator"></div>
+
+                  <div class="total">
+                    <span class="p">Servicios</span>
+                    <span class="p">5</span>
+                  </div>
+
+                  <div class="separator"></div>
+
+                  <div class="total">
+                    <span class="p reboto-regular">Total</span>
+                    <span class="p">$230.84</span>
+                  </div>
+
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
         </div>
       </div>
-
-      <div class="col-md-6">
-        <p>Colonia</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Colonia" aria-label="Colonia"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <p class="reboto-regular title">Datos de contacto</p>
-      </div>
-      <div class="col-md-6"></div>
-      <div class="col-md-6">
-        <p>Nombre del contratante</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Nombre del contratante" aria-label="Datos del contratante"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
-
-      <div class="col-md-6"></div>
-
-      <div class="col-md-6">
-        <p>Correo electrónico</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
-            aria-describedby="basic-addon1" required>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <p>Teléfono fijo o celular</p>
-        <div class="input-group mb-3 margen_cero">
-          <input type="tel" class="form-control" placeholder="Teléfono fijo o celular"
-            aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1" required>
-        </div>
-      </div>
-
     </div>
-  </div>
+    <!--SECCION TRES-->
+    <div class="row contenedor_cuatro">
+      <div class="col-md-7">
+        <div>
+          <p class="titleHeader reboto-regular">Confirma y Paga</p>
+        </div>
 
-  <div class="contenedor_uno_contenedor_botones">
-    <button type="button" class="btn contenedor_uno_siguiente reboto-regular">Siguiente</button>
-    <button type="button" class="btn contenedor_uno_atras reboto-regular">Regresar</button>
+        <div class="eventos_seleccionados">
+          <p class="reboto-regular">Agendaste tu evento</p>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
+                12:00h</span></span>
+          </div>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
+                de 2021 01:00h</span></span>
+          </div>
+        </div>
+
+        <div class="eventos_seleccionados">
+          <p class="reboto-regular">Agendaste tu evento</p>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
+                12:00h</span></span>
+          </div>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
+                de 2021 01:00h</span></span>
+          </div>
+        </div>
+
+        <div class="eventos_seleccionados">
+          <p class="reboto-regular">Agendaste tu evento</p>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
+                12:00h</span></span>
+          </div>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
+                de 2021 01:00h</span></span>
+          </div>
+        </div>
+
+        <div class="eventos_seleccionados">
+          <p class="reboto-regular">Agendaste tu evento</p>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
+                12:00h</span></span>
+          </div>
+          <div class="eventos_seleccionados_flex">
+            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
+                de 2021 01:00h</span></span>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-5">
+        <div class="servicios servicios_bgcolor">
+          <img src="../../../assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
+
+          <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+            <ngb-panel id="custom-panel-1">
+              <ng-template ngbPanelHeader let-opened="opened">
+                <div class="d-flex align-items-center justify-content-between">
+                  <p class="reboto-regular">Solicitud de servicios</p>
+                  <button ngbPanelToggle class="btn btn-link p-0">
+                    <!--OPEN ICON-->
+                    <span class="material-icons icon_color" *ngIf="!opened">
+                      expand_more
+                    </span>
+                    <!--CLOSE ICON-->
+                    <span class="material-icons icon_color" *ngIf="opened">
+                      expand_less
+                    </span>
+                  </button>
+                </div>
+              </ng-template>
+              <ng-template ngbPanelContent>
+                <div class="servicios_justify">
+                  <p class="p">Personal</p>
+                  <p class="p">1. Mesero</p>
+                  <p class="p">2. Bartender</p>
+                  <p class="p">3. Bartender premium</p>
+                  <p class="p">Personal</p>
+                  <p class="p">1. Mesas y sillas</p>
+
+                  <div class="separator"></div>
+
+                  <div class="total">
+                    <span class="p">Subtotal del carrito</span>
+                    <span class="p">$199</span>
+                  </div>
+
+                  <div class="total">
+                    <span class="p">IVA</span>
+                    <span class="p">$31.84</span>
+                  </div>
+
+                  <div class="separator"></div>
+
+                  <div class="total">
+                    <span class="p">Servicios</span>
+                    <span class="p">5</span>
+                  </div>
+
+                  <div class="separator"></div>
+
+                  <div class="total">
+                    <span class="p reboto-regular">Total</span>
+                    <span class="p">$230.84</span>
+                  </div>
+
+                </div>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
+        </div>
+      </div>
+    </div>
+    <!--SECCION CUATRO-->
+    <div class="row">
+      <div class="step_final_center">
+        <div class="step_final">
+          <p class="step_final_color reboto-regular step_final_size">¡Disfruta de tu evento!</p>
+          <img src="./assets/wizard/Group 92.png" alt="" class="step_final_img">
+          <p class="step_final_color reboto-regular">Gracias por tu preferencia</p>
+          <p>Un asesor se pondrá en contacto contigo en 2 hrs. <br>
+            Te acompañará y asegurará de que tu evento sea
+            un éxito.
+          </p>
+        </div>
+      </div>
+
+      <div class="contenedor_uno_contenedor_botones ancho">
+        <button class="btn contenedor_uno_siguiente reboto-regular">Armar otro evento</button>
+        <button class="btn contenedor_uno_atras reboto-regular">Ir al inicio</button>
+      </div>
+    </div>
+
+
   </div>
 </div>

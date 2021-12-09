@@ -14,11 +14,14 @@ import { ProfileComponent } from './dialog/profile/profile.component';
 import { CreateAccountComponent } from './dialog/create-account/create-account.component';
 import { NosotrosComponent } from './dialog/nosotros/nosotros.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GeneralMessageComponent } from './dialog/general-message/general-message.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { WizardComponent } from './pages/wizard/wizard.component';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { SeleccionarServicioComponent } from './pages/seleccionar-servicio/seleccionar-servicio.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +34,8 @@ import { WizardComponent } from './pages/wizard/wizard.component';
     CreateAccountComponent,
     NosotrosComponent,
     GeneralMessageComponent,
-    WizardComponent
+    WizardComponent,
+    SeleccionarServicioComponent
   ],
   imports: [
     NgxSpinnerModule,
@@ -41,7 +45,11 @@ import { WizardComponent } from './pages/wizard/wizard.component';
     BrowserAnimationsModule,
     MatDialogModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
