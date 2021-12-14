@@ -21,11 +21,11 @@
           <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img pointer d-block d-md-none">
           <div class="tarjeta_contendor">
             <p class="reboto-regular">{{item.producto}}</p>
-            <p class="reboto-regular">{{item.precioPorUnidad | currency}}&nbsp;<span class="tarjeta_color">({{item.minimoProductos}} hr)</span> </p>
+            <p class="reboto-regular">{{item.precioPorUnidad | currency}}&nbsp;<span class="tarjeta_color" *ngIf="item.especificarTiempo">({{item.minimoProductos}} hr)</span> </p>
             <p class="tarjeta_justificado">
               {{item.descripcionCorta}}
             </p>
-            Cantidad de {{item.producto}}s
+            Cantidad de {{item.producto}}
             <div class="tarjeta_footer">
               <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
                 (click)="agregarCantidad(false, i);">

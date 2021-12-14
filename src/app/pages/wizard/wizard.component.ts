@@ -128,6 +128,15 @@ export class WizardComponent implements OnInit {
     this.Productos_listado.forEach((E: any) => {
       this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
     });
+    let flete = 0;
+    this.Productos_listado.forEach((E: any) => {
+      if(E.idCategoria == 6 || E.idCategoria == 7){
+        flete++;
+      }
+    });
+    if(flete > 0){
+       this.Subtotal = this.Subtotal + 500;
+    }
     this.IVA = this.Subtotal * 0.16;
     this.total = this.Subtotal + this.IVA;
   }
@@ -297,4 +306,21 @@ export class WizardComponent implements OnInit {
     })
   }
   //*******************************************//
+  //OBTENER NOMBRE DE LA DIRECCION//
+  public alcaldias = [
+    {id: 1, municipio: 'Benito Juarez'},
+    {id: 2, municipio: 'Coyoacan'},
+    {id: 3, municipio: 'Milpa Alta'},
+    {id: 4, municipio: 'Venustiano Carranza'},
+    {id: 5, municipio: 'Cuajimalpa'}
+  ]
+
+  public getName(id:any){
+   
+    for (let i = 0; i < this.alcaldias.length; i++) {
+      if(this.alcaldias[i].id == id){
+        return this.alcaldias[i].municipio;
+      }
+    }
+  }
 }
