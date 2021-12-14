@@ -17,7 +17,8 @@
 
       <div class="col-md-3" *ngFor="let item of productos; let i = index">
         <div class="tarjeta_contenedor_principal">
-          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img pointer d-none d-md-block">
+          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img pointer d-block d-md-none">
           <div class="tarjeta_contendor">
             <p class="reboto-regular">{{item.producto}}</p>
             <p class="reboto-regular">{{item.precioPorUnidad | currency}}&nbsp;<span class="tarjeta_color">({{item.minimoProductos}} hr)</span> </p>
@@ -42,6 +43,10 @@
           </div>
         </div>
       </div>
+
+      <!--div class="fix">
+        <p class="fix_color">Total: 0</p>
+      </div-->
 
     </div>
 

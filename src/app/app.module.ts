@@ -23,6 +23,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SeleccionarServicioComponent } from './pages/seleccionar-servicio/seleccionar-servicio.component';
 import { MisEventosComponent } from './dialog/mis-eventos/mis-eventos.component';
+import { DetalleProductoComponent } from './dialog/detalle-producto/detalle-producto.component';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,9 +39,11 @@ import { MisEventosComponent } from './dialog/mis-eventos/mis-eventos.component'
     GeneralMessageComponent,
     WizardComponent,
     SeleccionarServicioComponent,
-    MisEventosComponent
+    MisEventosComponent,
+    DetalleProductoComponent
   ],
   imports: [
+    MatIconModule,
     NgxSpinnerModule,
     BrowserModule,
     AppRoutingModule,

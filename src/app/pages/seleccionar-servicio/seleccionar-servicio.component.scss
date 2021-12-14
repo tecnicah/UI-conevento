@@ -15,12 +15,12 @@
   }
 }
 
-.titulo{
+.titulo {
   font-size: 30px;
 }
 
 .tarjeta {
-  &_contenedor_principal{
+  &_contenedor_principal {
     margin: 10% 0% 20% 0%;
   }
 
@@ -92,17 +92,40 @@
   }
 }
 
+.fix {
+  position: fixed;
+  top: 10%;
+  right: 30px;
+  width: 10%;
+  height: 50px;
+  text-align: justify;
+  color: white;
+  background-color: #7800E7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+
+  &_color {
+    color: white;
+    font-size: 20px;
+    margin: 0;
+  }
+}
+
 @media only screen and (max-width: 575px) {
-  .header{
+  .header {
     width: 70% !important;
     margin: 5% 0% 5% 4% !important;
   }
-  .titulo{
+
+  .titulo {
     font-size: 20px !important;
     margin-left: 7%;
   }
+
   .tarjeta {
-    &_contenedor_principal{
+    &_contenedor_principal {
       margin: 10% auto 10% auto !important;
       width: 85% !important;
     }

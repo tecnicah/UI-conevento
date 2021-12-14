@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { DetalleProductoComponent } from 'src/app/dialog/detalle-producto/detalle-producto.component';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import { isTemplateExpression } from 'typescript';
@@ -11,7 +13,7 @@ import { isTemplateExpression } from 'typescript';
 })
 export class SeleccionarServicioComponent implements OnInit {
 
-  constructor(public spinner: SpinnerService,private rutaActiva: ActivatedRoute, public auth: HttpService) { }
+  constructor(public spinner: SpinnerService,private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
   
   public productos : any = [];
   public id:any;
@@ -68,6 +70,8 @@ export class SeleccionarServicioComponent implements OnInit {
       }
     }
   }
+  //**SUMA**//
+  
   //*************************************************************************//
   //FUNCION PARA REGRESAR//
   public back(){
@@ -86,10 +90,7 @@ export class SeleccionarServicioComponent implements OnInit {
     })
 
 
-   debugger
-
-
-    this.productos.forEach((E:any) => {
+   this.productos.forEach((E:any) => {
       if(E.cantidadUnidades > 0){
          this.auth.listaProductosEventos.push(
            {
@@ -127,6 +128,25 @@ export class SeleccionarServicioComponent implements OnInit {
     localStorage.setItem('productos', JSON.stringify(this.auth.listaProductosEventos));
     console.log("Productos a pagar: ", this.auth.listaProductosEventos);
     this.back();
+  }
+  //*************************************************************************//
+  detalle(type:any, item:any){
+      let ancho = '';
+      if(type==1){
+        ancho = '50%';
+      }else{
+        ancho = '100%';
+      }
+      const dialogRef = this._dialog.open(DetalleProductoComponent, {
+        width: ancho,
+        data: item
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+  
+        }
+      })
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { LoginComponent } from 'src/app/dialog/login/login.component';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import Swal from 'sweetalert2'
@@ -15,8 +17,9 @@ export class WizardComponent implements OnInit {
   public submitted = false;
   public isLinear = false;
   public Productos_listado: any = [];
-
-  constructor(public spinner: SpinnerService, private _formBuilder: FormBuilder, public auth: HttpService, public router_: Router) {
+  public emailRegex = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  constructor(public spinner: SpinnerService, private _formBuilder: FormBuilder, public auth: HttpService, public router_: Router, public _dialog: MatDialog
+  ) {
 
   }
   //*******************************************// 
@@ -27,6 +30,7 @@ export class WizardComponent implements OnInit {
       if (observer.result) {
         this.categorias = observer.result;
         this.categorias.forEach((E:any) => {
+          E.descCorta = E.descripcion;
           if(E.id == 1){
              E.checked = this.auth.categorias.personal1;
           }
@@ -91,7 +95,7 @@ export class WizardComponent implements OnInit {
       nombreContratane: ['', Validators.required],
       nombreEvento: ['', Validators.required],
       //correo: ['', Validators.required],
-      correo: ['', Validators.required   ],
+      correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
       telefono: ['', Validators.required],
     });
     if (localStorage.getItem('form')) {
@@ -122,7 +126,7 @@ export class WizardComponent implements OnInit {
   //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
   public calculos() {
     this.Productos_listado.forEach((E: any) => {
-      this.Subtotal = this.Subtotal + E.Precio;
+      this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
     });
     this.IVA = this.Subtotal * 0.16;
     this.total = this.Subtotal + this.IVA;
@@ -236,19 +240,38 @@ export class WizardComponent implements OnInit {
   }
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
-  public saveEvent() {
+  public saveEvent(type:any) {
+    if(!localStorage.getItem('userData')){
+      let ancho = '';
+      if(type==1){
+        ancho = '50%';
+      }else{
+        ancho = '100%';
+      }
+      const dialogRef = this._dialog.open(LoginComponent, {
+        width: ancho
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+  
+        }
+      })
+    }
     this.next();
     this.spinner.show();
-    let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
     let json_bd: any = this.auth.data_form;
+    if(localStorage.getItem('userData')){
+      let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
+      json_bd.idUsuario = data_user.id;
+    }
     json_bd.fechaCreacion = new Date();
     json_bd.detallesEventostring = "hardcoding",
-      json_bd.fechaPago = new Date();
+    json_bd.fechaPago = new Date();
     json_bd.referenciaPago = "1234567890";
     json_bd.pagado = true,
-      json_bd.idUsuario = data_user.id;
     json_bd.claveSeguimientoCarrito = "1234567890",
-      json_bd.listaProductosEventos = this.auth.listaProductosEventos;
+    json_bd.listaProductosEventos = this.auth.listaProductosEventos;
     console.log("EVENTOS A GUARDAR: ", json_bd);
 
     this.auth.service_general_post_with_url('Eventos/AddEvent', json_bd).subscribe(r => {
@@ -274,15 +297,4 @@ export class WizardComponent implements OnInit {
     })
   }
   //*******************************************//
-  public correo_incorrecto: boolean = false;
-  public validateEmail() {
-    let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-    if (emailRegex.test(this.firstFormGroup.value.correo)) {
-      console.log("FORMATO DE CORREO CORRECTO");
-      this.correo_incorrecto = false;
-    } else {
-      this.correo_incorrecto = true;
-      console.log("FORMATO DE CORREO INCORRECTO");
-    }
-  }
 }

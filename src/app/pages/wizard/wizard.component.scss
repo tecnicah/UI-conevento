@@ -58,11 +58,22 @@
     font-weight: 17px;
   }
 }
-.none{
- display: none;
+
+#a:hover~#b {
+  display: block !important;
 }
 
-.servicios:hover ~ .none{ display: block !important }
+.none {
+  display: none;
+}
+
+.size{
+  text-align: center;
+  width: 90%;
+  font-size: 10px;
+  padding: 2%;
+}
+
 
 
 .servicios {
@@ -75,6 +86,15 @@
     border-radius: 20px;
     border: 1px solid #5C02B0;
     margin-bottom: 20px;
+  }
+
+  &_contenedor_interno {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 100%;
+    height: 90%;
   }
 
   &_color_texto {

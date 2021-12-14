@@ -8,9 +8,12 @@
         </div>
       </div>
       <div class="col-md-6">
-
+        <div style="text-align: end; padding: 2%;">
+          <mat-icon [mat-dialog-close]="true" style="cursor:pointer">close</mat-icon>
+        </div>
         <!--LOGIN-->
         <div class="seccion_uno_credenciales seccion_uno_ancho" *ngIf="show_box_credentials && !show_formulario">
+          
           <div class="seccion_uno_ancho">
             <div class="flex_contenedor_input">
               <p class="reboto-regular">Iniciar Sesión</p>
@@ -95,6 +98,7 @@
       <div class="col-sm-12 mobile_padding">
         <div class="seccion_uno_center">
           <div class="bg-color mobile_header">
+            <mat-icon [mat-dialog-close]="true" class="mobile_close">close</mat-icon>
             <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
           </div>
 

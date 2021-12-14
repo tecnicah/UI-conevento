@@ -84,7 +84,7 @@
   right: 10px;
   top: 8px;
   z-index: 9999;
-  background:#E8F0FE;
+  background: #E8F0FE;
 }
 
 .forgot {
@@ -96,10 +96,20 @@
 
 
 .mobile {
-  &_padding{
-      padding: 0;
-  } 
+  &_close {
+    cursor: pointer;
+    color: white;
+    top: 10px;
+    position: absolute;
+    right: 6px;
+  }
+
+  &_padding {
+    padding: 0;
+  }
+
   &_header {
+    position: relative;
     height: 120px;
     display: flex;
     justify-content: center;
@@ -118,12 +128,12 @@
   font-size: 12px;
   text-align: justify;
   margin-bottom: 15px;
-  &_center{
+
+  &_center {
     text-align: center;
   }
 }
 
-.margen_cero{
+.margen_cero {
   margin: 0px !important;
 }
-

@@ -298,9 +298,12 @@
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }"
-              formControlName="correo" (change)="validateEmail();">
+              [pattern]="emailRegex" formControlName="correo">
             <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
               <div *ngIf="f.correo.errors.required">Campo requerido</div>
+            </div>
+            <div *ngIf="f.correo.errors?.pattern" class="invalid-feedback">
+              Formato de correo incorrecto
             </div>
           </div>
         </div>
@@ -332,16 +335,19 @@
 
           <div class="col-md-6" *ngFor="let item of categorias">
             <div class="servicios_contenedor_imagen pointer zoom" (click)="selectServices(item);">
-              <div class="radio">
-                <div class="radio_circle">
-                  <img src="./assets/wizard/Vector.svg" alt="" *ngIf="item.checked" class="radio_img">
+              <div id="a" class="servicios_contenedor_interno">
+                <div class="radio">
+                  <div class="radio_circle">
+                    <img src="./assets/wizard/Vector.svg" alt="" *ngIf="item.checked" class="radio_img">
+                  </div>
                 </div>
+                <img [src]="item.imagenSeleccion" alt="" class="servicios_img_principal">
+                <p class="servicios_color_texto reboto-regular">{{item.categoria}}</p>
+                <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
               </div>
-              <img [src]="item.imagenSeleccion" alt="" class="servicios_img_principal">
-              <p class="servicios_color_texto reboto-regular">{{item.categoria}}</p>
-              <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
-              <div class="none">este es el teto</div>
+              <div id="b" class="none size">{{item.descCorta}}</div>
             </div>
+
           </div>
 
 
@@ -370,7 +376,7 @@
               </ng-template>
               <ng-template ngbPanelContent>
                 <div class="servicios_justify">
-                  <p class="p" *ngFor="let item of Productos_listado">{{item.Nombre}}</p>
+                  <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}} {{item.Nombre}}</p>
 
                   <div class="separator"></div>
 
@@ -487,7 +493,7 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                   <div class="servicios_justify">
-                    <p class="p" *ngFor="let item of Productos_listado">{{item.Nombre}}</p>
+                    <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}}  {{item.Nombre}}</p>
 
                     <div class="separator"></div>
 
@@ -565,7 +571,8 @@
           </div>
           <div class="pagar_paga_botones form-group d-none d-md-block">
             <button class="btn pagar_atras reboto-regular" (click)="step = 0">Regresar</button> &nbsp; &nbsp;
-            <button class="btn pagar__siguiente reboto-regular" (click)="saveEvent()">Continuar</button>
+            <button class="btn pagar__siguiente reboto-regular d-none d-md-block"
+              (click)="saveEvent(1)">Continuar</button>
           </div>
         </div>
         <div class="col-md-5">
@@ -591,7 +598,7 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                   <div class="servicios_justify">
-                    <p class="p" *ngFor="let item of Productos_listado">{{item.Nombre}}</p>
+                    <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}} {{item.Nombre}}</p>
 
                     <div class="separator"></div>
 
@@ -621,7 +628,8 @@
 
                     <div class="pagar_paga_botones form-group d-block d-md-none">
                       <button class="btn pagar_atras reboto-regular" (click)="step = 0">Cancelar</button> &nbsp; &nbsp;
-                      <button class="btn pagar__siguiente reboto-regular" (click)="saveEvent()">Continuar</button>
+                      <button class="btn pagar__siguiente reboto-regular d-block d-md-none"
+                        (click)="saveEvent(2)">Continuar</button>
                     </div>
 
                   </div>
@@ -650,7 +658,7 @@
       </div>
 
       <div class="contenedor_uno_contenedor_botones ancho">
-        <button class="btn contenedor_uno_siguiente reboto-regular">Armar otro evento</button>
+        <button class="btn contenedor_uno_siguiente reboto-regular" [routerLink]="['/']">Armar otro evento</button>
         <button class="btn contenedor_uno_atras reboto-regular" [routerLink]="['/']"
           routerLinkActive="router-link-active">Ir al inicio</button>
       </div>
