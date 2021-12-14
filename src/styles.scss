@@ -116,6 +116,24 @@ $conevento-theme: mat.define-light-theme((color: (primary: $conevento-primary,
   font-family: Reboto-medium;
 }
 
+.mat-stepper-horizontal-line{
+  width: 100% !important;
+}
+
+.mat-step-header{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 40%;
+  height: 100%;
+}
+
+.mat-stepper-horizontal{
+  background-color: #F5F2F8 !important;
+}
 html,
 body {
   font-family: Reboto;

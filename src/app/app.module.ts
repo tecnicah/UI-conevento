@@ -22,6 +22,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SeleccionarServicioComponent } from './pages/seleccionar-servicio/seleccionar-servicio.component';
+import { MisEventosComponent } from './dialog/mis-eventos/mis-eventos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { SeleccionarServicioComponent } from './pages/seleccionar-servicio/selec
     NosotrosComponent,
     GeneralMessageComponent,
     WizardComponent,
-    SeleccionarServicioComponent
+    SeleccionarServicioComponent,
+    MisEventosComponent
   ],
   imports: [
     NgxSpinnerModule,

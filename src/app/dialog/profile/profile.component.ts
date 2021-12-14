@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import Swal from 'sweetalert2'
+import { MisEventosComponent } from '../mis-eventos/mis-eventos.component';
 
 @Component({
   selector: 'app-profile',
@@ -13,8 +14,7 @@ export class ProfileComponent implements OnInit {
 
   public data_model: any = {};
 
-  constructor(public spinner: SpinnerService,public auth: HttpService, public dialogRef: MatDialogRef<ProfileComponent>) {}
-
+  constructor(public _dialog: MatDialog, public spinner: SpinnerService,public auth: HttpService, public dialogRef: MatDialogRef<ProfileComponent>) {}
 
   ngOnInit(): void {
     this.data_model = JSON.parse(localStorage.getItem('userData') || '{}');
@@ -35,7 +35,6 @@ export class ProfileComponent implements OnInit {
       this.show_eye = false;
     }
   }
-
   public type_: any = 'password';
   public show_eye_: boolean = false;
   public visibilityConfirmar(n: any) {
@@ -60,7 +59,6 @@ export class ProfileComponent implements OnInit {
       console.log("FORMATO DE CORREO INCORRECTO");
     }
   }
-
   public correo_incorrecto_confirmacion: boolean = false;
   validateEmailConfirmacion() {
     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
@@ -86,7 +84,6 @@ export class ProfileComponent implements OnInit {
   public confirmacorreo: boolean = false;
   public pass: boolean = false;
   public confirmapass: boolean = false;
-
   public guardar() {
     let contador = 0;
     if (this.data_model.nombres == '' || this.data_model.nombres == null || this.data_model.nombres == undefined) {
@@ -124,7 +121,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-
   public save(): void {
     this.spinner.show();
     setTimeout(() => {
@@ -149,5 +145,18 @@ export class ProfileComponent implements OnInit {
     })
     }, 3000);
   }
+  //**********************************************************************//
+  public misEventos(type:any){
+    let ancho = '';
+    if(type==1){ancho='50%'}else{ancho='100%'}
+    const dialogRef = this._dialog.open(MisEventosComponent, {
+      width: ancho
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+
+      }
+    })
+  }
 }

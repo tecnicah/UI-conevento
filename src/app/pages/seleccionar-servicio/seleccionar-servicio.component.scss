@@ -59,3 +59,52 @@
     height: 30px;
   }
 }
+
+.contenedor_uno {
+  background-color: white;
+  width: 80%;
+  padding: 5%;
+  margin: 3% auto;
+
+  &_contenedor_botones {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    padding: 2%;
+    height: 170px;
+  }
+
+  &_siguiente {
+    background-color: #F6D788;
+    font-size: 15px;
+    color: black;
+  }
+
+  &_atras {
+    background-color: transparent;
+    font-size: 15px;
+    color: #7800E7;
+  }
+
+  &_title {
+    font-weight: 17px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .header{
+    width: 70% !important;
+    margin: 5% 0% 5% 4% !important;
+  }
+  .titulo{
+    font-size: 20px !important;
+    margin-left: 7%;
+  }
+  .tarjeta {
+    &_contenedor_principal{
+      margin: 10% auto 10% auto !important;
+      width: 85% !important;
+    }
+  }
+}

@@ -1,10 +1,162 @@
 <div class="bg">
-  <div class="container">
-    <div>
-      <p class="titleHeader reboto-regular">Agenda tu evento</p>
-    </div>
+  <div class="spacer"></div>
+  <!--STEPPER PARA DESKTOP-->
+  <div class="d-none d-md-block">
+    <div class="container">
+      <div class="row stepers steps-container">
+        <div class="col-4 title-step">
+          Arma tu evento <br>
+          en <span>sólo 3 pasos</span> 👉
+        </div>
 
-    <!--SECCION_UNO-->
+        <div class="col-2 step no-padding">
+          <span class="header" [ngClass]="{'selected': steps.uno == 'selected', 'ready': steps.uno == 'complete'}">
+            <span class="material-icons complete">
+              check_circle
+            </span>
+            <span class="material-icons active">
+              radio_button_checked
+            </span>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </span>
+
+          <div class="info">
+            <span>1.- Agenda</span><br>
+            Especifica el momento, el lugar y los invitados de tu evento
+          </div>
+        </div>
+
+        <div class="col-2 step no-padding">
+          <span class="header"
+            [ngClass]="{'selected': steps.dos == 'selected', 'ready': steps.dos == 'complete', 'next': steps.dos == 'next'}">
+            <span class="material-icons complete">
+              check_circle
+            </span>
+            <span class="material-icons active">
+              radio_button_checked
+            </span>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </span>
+
+          <div class="info">
+            <span>2.- Selecciona servicios</span><br>
+            Selecciona el personal y <br>
+            artículos que requieras.
+          </div>
+        </div>
+
+        <div class="col-2 step no-padding">
+          <span class="header"
+            [ngClass]="{'selected': steps.tres == 'selected', 'ready': steps.tres == 'complete', 'next': steps.tres == 'next'}">
+            <span class="material-icons complete">
+              check_circle
+            </span>
+            <span class="material-icons active">
+              radio_button_checked
+            </span>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </span>
+
+          <div class="info">
+            <span>3.- Confirma y paga</span><br>
+            Elige la opción de pago <br>
+            de manera segura
+          </div>
+        </div>
+        <div class="col-2 no-padding finish-step">
+          <img src="./assets/wizard/Group 92.svg" alt="">
+          ¡Disfruta <br> tu evento!
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--STEPPER PARA MOBILE-->
+  <div class="d-block d-md-none">
+    <div class="container">
+      <div class="row stepers steps-container">
+
+        <div class="col-3 step no-padding">
+          <span class="header" [ngClass]="{'selected': steps.uno == 'selected', 'ready': steps.uno == 'complete'}">
+            <span class="material-icons complete">
+              check_circle
+            </span>
+            <span class="material-icons active">
+              radio_button_checked
+            </span>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </span>
+
+          <div class="info">
+            <span>1.- Agenda</span>
+          </div>
+        </div>
+
+        <div class="col-3 step no-padding">
+          <span class="header"
+            [ngClass]="{'selected': steps.dos == 'selected', 'ready': steps.dos == 'complete', 'next': steps.dos == 'next'}">
+            <span class="material-icons complete">
+              check_circle
+            </span>
+            <span class="material-icons active">
+              radio_button_checked
+            </span>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </span>
+
+          <div class="info">
+            <span>2.- Selecciona servicios</span>
+          </div>
+        </div>
+
+        <div class="col-3 step no-padding">
+          <span class="header"
+            [ngClass]="{'selected': steps.tres == 'selected', 'ready': steps.tres == 'complete', 'next': steps.tres == 'next'}">
+            <span class="material-icons complete">
+              check_circle
+            </span>
+            <span class="material-icons active">
+              radio_button_checked
+            </span>
+            <div class="progress" style="height: 6px;">
+              <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </span>
+
+          <div class="info">
+            <span>3.- Confirma y paga</span>
+          </div>
+        </div>
+
+        <div class="col-3 no-padding finish-step">
+          <img src="./assets/wizard/Group 92.svg" alt="">
+          ¡Disfruta <br> tu evento!
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="spacer"></div>
+  <!------------------paso 1----------------->
+  <div class="container" *ngIf="steps.uno == 'selected'">
     <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
       <div class="row contenedor_uno">
         <div class="col-md-6">
@@ -12,45 +164,35 @@
         </div>
         <div class="col-md-6"></div>
         <div class="col-md-6">
-          <p>Fecha de inicio</p>
+          <p>Fecha y hora inicio</p>
           <div class="input-group mb-3 margen_cero">
-            <input type="date" class="form-control" placeholder="Fecha de inicio" aria-label="Fecha de inicio"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.fecha_inicio.errors }"
-              formControlName="fecha_inicio">
-            <div *ngIf="submitted && f.fecha_inicio.errors" class="invalid-feedback">
-              <div *ngIf="f.fecha_inicio.errors.required">Ingresa la fecha de inicio</div>
+            <input type="datetime-local" class="form-control" placeholder="Fecha de inicio"
+              aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraInicio.errors }" formControlName="fechaHoraInicio">
+            <div *ngIf="submitted && f.fechaHoraInicio.errors" class="invalid-feedback">
+              <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div>
             </div>
           </div>
 
-          <p>Hora de inicio</p>
+          <p>Gente esperada</p>
           <div class="input-group mb-3 margen_cero">
-            <input type="time" class="form-control" placeholder="Hora de inicio" aria-label="Hora de inicio"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.hora_inicio.errors }"
-              formControlName="hora_inicio">
-            <div *ngIf="submitted && f.hora_inicio.errors" class="invalid-feedback">
-              <div *ngIf="f.hora_inicio.errors.required">Ingresa la fecha de inicio</div>
+            <input type="number" class="form-control" placeholder="Gente esperada" aria-label="Gente esperada"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.genteEsperada.errors }"
+              formControlName="genteEsperada">
+            <div *ngIf="submitted && f.genteEsperada.errors" class="invalid-feedback">
+              <div *ngIf="f.genteEsperada.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
 
         <div class="col-md-6">
-          <p>Fecha del final</p>
+          <p>Fecha y hora final</p>
           <div class="input-group mb-3 margen_cero">
-            <input type="date" class="form-control" placeholder="Fecha del final" aria-label="Fecha del final"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.fecha_final.errors }"
-              formControlName="fecha_final">
-            <div *ngIf="submitted && f.fecha_final.errors" class="invalid-feedback">
-              <div *ngIf="f.fecha_final.errors.required">Ingresa la fecha de inicio</div>
-            </div>
-          </div>
-
-          <p>Hora del final</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="time" class="form-control" placeholder="Hora del final" aria-label="Hora del final"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.hora_final.errors }"
-              formControlName="hora_final">
-            <div *ngIf="submitted && f.hora_final.errors" class="invalid-feedback">
-              <div *ngIf="f.hora_final.errors.required">Ingresa la fecha de inicio</div>
+            <input type="datetime-local" class="form-control" placeholder="Fecha y hora final"
+              aria-label="Fecha y hora final" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraFin.errors }" formControlName="fechaHoraFin">
+            <div *ngIf="submitted && f.fechaHoraFin.errors" class="invalid-feedback">
+              <div *ngIf="f.fechaHoraFin.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
@@ -63,13 +205,27 @@
 
         <div class="col-md-4">
           <p>Ciudad</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="text" class="form-control" placeholder="Ciudad" aria-label="Ciudad"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }"
-              formControlName="ciudad">
-            <div *ngIf="submitted && f.ciudad.errors" class="invalid-feedback">
-              <div *ngIf="f.ciudad.errors.required">Ingresa la fecha de inicio</div>
-            </div>
+          <select class="form-select quiz_select form-control" aria-label="Default select example"
+            [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }" formControlName="ciudad">
+            <option value=1 selected>CDMX</option>
+          </select>
+          <div *ngIf="submitted && f.ciudad.errors" class="invalid-feedback">
+            <div *ngIf="f.ciudad.errors.required">Campo requerido</div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <p>Alcaldia o municipio</p>
+          <select class="form-select quiz_select form-control" aria-label="Default select example"
+            [ngClass]="{ 'is-invalid': submitted && f.idCatMunicipio.errors }" formControlName="idCatMunicipio">
+            <option value=1>Benito Juarez</option>
+            <option value=2>Coyoacan</option>
+            <option value=3>Milpa Alta</option>
+            <option value=4>Venustiano Carranza</option>
+            <option value=5>Cuajimalpa</option>
+          </select>
+          <div *ngIf="submitted && f.idCatMunicipio.errors" class="invalid-feedback">
+            <div *ngIf="f.idCatMunicipio.errors.required">Campo requerido</div>
           </div>
         </div>
 
@@ -77,22 +233,10 @@
           <p>Código postal</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Código postal" aria-label="Código postal"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.codigoPostal.errors }"
-              formControlName="codigoPostal">
-            <div *ngIf="submitted && f.codigoPostal.errors" class="invalid-feedback">
-              <div *ngIf="f.codigoPostal.errors.required">Ingresa la fecha de inicio</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <p>Alcaldia o municipio</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="text" class="form-control" placeholder="Alcaldia o municipio" aria-label="Alcaldia o municipio"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.alcaldia.errors }"
-              formControlName="alcaldia">
-            <div *ngIf="submitted && f.alcaldia.errors" class="invalid-feedback">
-              <div *ngIf="f.alcaldia.errors.required">Ingresa la fecha de inicio</div>
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.cp.errors }"
+              formControlName="cp">
+            <div *ngIf="submitted && f.cp.errors" class="invalid-feedback">
+              <div *ngIf="f.cp.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
@@ -102,9 +246,9 @@
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Calle y numero exterior"
               aria-label="Calle y numero exterior" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.calle.errors }" formControlName="calle">
-            <div *ngIf="submitted && f.calle.errors" class="invalid-feedback">
-              <div *ngIf="f.calle.errors.required">Ingresa la fecha de inicio</div>
+              [ngClass]="{ 'is-invalid': submitted && f.calleNumero.errors }" formControlName="calleNumero">
+            <div *ngIf="submitted && f.calleNumero.errors" class="invalid-feedback">
+              <div *ngIf="f.calleNumero.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
@@ -116,7 +260,7 @@
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.colonia.errors }"
               formControlName="colonia">
             <div *ngIf="submitted && f.colonia.errors" class="invalid-feedback">
-              <div *ngIf="f.colonia.errors.required">Ingresa la fecha de inicio</div>
+              <div *ngIf="f.colonia.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
@@ -130,23 +274,33 @@
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Nombre del contratante"
               aria-label="Datos del contratante" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.nombre.errors }" formControlName="nombre">
-            <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
-              <div *ngIf="f.nombre.errors.required">Ingresa la fecha de inicio</div>
+              [ngClass]="{ 'is-invalid': submitted && f.nombreContratane.errors }" formControlName="nombreContratane">
+            <div *ngIf="submitted && f.nombreContratane.errors" class="invalid-feedback">
+              <div *ngIf="f.nombreContratane.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
 
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+          <p>Nombre del evento</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="text" class="form-control" placeholder="Nombre del evento" aria-label="Nombre del evento"
+              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.nombreEvento.errors }"
+              formControlName="nombreEvento">
+            <div *ngIf="submitted && f.nombreEvento.errors" class="invalid-feedback">
+              <div *ngIf="f.nombreEvento.errors.required">Campo requerido</div>
+            </div>
+          </div>
+        </div>
 
         <div class="col-md-6">
           <p>Correo electrónico</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }"
-              formControlName="correo">
+              formControlName="correo" (change)="validateEmail();">
             <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
-              <div *ngIf="f.correo.errors.required">Ingresa la fecha de inicio</div>
+              <div *ngIf="f.correo.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
@@ -158,78 +312,44 @@
               aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1"
               [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" formControlName="telefono">
             <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
-              <div *ngIf="f.telefono.errors.required">Ingresa la fecha de inicio</div>
+              <div *ngIf="f.telefono.errors.required">Campo requerido</div>
             </div>
           </div>
         </div>
       </div>
       <div class="contenedor_uno_contenedor_botones form-group">
         <button class="btn contenedor_uno_siguiente reboto-regular">Siguiente</button>
-        <button class="btn contenedor_uno_atras reboto-regular">Regresar</button>
+        <button class="btn contenedor_uno_atras reboto-regular" [routerLink]="['/']"
+          routerLinkActive="router-link-active">Regresar</button>
       </div>
     </form>
-    <!--SECCION_DOS-->
+  </div>
+  <!------------------paso 2----------------->
+  <div class="container" *ngIf="steps.dos == 'selected'">
     <div class="row contenedor_uno">
       <div class="col-md-7">
         <div class="row">
 
-          <div class="col-md-6">
-            <div class="servicios_contenedor_imagen" [routerLink]="['/SeleccionarServicios']"
-              routerLinkActive="router-link-active">
-              <p></p>
-              <img src="../../../assets/wizard/Group 105.png" alt="" class="servicios_img_principal">
-              <p class="servicios_color_texto reboto-regular">¡Necesito personal!</p>
-              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+          <div class="col-md-6" *ngFor="let item of categorias">
+            <div class="servicios_contenedor_imagen pointer zoom" (click)="selectServices(item);">
+              <div class="radio">
+                <div class="radio_circle">
+                  <img src="./assets/wizard/Vector.svg" alt="" *ngIf="item.checked" class="radio_img">
+                </div>
+              </div>
+              <img [src]="item.imagenSeleccion" alt="" class="servicios_img_principal">
+              <p class="servicios_color_texto reboto-regular">{{item.categoria}}</p>
+              <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+              <div class="none">este es el teto</div>
             </div>
           </div>
 
-          <div class="col-md-6">
-            <div class="servicios_contenedor_imagen">
-              <p></p>
-              <img src="../../../assets/wizard/Group 106.png" alt="" class="servicios_img_principal">
-              <p class="servicios_color_texto reboto-regular">Talento</p>
-              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
-            </div>
-          </div>
-
-          <div class="col-md-12">&nbsp;</div>
-
-          <div class="col-md-6">
-            <div class="servicios_contenedor_imagen">
-              <p></p>
-              <img src="../../../assets/wizard/Group 108.png" alt="" class="servicios_img_principal">
-              <p class="servicios_color_texto reboto-regular">Mobiliario</p>
-              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="servicios_contenedor_imagen">
-              <p></p>
-              <img src="../../../assets/wizard/Group 109.png" alt="" class="servicios_img_principal">
-              <p class="servicios_color_texto reboto-regular">Bebidas y Alimentos</p>
-              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
-            </div>
-          </div>
-
-          <div class="col-md-12">&nbsp;</div>
-
-          <div class="col-md-6">
-            <div class="servicios_contenedor_imagen">
-              <p></p>
-              <img src="../../../assets/wizard/Group 109.png" alt="" class="servicios_img_principal">
-              <p class="servicios_color_texto reboto-regular">Luces y sonido</p>
-              <img src="../../../assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
-            </div>
-          </div>
-
-          <div class="col-md-6"></div>
 
         </div>
       </div>
       <div class="col-md-5">
         <div class="servicios servicios_bgcolor">
-          <img src="../../../assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
+          <img src="./assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
 
           <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
             <ngb-panel id="custom-panel-1">
@@ -250,39 +370,38 @@
               </ng-template>
               <ng-template ngbPanelContent>
                 <div class="servicios_justify">
-                  <p class="p">Personal</p>
-                  <p class="p">1. Mesero</p>
-                  <p class="p">2. Bartender</p>
-                  <p class="p">3. Bartender premium</p>
-                  <p class="p">Personal</p>
-                  <p class="p">1. Mesas y sillas</p>
+                  <p class="p" *ngFor="let item of Productos_listado">{{item.Nombre}}</p>
 
                   <div class="separator"></div>
 
                   <div class="total">
                     <span class="p">Subtotal del carrito</span>
-                    <span class="p">$199</span>
+                    <span class="p">{{Subtotal | currency}}</span>
                   </div>
 
                   <div class="total">
                     <span class="p">IVA</span>
-                    <span class="p">$31.84</span>
+                    <span class="p">{{IVA | currency}}</span>
                   </div>
 
                   <div class="separator"></div>
 
                   <div class="total">
                     <span class="p">Servicios</span>
-                    <span class="p">5</span>
+                    <span class="p">{{Productos_listado.length}}</span>
                   </div>
 
                   <div class="separator"></div>
 
                   <div class="total">
                     <span class="p reboto-regular">Total</span>
-                    <span class="p">$230.84</span>
+                    <span class="p">{{total | currency}}</span>
                   </div>
 
+                </div>
+
+                <div class="pagar_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
+                  <button class="btn pagar_siguiente reboto-regular" (click)="next()">Pagar</button>
                 </div>
               </ng-template>
             </ngb-panel>
@@ -290,126 +409,233 @@
         </div>
       </div>
     </div>
-    <!--SECCION TRES-->
-    <div class="row contenedor_cuatro">
-      <div class="col-md-7">
-        <div>
-          <p class="titleHeader reboto-regular">Confirma y Paga</p>
+
+    <div class="contenedor_uno_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
+      <button class="btn contenedor_uno_atras reboto-regular" (click)="after()">Regresar</button>
+    </div>
+  </div>
+
+  <!------------------paso 3----------------->
+  <div *ngIf="steps.tres == 'selected'">
+    <div class="container" *ngIf="step == 0">
+      <div class="row contenedor_cuatro">
+        <div class="col-md-7">
+          <div>
+            <p class="titleHeader reboto-regular">Confirma y Paga</p>
+          </div>
+
+          <div class="eventos_seleccionados">
+            <p class="reboto-regular">Agendaste tu evento</p>
+            <div class="eventos_seleccionados_flex">
+              <span
+                class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data_model.fechaHoraInicio |  date: 'short'}}</span></span>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span
+                class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data_model.fechaHoraFin | date: 'short'}}</span></span>
+            </div>
+          </div>
+
+          <div class="eventos_seleccionados">
+            <p class="reboto-regular">En la dirección</p>
+            <div class="eventos_seleccionados_flex">
+              <span>
+                Calle {{data_model.calleNumero}}, Colonia {{data_model.colonia}} Código postal {{data_model.cp}}
+              </span>
+            </div>
+          </div>
+
+          <div class="eventos_seleccionados">
+            <p class="reboto-regular">Datos de contacto</p>
+            <div class="eventos_seleccionados_flex">
+              <span class="reboto-regular">Nombre contratante <span>{{data_model.nombreContratane}}</span></span>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span class="reboto-regular">Correo electrónico <span>{{data_model.correo}}</span></span>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span class="reboto-regular">Teléfono <span>{{data_model.telefono}}</span></span>
+            </div>
+          </div>
+
+          <div class="pagar_paga_botones form-group d-none d-md-block">
+            <button class="btn pagar_atras reboto-regular" (click)='after()'>Regresar</button> &nbsp; &nbsp;
+            <button class="btn pagar__siguiente reboto-regular" (click)="pagarOpciones()">Continuar</button>
+          </div>
+
         </div>
+        <div class="col-md-5">
+          <div class="servicios servicios_bgcolor">
+            <img src="./assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
 
-        <div class="eventos_seleccionados">
-          <p class="reboto-regular">Agendaste tu evento</p>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
-                12:00h</span></span>
-          </div>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
-                de 2021 01:00h</span></span>
-          </div>
-        </div>
-
-        <div class="eventos_seleccionados">
-          <p class="reboto-regular">Agendaste tu evento</p>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
-                12:00h</span></span>
-          </div>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
-                de 2021 01:00h</span></span>
-          </div>
-        </div>
-
-        <div class="eventos_seleccionados">
-          <p class="reboto-regular">Agendaste tu evento</p>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
-                12:00h</span></span>
-          </div>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
-                de 2021 01:00h</span></span>
-          </div>
-        </div>
-
-        <div class="eventos_seleccionados">
-          <p class="reboto-regular">Agendaste tu evento</p>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>20 de diciembre de 2021
-                12:00h</span></span>
-          </div>
-          <div class="eventos_seleccionados_flex">
-            <span class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>21 de diciembre
-                de 2021 01:00h</span></span>
-          </div>
-        </div>
-
-      </div>
-      <div class="col-md-5">
-        <div class="servicios servicios_bgcolor">
-          <img src="../../../assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
-
-          <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
-            <ngb-panel id="custom-panel-1">
-              <ng-template ngbPanelHeader let-opened="opened">
-                <div class="d-flex align-items-center justify-content-between">
-                  <p class="reboto-regular">Solicitud de servicios</p>
-                  <button ngbPanelToggle class="btn btn-link p-0">
-                    <!--OPEN ICON-->
-                    <span class="material-icons icon_color" *ngIf="!opened">
-                      expand_more
-                    </span>
-                    <!--CLOSE ICON-->
-                    <span class="material-icons icon_color" *ngIf="opened">
-                      expand_less
-                    </span>
-                  </button>
-                </div>
-              </ng-template>
-              <ng-template ngbPanelContent>
-                <div class="servicios_justify">
-                  <p class="p">Personal</p>
-                  <p class="p">1. Mesero</p>
-                  <p class="p">2. Bartender</p>
-                  <p class="p">3. Bartender premium</p>
-                  <p class="p">Personal</p>
-                  <p class="p">1. Mesas y sillas</p>
-
-                  <div class="separator"></div>
-
-                  <div class="total">
-                    <span class="p">Subtotal del carrito</span>
-                    <span class="p">$199</span>
+            <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+              <ngb-panel id="custom-panel-1">
+                <ng-template ngbPanelHeader let-opened="opened">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="reboto-regular">Solicitud de servicios</p>
+                    <button ngbPanelToggle class="btn btn-link p-0">
+                      <!--OPEN ICON-->
+                      <span class="material-icons icon_color" *ngIf="!opened">
+                        expand_more
+                      </span>
+                      <!--CLOSE ICON-->
+                      <span class="material-icons icon_color" *ngIf="opened">
+                        expand_less
+                      </span>
+                    </button>
                   </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="servicios_justify">
+                    <p class="p" *ngFor="let item of Productos_listado">{{item.Nombre}}</p>
 
-                  <div class="total">
-                    <span class="p">IVA</span>
-                    <span class="p">$31.84</span>
+                    <div class="separator"></div>
+
+                    <div class="total">
+                      <span class="p">Subtotal del carrito</span>
+                      <span class="p">{{Subtotal | currency}}</span>
+                    </div>
+
+                    <div class="total">
+                      <span class="p">IVA</span>
+                      <span class="p">{{IVA | currency}}</span>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="total">
+                      <span class="p">Servicios</span>
+                      <span class="p">{{Productos_listado.length}}</span>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="total">
+                      <span class="p reboto-regular">Total</span>
+                      <span class="p">{{total | currency}}</span>
+                    </div>
+
+                    <div class="pagar_paga_botones form-group d-block d-md-none">
+                      <button class="btn pagar_atras reboto-regular" (click)='after()'>Cancelar</button> &nbsp; &nbsp;
+                      <button class="btn pagar__siguiente reboto-regular" (click)="pagarOpciones()">Continuar</button>
+                    </div>
+
                   </div>
-
-                  <div class="separator"></div>
-
-                  <div class="total">
-                    <span class="p">Servicios</span>
-                    <span class="p">5</span>
-                  </div>
-
-                  <div class="separator"></div>
-
-                  <div class="total">
-                    <span class="p reboto-regular">Total</span>
-                    <span class="p">$230.84</span>
-                  </div>
-
-                </div>
-              </ng-template>
-            </ngb-panel>
-          </ngb-accordion>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
         </div>
       </div>
     </div>
-    <!--SECCION CUATRO-->
+
+    <div class="container" *ngIf="step == 1">
+      <div class="row contenedor_cuatro">
+        <div class="col-md-7">
+          <div>
+            <p class="titleHeader reboto-regular">Como quieres pagar</p>
+          </div>
+
+          <div class="btn-group flex">
+
+            <div class="pago_tarjeta">
+              <div class="pago_tarjeta_flex">
+                <input type="radio" class="btn-check pointer" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <img src="./assets/wizard/Captura 1.png" alt="" class="pago_tarjeta_img">
+                <label for="btnradio1" class="pago_tarjeta_label pointer">Pago con tarjeta</label>
+              </div>
+            </div>
+
+            <div class="pago_tarjeta">
+              <div class="pago_tarjeta_flex">
+                <input type="radio" class="btn-check pointer" name="btnradio" id="btnradio2" autocomplete="off" checked>
+                <img src="./assets/wizard/Captura2 1.png" alt="" class="pago_tarjeta_imgPago">
+                <label for="btnradio2" class="pago_tarjeta_label pointer">Pago con Paypal</label>
+              </div>
+            </div>
+
+            <div class="pago_tarjeta">
+              <div class="pago_tarjeta_flex">
+                <input type="radio" class="btn-check pointer" name="btnradio" id="btnradio2" autocomplete="off" checked>
+                <img src="./assets/wizard/paypal-logo 1.png" alt="" class="pago_tarjeta_imgPago">
+                <label for="btnradio2" class="pago_tarjeta_label pointer">Pago en Oxxo</label>
+              </div>
+            </div>
+
+          </div>
+          <div class="pagar_paga_botones form-group d-none d-md-block">
+            <button class="btn pagar_atras reboto-regular" (click)="step = 0">Regresar</button> &nbsp; &nbsp;
+            <button class="btn pagar__siguiente reboto-regular" (click)="saveEvent()">Continuar</button>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="servicios servicios_bgcolor">
+            <img src="./assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
+
+            <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
+              <ngb-panel id="custom-panel-1">
+                <ng-template ngbPanelHeader let-opened="opened">
+                  <div class="d-flex align-items-center justify-content-between">
+                    <p class="reboto-regular">Solicitud de servicios</p>
+                    <button ngbPanelToggle class="btn btn-link p-0">
+                      <!--OPEN ICON-->
+                      <span class="material-icons icon_color" *ngIf="!opened">
+                        expand_more
+                      </span>
+                      <!--CLOSE ICON-->
+                      <span class="material-icons icon_color" *ngIf="opened">
+                        expand_less
+                      </span>
+                    </button>
+                  </div>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div class="servicios_justify">
+                    <p class="p" *ngFor="let item of Productos_listado">{{item.Nombre}}</p>
+
+                    <div class="separator"></div>
+
+                    <div class="total">
+                      <span class="p">Subtotal del carrito</span>
+                      <span class="p">{{Subtotal | currency}}</span>
+                    </div>
+
+                    <div class="total">
+                      <span class="p">IVA</span>
+                      <span class="p">{{IVA | currency}}</span>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="total">
+                      <span class="p">Servicios</span>
+                      <span class="p">{{Productos_listado.length}}</span>
+                    </div>
+
+                    <div class="separator"></div>
+
+                    <div class="total">
+                      <span class="p reboto-regular">Total</span>
+                      <span class="p">{{total | currency}}</span>
+                    </div>
+
+                    <div class="pagar_paga_botones form-group d-block d-md-none">
+                      <button class="btn pagar_atras reboto-regular" (click)="step = 0">Cancelar</button> &nbsp; &nbsp;
+                      <button class="btn pagar__siguiente reboto-regular" (click)="saveEvent()">Continuar</button>
+                    </div>
+
+                  </div>
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!------------------paso 4----------------->
+  <div class="container" *ngIf="steps.cuatro">
     <div class="row">
       <div class="step_final_center">
         <div class="step_final">
@@ -425,10 +651,10 @@
 
       <div class="contenedor_uno_contenedor_botones ancho">
         <button class="btn contenedor_uno_siguiente reboto-regular">Armar otro evento</button>
-        <button class="btn contenedor_uno_atras reboto-regular">Ir al inicio</button>
+        <button class="btn contenedor_uno_atras reboto-regular" [routerLink]="['/']"
+          routerLinkActive="router-link-active">Ir al inicio</button>
       </div>
     </div>
-
-
   </div>
+
 </div>

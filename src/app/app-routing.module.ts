@@ -19,7 +19,7 @@ const routes: Routes = [
         component: WizardComponent,
       },
       {
-        path: 'SeleccionarServicios',
+        path: 'SeleccionarServicios/:id',
         component: SeleccionarServicioComponent,
       }
     ]

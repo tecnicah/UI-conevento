@@ -12,6 +12,17 @@ export class HttpService {
   url_images = `${environment.images_path}`;
   headers = new HttpHeaders();
 
+  public listaProductosEventos:any = [];
+  public data_form = {};
+  
+  public categorias = {
+    personal1: false,
+    talento3: false,
+    alimentos5: false,
+    mobiliario6: false,
+    luces7:false 
+  }
+
   constructor(private http: HttpClient) { }
 
   service_general_post_with_url(url:any, parametros:any): Observable<any> {

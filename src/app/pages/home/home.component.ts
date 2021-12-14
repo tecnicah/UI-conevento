@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   constructor(public _dialog:MatDialog) { }
 
   ngOnInit(): void {
+    window.scrollTo(0,0);
   }
 
   public nosotros(type:any){

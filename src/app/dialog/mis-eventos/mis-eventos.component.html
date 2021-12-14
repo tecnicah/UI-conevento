@@ -1,0 +1,16 @@
+<mat-dialog-content class="mat-typography">
+  <div class="padding">
+    <h2 mat-dialog-title class="color">Mis Eventos</h2>
+    <br>
+    <div *ngFor="let item of eventos" class="card">
+      <p class="Reboto-medium">Nombre del evento: <span>{{item.nombreEvento}}</span></p>
+      <p class="Reboto-medium">Inicio: <span>{{item.fechaHoraInicio}}</span></p>
+      <p class="Reboto-medium">Fin del evento: <span>{{item.fechaHoraFin}}</span></p>
+      <p class="Reboto-medium">Correo <span>{{item.correo}}</span></p>
+      <p class="Reboto-medium">Dirección: <span>Calle {{item.calleNumero}}, Colonia {{item.colonia}} Código postal {{item.cp}}</span></p>
+    </div>
+    <div class="buttons">
+      <button type="button" mat-dialog-close class=" btn bg_color">Cerrar</button>
+    </div>
+  </div>
+</mat-dialog-content>
