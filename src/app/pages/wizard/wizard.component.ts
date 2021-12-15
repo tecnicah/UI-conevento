@@ -88,13 +88,12 @@ export class WizardComponent implements OnInit {
 
       ciudad: [1, Validators.required],
       idCatMunicipio: ['', Validators.required],
-      cp: ['', Validators.required],
+      cp: [''],
       calleNumero: ['', Validators.required],
       colonia: ['', Validators.required],
 
       nombreContratane: ['', Validators.required],
-      nombreEvento: ['', Validators.required],
-      //correo: ['', Validators.required],
+      nombreEvento: [''],
       correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
       telefono: ['', Validators.required],
     });

@@ -24,7 +24,7 @@
           </span>
 
           <div class="info">
-            <span>1.- Agenda</span><br>
+            <span class="reboto-regular">1.- Agenda</span><br>
             Especifica el momento, el lugar y los invitados de tu evento
           </div>
         </div>
@@ -45,7 +45,7 @@
           </span>
 
           <div class="info">
-            <span>2.- Selecciona servicios</span><br>
+            <span class="reboto-regular ">2.- Selecciona servicios</span><br>
             Selecciona el personal y <br>
             artículos que requieras.
           </div>
@@ -67,14 +67,14 @@
           </span>
 
           <div class="info">
-            <span>3.- Confirma y paga</span><br>
+            <span class="reboto-regular ">3.- Confirma y paga</span><br>
             Elige la opción de pago <br>
             de manera segura
           </div>
         </div>
         <div class="col-2 no-padding finish-step">
           <img src="./assets/wizard/Group 92.svg" alt="">
-          ¡Disfruta <br> tu evento!
+          <span class="reboto-regular">¡Disfruta <br> tu evento!</span>
         </div>
 
       </div>
@@ -100,7 +100,7 @@
           </span>
 
           <div class="info">
-            <span>1.- Agenda</span>
+            <span class="reboto-regular">1.- Agenda</span>
           </div>
         </div>
 
@@ -120,7 +120,7 @@
           </span>
 
           <div class="info">
-            <span>2.- Selecciona servicios</span>
+            <span class="reboto-regular">2.- Selecciona servicios</span>
           </div>
         </div>
 
@@ -140,13 +140,13 @@
           </span>
 
           <div class="info">
-            <span>3.- Confirma y paga</span>
+            <span class="reboto-regular">3.- Confirma y paga</span>
           </div>
         </div>
 
         <div class="col-3 no-padding finish-step">
           <img src="./assets/wizard/Group 92.svg" alt="">
-          ¡Disfruta <br> tu evento!
+          <span class="reboto-regular">¡Disfruta <br> tu evento!</span>
         </div>
 
       </div>
@@ -155,16 +155,23 @@
 
 
   <div class="spacer"></div>
+
+
   <!------------------paso 1----------------->
   <div class="container" *ngIf="steps.uno == 'selected'">
+    <div class="titulos_stepper">
+      <img src="./assets/wizard/step_uno.png" alt="" class="titulos_stepper_img">
+      &nbsp;
+      <span class="reboto-regular">Agenda tu evento</span>
+    </div>
     <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
       <div class="row contenedor_uno">
         <div class="col-md-6">
-          <p class="reboto-regular title">¿Cuando será el momento de tu evento?</p>
+          <p class="reboto-regular subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
         <div class="col-md-6"></div>
         <div class="col-md-6">
-          <p>Fecha y hora inicio</p>
+          <p>Fecha y hora inicio *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="datetime-local" class="form-control" placeholder="Fecha de inicio"
               aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
@@ -174,7 +181,7 @@
             </div>
           </div>
 
-          <p>Gente esperada</p>
+          <p>Gente esperada *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="number" class="form-control" placeholder="Gente esperada" aria-label="Gente esperada"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.genteEsperada.errors }"
@@ -186,7 +193,7 @@
         </div>
 
         <div class="col-md-6">
-          <p>Fecha y hora final</p>
+          <p>Fecha y hora final *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="datetime-local" class="form-control" placeholder="Fecha y hora final"
               aria-label="Fecha y hora final" aria-describedby="basic-addon1"
@@ -198,13 +205,13 @@
         </div>
 
         <div class="col-md-4">
-          <p class="reboto-regular title">¿Qué lugar elejiste?</p>
+          <p class="reboto-regular subtitle">¿Qué lugar elejiste?</p>
         </div>
         <div class="col-md-4"></div>
         <div class="col-md-4"></div>
 
         <div class="col-md-4">
-          <p>Ciudad</p>
+          <p>Ciudad *</p>
           <select class="form-select quiz_select form-control" aria-label="Default select example"
             [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }" formControlName="ciudad">
             <option value=1 selected>CDMX</option>
@@ -215,7 +222,7 @@
         </div>
 
         <div class="col-md-4">
-          <p>Alcaldia o municipio</p>
+          <p>Alcaldia o municipio *</p>
           <select class="form-select quiz_select form-control" aria-label="Default select example"
             [ngClass]="{ 'is-invalid': submitted && f.idCatMunicipio.errors }" formControlName="idCatMunicipio">
             <option value=1>Benito Juarez</option>
@@ -242,7 +249,7 @@
         </div>
 
         <div class="col-md-6">
-          <p>Calle y numero exterior</p>
+          <p>Calle y numero exterior *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Calle y numero exterior"
               aria-label="Calle y numero exterior" aria-describedby="basic-addon1"
@@ -254,7 +261,7 @@
         </div>
 
         <div class="col-md-6">
-          <p>Colonia</p>
+          <p>Colonia *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Colonia" aria-label="Colonia"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.colonia.errors }"
@@ -266,11 +273,11 @@
         </div>
 
         <div class="col-md-6">
-          <p class="reboto-regular title">Datos de contacto</p>
+          <p class="reboto-regular subtitle">Datos de contacto</p>
         </div>
         <div class="col-md-6"></div>
         <div class="col-md-6">
-          <p>Nombre del contratante</p>
+          <p>Nombre del contratante *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Nombre del contratante"
               aria-label="Datos del contratante" aria-describedby="basic-addon1"
@@ -294,7 +301,7 @@
         </div>
 
         <div class="col-md-6">
-          <p>Correo electrónico</p>
+          <p>Correo electrónico *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }"
@@ -309,7 +316,7 @@
         </div>
 
         <div class="col-md-6">
-          <p>Teléfono fijo o celular</p>
+          <p>Teléfono fijo o celular *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="tel" class="form-control" placeholder="Teléfono fijo o celular"
               aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1"
@@ -446,7 +453,8 @@
             <p class="reboto-regular">En la dirección</p>
             <div class="eventos_seleccionados_flex">
               <span>
-                Calle {{data_model.calleNumero}}, Colonia {{data_model.colonia}} Código postal {{data_model.cp}}, CDMX {{getName(data_model.idCatMunicipio)}}
+                Calle {{data_model.calleNumero}}, Colonia {{data_model.colonia}} Código postal {{data_model.cp}}, CDMX
+                {{getName(data_model.idCatMunicipio)}}
               </span>
             </div>
           </div>
@@ -493,7 +501,7 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                   <div class="servicios_justify">
-                    <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}}  {{item.Nombre}}</p>
+                    <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}} {{item.Nombre}}</p>
 
                     <div class="separator"></div>
 
