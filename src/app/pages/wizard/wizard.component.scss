@@ -399,9 +399,14 @@
 
       span {
         color: #5C02B0;
-        font-size: 12px;
+        font-size: 14px;
+      }
+      .description{
+        font-size: 12px !important;
+        color: #666666;
       }
     }
+    
   }
 
   .finish-step {
@@ -476,10 +481,15 @@
 }
 
 
+.subtitle {
+  font-weight: bold !important;
+  font-size: 20px !important;
+}
 
 
 
 @media only screen and (max-width: 575px) {
+ 
   .contenedor_uno {
     width: 100%;
   }
@@ -507,6 +517,21 @@
   .contenedor {
     &_cuatro {
       width: 100% !important;
+    }
+  }
+
+  .titulos_stepper{
+     width: 100%;
+     font-size: 25px !important;
+  }
+
+  .stepers{
+    .step{
+      .info{
+        span{
+          font-size: 12px !important;
+        }
+      }
     }
   }
 }
