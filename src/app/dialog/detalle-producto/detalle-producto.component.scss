@@ -6,3 +6,60 @@
 .contenedor{
     padding: 2%;
 }
+.primary{
+    background-color:#7800E7;
+    color: white;
+}
+.secundary{
+    border: 1px solid #DDB675;
+    color: #7800E7;
+}
+.color{
+    color: #7800E7;   
+}
+.color_hr{
+    color: #00C3BD;
+}
+.heigth{
+    height: 100%;
+}
+.tarjeta {
+    &_contenedor_principal {
+      margin: 10% 0% 20% 0%;
+    }
+  
+    &_img {
+      width: 100%;
+    }
+  
+    &_contendor {
+      background-color: white;
+      padding: 5%;
+    }
+  
+    &_justificado {
+      text-align: justify;
+    }
+  
+    &_color {
+      color: #00C3BD;
+    }
+  
+    &_footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5%;
+      width: 80%;
+      margin: auto;
+    }
+  
+    &_input {
+      margin: 0;
+      border: 1px solid gray;
+      width: 80px;
+      border-radius: 15px;
+      padding-left: 5%;
+      height: 30px;
+    }
+  }

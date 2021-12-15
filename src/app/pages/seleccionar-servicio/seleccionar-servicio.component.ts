@@ -39,6 +39,7 @@ export class SeleccionarServicioComponent implements OnInit {
             }
           }
         });
+        this.calculos();
         console.log(this.productos);
         this.spinner.hide();
       }
@@ -53,9 +54,11 @@ export class SeleccionarServicioComponent implements OnInit {
     console.log(data);
     if(data){
       this.productos[i].cantidadUnidades++;
+      this.calculos();
     }else{
       if(this.productos[i].cantidadUnidades > 0){
         this.productos[i].cantidadUnidades--;
+        this.calculos();
       }
     }
   }
@@ -70,8 +73,6 @@ export class SeleccionarServicioComponent implements OnInit {
       }
     }
   }
-  //**SUMA**//
-  
   //*************************************************************************//
   //FUNCION PARA REGRESAR//
   public back(){
@@ -144,9 +145,72 @@ export class SeleccionarServicioComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-  
+          console.log(result);
+          this.guardarServiciosElegidosDetalle(result);
         }
       })
   }
 
+  public guardarServiciosElegidosDetalle(result:any){
+    console.log(this.productos);
+      for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
+        if(result.idCategoriaProducto ==  this.auth.listaProductosEventos[i].idCatProducto  && this.auth.listaProductosEventos[i].idCategoria == this.id){
+          this.auth.listaProductosEventos.splice(i,1);
+        }
+      }
+
+      if(result.cantidadUnidades > 0){
+      this.auth.listaProductosEventos.push(
+        {
+         "id": 0,
+         "idEvento": 0,
+         "idCatProducto": result.id,
+         "cantidadUnidades": result.cantidadUnidades,
+         "cantidadHoras": result.cantidadHoras,
+         "idCategoria": Number(this.id),
+         "Nombre": result.producto,
+         "Precio": Number(result.precioPorUnidad)
+        });
+      }
+
+
+      this.productos.forEach((E:any) => {
+        for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
+          if(E.id == this.auth.listaProductosEventos[i].idCatProducto && this.auth.listaProductosEventos[i].idCategoria == this.id){
+            E.cantidadUnidades = this.auth.listaProductosEventos[i].cantidadUnidades;
+            E.cantidadHoras = this.auth.listaProductosEventos[i].cantidadHoras;
+          }
+        }
+      });
+      this.calculos();
+  }
+  //*************************************************************************//
+  //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
+  public Subtotal = 0;
+  public IVA = 0;
+  public total = 0;
+  public calculos() {
+    this.Subtotal = 0;
+    this.IVA = 0;
+    this.total = 0;
+    console.log("ENTRA A REALIZAR LA SUMA");
+    this.productos.forEach((E: any) => {
+      if(E.cantidadUnidades > 0){
+        this.Subtotal = this.Subtotal + E.precioPorUnidad * E.cantidadUnidades;
+      }
+    });
+
+    let flete = 0;
+    this.productos.forEach((E: any) => {
+      if(E.idCategoriaProducto == 6 || E.idCategoriaProducto == 7){
+        flete++;
+      }
+    });
+    if(flete > 0){
+       this.Subtotal = this.Subtotal + 500;
+    }
+
+    this.IVA = this.Subtotal * 0.16;
+    this.total = this.Subtotal + this.IVA;
+  }
 }

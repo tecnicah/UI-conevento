@@ -14,4 +14,31 @@ export class DetalleProductoComponent implements OnInit {
     console.log("DATA RECIBIDA: ", this.data);
   }
 
+  agregarCantidad(data:any){
+    console.log(data);
+    if(data){
+      this.data.cantidadUnidades++;
+    }else{
+      if(this.data.cantidadUnidades > 0){
+        this.data.cantidadUnidades--;
+      }
+    }
+  }
+
+  agregarhora(data:any){
+    console.log(data);
+    if(data){
+      this.data.cantidadHoras++;
+    }else{
+      if(this.data.cantidadHoras > this.data.minimoProductos){
+        this.data.cantidadHoras--;
+      }
+    }
+  }
+
+  public guardar(){
+     this.data.success = true;
+     this.dialogRef.close(this.data);
+  }
+
 }

@@ -1,22 +1,56 @@
 <!-----------------------------------header-------------------------------------->
 <div class="header">
-  <h2>{{data.producto}}</h2>
-  <mat-icon [mat-dialog-close]="true" style="cursor:pointer">close</mat-icon>
+  <h2 class="color reboto-regular">{{data.producto}} <span class="color_hr reboto-regular"> ({{data.minimoProductos}}hr)</span></h2>
+  <mat-icon [mat-dialog-close]="true" style="cursor:pointer" class="color">close</mat-icon>
 </div>
 
 <!-----------------------------------content-------------------------------------->
 <mat-dialog-content class="mat-typography">
   <div class="contenedor">
-     <div class="row">
-         <div class="col-md-6">
-             
-         </div>
-     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <p>{{data.descripcionCorta}}</p>
+          <p>{{data.descripcionLarga}}</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="heigth">
+          <img [src]="data.imagenSeleccion" alt="" width="100%" class="heigth">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div>
+          <br>
+          <p>Cantidad de {{data.producto}}</p>
+          <div class="tarjeta_footer">
+            <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+              (click)="agregarCantidad(false);">
+            <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
+              [(ngModel)]="data.cantidadUnidades">
+            <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
+              (click)="agregarCantidad(true);">
+          </div>
+
+          <span *ngIf="data.especificarTiempo">Cantidad de horas</span>
+          <div class="tarjeta_footer" *ngIf="data.especificarTiempo">
+            <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+              (click)="agregarhora(false);">
+            <input class="tarjeta_input" type="number" placeholder="Numero de horas" value='0'
+              [(ngModel)]="data.cantidadHoras">
+            <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
+              (click)="agregarhora(true);">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-
-  <button>Save</button>
-
+   <div class="contenedor" style="height: 80px;">
+    <button type="button" class="btn secundary reboto-regular" [mat-dialog-close]="true" >Cancelar</button>
+     &nbsp; &nbsp;
+    <button type="button" class="btn primary reboto-regular" (click)="guardar();">Guardar</button>
+   </div>
 </mat-dialog-actions>
