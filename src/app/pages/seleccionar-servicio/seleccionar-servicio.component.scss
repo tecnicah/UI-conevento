@@ -19,22 +19,23 @@
   font-size: 30px;
 }
 
-.imagenesTarj{
+.imagenesTarj {
   position: relative;
 }
 
 .imagenesTarj:hover::before {
-  content: "+";
+  font-family: 'Material Icons';
+  content: '\e5d4';
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  font-size: 100px;
+  font-size: 50px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: baseline;
+  justify-content: end;
   color: white;
 }
 

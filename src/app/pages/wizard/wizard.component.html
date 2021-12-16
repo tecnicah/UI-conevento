@@ -348,7 +348,7 @@
             <div class="servicios_contenedor_imagen pointer zoom" (click)="selectServices(item);">
               <div id="a" class="servicios_contenedor_interno">
                 <div class="radio">
-                  <span class="span_select" *ngIf="item.numproductos.length > 0"> {{item.numproductos.length}} Elementos
+                  <span class="span_select" style="color: #666666;" *ngIf="item.numproductos.length > 0"> {{item.numproductos.length}} Elementos
                     eleccionados</span>
                   <div class="radio_circle">
                     <img src="./assets/wizard/Vector.svg" alt="" *ngIf="item.checked" class="radio_img">
@@ -358,7 +358,7 @@
                 <p class="servicios_color_texto reboto-regular">{{item.categoria}}</p>
                 <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
               </div>
-              <div id="b" class="none size">{{item.descripcion}}</div>
+              <div id="b" class="none size" style="color: #444444;">{{item.descripcion}}</div>
             </div>
 
           </div>
