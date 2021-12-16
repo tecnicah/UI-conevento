@@ -36,8 +36,32 @@ export class DetalleProductoComponent implements OnInit {
     }
   }
 
+  //DETECTA SUMA O RESTA DE CONTIDADES//
+  public detectarSumaRestaCantidad(model:any){
+    console.log(model);
+    if(model >= 0){
+      this.data.cantidadUnidades = model;
+    }else{
+      this.data.cantidadUnidades = 0;
+    }
+  }
+  //DETECTA SUMA O RESTA DE HORAS//
+  public detectarSumaRestaHoras(model:any){
+    console.log(model);
+    if(model >= this.data.minimoProductos){
+      this.data.cantidadHoras = model;
+    }else{
+      this.data.cantidadHoras = this.data.minimoProductos;
+    }
+  }
+
   public guardar(){
      this.data.success = true;
+     this.dialogRef.close(this.data);
+  }
+
+  public cancelar(){
+    this.data.success = false;
      this.dialogRef.close(this.data);
   }
 

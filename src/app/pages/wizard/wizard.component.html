@@ -389,7 +389,10 @@
               </ng-template>
               <ng-template ngbPanelContent>
                 <div class="servicios_justify">
-                  <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}} {{item.Nombre}}</p>
+                  <div *ngFor="let item of Productos_listado">
+                    <p class="p">{{item.cantidadUnidades}} {{item.Nombre}}</p>
+                    <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7">1 Servicio de flete</p>
+                  </div>
 
                   <div class="separator"></div>
 
@@ -485,7 +488,7 @@
 
           <div class="d-none d-md-block">
             <div class="pagar_paga_btn form-group">
-              <button class="btn pagar_atras Reboto-medium" (click)='after()'>Regresar</button> &nbsp; &nbsp;
+              <button class="btn pagar_atras Reboto-medium" (click)='back_step2()'>Regresar</button> &nbsp; &nbsp;
               <button class="btn pagar__siguiente Reboto-medium" (click)="pagarOpciones(1)">Continuar</button>
             </div>
           </div>
@@ -513,7 +516,10 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                   <div class="servicios_justify">
-                    <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}} {{item.Nombre}}</p>
+                    <div *ngFor="let item of Productos_listado">
+                      <p class="p">{{item.cantidadUnidades}} {{item.Nombre}}</p>
+                      <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7">1 Servicio de flete</p>
+                    </div>
 
                     <div class="separator"></div>
 
@@ -542,7 +548,8 @@
                     </div>
 
                     <div class="pagar_paga_botones  d-block d-md-none">
-                      <button class="btn pagar_atras Reboto-medium" (click)='after()'>Regresar</button> &nbsp; &nbsp;
+                      <button class="btn pagar_atras Reboto-medium" (click)='back_step2()'>Regresar</button> &nbsp;
+                      &nbsp;
                       <button class="btn pagar__siguiente Reboto-medium" (click)="pagarOpciones(2)">Continuar</button>
                     </div>
 
@@ -623,7 +630,10 @@
                 </ng-template>
                 <ng-template ngbPanelContent>
                   <div class="servicios_justify">
-                    <p class="p" *ngFor="let item of Productos_listado">{{item.cantidadUnidades}} {{item.Nombre}}</p>
+                    <div *ngFor="let item of Productos_listado">
+                      <p class="p">{{item.cantidadUnidades}} {{item.Nombre}}</p>
+                      <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7">1 Servicio de flete</p>
+                    </div>
 
                     <div class="separator"></div>
 
@@ -653,7 +663,7 @@
 
                     <div class="pagar_paga_botones  d-block d-md-none">
                       <button class="btn pagar_atras Reboto-medium" (click)="step = 0">Regresar</button> &nbsp; &nbsp;
-                      <button class="btn pagar__siguiente Reboto-medium"  (click)="saveEvent(2)">Continuar</button>
+                      <button class="btn pagar__siguiente Reboto-medium" (click)="saveEvent(2)">Continuar</button>
                     </div>
 
                   </div>

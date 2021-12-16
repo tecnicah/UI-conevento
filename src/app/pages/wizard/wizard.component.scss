@@ -488,6 +488,8 @@
 }
 
 .zoom:hover {
+  height: 250px !important;
+  padding: 20px 0px;
   transform: scale(1.1);
   -moz-transform: scale(1.1);
   /* Firefox */

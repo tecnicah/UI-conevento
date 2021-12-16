@@ -286,6 +286,15 @@ export class WizardComponent implements OnInit {
       }
     }
   }
+
+  public back_step2(){
+    this.steps = {
+      uno: "complete",
+      dos: "selected",
+      tres: "next",
+      cuatro: false
+    }
+  }
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
   public saveEvent(type:any) {

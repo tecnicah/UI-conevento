@@ -16,7 +16,7 @@
           <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
             (click)="agregarCantidad(false);">
           <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-            [(ngModel)]="data.cantidadUnidades">
+            [(ngModel)]="data.cantidadUnidades" (change)="detectarSumaRestaCantidad(data.cantidadUnidades)">
           <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
             (click)="agregarCantidad(true);">
         </div>
@@ -26,7 +26,7 @@
           <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
             (click)="agregarhora(false);">
           <input class="tarjeta_input" type="number" placeholder="Numero de horas" value='0'
-            [(ngModel)]="data.cantidadHoras">
+            [(ngModel)]="data.cantidadHoras" (change)="detectarSumaRestaHoras(data.cantidadHoras)">
           <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
             (click)="agregarhora(true);">
         </div>
@@ -34,7 +34,7 @@
 
       <div>
         <div class="botones_top">
-          <button type="button" class="btn botones_atras Reboto-medium" mat-dialog-close>Cancelar</button>
+          <button type="button" class="btn botones_atras Reboto-medium" mat-dialog-close (click)="cancelar();">Cancelar</button>
           &nbsp;
           <button type="button" class="btn botones_siguiente Reboto-medium" (click)="guardar()">Agregar al carrito</button>
         </div>

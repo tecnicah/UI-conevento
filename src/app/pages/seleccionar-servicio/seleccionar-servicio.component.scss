@@ -19,9 +19,29 @@
   font-size: 30px;
 }
 
+.imagenesTarj{
+  position: relative;
+}
+
+.imagenesTarj:hover::before {
+  content: "+";
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
 .tarjeta {
   &_contenedor_principal {
     margin: 10% 0% 20% 0%;
+    position: relative;
   }
 
   &_img {
@@ -121,15 +141,23 @@
   }
 }
 
-.sizes{
-  &_20{
+.sizes {
+  &_20 {
     font-size: 20px;
   }
-  &_18{
+
+  &_18 {
     font-size: 18px;
   }
-  &_14{
+
+  &_14 {
     font-size: 14px;
+  }
+}
+
+.sizes {
+  &_20:hover {
+    color: #7800E7;
   }
 }
 
@@ -150,28 +178,30 @@
       width: 85% !important;
     }
   }
-  .fix{
+
+  .fix {
     width: 35% !important;
   }
 }
 
 
-.btn-wsp{
-  position:fixed;
-  width:150px;
-  height:60px;
+.btn-wsp {
+  position: fixed;
+  width: 150px;
+  height: 60px;
   line-height: 63px;
-  bottom:40px;
-  right:25px;
-  background:#1E003A;
-  color:#FFF;
-  border-radius:50px;
-  text-align:center;
-  font-size:15px;
-  box-shadow: 0px 1px 10px rgba(0,0,0,0.3);
-  z-index:100;
+  bottom: 40px;
+  right: 25px;
+  background: #1E003A;
+  color: #FFF;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 12px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
+  z-index: 100;
   transition: all 300ms ease;
 }
-.btn-wsp:hover{
+
+.btn-wsp:hover {
   background: #1E003A;
 }

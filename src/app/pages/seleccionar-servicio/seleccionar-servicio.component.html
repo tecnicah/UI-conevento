@@ -17,14 +17,20 @@
 
       <div class="col-md-3" *ngFor="let item of productos; let i = index">
         <div class="tarjeta_contenedor_principal">
-          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img pointer d-none d-md-block"
-            (click)="detalle(1, item)">
-          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img pointer d-block d-md-none"
-            (click)="detalle(2, item)">
+
+          <div class="imagenesTarj d-none d-md-block pointer" (click)="detalle(1, item)">
+            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+          </div>
+
+          <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
+            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+          </div>
+
           <div class="tarjeta_contendor">
-            <p class="Reboto-medium sizes_20">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_18">{{item.precioPorUnidad | currency}}&nbsp;<span class="tarjeta_color sizes_14"
-                *ngIf="item.especificarTiempo">({{item.minimoProductos}} hr)</span> </p>
+            <p class="Reboto-medium sizes_20 pointer d-none d-md-block" (click)="detalle(1, item)">{{item.producto}}</p>
+            <p class="Reboto-medium sizes_20 pointer d-block d-md-none" (click)="detalle(2, item)">{{item.producto}}</p>
+            <p class="Reboto-medium sizes_18">{{item.precioPorUnidad | currency}}&nbsp;<span
+                class="tarjeta_color sizes_14" *ngIf="item.especificarTiempo">({{item.minimoProductos}} hr)</span> </p>
             <p class="tarjeta_justificado sizes_14">
               {{item.descripcionCorta}}
             </p>
@@ -33,7 +39,8 @@
               <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
                 (click)="agregarCantidad(false, i);">
               <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-                [(ngModel)]="item.cantidadUnidades">
+                [(ngModel)]="item.cantidadUnidades"
+                (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, i);'>
               <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
                 (click)="agregarCantidad(true, i);" alt="" class="pointer">
             </div>
@@ -41,7 +48,8 @@
             <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
               <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
                 (click)="agregarhora(false, i, item);">
-              <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras">
+              <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
+                (change)="detectarSumaRestaHoras(item.cantidadHoras, item, i)">
               <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
                 (click)="agregarhora(true, i, item);">
             </div>

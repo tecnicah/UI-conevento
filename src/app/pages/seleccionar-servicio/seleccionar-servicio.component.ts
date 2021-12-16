@@ -49,8 +49,30 @@ export class SeleccionarServicioComponent implements OnInit {
     })
   }
   //*************************************************************************//
+  //DETECTA SUMA O RESTA DE CONTIDADES//
+  public detectarSumaRestaCantidad(model:any, item:any, i:any){
+    console.log(model);
+    console.log(item);
+    if(model >= 0){
+      this.productos[i].cantidadUnidades = model;
+      this.calculos();
+    }else{
+      this.productos[i].cantidadUnidades = 0;
+      this.calculos();
+    }
+  }
+  //DETECTA SUMA O RESTA DE HORAS//
+  public detectarSumaRestaHoras(model:any, item:any, i:any){
+    console.log(model);
+    console.log(item);
+    if(model >= item.minimoProductos){
+      this.productos[i].cantidadHoras = model;
+    }else{
+      this.productos[i].cantidadHoras = item.minimoProductos;
+    }
+  }
   //FUNCION PARA AGREGAR CANTIDADES//
-  agregarCantidad(data:any, i:any, ){
+  public agregarCantidad(data:any, i:any, ){
     console.log(data);
     if(data){
       this.productos[i].cantidadUnidades++;
@@ -63,7 +85,7 @@ export class SeleccionarServicioComponent implements OnInit {
     }
   }
   //FUNCION PARA AGREGAR HORAS//
-  agregarhora(data:any, i:any, item:any){
+  public agregarhora(data:any, i:any, item:any){
     console.log(data);
     if(data){
       this.productos[i].cantidadHoras++;
@@ -137,6 +159,7 @@ export class SeleccionarServicioComponent implements OnInit {
   }
   //*************************************************************************//
   detalle(type:any, item:any){
+      localStorage.setItem('detalle', JSON.stringify(item))
       let ancho = '';
       if(type==1){
         ancho = '80%';
@@ -149,9 +172,16 @@ export class SeleccionarServicioComponent implements OnInit {
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        if (result) {
+        if (result.success) {
           console.log(result);
           this.guardarServiciosElegidosDetalle(result);
+        }else if(!result.success){
+          let info_respaldo = JSON.parse(localStorage.getItem('detalle') || '{}');
+           for (let i = 0; i < this.productos.length; i++) {
+             if(this.productos[i].id == item.id){
+              this.productos[i] = info_respaldo;
+             }
+           }
         }
       })
   }
