@@ -1,4 +1,4 @@
-<div style="width: 100%;">
+<div style="width: 100%;" class="d-none d-md-block">
   <div class="contenedor">
     <div class="contenedorIMG">
       <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
@@ -6,7 +6,8 @@
     <div>&nbsp;</div>
     <div class="contenedorINFO">
       <p class="Reboto-medium title">{{data.producto}}</p>
-      <p class="subtitle">{{data.precioPorUnidad | currency}} <span class="subtitle_hr"> ({{data.minimoProductos}} hr)</span></p>
+      <p class="subtitle">{{data.precioPorUnidad | currency}} <span class="subtitle_hr"> ({{data.minimoProductos}}
+          hr)</span></p>
       <p class="description">{{data.descripcionCorta}}</p>
       <p class="description">{{data.descripcionLarga}}</p>
 
@@ -34,9 +35,11 @@
 
       <div>
         <div class="botones_top">
-          <button type="button" class="btn botones_atras Reboto-medium" mat-dialog-close (click)="cancelar();">Cancelar</button>
+          <button type="button" class="btn botones_atras Reboto-medium" mat-dialog-close
+            (click)="cancelar();">Cancelar</button>
           &nbsp;
-          <button type="button" class="btn botones_siguiente Reboto-medium" (click)="guardar()">Agregar al carrito</button>
+          <button type="button" class="btn botones_siguiente Reboto-medium" (click)="guardar()">Agregar al
+            carrito</button>
         </div>
       </div>
 
@@ -44,38 +47,57 @@
     </div>
   </div>
 </div>
-<!--div class="col-md-12">
-        <div>
-          <p>{{data.descripcionCorta}}</p>
-          <p>{{data.descripcionLarga}}</p>
-        </div>
+
+
+
+<div style="width: 100%;" class="d-block d-md-none">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="contenedorIMG">
+        <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
       </div>
-      <div class="col-md-6">
-        <div class="heigth">
-          <img [src]="data.imagenSeleccion" alt="" width="100%" class="heigth">
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div>
-          <br>
-          <p>Cantidad de {{data.producto}}</p>
+    </div>
+
+    <div class="col-md-12">
+      <div class="contenedorINFO">
+        <p class="Reboto-medium title">{{data.producto}}</p>
+        <p class="subtitle">{{data.precioPorUnidad | currency}} <span class="subtitle_hr"> ({{data.minimoProductos}}
+            hr)</span></p>
+        <p class="description">{{data.descripcionCorta}}</p>
+        <p class="description">{{data.descripcionLarga}}</p>
+
+        <div class="agregar">
+          <div class="description description_center">Cantidad</div>
           <div class="tarjeta_footer">
             <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
               (click)="agregarCantidad(false);">
             <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-              [(ngModel)]="data.cantidadUnidades">
+              [(ngModel)]="data.cantidadUnidades" (change)="detectarSumaRestaCantidad(data.cantidadUnidades)">
             <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
               (click)="agregarCantidad(true);">
           </div>
 
-          <span *ngIf="data.especificarTiempo">Cantidad de horas</span>
+          <div *ngIf="data.especificarTiempo" class="description description_center">Cantidad de horas</div>
           <div class="tarjeta_footer" *ngIf="data.especificarTiempo">
             <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
               (click)="agregarhora(false);">
             <input class="tarjeta_input" type="number" placeholder="Numero de horas" value='0'
-              [(ngModel)]="data.cantidadHoras">
+              [(ngModel)]="data.cantidadHoras" (change)="detectarSumaRestaHoras(data.cantidadHoras)">
             <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
               (click)="agregarhora(true);">
           </div>
         </div>
-      </div-->
+
+        <div>
+          <div class="botones_top">
+            <button type="button" class="btn botones_atras Reboto-medium" mat-dialog-close
+              (click)="cancelar();">Cancelar</button>
+            &nbsp;
+            <button type="button" class="btn botones_siguiente Reboto-medium" (click)="guardar()">Agregar al
+              carrito</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
