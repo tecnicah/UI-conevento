@@ -139,7 +139,7 @@ export class SeleccionarServicioComponent implements OnInit {
   detalle(type:any, item:any){
       let ancho = '';
       if(type==1){
-        ancho = '50%';
+        ancho = '80%';
       }else{
         ancho = '100%';
       }
