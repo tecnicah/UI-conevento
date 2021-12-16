@@ -317,6 +317,7 @@ export class WizardComponent implements OnInit {
         })
         this.auth.data_form = {};
         this.auth.listaProductosEventos = [];
+        this.Productos_listado = [];
         localStorage.removeItem('form');
         localStorage.removeItem('productos');
         localStorage.removeItem('categorias');
@@ -403,5 +404,15 @@ export class WizardComponent implements OnInit {
       }
     });
     console.log(this.categorias);
+  }
+
+  public reStart(){
+    this.steps = {
+      uno: "selected",
+      dos: "next",
+      tres: "next",
+      cuatro: false
+    }
+    this.ngOnInit();
   }
 }

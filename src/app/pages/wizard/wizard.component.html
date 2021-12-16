@@ -685,7 +685,7 @@
       </div>
 
       <div class="contenedor_uno_contenedor_botones ancho">
-        <button class="btn contenedor_uno_siguiente Reboto-medium" [routerLink]="['/']">Armar otro evento</button>
+        <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="reStart();">Armar otro evento</button>
         <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
           routerLinkActive="router-link-active">Ir al inicio</button>
       </div>
