@@ -25,7 +25,7 @@
 
           <div class="info">
             <span class="Reboto-medium">1.- Agenda</span><br>
-            <span class="info description">Especifica el momento, el lugar y los invitados de tu evento</span> 
+            <span class="info description">Especifica el momento, el lugar y los invitados de tu evento</span>
           </div>
         </div>
 
@@ -335,6 +335,11 @@
   </div>
   <!------------------paso 2----------------->
   <div class="container" *ngIf="steps.dos == 'selected'">
+    <div class="titulos_stepper">
+      <img src="./assets/wizard/step_dos.png" alt="" class="titulos_stepper_img">
+      &nbsp;
+      <span class="Reboto-medium">Selecciona servicios</span>
+    </div>
     <div class="row contenedor_uno">
       <div class="col-md-7">
         <div class="row">
@@ -343,6 +348,8 @@
             <div class="servicios_contenedor_imagen pointer zoom" (click)="selectServices(item);">
               <div id="a" class="servicios_contenedor_interno">
                 <div class="radio">
+                  <span class="span_select" *ngIf="item.numproductos.length > 0"> {{item.numproductos.length}} Elementos
+                    eleccionados</span>
                   <div class="radio_circle">
                     <img src="./assets/wizard/Vector.svg" alt="" *ngIf="item.checked" class="radio_img">
                   </div>
@@ -351,7 +358,7 @@
                 <p class="servicios_color_texto reboto-regular">{{item.categoria}}</p>
                 <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
               </div>
-              <div id="b" class="none size">{{item.descCorta}}</div>
+              <div id="b" class="none size">{{item.descripcion}}</div>
             </div>
 
           </div>
@@ -367,7 +374,7 @@
             <ngb-panel id="custom-panel-1">
               <ng-template ngbPanelHeader let-opened="opened">
                 <div class="d-flex align-items-center justify-content-between">
-                  <p class="reboto-regular">Solicitud de servicios</p>
+                  <p class="Reboto-medium pTotal">Solicitud de servicios</p>
                   <button ngbPanelToggle class="btn btn-link p-0">
                     <!--OPEN ICON-->
                     <span class="material-icons icon_color" *ngIf="!opened">
@@ -399,21 +406,21 @@
                   <div class="separator"></div>
 
                   <div class="total">
-                    <span class="p">Servicios</span>
-                    <span class="p">{{Productos_listado.length}}</span>
+                    <span class="p Reboto-medium">Servicios</span>
+                    <span class="p Reboto-medium">{{Productos_listado.length}}</span>
                   </div>
 
                   <div class="separator"></div>
 
                   <div class="total">
-                    <span class="p reboto-regular">Total</span>
-                    <span class="p">{{total | currency}}</span>
+                    <span class="pTotal Reboto-medium">Total</span>
+                    <span class="p Reboto-medium">{{total | currency}}</span>
                   </div>
 
                 </div>
 
                 <div class="pagar_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
-                  <button class="btn pagar_siguiente reboto-regular" (click)="next()">Pagar</button>
+                  <button class="btn pagar_siguiente Reboto-medium" (click)="next()">Pagar</button>
                 </div>
               </ng-template>
             </ngb-panel>
@@ -423,35 +430,37 @@
     </div>
 
     <div class="contenedor_uno_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
-      <button class="btn contenedor_uno_atras reboto-regular" (click)="after()">Regresar</button>
+      <button class="btn contenedor_uno_atras Reboto-medium" (click)="after()">Regresar</button>
     </div>
   </div>
 
   <!------------------paso 3----------------->
   <div *ngIf="steps.tres == 'selected'">
     <div class="container" *ngIf="step == 0">
+      <div class="titulos_stepper_paga">
+        <img src="./assets/wizard/step_tres.png" alt="" class="titulos_stepper_img">
+        &nbsp;
+        <span class="Reboto-medium">Confirma y Paga</span>
+      </div>
       <div class="row contenedor_cuatro">
         <div class="col-md-7">
-          <div>
-            <p class="titleHeader reboto-regular">Confirma y Paga</p>
-          </div>
-
           <div class="eventos_seleccionados">
-            <p class="reboto-regular">Agendaste tu evento</p>
+            <p class="Reboto-medium eventos_seleccionados_titulo">Agendaste tu evento</p>
             <div class="eventos_seleccionados_flex">
-              <span
-                class="reboto-regular">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data_model.fechaHoraInicio |  date: 'short'}}</span></span>
+              <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio |  date: 'short'}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
               <span
-                class="reboto-regular">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{data_model.fechaHoraFin | date: 'short'}}</span></span>
+                class="Reboto-medium eventos_seleccionados_titulo">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraFin | date: 'short'}}</span></span>
             </div>
           </div>
 
           <div class="eventos_seleccionados">
-            <p class="reboto-regular">En la dirección</p>
+            <p class="Reboto-medium eventos_seleccionados_titulo">En la dirección</p>
             <div class="eventos_seleccionados_flex">
-              <span>
+              <span class="eventos_seleccionados_descripcion">
                 Calle {{data_model.calleNumero}}, Colonia {{data_model.colonia}} Código postal {{data_model.cp}}, CDMX
                 {{getName(data_model.idCatMunicipio)}}
               </span>
@@ -459,33 +468,37 @@
           </div>
 
           <div class="eventos_seleccionados">
-            <p class="reboto-regular">Datos de contacto</p>
+            <p class="Reboto-medium eventos_seleccionados_titulo">Datos de contacto</p>
             <div class="eventos_seleccionados_flex">
-              <span class="reboto-regular">Nombre contratante <span>{{data_model.nombreContratane}}</span></span>
+              <span class="Reboto-medium eventos_seleccionados_titulo">Nombre contratante <span
+                  class="eventos_seleccionados_descripcion">{{data_model.nombreContratane}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
-              <span class="reboto-regular">Correo electrónico <span>{{data_model.correo}}</span></span>
+              <span class="Reboto-medium eventos_seleccionados_titulo">Correo electrónico <span
+                  class="eventos_seleccionados_descripcion">{{data_model.correo}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
-              <span class="reboto-regular">Teléfono <span>{{data_model.telefono}}</span></span>
+              <span class="Reboto-medium eventos_seleccionados_titulo">Teléfono <span
+                  class="eventos_seleccionados_descripcion">{{data_model.telefono}}</span></span>
             </div>
           </div>
 
-          <div class="pagar_paga_botones form-group d-none d-md-block">
-            <button class="btn pagar_atras reboto-regular" (click)='after()'>Regresar</button> &nbsp; &nbsp;
-            <button class="btn pagar__siguiente reboto-regular" (click)="pagarOpciones()">Continuar</button>
+          <div class="d-none d-md-block">
+            <div class="pagar_paga_btn form-group">
+              <button class="btn pagar_atras Reboto-medium" (click)='after()'>Regresar</button> &nbsp; &nbsp;
+              <button class="btn pagar__siguiente Reboto-medium" (click)="pagarOpciones(1)">Continuar</button>
+            </div>
           </div>
 
         </div>
         <div class="col-md-5">
           <div class="servicios servicios_bgcolor">
             <img src="./assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
-
             <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
               <ngb-panel id="custom-panel-1">
                 <ng-template ngbPanelHeader let-opened="opened">
                   <div class="d-flex align-items-center justify-content-between">
-                    <p class="reboto-regular">Solicitud de servicios</p>
+                    <p class="Reboto-medium pTotal">Solicitud de servicios</p>
                     <button ngbPanelToggle class="btn btn-link p-0">
                       <!--OPEN ICON-->
                       <span class="material-icons icon_color" *ngIf="!opened">
@@ -517,20 +530,20 @@
                     <div class="separator"></div>
 
                     <div class="total">
-                      <span class="p">Servicios</span>
-                      <span class="p">{{Productos_listado.length}}</span>
+                      <span class="p Reboto-medium">Servicios</span>
+                      <span class="p Reboto-medium">{{Productos_listado.length}}</span>
                     </div>
 
                     <div class="separator"></div>
 
                     <div class="total">
-                      <span class="p reboto-regular">Total</span>
-                      <span class="p">{{total | currency}}</span>
+                      <span class="pTotal Reboto-medium">Total</span>
+                      <span class="p Reboto-medium">{{total | currency}}</span>
                     </div>
 
-                    <div class="pagar_paga_botones form-group d-block d-md-none">
-                      <button class="btn pagar_atras reboto-regular" (click)='after()'>Cancelar</button> &nbsp; &nbsp;
-                      <button class="btn pagar__siguiente reboto-regular" (click)="pagarOpciones()">Continuar</button>
+                    <div class="pagar_paga_botones  d-block d-md-none">
+                      <button class="btn pagar_atras Reboto-medium" (click)='after()'>Regresar</button> &nbsp; &nbsp;
+                      <button class="btn pagar__siguiente Reboto-medium" (click)="pagarOpciones(2)">Continuar</button>
                     </div>
 
                   </div>
@@ -543,10 +556,15 @@
     </div>
 
     <div class="container" *ngIf="step == 1">
+      <div class="titulos_stepper_paga">
+        <img src="./assets/wizard/step_tres.png" alt="" class="titulos_stepper_img">
+        &nbsp;
+        <span class="Reboto-medium">Confirma y Paga</span>
+      </div>
       <div class="row contenedor_cuatro">
         <div class="col-md-7">
           <div>
-            <p class="titleHeader reboto-regular">Como quieres pagar</p>
+            <p class="titleHeader Reboto-medium">¿Como quieres pagar?</p>
           </div>
 
           <div class="btn-group flex">
@@ -574,12 +592,12 @@
                 <label for="btnradio2" class="pago_tarjeta_label pointer">Pago en Oxxo</label>
               </div>
             </div>
-
-          </div>
-          <div class="pagar_paga_botones form-group d-none d-md-block">
-            <button class="btn pagar_atras reboto-regular" (click)="step = 0">Regresar</button> &nbsp; &nbsp;
-            <button class="btn pagar__siguiente reboto-regular d-none d-md-block"
-              (click)="saveEvent(1)">Continuar</button>
+            <div class="d-none d-md-block">
+              <div class="pagar_paga_btn form-group">
+                <button class="btn pagar_atras Reboto-medium" (click)='step = 0'>Regresar</button> &nbsp; &nbsp;
+                <button class="btn pagar__siguiente Reboto-medium" (click)="saveEvent(1)">Continuar</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-md-5">
@@ -590,7 +608,7 @@
               <ngb-panel id="custom-panel-1">
                 <ng-template ngbPanelHeader let-opened="opened">
                   <div class="d-flex align-items-center justify-content-between">
-                    <p class="reboto-regular">Solicitud de servicios</p>
+                    <p class="Reboto-medium pTotal">Solicitud de servicios</p>
                     <button ngbPanelToggle class="btn btn-link p-0">
                       <!--OPEN ICON-->
                       <span class="material-icons icon_color" *ngIf="!opened">
@@ -622,21 +640,20 @@
                     <div class="separator"></div>
 
                     <div class="total">
-                      <span class="p">Servicios</span>
-                      <span class="p">{{Productos_listado.length}}</span>
+                      <span class="p Reboto-medium">Servicios</span>
+                      <span class="p Reboto-medium">{{Productos_listado.length}}</span>
                     </div>
 
                     <div class="separator"></div>
 
                     <div class="total">
-                      <span class="p reboto-regular">Total</span>
-                      <span class="p">{{total | currency}}</span>
+                      <span class="pTotal Reboto-medium">Total</span>
+                      <span class="p Reboto-medium">{{total | currency}}</span>
                     </div>
 
-                    <div class="pagar_paga_botones form-group d-block d-md-none">
-                      <button class="btn pagar_atras reboto-regular" (click)="step = 0">Cancelar</button> &nbsp; &nbsp;
-                      <button class="btn pagar__siguiente reboto-regular d-block d-md-none"
-                        (click)="saveEvent(2)">Continuar</button>
+                    <div class="pagar_paga_botones  d-block d-md-none">
+                      <button class="btn pagar_atras Reboto-medium" (click)="step = 0">Regresar</button> &nbsp; &nbsp;
+                      <button class="btn pagar__siguiente Reboto-medium"  (click)="saveEvent(2)">Continuar</button>
                     </div>
 
                   </div>
@@ -651,13 +668,16 @@
 
   <!------------------paso 4----------------->
   <div class="container" *ngIf="steps.cuatro">
+    <div class="titulos_stepper_paga">
+      &nbsp;
+    </div>
     <div class="row">
       <div class="step_final_center">
         <div class="step_final">
-          <p class="step_final_color reboto-regular step_final_size">¡Disfruta de tu evento!</p>
+          <p class="step_final_color Reboto-medium step_final_size">¡Disfruta de tu evento!</p>
           <img src="./assets/wizard/Group 92.png" alt="" class="step_final_img">
-          <p class="step_final_color reboto-regular">Gracias por tu preferencia</p>
-          <p>Un asesor se pondrá en contacto contigo en 2 hrs. <br>
+          <p class="step_final_color Reboto-medium step_final_size_">Gracias por tu preferencia</p>
+          <p class="step_final_descripcion">Un asesor se pondrá en contacto contigo en 2 hrs. <br>
             Te acompañará y asegurará de que tu evento sea
             un éxito.
           </p>
@@ -665,8 +685,8 @@
       </div>
 
       <div class="contenedor_uno_contenedor_botones ancho">
-        <button class="btn contenedor_uno_siguiente reboto-regular" [routerLink]="['/']">Armar otro evento</button>
-        <button class="btn contenedor_uno_atras reboto-regular" [routerLink]="['/']"
+        <button class="btn contenedor_uno_siguiente Reboto-medium" [routerLink]="['/']">Armar otro evento</button>
+        <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
           routerLinkActive="router-link-active">Ir al inicio</button>
       </div>
     </div>

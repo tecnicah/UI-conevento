@@ -88,6 +88,12 @@
   display: flex;
   align-items: center;
 
+  &_paga {
+    width: 72% !important;
+    margin: auto;
+    font-size: 30px;
+  }
+
   &_img {
     width: 44px;
     height: 44px;
@@ -159,7 +165,11 @@
 }
 
 .p {
-  font-size: 12px;
+  font-size: 18px;
+}
+
+.pTotal {
+  font-size: 20px;
 }
 
 .contenedor_cuatro {
@@ -189,7 +199,16 @@
   }
 
   &_size {
-    font-size: 24px;
+    font-size: 26px;
+  }
+
+  &_size_ {
+    font-size: 18px;
+  }
+
+  &_descripcion{
+    font-size: 18px;
+    color: #666666;
   }
 
   &_img {
@@ -212,6 +231,16 @@
   &_flex {
     display: flex;
     justify-content: space-between;
+  }
+
+  &_titulo {
+    font-size: 20px;
+    color: #333333
+  }
+
+  &_descripcion {
+    font-size: 20px;
+    color: #777777;
   }
 }
 
@@ -277,29 +306,38 @@
 
   &_siguiente {
     background-color: #F6D788;
-    font-size: 15px;
-    color: black;
-    width: 70%;
+    font-size: 18px;
+    color: #333333;
+    width: 190px;
+    height: 53px;
   }
 
   &__siguiente {
     background-color: #F6D788;
-    font-size: 15px;
-    color: black;
-    width: 20%;
+    font-size: 18px;
+    color: #1E003A;
+    width: 190px;
+    height: 53px;
   }
 
   &_atras {
     background-color: transparent;
-    font-size: 15px;
-    width: 20%;
+    font-size: 18px;
+    width: 190px;
     color: #7800E7;
   }
 
   &_paga_botones {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     width: 100%;
+  }
+
+  &_paga_btn {
+    display: flex !important;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 10%;
   }
 }
 
@@ -401,12 +439,13 @@
         color: #5C02B0;
         font-size: 14px;
       }
-      .description{
+
+      .description {
         font-size: 12px !important;
         color: #666666;
       }
     }
-    
+
   }
 
   .finish-step {
@@ -489,7 +528,7 @@
 
 
 @media only screen and (max-width: 575px) {
- 
+
   .contenedor_uno {
     width: 100%;
   }
@@ -502,7 +541,7 @@
 
   .pagar {
     &__siguiente {
-      width: 40% !important;
+      width: 50% !important;
     }
 
     &_atras {
@@ -511,6 +550,7 @@
 
     &_paga_botones {
       justify-content: center !important;
+      margin-top: 70px;
     }
   }
 
@@ -520,18 +560,50 @@
     }
   }
 
-  .titulos_stepper{
-     width: 100%;
-     font-size: 25px !important;
+  .titulos_stepper {
+    width: 100%;
+    font-size: 25px !important;
+    &_paga {
+      width: 90% !important;
+      margin: auto;
+      font-size: 25px !important;
+    }
   }
 
-  .stepers{
-    .step{
-      .info{
-        span{
+  .stepers {
+    .step {
+      .info {
+        span {
           font-size: 12px !important;
         }
       }
     }
   }
+
+  .eventos_seleccionados {
+    &_titulo {
+      font-size: 14px !important;
+    }
+
+    &_descripcion {
+      font-size: 14px !important;
+    }
+  }
+
+  .pTotal{
+    font-size: 14px !important;
+  }
+
+  .p{
+    font-size: 12px !important;
+  }
+
+  .contenedor_cuatro{
+    margin: 10% auto;
+  }
+}
+
+.span_select {
+  font-size: 11px;
+  margin-left: 5px;
 }

@@ -108,6 +108,11 @@ export class SeleccionarServicioComponent implements OnInit {
       }
     });
 
+    this.auth.categorias.personal1 = false;
+    this.auth.categorias.talento3 = false;
+    this.auth.categorias.alimentos5 = false;
+    this.auth.categorias.mobiliario6 = false;
+    this.auth.categorias.luces7 = false;
     this.auth.listaProductosEventos.forEach((E:any) => {
       if(E.idCategoria == 1){
          this.auth.categorias.personal1 = true;

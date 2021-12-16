@@ -26,80 +26,103 @@ export class WizardComponent implements OnInit {
   //CATALOGOS//
   public categorias: any = [];
   public catalogos() {
+    this.spinner.show();
     this.auth.service_general_get('Catalog/Cat_Categorias').subscribe(observer => {
       if (observer.result) {
         this.categorias = observer.result;
         this.categorias.forEach((E:any) => {
-          E.descCorta = E.descripcion;
           if(E.id == 1){
              E.checked = this.auth.categorias.personal1;
+             E.numproductos = [];
           }
           if(E.id == 3){
             E.checked = this.auth.categorias.talento3;
+            E.numproductos = [];
           }
           if(E.id == 5){
             E.checked = this.auth.categorias.alimentos5;
+            E.numproductos = [];
           }
           if(E.id == 6){
             E.checked = this.auth.categorias.mobiliario6;
+            E.numproductos = [];
           }
           if(E.id == 7){
             E.checked = this.auth.categorias.luces7;
+            E.numproductos = [];
           }
         });
         console.log(this.categorias);
+        this.initSettings(); 
+        
       }
     }, (err) => {
       console.log(err);
     })
   }
-  //*******************************************// 
-  //FUNCIONES PARA VALIDACION DE FORMULARIO//
-  public total = 0;
-  public Subtotal = 0;
-  public IVA = 0;
+  //*******************************************//
+  //INICIALIZACION DE PARAMETROS//
   ngOnInit() {
     this.catalogos();
-    if(localStorage.getItem('categorias')){
-       this.auth.categorias = JSON.parse(localStorage.getItem('categorias') || '{}');
-    }
-    if(localStorage.getItem('form')){
-      this.data_model = JSON.parse(localStorage.getItem('form') || '{}');
-      this.auth.data_form = JSON.parse(localStorage.getItem('form') || '{}');;
-    }
-    
-    if (localStorage.getItem('productos')) {
-      this.Productos_listado = JSON.parse(localStorage.getItem('productos') || '{}');
-      this.auth.listaProductosEventos = JSON.parse(localStorage.getItem('productos') || '{}');
-      if (this.Productos_listado.length != 0) {
-        this.steps = {
-          uno: "complete",
-          dos: "selected",
-          tres: "next",
-          cuatro: false
-        }
-        this.calculos();
-      }
-    }
     this.firstFormGroup = this._formBuilder.group({
       fechaHoraInicio: new FormControl(null, Validators.compose([Validators.required])),
       fechaHoraFin: ['', Validators.required],
       genteEsperada: ['', Validators.required],
-
+ 
       ciudad: [1, Validators.required],
       idCatMunicipio: ['', Validators.required],
       cp: [''],
       calleNumero: ['', Validators.required],
       colonia: ['', Validators.required],
-
+ 
       nombreContratane: ['', Validators.required],
       nombreEvento: [''],
       correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
       telefono: ['', Validators.required],
     });
-    if (localStorage.getItem('form')) {
-      this.fillForm();
-    }
+  }
+  
+  //*******************************************// 
+  //FUNCIONES PARA VALIDACION DE FORMULARIO//
+  public total = 0;
+  public Subtotal = 0;
+  public IVA = 0;
+  public initSettings(){
+    
+    if(localStorage.getItem('categorias')){
+      this.auth.categorias = JSON.parse(localStorage.getItem('categorias') || '{}');
+   }
+   if(localStorage.getItem('form')){
+     this.data_model = JSON.parse(localStorage.getItem('form') || '{}');
+     this.auth.data_form = JSON.parse(localStorage.getItem('form') || '{}');
+     this.steps = {
+       uno: "complete",
+       dos: "selected",
+       tres: "next",
+       cuatro: false
+     }
+   }
+   
+   if (localStorage.getItem('productos')) {
+     this.Productos_listado = JSON.parse(localStorage.getItem('productos') || '{}');
+     this.auth.listaProductosEventos = JSON.parse(localStorage.getItem('productos') || '{}');
+     if (this.Productos_listado.length != 0) {
+       this.steps = {
+         uno: "complete",
+         dos: "selected",
+         tres: "next",
+         cuatro: false
+       }
+       this.calculos();
+     }
+   }
+   this.setNumProductos();
+   this.setchecks();
+   
+   if (localStorage.getItem('form')) {
+     this.fillForm();
+   }
+   this.spinner.hide();
   }
 
   get f() {
@@ -185,8 +208,25 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCIONES PARA PASO 3//
   public step = 0;
-  public pagarOpciones() {
-    this.step = 1;
+  public pagarOpciones(type:any) {
+    if(!localStorage.getItem('userData')){
+      let ancho = '';
+      if(type==1){
+        ancho = '50%';
+      }else{
+        ancho = '100%';
+      }
+      const dialogRef = this._dialog.open(LoginComponent, {
+        width: ancho
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        this.step = 1;
+      })
+    }else{
+      this.step = 1;
+    }
+    
   }
   //*******************************************//
   //FUNCIONES PARA CONTROL DE STEPPER//
@@ -249,23 +289,6 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
   public saveEvent(type:any) {
-    if(!localStorage.getItem('userData')){
-      let ancho = '';
-      if(type==1){
-        ancho = '50%';
-      }else{
-        ancho = '100%';
-      }
-      const dialogRef = this._dialog.open(LoginComponent, {
-        width: ancho
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-  
-        }
-      })
-    }
     this.next();
     this.spinner.show();
     let json_bd: any = this.auth.data_form;
@@ -321,5 +344,64 @@ export class WizardComponent implements OnInit {
         return this.alcaldias[i].municipio;
       }
     }
+  }
+  //*******************************************//
+  //FUNCIONA PARA MARCAR CATEGORIA CON PRODUCTO//
+  //SELECCIONADOS//  
+  public setchecks(){
+    console.log("ENTRA A LA FUNCION CHECKS");
+    this.auth.categorias.personal1 = false;
+    this.auth.categorias.talento3 = false;
+    this.auth.categorias.alimentos5 = false;
+    this.auth.categorias.mobiliario6 = false;
+    this.auth.categorias.luces7 = false;
+    this.auth.listaProductosEventos.forEach((E:any) => {
+      if(E.idCategoria == 1){
+         this.auth.categorias.personal1 = true;
+      }
+      if(E.idCategoria == 3){
+        this.auth.categorias.talento3 = true;
+      }
+      if(E.idCategoria == 5){
+        this.auth.categorias.alimentos5 = true;
+      }
+      if(E.idCategoria == 6){
+        this.auth.categorias.mobiliario6 = true;
+      }
+      if(E.idCategoria == 7){
+        this.auth.categorias.luces7 = true;
+      }
+    });
+    this.categorias.forEach((E:any) => {
+      if(E.id == 1){
+         E.checked = this.auth.categorias.personal1;
+      }
+      if(E.id == 3){
+        E.checked = this.auth.categorias.talento3;
+      }
+      if(E.id == 5){
+        E.checked = this.auth.categorias.alimentos5;
+      }
+      if(E.id == 6){
+        E.checked = this.auth.categorias.mobiliario6;
+      }
+      if(E.id == 7){
+        E.checked = this.auth.categorias.luces7;
+      }
+    });
+  }
+  //*******************************************//
+  //FUNCIONA PARA MARCAR MOSTRAR LOS PRODUCTOS //
+  //SELECCIONADOS EN CADA CATEGORIA//  
+  public setNumProductos(){
+   
+    this.categorias.forEach((E:any) => {
+      for (let i = 0; i < this.Productos_listado.length; i++) {
+        if(E.id == this.Productos_listado[i].idCategoria){
+          E.numproductos.push(this.Productos_listado[i]);
+       }
+      }
+    });
+    console.log(this.categorias);
   }
 }
