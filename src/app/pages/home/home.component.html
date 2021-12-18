@@ -246,8 +246,10 @@
       </div>
     </div>
 
+
     <div class="col-md-12">
-      <swiper [slidesPerView]="3" [spaceBetween]="30" [pagination]="{clickable: true}" class="mySwiper">
+      <swiper [slidesPerView]="3" [spaceBetween]="30" [pagination]="{clickable: true}"
+        class="mySwiper d-none d-md-block">
         <ng-template swiperSlide>
           <div class="carrusell_tarjeta">
             <img src="./assets/home-dos/uno.png" alt="">
@@ -291,12 +293,55 @@
           </div>
         </ng-template>
       </swiper>
+
+      <swiper [slidesPerView]="1" [spaceBetween]="30" [pagination]="{clickable: true}"
+        class="mySwiper d-block d-md-none">
+        <ng-template swiperSlide>
+          <div class="carrusell_tarjeta">
+            <img src="./assets/home-dos/uno.png" alt="">
+            <div class="carrusell_margin">
+              <p>Fueron los mejores para mi evento. Todos mis invitados quedaron facsinados.</p>
+              <p class="carrusell_pie">30 años by Conevento</p>
+            </div>
+            <div class="carrusell_contenedorArrows">
+              <img src="./assets/home-dos/back.png" alt="" class="carrusell_arrows">
+              &nbsp;
+              <img src="./assets/home-dos/next.png" alt="" class="carrusell_arrows">
+            </div>
+          </div>
+        </ng-template>
+        <ng-template swiperSlide>
+          <div class="carrusell_tarjeta">
+            <img src="./assets/home-dos/dos.png" alt="">
+            <div class="carrusell_margin">
+              <p>Fueron los mejores para mi evento. Todos mis invitados quedaron facsinados.</p>
+              <p class="carrusell_pie">30 años by Conevento</p>
+            </div>
+            <div class="carrusell_contenedorArrows">
+              <img src="./assets/home-dos/back.png" alt="" class="carrusell_arrows">
+              &nbsp;
+              <img src="./assets/home-dos/next.png" alt="" class="carrusell_arrows">
+            </div>
+          </div>
+        </ng-template>
+        <ng-template swiperSlide>
+          <div class="carrusell_tarjeta">
+            <img src="./assets/home-dos/tres.png" alt="">
+            <div class="carrusell_margin">
+              <p>Fueron los mejores para mi evento. Todos mis invitados quedaron facsinados.</p>
+              <p class="carrusell_pie">30 años by Conevento</p>
+            </div>
+            <div class="carrusell_contenedorArrows">
+              <img src="./assets/home-dos/back.png" alt="" class="carrusell_arrows">
+              &nbsp;
+              <img src="./assets/home-dos/next.png" alt="" class="carrusell_arrows">
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+
+      <div class="espacio d-block d-md-none"></div>
     </div>
-    <!--div class="col-md-4">
-      <div class="careusell_tarjeta">
-        <img src="../../../assets/home-dos/uno.png" alt="">
-      </div>
-    </div-->
   </div>
 </div>
 
@@ -316,11 +361,12 @@
     </div>
 
     <div class="col-md-6 no-padding">
-      <div class="animate_heigth">
+      <div class="animate_heigth d-none d-md-block">
         <img src="./assets/home-dos/hombre.png" alt="" class="animate_img">
       </div>
     </div>
+
   </div>
 </div>
 
-<div class="espacio"></div>
+<div class="espacio d-none d-md-block"></div>

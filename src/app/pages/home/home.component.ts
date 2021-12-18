@@ -25,9 +25,7 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-
-      }
+      if (result) { }
     })
   }
 

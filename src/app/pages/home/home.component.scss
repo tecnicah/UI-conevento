@@ -168,15 +168,16 @@
 
 .animate {
   &_title {
-    background-image: url("~src/assets/home-dos/Rectangle.png");
-    background-size: cover;
+    //background-image: url("~src/assets/home-dos/Rectangle.png");
+    //background-size: cover;
     height: 489px !important;
     width: 100%;
     color: white;
     padding: 20px;
     border-radius: 24px 0px 0px 24px;
     padding: 15%;
-    background-repeat: no-repeat;
+    background: linear-gradient(90.44deg, #26182B 44.23%, rgba(33, 17, 54, 0) 104.76%);
+    //background-repeat: no-repeat;
   }
 
   &_heigth {
@@ -312,7 +313,7 @@
 
     &_title {
       border-radius: 0;
-      height: 320px;
+      height: 320px !important;
     }
   }
 }
