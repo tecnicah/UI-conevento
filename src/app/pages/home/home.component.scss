@@ -168,13 +168,15 @@
 
 .animate {
   &_title {
-    background-color: gray;
-    height: 489px;
+    background-image: url("~src/assets/home-dos/Rectangle.png");
+    background-size: cover;
+    height: 489px !important;
     width: 100%;
-    color: black;
+    color: white;
     padding: 20px;
     border-radius: 24px 0px 0px 24px;
     padding: 15%;
+    background-repeat: no-repeat;
   }
 
   &_heigth {
@@ -207,6 +209,54 @@
     font-size: 24px;
   }
 }
+
+
+
+.carrusell {
+  &_header {
+    margin: auto;
+    color: black;
+    padding: 50px;
+  }
+
+  &_max {
+    max-width: 508px;
+    text-align: center;
+    margin: auto;
+  }
+
+  &_tarjeta {
+    width: 200px;
+    text-align: justify;
+    font-size: 19px;
+  }
+
+  &_margin {
+    margin-top: 15px;
+  }
+
+  &_pie {
+    font-size: 15px;
+    color: #888888;
+  }
+
+  &_arrows {
+    width: 20px;
+  }
+
+  &_contenedorArrows {
+    display: flex;
+    text-align: end;
+    width: 100%;
+    justify-content: end;
+  }
+
+  &_img {
+    width: 100%;
+  }
+}
+
+
 
 @media only screen and (max-width: 575px) {
   .home {

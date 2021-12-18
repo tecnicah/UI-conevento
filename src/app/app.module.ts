@@ -25,6 +25,8 @@ import { SeleccionarServicioComponent } from './pages/seleccionar-servicio/selec
 import { MisEventosComponent } from './dialog/mis-eventos/mis-eventos.component';
 import { DetalleProductoComponent } from './dialog/detalle-producto/detalle-producto.component';
 import { MatIconModule } from '@angular/material/icon';
+import { SwiperModule } from 'swiper/angular';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatStepperModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    SwiperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
