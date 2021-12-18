@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AppComponent } from 'src/app/app.component';
 import { NosotrosComponent } from 'src/app/dialog/nosotros/nosotros.component';
 
 @Component({
@@ -9,10 +10,11 @@ import { NosotrosComponent } from 'src/app/dialog/nosotros/nosotros.component';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public _dialog:MatDialog) { }
+  constructor(public _dialog:MatDialog, public appComponent: AppComponent) { }
 
   ngOnInit(): void {
     window.scrollTo(0,0);
+    this.appComponent.detectaRuta();
   }
 
   public nosotros(type:any){

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog'; 
+import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { LoginComponent } from 'src/app/dialog/login/login.component';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
 
@@ -12,9 +14,12 @@ export class HeaderComponent implements OnInit {
 
   public isCollapsed: boolean = true;
   
-  constructor(public _dialog: MatDialog) { }
+  constructor(public _dialog: MatDialog, public router:Router, public appComponent:AppComponent) { 
+
+  }
 
   ngOnInit(): void {
+    console.log(this.router.url);
   }
 
 
@@ -57,5 +62,13 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
+
+  public wizard() {
+      this.router.navigateByUrl('/Wizard');
+   } 
+
+   @HostListener('click') c_onEnterrr() {
+    this.appComponent.detectaRuta();
+   }
 
 }

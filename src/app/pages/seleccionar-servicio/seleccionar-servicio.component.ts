@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { DetalleProductoComponent } from 'src/app/dialog/detalle-producto/detalle-producto.component';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
@@ -13,12 +14,13 @@ import { isTemplateExpression } from 'typescript';
 })
 export class SeleccionarServicioComponent implements OnInit {
 
-  constructor(public spinner: SpinnerService,private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
+  constructor(public appComponent:AppComponent,public spinner: SpinnerService,private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
   
   public productos : any = [];
   public id:any;
   ngOnInit(): void {
     console.log("SERVICIOS ELEGIDOS: ", this.auth.listaProductosEventos);
+    this.appComponent.detectaRuta();
     this.spinner.show();
     this.id = this.rutaActiva.snapshot.params.id;
     console.log("id categoria: ", this.id);

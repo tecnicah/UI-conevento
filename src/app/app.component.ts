@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'conevento';
+
+
+  constructor(public router:Router){
+    
+  }
+
+  public rutaHome : boolean = false;
+  public detectaRuta(){
+    if(this.router.url == '/'){
+      this.rutaHome = true;
+      console.log('home');
+    }else{
+      this.rutaHome = false;
+      console.log('no es el home');
+    }
+  }
 }
