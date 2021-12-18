@@ -73,6 +73,10 @@ $conevento-theme: mat.define-light-theme((color: (primary: $conevento-primary,
   height: 20px;
 }
 
+.espacio{
+   height: 100px;
+}
+
 .servicios {
   .card {
     width: 100% !important;
@@ -112,6 +116,9 @@ $conevento-theme: mat.define-light-theme((color: (primary: $conevento-primary,
 .reboto {
   font-family: Helvetica;
 }
+
+
+
 
 
 
