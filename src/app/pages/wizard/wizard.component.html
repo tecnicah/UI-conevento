@@ -45,7 +45,7 @@
           </span>
 
           <div class="info">
-            <span class="Reboto-medium">2.- Selecciona servicios</span><br>
+            <span class="Reboto-medium">2.- Elige tus servicios</span><br>
             Selecciona el personal y <br>
             artículos que requieras.
           </div>
@@ -120,7 +120,7 @@
           </span>
 
           <div class="info">
-            <span class="Reboto-medium">2.- Selecciona servicios</span>
+            <span class="Reboto-medium">2.- Elige tus servicios</span>
           </div>
         </div>
 
@@ -164,12 +164,11 @@
       <span class="Reboto-medium">Agenda tu evento</span>
     </div>
     <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
-      <div class="row contenedor_uno">
-        <div class="col-md-6">
+      <div class="row contenedor_uno" style="margin: 1% auto; border-radius: 10px;">
+        <div class="col-md-9">
           <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <p>Fecha y hora inicio *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="datetime-local" class="form-control" placeholder="Fecha de inicio"
@@ -179,7 +178,19 @@
               <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div>
             </div>
           </div>
-
+        </div>
+        <div class="col-md-4">
+          <p>Fecha y hora final *</p>
+          <div class="input-group mb-3 margen_cero">
+            <input type="datetime-local" class="form-control" placeholder="Fecha y hora final"
+              aria-label="Fecha y hora final" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraFin.errors }" formControlName="fechaHoraFin">
+            <div *ngIf="submitted && f.fechaHoraFin.errors" class="invalid-feedback">
+              <div *ngIf="f.fechaHoraFin.errors.required">Campo requerido</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
           <p>Gente esperada *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="number" class="form-control" placeholder="Gente esperada" aria-label="Gente esperada"
@@ -190,17 +201,7 @@
             </div>
           </div>
         </div>
-
-        <div class="col-md-6">
-          <p>Fecha y hora final *</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="datetime-local" class="form-control" placeholder="Fecha y hora final"
-              aria-label="Fecha y hora final" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraFin.errors }" formControlName="fechaHoraFin">
-            <div *ngIf="submitted && f.fechaHoraFin.errors" class="invalid-feedback">
-              <div *ngIf="f.fechaHoraFin.errors.required">Campo requerido</div>
-            </div>
-          </div>
+        <div class="col-md-12" style="padding-bottom: 20px;">
         </div>
 
         <div class="col-md-4">
@@ -224,11 +225,15 @@
           <p>Alcaldia o municipio *</p>
           <select class="form-select quiz_select form-control" aria-label="Default select example"
             [ngClass]="{ 'is-invalid': submitted && f.idCatMunicipio.errors }" formControlName="idCatMunicipio">
-            <option value=1>Benito Juarez</option>
+            <option value=1>Benito Juárez</option>
             <option value=2>Coyoacan</option>
-            <option value=3>Milpa Alta</option>
+            <option value=3>Magdalena Contreras </option>
             <option value=4>Venustiano Carranza</option>
-            <option value=5>Cuajimalpa</option>
+            <option value=5>Cuajimalpa</option>                                                                                         
+            <option value=6>Alvaro Obregón</option>                                                                                       
+            <option value=7>Azcapotzalco</option>                                                                                         
+            <option value=8>Cuahutemoc</option>                                                                                           
+            <option value=9>Tlapan</option>                                                                                               
           </select>
           <div *ngIf="submitted && f.idCatMunicipio.errors" class="invalid-feedback">
             <div *ngIf="f.idCatMunicipio.errors.required">Campo requerido</div>
@@ -236,7 +241,7 @@
         </div>
 
         <div class="col-md-4">
-          <p>Código postal</p>
+          <p>Código postal (Opcional)</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Código postal" aria-label="Código postal"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.cp.errors }"
@@ -259,7 +264,7 @@
           </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-6" style="padding-bottom: 20px;">
           <p>Colonia *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Colonia" aria-label="Colonia"
@@ -288,7 +293,7 @@
         </div>
 
         <div class="col-md-6">
-          <p>Nombre del evento</p>
+          <p>Nombre del evento (Opcional)</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Nombre del evento" aria-label="Nombre del evento"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.nombreEvento.errors }"
@@ -338,7 +343,7 @@
     <div class="titulos_stepper">
       <img src="./assets/wizard/step_dos.png" alt="" class="titulos_stepper_img">
       &nbsp;
-      <span class="Reboto-medium">Selecciona servicios</span>
+      <span class="Reboto-medium">Elige tus servicios</span>
     </div>
     <div class="row contenedor_uno">
       <div class="col-md-7">
