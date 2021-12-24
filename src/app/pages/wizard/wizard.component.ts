@@ -1,23 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivationStart, Router } from '@angular/router';
 import { LoginComponent } from 'src/app/dialog/login/login.component';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import Swal from 'sweetalert2'
+
+declare var paypal;
+
 @Component({
   selector: 'app-wizard',
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.scss']
 })
-export class WizardComponent implements OnInit {
 
+
+
+export class WizardComponent implements OnInit {
+  //public paypal:any;
+  @ViewChild('paypal', {static:true}) paypalElement: ElementRef;
   public firstFormGroup!: FormGroup;
   public submitted = false;
   public isLinear = false;
   public Productos_listado: any = [];
   public emailRegex = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  producto = {
+    descripcion: "es algo descriptitvo", 
+    precio: 5.5,
+    imagen: "sin imagen"
+  } 
+
   constructor(public spinner: SpinnerService, private _formBuilder: FormBuilder, public auth: HttpService, public router_: Router, public _dialog: MatDialog
   ) {
 
@@ -52,7 +65,7 @@ export class WizardComponent implements OnInit {
             E.numproductos = [];
           }
         });
-        console.log(this.categorias);
+       // console.log(this.categorias);
         this.initSettings(); 
         
       }
@@ -63,6 +76,8 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //INICIALIZACION DE PARAMETROS//
   ngOnInit() {
+    
+    //paypal.Buttons().render(this.paypalElement.nativeElement);
     this.catalogos();
     this.firstFormGroup = this._formBuilder.group({
       fechaHoraInicio: new FormControl(null, Validators.compose([Validators.required])),
@@ -80,39 +95,118 @@ export class WizardComponent implements OnInit {
       correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
       telefono: ['', Validators.required],
     });
+
+    paypal
+    .Buttons({
+      createOrder: (data,actions) => {
+        return actions.order.create({
+           application_context: {
+            shipping_preference: "NO_SHIPPING"
+         },
+        payer: {
+            email_address: 'ydddo@tdddu.com',
+            name: {
+                given_name: 'pepe pecas',
+                surname: 'paterno'
+            },
+            address: {
+               address_line_1: "calle",
+               address_line_2: "colonia",
+               admin_area_2: "municipio",
+               admin_area_1: "DF",
+              // phone_number: "5554560284",
+              //postal_code: "94107",
+              country_code: "MX"
+            }
+        },
+          purchase_units: [
+            {
+              description: "Mi Evento",
+              amount:{
+                currency_code:'MXN',
+                value: this.total
+              }
+            }
+          ]
+        })
+      },
+      onApprove: async (data, actions) =>{
+        console.log("Ente en OnApprove ========== ");
+        const order = await actions.order.capture();
+        console.log("Imprimo actions.order.capture(): ");
+        console.log(order);
+        
+        
+      //  this.saveEvent(1);
+      },
+      onError: err =>{
+        console.log('algo salio mal con el procesamiento de pago: ')
+        console.log(err);
+      }
+    })
+    .render(this.paypalElement.nativeElement);
   }
-  
+
+  // public showpaypal()
+  // {
+  //   paypal.Buttons().render(this.paypalElement.nativeElement);
+  // }
+
   //*******************************************// 
   //FUNCIONES PARA VALIDACION DE FORMULARIO//
   public total = 0;
   public Subtotal = 0;
   public IVA = 0;
   public initSettings(){
-    
+    debugger;
     if(localStorage.getItem('categorias')){
       this.auth.categorias = JSON.parse(localStorage.getItem('categorias') || '{}');
    }
    if(localStorage.getItem('form')){
      this.data_model = JSON.parse(localStorage.getItem('form') || '{}');
      this.auth.data_form = JSON.parse(localStorage.getItem('form') || '{}');
-     this.steps = {
-       uno: "complete",
-       dos: "selected",
-       tres: "next",
-       cuatro: false
-     }
+      this.steps = {
+        uno: "complete",
+        dos: "selected",
+        tres: "next",
+        cuatro: false
+      }
+      this.steps_css= {
+        uno: "class-none",
+        dos: "class-view",
+        tres: "class-none",
+        cuatro: "class-none"
+      }
+    // this.steps = {
+    //   uno: "selected",
+    //   dos: "next",
+    //   tres: "next",
+    //   cuatro: false
+    // }
    }
    
    if (localStorage.getItem('productos')) {
      this.Productos_listado = JSON.parse(localStorage.getItem('productos') || '{}');
      this.auth.listaProductosEventos = JSON.parse(localStorage.getItem('productos') || '{}');
      if (this.Productos_listado.length != 0) {
-       this.steps = {
-         uno: "complete",
-         dos: "selected",
-         tres: "next",
-         cuatro: false
-       }
+      this.steps = {
+        uno: "complete",
+        dos: "selected",
+        tres: "next",
+        cuatro: false
+      }
+      this.steps_css= {
+        uno: "class-none",
+        dos: "class-view",
+        tres: "class-none",
+        cuatro: "class-none"
+      }
+      // this.steps = {
+      //   uno: "selected",
+      //   dos: "next",
+      //   tres: "next",
+      //   cuatro: false
+      // }
        this.calculos();
      }
    }
@@ -123,6 +217,7 @@ export class WizardComponent implements OnInit {
      this.fillForm();
    }
    this.spinner.hide();
+   //this.showpaypal();
   }
 
   get f() {
@@ -135,7 +230,7 @@ export class WizardComponent implements OnInit {
       console.log("NO ESTA COMPLETO: ", this.firstFormGroup.invalid);
       return;
     }
-    console.log(this.firstFormGroup);
+   // console.log(this.firstFormGroup);
     this.saveForm();
     this.next();
   }
@@ -208,6 +303,8 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCIONES PARA PASO 3//
   public step = 0;
+  public step0 = 'class-view';
+  public step1 = 'class-none';
   public pagarOpciones(type:any) {
     if(!localStorage.getItem('userData')){
       let ancho = '';
@@ -222,9 +319,13 @@ export class WizardComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe(result => {
         this.step = 1;
+        this.step0 = 'class-none';
+        this.step1 = 'class-view';
       })
     }else{
       this.step = 1;
+      this.step0 = 'class-none';
+      this.step1 = 'class-view';
     }
     
   }
@@ -236,6 +337,13 @@ export class WizardComponent implements OnInit {
     tres: "next",
     cuatro: false
   }
+  
+  public steps_css: any = {
+    uno: "class-view",
+    dos: "class-none",
+    tres: "class-none",
+    cuatro: "class-none"
+  }
 
   next() {
     if (this.steps.uno == "selected") {
@@ -245,20 +353,42 @@ export class WizardComponent implements OnInit {
         tres: "next",
         cuatro: false
       }
+       this.steps_css = {
+        uno: "class-none",
+        dos: "class-view",
+        tres: "class-none",
+        cuatro: "class-none"
+      }
     } else if (this.steps.dos == "selected") {
+      
       this.steps = {
         uno: "complete",
         dos: "complete",
         tres: "selected",
         cuatro: false
       }
-    } else if (this.steps.tres == "selected") {
+      this.steps_css = {
+        uno: "class-none",
+        dos: "class-none",
+        tres: "class-view",
+        cuatro: "class-none"
+      }
+  
+  } else if (this.steps.tres == "selected") {
+      
       this.steps = {
         uno: "complete",
         dos: "complete",
         tres: "complete",
         cuatro: true
       }
+      this.steps_css = {
+        uno: "class-none",
+        dos: "class-none",
+        tres: "class-none",
+        cuatro: "class-view"
+      }
+      
     }
   }
 
@@ -270,6 +400,12 @@ export class WizardComponent implements OnInit {
         tres: "next",
         cuatro: false
       }
+      this.steps_css = {
+        uno: "class-view",
+        dos: "class-none",
+        tres: "class-none",
+        cuatro: "class-none"
+      }
     } else if (this.steps.dos == "complete") {
       this.steps = {
         uno: "selected",
@@ -277,12 +413,24 @@ export class WizardComponent implements OnInit {
         tres: "next",
         cuatro: false
       }
+      this.steps_css = {
+        uno: "class-view",
+        dos: "class-none",
+        tres: "class-none",
+        cuatro: "class-none"
+      }
     } else if (this.steps.tres == "complete") {
       this.steps = {
         uno: "complete",
         dos: "select",
         tres: "next",
         cuatro: false
+      }
+      this.steps_css = {
+        uno: "class-none",
+        dos: "class-view",
+        tres: "class-none",
+        cuatro: "class-none"
       }
     }
   }
@@ -294,16 +442,23 @@ export class WizardComponent implements OnInit {
       tres: "next",
       cuatro: false
     }
+    this.steps_css = {
+      uno: "class-none",
+      dos: "class-view",
+      tres: "class-none",
+      cuatro: "class-none"
+    }
   }
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
   public saveEvent(type:any) {
+    debugger;
     this.next();
     this.spinner.show();
     let json_bd: any = this.auth.data_form;
     if(localStorage.getItem('userData')){
       let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
-      json_bd.idUsuario = data_user.id;
+     // json_bd.idUsuario = data_user.id;
     }
     json_bd.fechaCreacion = new Date();
     json_bd.detallesEventostring = "hardcoding",
@@ -316,6 +471,7 @@ export class WizardComponent implements OnInit {
 
     this.auth.service_general_post_with_url('Eventos/AddEvent', json_bd).subscribe(r => {
       if (r.success) {
+        debugger;
         console.log("respuesta exitosa: ", r);
         Swal.fire({
           position: 'top-end',
@@ -333,6 +489,7 @@ export class WizardComponent implements OnInit {
         this.spinner.hide();
       }
     }, (err) => {
+      debugger;
       console.log(err);
       this.spinner.hide();
     })
@@ -340,11 +497,15 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //OBTENER NOMBRE DE LA DIRECCION//
   public alcaldias = [
-    {id: 1, municipio: 'Benito Juarez'},
+    {id: 1, municipio: 'Benito Juárez'},
     {id: 2, municipio: 'Coyoacan'},
-    {id: 3, municipio: 'Milpa Alta'},
+    {id: 3, municipio: 'Magdalena Contreras '},
     {id: 4, municipio: 'Venustiano Carranza'},
-    {id: 5, municipio: 'Cuajimalpa'}
+    {id: 5, municipio: 'Cuajimalpa'},                                                                                         
+    {id: 6, municipio: 'Alvaro Obregón'},                                                                                       
+    {id: 7, municipio: 'Azcapotzalco'},                                                                                         
+    {id: 8, municipio: 'Cuahutemoc'},                                                                                           
+    {id: 9, municipio: 'Tlapan'}
   ]
 
   public getName(id:any){
@@ -424,4 +585,6 @@ export class WizardComponent implements OnInit {
     }
     this.ngOnInit();
   }
+
+
 }

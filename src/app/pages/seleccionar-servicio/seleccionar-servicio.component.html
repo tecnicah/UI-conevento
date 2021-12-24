@@ -24,12 +24,15 @@
 
           <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
             <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+            <!-- {{item.tipoImagenSeleccion}}
+            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img" *ngIf="item.tipoImagenSeleccion == 'img'" >
+            <video [src]="item.imagenSeleccion" width="640" height="480" *ngIf="item.tipoImagenSeleccion == 'video'></video> -->
           </div>
 
-          <div class="tarjeta_contendor">
-            <p class="Reboto-medium sizes_20 pointer d-none d-md-block" (click)="detalle(1, item)">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_20 pointer d-block d-md-none" (click)="detalle(2, item)">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_18">{{item.precioPorUnidad | currency}}&nbsp;<span
+          <div class="tarjeta_contendor" style="padding-top: 2%; padding-bottom: 1%;">
+            <p class="Reboto-medium sizes_20 pointer d-none d-md-block" style="margin-bottom: 0px;" (click)="detalle(1, item)">{{item.producto}}</p>
+            <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;" (click)="detalle(2, item)">{{item.producto}}</p>
+            <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
                 class="tarjeta_color sizes_14" *ngIf="item.especificarTiempo">({{item.minimoProductos}} hr)</span> </p>
             <p class="tarjeta_justificado sizes_14">
               {{item.descripcionCorta}}
