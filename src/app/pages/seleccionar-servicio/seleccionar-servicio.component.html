@@ -2,76 +2,98 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="header">
+        <div class="headermin">
           <img src="./assets/SeleccionarServicios/bi_arrow-left-short.png" alt="" class="pointer" (click)="back();">
           <span>&nbsp;</span>
-          <span class="header_titlo">Regresar a categorias</span>
+          <span class="pointer" (click)="back();">Regresar a categorias</span>
         </div>
+        
       </div>
 
-      <div class="col-md-12">
-        <div>
-          <p class="Reboto-medium titulo">Elige que necesitas</p>
-        </div>
-      </div>
-
-      <div class="col-md-3" *ngFor="let item of productos; let i = index">
-        <div class="tarjeta_contenedor_principal">
-
-          <div class="imagenesTarj d-none d-md-block pointer" (click)="detalle(1, item)">
-            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+      
+       
+          <div class="col-md-4">
+            <p class="Reboto-medium titulo">Elige que necesitas</p>
           </div>
+          <!-- <div class="col-md-3">
+            <img src="./assets/SeleccionarServicios/bi_arrow-left-short.png" alt="" class="pointer" (click)="back();">
+          </div> -->
+       
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <p>¿ Qué estas buscando?</p>
+            <div class="input-group mb-3 margen_cero">
+              <input type="text" class="form-control" placeholder="Ej. Bocina de fiesta"
+                aria-label="Calle y numero exterior" aria-describedby="basic-addon1" [(ngModel)]="userFilter.producto"
+                name="filterpost">
+                {{userFilter.name}}
+            </div>
+          </div>
+        
+      </div>
 
-          <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
-            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-            <!-- {{item.tipoImagenSeleccion}}
+
+    
+
+    <div class="col-md-3" *ngFor="let item of productos | filterBy: userFilter; let i = index ">
+      <div class="tarjeta_contenedor_principal">
+
+        <div class="imagenesTarj d-none d-md-block pointer" (click)="detalle(1, item)">
+          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+        </div>
+
+        <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
+          <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+          <!-- {{item.tipoImagenSeleccion}}
             <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img" *ngIf="item.tipoImagenSeleccion == 'img'" >
             <video [src]="item.imagenSeleccion" width="640" height="480" *ngIf="item.tipoImagenSeleccion == 'video'></video> -->
-          </div>
+        </div>
 
-          <div class="tarjeta_contendor" style="padding-top: 2%; padding-bottom: 1%;">
-            <p class="Reboto-medium sizes_20 pointer d-none d-md-block" style="margin-bottom: 0px;" (click)="detalle(1, item)">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;" (click)="detalle(2, item)">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-                class="tarjeta_color sizes_14" *ngIf="item.especificarTiempo">({{item.minimoProductos}} hr)</span> </p>
-            <p class="tarjeta_justificado sizes_14">
-              {{item.descripcionCorta}}
-            </p>
-            <div class="tarjeta_center sizes_14">Cantidad</div>
-            <div class="tarjeta_footer">
-              <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                (click)="agregarCantidad(false, i);">
-              <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-                [(ngModel)]="item.cantidadUnidades"
-                (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, i);'>
-              <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
-                (click)="agregarCantidad(true, i);" alt="" class="pointer">
-            </div>
-            <div *ngIf="item.especificarTiempo" class="sizes_14 tarjeta_center">Cantidad de horas</div>
-            <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
-              <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                (click)="agregarhora(false, i, item);">
-              <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
-                (change)="detectarSumaRestaHoras(item.cantidadHoras, item, i)">
-              <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
-                (click)="agregarhora(true, i, item);">
-            </div>
+        <div class="tarjeta_contendor" style="padding-top: 2%; padding-bottom: 1%;">
+          <p class="Reboto-medium sizes_20 pointer d-none d-md-block" style="margin-bottom: 0px;"
+            (click)="detalle(1, item)">{{item.producto}}</p>
+          <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;"
+            (click)="detalle(2, item)">{{item.producto}}</p>
+          <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
+              class="tarjeta_color sizes_14" *ngIf="item.especificarTiempo">Mínimo ({{item.minimoProductos}} hr)</span>
+          </p>
+          <p class="tarjeta_justificado sizes_14">
+            {{item.descripcionCorta}}
+          </p>
+          <div class="tarjeta_center sizes_14">Cantidad</div>
+          <div class="tarjeta_footer">
+            <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+              (click)="agregarCantidad(false, i);">
+            <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
+              [(ngModel)]="item.cantidadUnidades" (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, i);'>
+            <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
+              (click)="agregarCantidad(true, i);" alt="" class="pointer">
+          </div>
+          <div *ngIf="item.especificarTiempo" class="sizes_14 tarjeta_center">Cantidad de horas</div>
+          <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
+            <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+              (click)="agregarhora(false, i, item);">
+            <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
+              (change)="detectarSumaRestaHoras(item.cantidadHoras, item, i)">
+            <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
+              (click)="agregarhora(true, i, item);">
           </div>
         </div>
       </div>
-
-
-      <!--p class="fix_color reboto-regular">Total: {{total | currency}}</p-->
-      <a class="btn-wsp" target="_blank">
-        Total: {{total | currency}}
-      </a>
-
-
     </div>
 
-    <div class="contenedor_uno_contenedor_botones form-group">
-      <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="agregar();">Actualizar carrito</button>
-    </div>
+
+    <!--p class="fix_color reboto-regular">Total: {{total | currency}}</p-->
+    <a class="btn-wsp" target="_blank">
+      Total: {{total | currency}}
+    </a>
+
 
   </div>
+
+  <div class="contenedor_uno_contenedor_botones form-group">
+    <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="agregar();">Actualizar carrito</button>
+  </div>
+
+</div>
 </div>

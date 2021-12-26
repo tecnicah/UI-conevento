@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { NosotrosComponent } from 'src/app/dialog/nosotros/nosotros.component';
 
@@ -8,9 +10,26 @@ import { NosotrosComponent } from 'src/app/dialog/nosotros/nosotros.component';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  constructor(public _dialog:MatDialog, public appComponent: AppComponent) { }
+  constructor(public _dialog:MatDialog, public appComponent: AppComponent, private http: HttpClient, private activeRoute: ActivatedRoute) { }
+  
+  @ViewChild('container')
+  container!: ElementRef<HTMLElement>;
+
+  ngAfterViewInit(): void {
+
+    this.activeRoute.params.subscribe(param => {
+      // alert(param.pageSec)
+      if(param.pageSec){
+        const section = this.container.nativeElement.querySelector('#${param.pageSec}')
+        console.log(section)
+
+        section?.scrollIntoView()
+      }
+    })
+
+  }
 
   ngOnInit(): void {
     window.scrollTo(0,0);

@@ -1,8 +1,10 @@
 <!--DESKTOP-->
-<div class="d-none d-md-block">
+<div class="d-none d-md-block" style="height: 458px;">
   <div class="container-fluid seccion_uno_contenedor">
     <div class="row seccion_uno_altura">
-      <div class="col-md-6 bg-color">
+      <div class="col-md-6 bg-color" 
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url('./assets/Home/banner-image_tall.png'); ">
+      
         <div class="seccion_uno_flex">
           <img src="./assets/Home/logo-banner.png" alt="">
         </div>
@@ -15,22 +17,24 @@
         <div class="seccion_uno_credenciales seccion_uno_ancho" *ngIf="show_box_credentials && !show_formulario">
           
           <div class="seccion_uno_ancho">
+            
             <div class="flex_contenedor_input">
-              <p class="reboto-regular">Iniciar Sesión</p>
+              <p class="reboto-regular" style="font-weight: bold;">Login</p>
+              <img src="./assets/Home/sign.png" alt="" style="width: 100px; margin-bottom: 30px;">
               <div class="input-group mb-3 required_margin margen_cero">
-                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                <input type="text" class="form-control" style="font-size: 13px;" placeholder="Email" aria-label="Email"
                   aria-describedby="basic-addon1" required [(ngModel)]="data_model_login.email" (focus)="email = false">
                 <span class="material-icons-outlined icon">
                   email
                 </span>
               </div>
               <p class="required" *ngIf="!email">&nbsp;</p>
-              <p class="required" *ngIf="email">Field is required</p>
+              <p class="required" *ngIf="email">Campo requerido</p>
             </div>
 
             <div class="flex_contenedor_input">
               <div class="input-group mb-3 required_margin margen_cero">
-                <input type="{{type}}" class="form-control" placeholder="password" aria-label="Password"
+                <input type="{{type}}" class="form-control" style="font-size: 13px;" placeholder="password" aria-label="Password"
                   aria-describedby="basic-addon1" required [(ngModel)]="data_model_login.password" (focus)="password = false">
                 <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                   visibility
@@ -39,19 +43,25 @@
                   visibility_off
                 </span>
               </div>
+              <span class="pointer reboto-regular" (click)="forgotPassword()" 
+            style="font-size: 12px; font-weight: bold; text-decoration: underline; float: right; padding-top: 5px;">
+              Olvidó su contraseña ?
+            </span>
               <p class="required" *ngIf="!password">&nbsp;</p>
               <p class="required" *ngIf="password">Field is required</p>
               <p class="required required_center" *ngIf="error_credenciales">Usuario y/o contraseña incorrectos</p>
             </div>
-
-            <div class="flex_contenedor">
+            
+            <div class="flex_contenedor" style="padding-top: 10px;">
               <button type="button" class="btn flex_button" (click)="login()">Inicia Sesión</button>
             </div>
 
-            <div class="flex_contenedor_input forgot">
+            <!-- <div class="flex_contenedor_input forgot">
               <span class="pointer reboto-regular" (click)="createAccount(1)">Crear cuenta</span>
-              <br>
-              <span class="pointer reboto-regular" (click)="forgotPassword()">Olvidó su contraseña</span>
+            </div> -->
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button" (click)="createAccount(1);"
+              style="background-color:darkmagenta;">Crear Cuenta</button>
             </div>
 
           </div>
@@ -92,21 +102,24 @@
 
 
 <!--MOBILE-->
-<div class="d-block d-sm-none">
+<div class="d-block d-sm-none" style="height: 565px;">
   <div class="container-fluid seccion_uno_contenedor">
     <div class="row">
       <div class="col-sm-12 mobile_padding">
         <div class="seccion_uno_center">
-          <div class="bg-color mobile_header">
+          <div class="bg-color mobile_header" 
+          style="background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url('./assets/Home/banner-image_tall_m.png'); ">
+            
             <mat-icon [mat-dialog-close]="true" class="mobile_close">close</mat-icon>
             <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
           </div>
 
           <div *ngIf="show_box_credentials && !show_formulario">
             <div class="flex_contenedor_input">
-              <p class="reboto-regular">Iniciar Sesión</p>
+              <p class="reboto-regular" style="font-weight: bold;">Login</p>
+              <img src="./assets/Home/sign.png" alt="" style="width: 100px; margin-bottom: 30px;">
               <div class="input-group mb-3 margen_cero">
-                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                <input type="text" class="form-control" style="font-size: 13px;" placeholder="Email" aria-label="Email"
                   aria-describedby="basic-addon1" required [(ngModel)]="data_model_login.email" (focus)="email = false">
                 <span class="material-icons-outlined icon">
                   email
@@ -118,7 +131,7 @@
 
             <div class="flex_contenedor_input">
               <div class="input-group mb-3 margen_cero">
-                <input type="{{type}}" class="form-control" placeholder="password" aria-label="Password"
+                <input type="{{type}}" class="form-control" style="font-size: 13px;" placeholder="password" aria-label="Password"
                   aria-describedby="basic-addon1" required [(ngModel)]="data_model_login.password" (focus)="password = false">
                 <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                   visibility
@@ -127,26 +140,31 @@
                   visibility_off
                 </span>
               </div>
+              <span class="pointer reboto-regular" (click)="forgotPassword()" 
+            style="font-size: 14px; font-weight: bold; text-decoration: underline; float: right; padding-top: 10px; padding-bottom: 25px;">
+              Olvidó su contraseña ?
+            </span>
               <p class="required" *ngIf="!password">&nbsp;</p>
               <p class="required" *ngIf="password">Field is required</p>
             </div>
 
             <div class="flex_contenedor">
-              <button type="button" class="btn flex_button">Inicia Sesión</button>
+              <button type="button" class="btn flex_button" (click)="login();">Inicia Sesión</button>
             </div>
 
-            <div class="flex_contenedor_input forgot">
-              <span class="pointer reboto-regular" (click)="createAccount(2)">Crear cuenta</span>
-              <br>
-              <span class="pointer reboto-regular" (click)="forgotPassword()">Olvidó su contraseña</span>
+            
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button" (click)="createAccount(2);"
+              style="background-color:darkmagenta;">Crear Cuenta</button>
             </div>
           </div>
+          
 
           <div *ngIf="!show_box_credentials && !show_formulario">
             <div class="flex_contenedor_input">
-              <p class="reboto-regular">Reestablecer contraseña</p>
+              <p class="reboto-regular" style="font-weight: bold;">Reestablecer contraseña</p>
               <div class="input-group mb-3 margen_cero">
-                <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                <input type="text" style="font-size: 13px" class="form-control" placeholder="Email" aria-label="Email"
                   aria-describedby="basic-addon1" required (focus)="email_reset = false" [(ngModel)]="data_model_reset.email">
                 <span class="material-icons-outlined icon">
                   email
@@ -160,8 +178,12 @@
               <button type="button" class="btn flex_button" (click)="restablecer();">Restablecer</button>
             </div>
 
-            <div class="flex_contenedor_input forgot">
+            <!-- <div class="flex_contenedor_input forgot">
               <span class="pointe reboto-regular" (click)="startSession()">Iniciar Sesión</span>
+            </div> -->
+            <div class="flex_contenedor">
+              <button type="button" class="btn flex_button" (click)="startSession();"
+              style="background-color:darkmagenta;">Ir a Login</button>
             </div>
           </div>
 

@@ -103,6 +103,14 @@
 
 
 .mobile {
+  &_close {
+    cursor: pointer;
+    color: white;
+    top: 10px;
+    position: absolute;
+    right: 6px;
+  }
+
   &_padding {
     padding: 0;
   }

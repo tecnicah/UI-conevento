@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { LoginComponent } from 'src/app/dialog/login/login.component';
 import { ProfileComponent } from 'src/app/dialog/profile/profile.component';
+import { Autoplay } from 'swiper';
 
 @Component({
   selector: 'app-header',

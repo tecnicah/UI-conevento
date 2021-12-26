@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
     this.data_model = JSON.parse(localStorage.getItem('userData') || '{}');
     this.data_model.confirmacorreo = this.data_model.correo;
     this.data_model.confirmapass = this.data_model.pass;
-    console.log(this.data_model);
+    //console.log(this.data_model);
   }
   //**********************************************************************//
   //FUNCION PARA VER U OCULTAR LA CONTRASEÑA//
@@ -126,10 +126,14 @@ export class ProfileComponent implements OnInit {
     setTimeout(() => {
     this.data_model.fecha_creacion = new Date();
     this.data_model.fecha_edicion = new Date();
+    debugger;
     this.auth.service_general_post_with_url('User/UpdateUser', this.data_model).subscribe(r => {
       if (r.success) {
         console.log("respuesta exitosa: ", r);
-        localStorage.setItem('userData', JSON.parse(r.result));
+       // localStorage.removeItem('userData');
+        //debugger;
+        localStorage.setItem('userData', JSON.stringify(r.result));
+       // localStorage.setItem('userData', JSON.stringify(r.result));
         Swal.fire({
           position: 'top-end',
           icon: 'success',

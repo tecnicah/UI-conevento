@@ -10,7 +10,7 @@
         </div>
 
         <div class="col-2 step no-padding">
-          <span class="header" [ngClass]="{'selected': steps.uno == 'selected', 'ready': steps.uno == 'complete'}">
+          <span (click)="set_stepper(1);" class="header" [ngClass]="{'selected': steps.uno == 'selected', 'ready': steps.uno == 'complete'}">
             <span class="material-icons complete">
               check_circle
             </span>
@@ -23,14 +23,14 @@
             </div>
           </span>
 
-          <div class="info">
+          <div class="info" (click)="set_stepper(1);">
             <span class="Reboto-medium">1.- Agenda</span><br>
             <span class="info description">Especifica el momento, el lugar y los invitados de tu evento</span>
           </div>
         </div>
 
         <div class="col-2 step no-padding">
-          <span class="header"
+          <span class="header" (click)="set_stepper(2);"
             [ngClass]="{'selected': steps.dos == 'selected', 'ready': steps.dos == 'complete', 'next': steps.dos == 'next'}">
             <span class="material-icons complete">
               check_circle
@@ -44,7 +44,7 @@
             </div>
           </span>
 
-          <div class="info">
+          <div class="info" (click)="set_stepper(2);">
             <span class="Reboto-medium">2.- Elige tus servicios</span><br>
             Selecciona el personal y <br>
             artículos que requieras.
@@ -52,7 +52,7 @@
         </div>
         
         <div class="col-2 step no-padding">
-          <span class="header"
+          <span class="header" (click)="set_stepper(3);"
             [ngClass]="{'selected': steps.tres == 'selected', 'ready': steps.tres == 'complete', 'next': steps.tres == 'next'}">
             <span class="material-icons complete">
               check_circle
@@ -66,7 +66,7 @@
             </div>
           </span>
 
-          <div class="info">
+          <div class="info" (click)="set_stepper(3);">
             <span class="Reboto-medium">3.- Confirma y paga</span><br>
             Elige la opción de pago <br>
             de manera segura
@@ -86,7 +86,7 @@
       <div class="row stepers steps-container">
 
         <div class="col-3 step no-padding">
-          <span class="header" [ngClass]="{'selected': steps.uno == 'selected', 'ready': steps.uno == 'complete'}">
+          <span (click)="set_stepper(1);" class="header" [ngClass]="{'selected': steps.uno == 'selected', 'ready': steps.uno == 'complete'}">
             <span class="material-icons complete">
               check_circle
             </span>
@@ -99,13 +99,13 @@
             </div>
           </span>
 
-          <div class="info">
+          <div class="info" (click)="set_stepper(1);">
             <span class="Reboto-medium">1.- Agenda</span>
           </div>
         </div>
 
         <div class="col-3 step no-padding">
-          <span class="header"
+          <span class="header" (click)="set_stepper(2);"
             [ngClass]="{'selected': steps.dos == 'selected', 'ready': steps.dos == 'complete', 'next': steps.dos == 'next'}">
             <span class="material-icons complete">
               check_circle
@@ -119,13 +119,13 @@
             </div>
           </span>
 
-          <div class="info">
+          <div class="info" (click)="set_stepper(2);">
             <span class="Reboto-medium">2.- Elige tus servicios</span>
           </div>
         </div>
 
         <div class="col-3 step no-padding">
-          <span class="header"
+          <span class="header" (click)="set_stepper(3);"
             [ngClass]="{'selected': steps.tres == 'selected', 'ready': steps.tres == 'complete', 'next': steps.tres == 'next'}">
             <span class="material-icons complete">
               check_circle
@@ -139,7 +139,7 @@
             </div>
           </span>
 
-          <div class="info">
+          <div class="info" (click)="set_stepper(3);">
             <span class="Reboto-medium">3.- Confirma y paga</span>
           </div>
         </div>
@@ -176,12 +176,16 @@
         <div class="col-md-4">
           <p>Fecha y hora inicio *</p>
           <div class="input-group mb-3 margen_cero">
-            <input type="datetime-local" class="form-control" placeholder="Fecha de inicio"
+            <input type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()" id="start"
               aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
               [ngClass]="{ 'is-invalid': submitted && f.fechaHoraInicio.errors }" formControlName="fechaHoraInicio">
             <div *ngIf="submitted && f.fechaHoraInicio.errors" class="invalid-feedback">
               <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div>
+            </div> 
+            <!-- <div *ngIf="!fecha_inicio_valid" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="!fecha_inicio_valid" class="ng-star-inserted">No es mayor al jueves</div>
             </div>
+            {{fecha_inicio_valid}} -->
           </div>
         </div>
         <div class="col-md-4">
@@ -284,7 +288,14 @@
         <div class="col-md-6">
           <p class="Reboto-medium subtitle">Datos de contacto</p>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6"> 
+          <div *ngIf="appComponent.data_user_model_app != null" style="margin-bottom: 17px;" (click)="set_datos_cuenta();" >
+            <img src="./assets/Home/copy_profile.png" alt="" height="35px" width="35px" style="cursor:pointer;">
+            <span style="cursor:pointer; margin-left: 5px; color: blue; font-size: 15px; font-weight: bold; text-decoration: underline;">
+              Copiar datos de tu cuenta
+            </span>
+          </div>
+        </div>
         <div class="col-md-6">
           <p>Nombre del contratante *</p>
           <div class="input-group mb-3 margen_cero">
@@ -336,12 +347,12 @@
           </div>
         </div>
       </div>
-      <div class="contenedor_uno_contenedor_botones form-group">
+      <div class="contenedor_uno_contenedor_botones form-group" style="justify-content: none;">
         <button class="btn contenedor_uno_siguiente Reboto-medium">
           Siguiente
         </button>
-        <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
-          routerLinkActive="router-link-active">Regresar</button>
+        <!-- <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
+          routerLinkActive="router-link-active">Regresar</button> -->
       </div>
     </form>
   </div>
@@ -351,12 +362,18 @@
   <!-----------------------------------------paso 2---------------------------------------->
   
   <div class="container" [ngClass]="steps_css.dos">
-    
+    <!-- <div class="col-md-12"> 
+      <button class="btn contenedor_uno_atras Reboto-medium" (click)="after()"
+      >Regresar</button>
+    </div> -->
     <div class="titulos_stepper">
       <img src="./assets/wizard/step_dos.png" alt="" class="titulos_stepper_img">
       &nbsp;
       <span class="Reboto-medium">Elige tus servicios</span>
-    </div>
+  </div>
+    <!-- <div  class="col-md-3">
+      <img src="./assets/SeleccionarServicios/bi_arrow-left-short.png" alt="" class="pointer" >
+    </div> -->
     <div class="row contenedor_uno">
       <div class="col-md-7">
         <div class="row">
@@ -450,6 +467,7 @@
     <div class="contenedor_uno_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
       <button class="btn contenedor_uno_atras Reboto-medium" (click)="after()">Regresar</button>
     </div>
+    
   </div>
 
   <!----------------------------------------------------------paso 3------------------------------->
@@ -596,9 +614,13 @@
           </div>
         
           <div class="btn-group flex">
-            <div #paypal class="pago_tarjeta" style=" height: auto;"> 
+            <!-- <div #paypal class="pago_tarjeta" style=" height: auto;">  
+            
+            </div> -->
+            <ngx-paypal [config]="payPalConfig" class="pago_tarjeta" style=" height: auto;">
 
-            </div> 
+            </ngx-paypal>
+
             <div class="d-none d-md-block">
               <div class="pagar_paga_btn form-group">
                 <button class="btn pagar_atras Reboto-medium" 

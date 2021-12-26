@@ -2,21 +2,29 @@
 <div class="d-none d-md-block">
   <div class="container-fluid seccion_uno_contenedor">
     <div class="row seccion_uno_altura">
-      <div class="col-md-4 bg-color">
+      <div class="col-md-4 bg-color"
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url('./assets/Home/banner-image_tall.png'); ">
         <div class="seccion_uno_flex">
+          
           <img src="./assets/Home/logo-banner.png" alt="">
         </div>
       </div>
       <div class="col-md-8">
+        <div style="text-align: end; padding: 2%; float: right;">
+          <mat-icon [mat-dialog-close]="true" style="cursor:pointer">close</mat-icon>
+        </div>
         <div class="row">
+          
           <div class="col-md-6">
-            <div class="seccion_uno_credenciales seccion_uno_ancho">
-              <div class="seccion_uno_ancho">
+            <div class="seccion_uno_credenciales seccion_uno_ancho" style="margin-top: 10px;">
+              <div class="seccion_uno_ancho" style="margin-top: 10px;">
 
                 <div class="flex_contenedor_input">
-                  <p class="title reboto-regular">Crear cuenta</p>
+                  <p class="title reboto-regular">Perfil</p>
+                <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 10px;">Nombre*</p></div>
+                
                   <div class="input-group mb-3 margen_cero">
-                    <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
+                    <input type="text" class="form-control" style="font-size: 12px;" placeholder="Nombre" aria-label="Nombre"
                       (focus)="nombre = false" aria-describedby="basic-addon1" required
                       [(ngModel)]="data_model.nombres">
                   </div>
@@ -25,8 +33,9 @@
                 </div>
 
                 <div class="flex_contenedor_input">
+                  <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 10px;">Apellido*</p></div>
                   <div class="input-group mb-3 margen_cero">
-                    <input type="text" class="form-control" placeholder="Apellidos" aria-label="Apellidos"
+                    <input type="text" class="form-control" style="font-size: 12px;" placeholder="Apellidos" aria-label="Apellidos"
                       aria-describedby="basic-addon1" required [(ngModel)]="data_model.apellidos"
                       (focus)="apellidos = false">
                   </div>
@@ -35,20 +44,22 @@
                 </div>
 
                 <div class="flex_contenedor_input">
+                  <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 10px;">Télefono*</p></div>
                   <div class="input-group mb-3 margen_cero">
-                    <input type="text" class="form-control" placeholder="Télefono" aria-label="Télefono"
+                    
+                    <input type="text" class="form-control" style="font-size: 12px;" placeholder="Télefono" aria-label="Télefono"
                       (focus)="telefono = false" aria-describedby="basic-addon1" required
                       [(ngModel)]="data_model.telefono">
                   </div>
                   <p class="required" *ngIf="!telefono">&nbsp;</p>
                   <p class="required" *ngIf="telefono">Field is required</p>
                 </div>
-
                 <div class="flex_contenedor_input">
+                  <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 10px;">E-mail*</p></div>
                   <div class="input-group mb-3 margen_cero">
-                    <input type="text" class="form-control" placeholder="Email" aria-label="Email"
+                    <input type="text" class="form-control" style="font-size: 12px;" placeholder="Email" aria-label="Email"
                       (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo"
-                      (change)="validateEmail()">
+                      (blur)="validateEmail()">
                   </div>
                   <p class="required" *ngIf="!correo && !correo_incorrecto">&nbsp;</p>
                   <p class="required" *ngIf="correo">Field is required</p>
@@ -56,15 +67,17 @@
                 </div>
 
                 <div class="flex_contenedor_input">
+                  <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 10px;">E-mail*</p></div>
                   <div class="input-group mb-3 margen_cero">
-                    <input type="text" class="form-control" placeholder="Confirma email" aria-label="Email"
+                    <input type="text" class="form-control" style="font-size: 12px;" placeholder="Confirma email" aria-label="Email"
                       (focus)="confirmacorreo = false" aria-describedby="basic-addon1" required
-                      [(ngModel)]="data_model.confirmacorreo" (change)="validateEmailConfirmacion()">
+                      [(ngModel)]="data_model.confirmacorreo" (blur)="validateEmailConfirmacion()">
                   </div>
                   <p class="required" *ngIf="!confirmacorreo && !correo_incorrecto_confirmacion">&nbsp;</p>
                   <p class="required" *ngIf="confirmacorreo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
                 </div>
+                
 
               </div>
             </div>
@@ -72,13 +85,13 @@
 
           <div class="col-md-6">
             <!--CREATE ACCOUNT-->
-            <div class="seccion_uno_credenciales seccion_uno_ancho_">
+            <div class="seccion_uno_credenciales seccion_uno_ancho_" style="margin-top: 20px;">
               <div class="seccion_uno_ancho_">
-
+               
                 <div class="flex_contenedor_input">
                   <p class="title reboto-regular">Contraseña</p>
                   <div class="input-group mb-3 margen_cero">
-                    <input type="{{type}}" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
+                    <input type="{{type}}" class="form-control" style="font-size: 12px;" placeholder="Contraseña" aria-label="Contraseña"
                       aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass" (focus)="pass = false">
                     <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                       visibility
@@ -93,7 +106,7 @@
 
                 <div class="flex_contenedor_input">
                   <div class="input-group mb-3 margen_cero">
-                    <input type="{{type_}}" class="form-control" placeholder="Confirmar contraseña"
+                    <input type="{{type_}}" class="form-control" style="font-size: 12px;" placeholder="Confirmar contraseña"
                       (focus)="confirmapass = false" aria-label="Confirmar contraseña" aria-describedby="basic-addon1"
                       required [(ngModel)]="data_model.confirmapass">
                     <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(1)"
@@ -112,6 +125,8 @@
                 <div class="flex_contenedor">
                   <button type="button" class="btn flex_button" (click)="guardar()">Guardar</button>
                 </div>
+
+                
 
               </div>
             </div>
@@ -132,8 +147,11 @@
       <div class="row">
         <div class="col-sm-12 mobile_padding">
           <div class="seccion_uno_center">
-            <div class="bg-color mobile_header">
-              <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
+            <div class="bg-color mobile_header"
+            style="background-image: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url('./assets/Home/banner-image_tall_m.png'); ">
+            <mat-icon [mat-dialog-close]="true" class="mobile_close">close</mat-icon> 
+            <img src="./assets/Home/logo-icon.svg" alt="" class="mobile_img">
+              
             </div>
 
 
@@ -141,7 +159,7 @@
               <div class="seccion_uno_ancho">
 
                 <div class="flex_contenedor_input">
-                  <p class="title reboto-regular">Crear cuenta</p>
+                  <p class="title reboto-regular" style="font-size: 17px; padding-bottom: 14px;">Crear cuenta</p>
                   <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre"
                       (focus)="nombre = false" aria-describedby="basic-addon1" required
@@ -227,7 +245,7 @@
                 </div>
 
                 <div class="flex_contenedor">
-                  <button type="button" class="btn flex_button" (click)="guardar()">Guardar</button>
+                  <button type="button" class="btn flex_button" (click)="guardar()">Registrar</button>
                 </div>
 
 

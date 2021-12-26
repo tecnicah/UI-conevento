@@ -6,6 +6,10 @@ import { DetalleProductoComponent } from 'src/app/dialog/detalle-producto/detall
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import { isTemplateExpression } from 'typescript';
+import { NgpSortModule } from "ngp-sort-pipe";
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Component({
   selector: 'app-seleccionar-servicio',
@@ -15,7 +19,7 @@ import { isTemplateExpression } from 'typescript';
 export class SeleccionarServicioComponent implements OnInit {
 
   constructor(public appComponent:AppComponent,public spinner: SpinnerService,private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
-  
+  userFilter: any = { producto: '' };
   public productos : any = [];
   public id:any;
   ngOnInit(): void {

@@ -1,4 +1,5 @@
-<div class="container-fluid no-padding">
+<div #container>
+<div class="container-fluid no-padding" >
   <div class="col-md-12 no-padding">
     <div class="home_bg">
       <div class="home_informacion">
@@ -11,8 +12,8 @@
       </div>
     </div>
   </div>
-  <div class="col-md-12 funciona_bg">
-    <div class="funciona_header">
+  <div class="col-md-12 funciona_bg" id="comofunciona">
+    <div class="funciona_header" >
       <h1 class="Reboto-medium title_section">Cómo funciona</h1>
     </div>
   </div>
@@ -53,8 +54,7 @@
             <p class="funciona_title Reboto-medium">4. ¡Disfruta
               tu evento!</p>
             <p></p>
-            <p class="funciona_description">Elige la opción de pago
-              de manera segura</p>
+            <p class="funciona_description">Despreocúpate, un Asesor de Conevento se encargará que tu evento sea un éxito</p>
           </div>
         </div>
       </div>
@@ -65,7 +65,7 @@
       <button type="button" class="btn funciona_boton">Comienza ahora</button>
     </div>
   </div>
-  <div class="col-md-12">
+  <div class="col-md-12" id="nuestrosservicios">
     <div class="servicios_header">
       <h1 class="Reboto-medium title_section">Nuestros servicios</h1>
     </div>
@@ -76,8 +76,8 @@
 
         <div class="col-md-4">
           <div>
-            <div class="servicios_header_tarjeta">
-              <img src="./assets/home-dos/servicios_uno.png" alt="" width="100%" height="100%">
+            <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/servicios_uno.png');">
+              <span class="texto_tarjetas">Personal</span>
             </div>
             <div class="servicios_body_tarjeta servicios_body_tarjeta_bg_servicios">
               <div>
@@ -94,7 +94,7 @@
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Limpieza post evento</span>
+                <span> Limpieza Post Evento</span>
               </div>
             </div>
           </div>
@@ -102,25 +102,30 @@
 
         <div class="col-md-4">
           <div>
-            <div class="servicios_header_tarjeta">
-              <img src="./assets/home-dos/talento.png" alt="" width="100%" height="100%">
+            <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/talento.png');">
+             
+              <span class="texto_tarjetas">Talento</span>
             </div>
             <div class="servicios_body_tarjeta  servicios_body_tarjeta_bg_talento">
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Mesero</span>
+                <span> DJ</span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Bartender</span>
+                <span> Banda Cover</span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Bartender Premium</span>
+                <span> Duetos</span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Limpieza post evento</span>
+                <span> Mariachis</span>
+              </div>
+              <div>
+                <img src="./assets/home-dos/box.png" alt="">
+                <span> Y Mucho Mas</span>
               </div>
             </div>
           </div>
@@ -128,25 +133,29 @@
 
         <div class="col-md-4">
           <div>
-            <div class="servicios_header_tarjeta">
-              <img src="./assets/home-dos/mobiliario.png" alt="" width="100%" height="100%">
+            <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/mobiliario.png');">
+              <span class="texto_tarjetas">Mobiliario</span>
             </div>
             <div class="servicios_body_tarjeta servicios_body_tarjeta_bg_servicios">
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Mesero</span>
+                <span> Carpas</span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Bartender</span>
+                <span> Calentadores</span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Bartender Premium</span>
+                <span> Salas</span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Limpieza post evento</span>
+                <span> Mesas</span>
+              </div>
+              <div>
+                <img src="./assets/home-dos/box.png" alt="">
+                <span> Y Mucho Mas</span>
               </div>
             </div>
           </div>
@@ -154,15 +163,15 @@
 
         <div class="col-md-4">
           <div>
-            <div class="servicios_header_tarjeta">
-              <img src="./assets/home-dos/bebidas.png" alt="" width="100%" height="100%">
+            <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/bebidas.png');">
+              <span class="texto_tarjetas">Bebidas y Alimentos</span>
             </div>
             <div class="servicios_body_tarjeta  servicios_body_tarjeta_bg_talento">
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Mesero</span>
+                <span>Disfruta los diferentes paquetes que tenemos para ti.</span>
               </div>
-              <div>
+              <!-- <div>
                 <img src="./assets/home-dos/box.png" alt="">
                 <span> Bartender</span>
               </div>
@@ -173,32 +182,32 @@
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
                 <span> Limpieza post evento</span>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
 
         <div class="col-md-4">
           <div>
-            <div class="servicios_header_tarjeta">
-              <img src="./assets/home-dos/luces.png" alt="" width="100%" height="100%">
+            <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/luces.png');">
+              <span class="texto_tarjetas">Luces y Sonido</span>
             </div>
             <div class="servicios_body_tarjeta servicios_body_tarjeta_bg_servicios">
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Mesero</span>
+                <span> Bocinas </span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Bartender</span>
+                <span> Cabinas </span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Bartender Premium</span>
+                <span> Luces </span>
               </div>
               <div>
                 <img src="./assets/home-dos/box.png" alt="">
-                <span> Limpieza post evento</span>
+                <span> Planta de Luz </span>
               </div>
             </div>
           </div>
@@ -218,7 +227,7 @@
   </div>
 </div>
 
-<div class="row">
+<div class="row" id="porque">
   <div class="col-md-6 no-padding">
     <div class="imagen_contenedor">
       <img src="./assets/home-dos/evento.png" alt="" class="imagen_contenedor">
@@ -370,3 +379,4 @@
 </div>
 
 <div class="espacio d-none d-md-block"></div>
+</div>

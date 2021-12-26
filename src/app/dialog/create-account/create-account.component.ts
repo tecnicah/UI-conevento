@@ -124,9 +124,9 @@ export class CreateAccountComponent implements OnInit {
          Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Registro Exitoso',
+          title: 'Haz recibido un correo con tu Registro',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2300
         })
          this.dialogRef.close();
          this.spinner.hide();
@@ -135,10 +135,10 @@ export class CreateAccountComponent implements OnInit {
         console.log("Error al guardar información: ", err);
         Swal.fire({
           position: 'top-end',
-          icon: 'success',
-          title: 'Registro Exitoso',
+          icon: 'error',
+          title: 'Ha ocurrido un error, intenta de nuevo',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1800
         })
         this.dialogRef.close();
         this.spinner.hide();

@@ -27,6 +27,10 @@ import { DetalleProductoComponent } from './dialog/detalle-producto/detalle-prod
 import { MatIconModule } from '@angular/material/icon';
 import { SwiperModule } from 'swiper/angular';
 
+//external
+import { NgxPayPalModule } from 'ngx-paypal';
+import { FilterPipeModule } from 'ngx-filter-pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +49,7 @@ import { SwiperModule } from 'swiper/angular';
     DetalleProductoComponent
   ],
   imports: [
+    NgxPayPalModule,
     MatIconModule,
     NgxSpinnerModule,
     BrowserModule,
@@ -58,7 +63,8 @@ import { SwiperModule } from 'swiper/angular';
     MatStepperModule,
     MatInputModule,
     MatFormFieldModule,
-    SwiperModule
+    SwiperModule,
+    FilterPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,14 @@
   background-color: transparent;
 }
 
+@media (max-width: 434px) {
+  .bg-color{
+  background-color: #411078;
+  }  
+}
+
+
+
 .bg-color_none{
   background-color: #1E003A;
 }
