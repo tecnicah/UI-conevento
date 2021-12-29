@@ -1,35 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { NosotrosComponent } from 'src/app/dialog/nosotros/nosotros.component';
+
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
 
-  constructor(public _dialog:MatDialog, public appComponent: AppComponent, private http: HttpClient, private activeRoute: ActivatedRoute) { }
+  constructor(public _dialog:MatDialog, public appComponent: AppComponent, private http: HttpClient
+    , private router: Router) { }
   
   @ViewChild('container')
   container!: ElementRef<HTMLElement>;
 
-  ngAfterViewInit(): void {
-
-    this.activeRoute.params.subscribe(param => {
-      // alert(param.pageSec)
-      if(param.pageSec){
-        const section = this.container.nativeElement.querySelector('#${param.pageSec}')
-        console.log(section)
-
-        section?.scrollIntoView()
-      }
-    })
-
-  }
+  public wizard() {
+    this.router.navigateByUrl('/Wizard');
+    this.appComponent.detectaRuta();
+    //alert();
+ } 
 
   ngOnInit(): void {
     window.scrollTo(0,0);
@@ -47,5 +42,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (result) { }
     })
   }
+
+  @HostListener('click') c_onEnterrr() {
+    this.appComponent.detectaRuta();
+   }
 
 }

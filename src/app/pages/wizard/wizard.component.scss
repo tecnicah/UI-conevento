@@ -234,12 +234,12 @@
   }
 
   &_titulo {
-    font-size: 20px;
+    font-size: 16px;
     color: #333333
   }
 
   &_descripcion {
-    font-size: 20px;
+    font-size: 16px;
     color: #777777;
   }
 }
@@ -301,7 +301,7 @@
     align-items: center;
     flex-direction: column;
     padding: 2%;
-    height: 170px;
+    height: 70px;
   }
 
   &_siguiente {
@@ -554,7 +554,7 @@
 
     &_paga_botones {
       justify-content: center !important;
-      margin-top: 70px;
+      margin-top: 0px;
     }
   }
 
@@ -574,6 +574,8 @@
     }
   }
 
+
+  
   .stepers {
     .step {
       .info {
@@ -604,6 +606,11 @@
 
   .contenedor_cuatro{
     margin: 10% auto;
+  }
+
+  .step_final {
+    margin-bottom: 20px;
+    width: 80%;
   }
 }
 

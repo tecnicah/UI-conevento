@@ -29,18 +29,18 @@
                 {{userFilter.name}}
             </div>
           </div>
-        
       </div>
-
-
-    
-
     <div class="col-md-3" *ngFor="let item of productos | filterBy: userFilter; let i = index ">
       <div class="tarjeta_contenedor_principal">
-
-        <div class="imagenesTarj d-none d-md-block pointer" (click)="detalle(1, item)">
+        <div *ngIf="item.tipoImagenSeleccion == 'imagen'" 
+        class="imagenesTarj d-none d-md-block pointer" (click)="detalle(1, item)">
           <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+          
         </div>
+         <video *ngIf="item.tipoImagenSeleccion == 'video'" width="255" height="210" controls>
+          <source [src]="item.imagenSeleccion" type="video/mp4">
+          {{item.producto}}
+        </video> 
 
         <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
           <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
@@ -55,7 +55,7 @@
           <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;"
             (click)="detalle(2, item)">{{item.producto}}</p>
           <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-              class="tarjeta_color sizes_14" *ngIf="item.especificarTiempo">Mínimo ({{item.minimoProductos}} hr)</span>
+              class="tarjeta_color sizes_14" *ngIf="item.especificacionEspecial" style="font-style: italic;"> {{item.especificacionEspecial}}</span>
           </p>
           <p class="tarjeta_justificado sizes_14">
             {{item.descripcionCorta}}

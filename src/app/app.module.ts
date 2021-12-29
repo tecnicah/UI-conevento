@@ -30,6 +30,7 @@ import { SwiperModule } from 'swiper/angular';
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
 import { FilterPipeModule } from 'ngx-filter-pipe';
+import { WizardLoginComponent } from './wizard-login/wizard-login.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
     WizardComponent,
     SeleccionarServicioComponent,
     MisEventosComponent,
-    DetalleProductoComponent
+    DetalleProductoComponent,
+    WizardLoginComponent
   ],
   imports: [
     NgxPayPalModule,

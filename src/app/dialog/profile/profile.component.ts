@@ -126,7 +126,7 @@ export class ProfileComponent implements OnInit {
     setTimeout(() => {
     this.data_model.fecha_creacion = new Date();
     this.data_model.fecha_edicion = new Date();
-    debugger;
+    //debugger;
     this.auth.service_general_post_with_url('User/UpdateUser', this.data_model).subscribe(r => {
       if (r.success) {
         console.log("respuesta exitosa: ", r);

@@ -47,7 +47,7 @@ export class WizardComponent implements OnInit {
     fechaHoraFin: ''
   };
   public data_user_model: any = {};
-
+  public error_alguardar: boolean = false;
 
 
   constructor(public spinner: SpinnerService, private _formBuilder: FormBuilder
@@ -98,6 +98,7 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //INICIALIZACION DE PARAMETROS//
   ngOnInit() {
+    this.appComponent.detectaRuta();
     this.initConfigPayPal();
     //paypal.Buttons().render(this.paypalElement.nativeElement);
     this.catalogos();
@@ -184,7 +185,7 @@ export class WizardComponent implements OnInit {
       },
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        this.saveEvent(1);
+        this.saveEvent(data.create_time, data.id);
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
@@ -251,6 +252,7 @@ export class WizardComponent implements OnInit {
     if (localStorage.getItem('form')) {
       this.fillForm();
     }
+    this.restart_dates();
     //this.get_sesion();
     this.spinner.hide();
   }
@@ -262,6 +264,7 @@ export class WizardComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.firstFormGroup.invalid) {
+      window.scrollTo( 100, 360 );
       console.log("NO ESTA COMPLETO: ", this.firstFormGroup.invalid);
       return;
     }
@@ -294,6 +297,7 @@ export class WizardComponent implements OnInit {
     //alert(this.total);
     this.total = parseFloat(this.total.toFixed(2));
     //alert(this.total);
+  //  console.log("Productos listado ===============>" , this.Productos_listado)
   }
   //*******************************************//
   //FUNCION PARA SALVAR LA DATA DEL FORMULARIO//
@@ -314,7 +318,7 @@ export class WizardComponent implements OnInit {
       telefono: this.firstFormGroup.value.telefono
     }
     this.auth.data_form = this.data_model;
-    console.log("data_model: ", this.data_model);
+ //   console.log("data_model: ", this.data_model);
     localStorage.setItem('form', JSON.stringify(this.data_model))
   }
   //*******************************************//
@@ -333,7 +337,7 @@ export class WizardComponent implements OnInit {
     this.firstFormGroup.get("nombreEvento")?.setValue(data.nombreEvento);
     this.firstFormGroup.get("correo")?.setValue(data.correo);
     this.firstFormGroup.get("telefono")?.setValue(data.telefono);
-    console.log(this.firstFormGroup);
+  //  console.log(this.firstFormGroup);
   }
   //*******************************************//
   //FUNCIONES PARA PASO 3//
@@ -425,6 +429,7 @@ export class WizardComponent implements OnInit {
       }
 
     }
+    window.scrollTo( 0, 100 );
   }
 
   after() {
@@ -547,22 +552,28 @@ export class WizardComponent implements OnInit {
 
   public method_name()
   {
-       const fecha = new Date();
-       var hoy = fecha.getDate();
-       fecha.setDate(fecha.getDate()  + 3);
 
-      this.yourDate = new Date(this.firstFormGroup.value.fechaHoraInicio);
+    this.data_model.fechaHoraFin = null;
+
+    this.auth.data_form = this.data_model;
+    this.firstFormGroup.get("fechaHoraFin")?.setValue(null);
+
+      //  const fecha = new Date();
+      //  var hoy = fecha.getDate();
+      //  fecha.setDate(fecha.getDate()  + 3);
+
+      // this.yourDate = new Date(this.firstFormGroup.value.fechaHoraInicio);
       //this.yourDate.setDate(this.yourDate.getDate()  + 1);
 
-      if(this.yourDate <= fecha)
-      {
-        this.fecha_inicio_valid = false;
-       //  alert("no es major del jueves");
+      // if(this.yourDate <= fecha)
+      // {
+      //   this.fecha_inicio_valid = false;
+      //    alert("no es major del jueves");
 
-      }
-      else{
-        this.fecha_inicio_valid = true;
-      }
+      // }
+      // else{
+      //   this.fecha_inicio_valid = true;
+      // }
 
       //alert(this.yourDate);
       //alert(fecha);
@@ -570,49 +581,96 @@ export class WizardComponent implements OnInit {
  
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
-  public saveEvent(type: any) {
+  public saveEvent(create_time: any, id: any) {
      
-    this.next();
+    
     this.spinner.show();
     let json_bd: any = this.auth.data_form;
+    delete json_bd.ciudad; 
     if (localStorage.getItem('userData')) {
       let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
        json_bd.idUsuario = data_user.id;
     }
-    json_bd.fechaCreacion = new Date();
-    json_bd.detallesEventostring = "hardcoding",
-      json_bd.fechaPago = new Date();
-    json_bd.referenciaPago = "1234567890";
+    json_bd.fechaCreacion = create_time;
+    json_bd.detallesEvento = "Sin detalles",
+      json_bd.fechaPago = create_time;
+    json_bd.referenciaPago = id;
     json_bd.pagado = true,
-      json_bd.claveSeguimientoCarrito = "1234567890",
+      json_bd.claveSeguimientoCarrito = "Sin seguimiento carrito",
       json_bd.listaProductosEventos = this.auth.listaProductosEventos;
-    console.log("EVENTOS A GUARDAR: ", json_bd);
-
+   // console.log("EVENTOS A GUARDAR: ====================> ", json_bd);
+    debugger;
     this.auth.service_general_post_with_url('Eventos/AddEvent', json_bd).subscribe(r => {
       if (r.success) {
-         
-        console.log("respuesta exitosa: ", r);
+       // debugger;
+       // console.log("respuesta exitosa: ", r);
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Dsifruta de tu evento',
+          title: 'Disfruta de tu evento',
           showConfirmButton: false,
           timer: 1500
         })
+      //  debugger;
+        //this.clear_memory();
+        this.error_alguardar = false;
+        this.next();
+        this.spinner.hide();
+      }
+    }, (err) => {
+      this.error_alguardar = true;
+     // debugger;
+      console.log(err);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Ha ocurrido un error al guardar el evento, por favor contacta a administración',
+        showConfirmButton: false,
+        timer: 5500
+      })
+      this.spinner.hide();
+    })
+  }
+
+  public clear_memory()
+  {
         this.auth.data_form = {};
         this.auth.listaProductosEventos = [];
         this.Productos_listado = [];
         localStorage.removeItem('form');
         localStorage.removeItem('productos');
         localStorage.removeItem('categorias');
-        this.spinner.hide();
-      }
-    }, (err) => {
-       
-      console.log(err);
-      this.spinner.hide();
-    })
   }
+
+   public restart_dates(){
+//debugger;
+     //Display Only Date till today // 
+   var dtToday = new Date();
+   var month = (dtToday.getMonth() + 1).toString();     // getMonth() is zero-based
+   var day = (dtToday.getDate()+ 4).toString();
+   var year = dtToday.getFullYear();
+   //var month_ =""; var  day_ = "";
+   if(parseInt(month) < 10)
+    month = '0' + month.toString();
+   if(parseInt(day) < 10)
+    day = '0' + day.toString();
+
+     var maxDate = year + '-' + month + '-' + day + "T00:01";
+    document.getElementById("start")?.setAttribute('min', maxDate);
+    var xxx= document.getElementById("start")?.getAttribute("min");
+    // $('#dateID').attr('max', maxDate);
+  }
+
+  public no_menor_cero(){
+
+    if(this.firstFormGroup.value.genteEsperada < 1)
+    {
+      this.data_model.fechaHoraFin = null;
+      this.auth.data_form = this.data_model;
+      this.firstFormGroup.get("genteEsperada")?.setValue(null);
+    }
+  }
+
   //*******************************************//
   //OBTENER NOMBRE DE LA DIRECCION//
   public alcaldias = [
@@ -639,7 +697,7 @@ export class WizardComponent implements OnInit {
   //FUNCIONA PARA MARCAR CATEGORIA CON PRODUCTO//
   //SELECCIONADOS//  
   public setchecks() {
-    console.log("ENTRA A LA FUNCION CHECKS");
+   // console.log("ENTRA A LA FUNCION CHECKS");
     this.auth.categorias.personal1 = false;
     this.auth.categorias.talento3 = false;
     this.auth.categorias.alimentos5 = false;
@@ -692,7 +750,7 @@ export class WizardComponent implements OnInit {
         }
       }
     });
-    console.log(this.categorias);
+ //   console.log(this.categorias);
   }
 
   public reStart() {
@@ -720,7 +778,7 @@ export class WizardComponent implements OnInit {
     this.firstFormGroup.get("correo")?.setValue(data_.correo);
     this.firstFormGroup.get("telefono")?.setValue(data_.telefono);
     }
-       alert(':)');
+   //    alert(':)');
   }
 
   @HostListener('click') c_onEnterrr() {

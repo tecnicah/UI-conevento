@@ -57,20 +57,32 @@ export class SeleccionarServicioComponent implements OnInit {
   //*************************************************************************//
   //DETECTA SUMA O RESTA DE CONTIDADES//
   public detectarSumaRestaCantidad(model:any, item:any, i:any){
-    console.log(model);
-    console.log(item);
+   // console.log(model);
+   // console.log(item);
+   //debugger;
     if(model >= 0){
       this.productos[i].cantidadUnidades = model;
+      
+      if((model > this.productos[i].maximoProductos) && (this.productos[i].maximoProductos != null))
+      {
+        this.productos[i].cantidadUnidades= this.productos[i].maximoProductos;
+      }
       this.calculos();
     }else{
       this.productos[i].cantidadUnidades = 0;
       this.calculos();
     }
+
+    // if(model <= item.minimoProductos){
+    //   this.productos[i].cantidadHoras = model;
+    // }else{
+    //   this.productos[i].cantidadHoras = item.maximoProductos;
+    // }
   }
   //DETECTA SUMA O RESTA DE HORAS//
   public detectarSumaRestaHoras(model:any, item:any, i:any){
-    console.log(model);
-    console.log(item);
+   // console.log(model);
+   // console.log(item);
     if(model >= item.minimoProductos){
       this.productos[i].cantidadHoras = model;
     }else{
@@ -80,8 +92,12 @@ export class SeleccionarServicioComponent implements OnInit {
   //FUNCION PARA AGREGAR CANTIDADES//
   public agregarCantidad(data:any, i:any, ){
     console.log(data);
+    debugger;
     if(data){
-      this.productos[i].cantidadUnidades++;
+    //  this.productos[i].cantidadUnidades++;
+      if((this.productos[i].cantidadUnidades < this.productos[i].maximoProductos) || (this.productos[i].maximoProductos == null)){
+        this.productos[i].cantidadUnidades++;
+      }
       this.calculos();
     }else{
       if(this.productos[i].cantidadUnidades > 0){
@@ -95,11 +111,13 @@ export class SeleccionarServicioComponent implements OnInit {
     console.log(data);
     if(data){
       this.productos[i].cantidadHoras++;
+      
     }else{
       if(this.productos[i].cantidadHoras > this.productos[i].minimoProductos){
         this.productos[i].cantidadHoras--;
       }
     }
+
   }
   //*************************************************************************//
   //FUNCION PARA REGRESAR//
@@ -126,8 +144,8 @@ export class SeleccionarServicioComponent implements OnInit {
             "id": 0,
             "idEvento": 0,
             "idCatProducto": E.id,
-            "cantidadUnidades": E.cantidadUnidades,
-            "cantidadHoras": E.cantidadHoras,
+            "cantidadUnidades": E.cantidadUnidades == null ? 1 : E.cantidadUnidades ,
+            "cantidadHoras": E.cantidadHoras == null ? 1 : E.cantidadHoras,
             "idCategoria": Number(this.id),
             "Nombre": E.producto,
             "Precio": Number(E.precioPorUnidad)
@@ -206,8 +224,8 @@ export class SeleccionarServicioComponent implements OnInit {
          "id": 0,
          "idEvento": 0,
          "idCatProducto": result.id,
-         "cantidadUnidades": result.cantidadUnidades,
-         "cantidadHoras": result.cantidadHoras,
+         "cantidadUnidades": result.cantidadUnidades == null ? 1 : result.cantidadUnidades ,
+         "cantidadHoras": result.cantidadHoras == null ? 1 : result.cantidadHoras,
          "idCategoria": Number(this.id),
          "Nombre": result.producto,
          "Precio": Number(result.precioPorUnidad)

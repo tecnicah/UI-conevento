@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.router.url);
+    console.log("header =====>" ,this.router.url);
   }
 
 
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit {
         ancho = '100%';
       }
       const dialogRef = this._dialog.open(LoginComponent, {
-        width: ancho
+        width: ancho,
       });
   
       dialogRef.afterClosed().subscribe(result => {
