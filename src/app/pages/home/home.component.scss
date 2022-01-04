@@ -2,6 +2,8 @@
   font-size: 42px;
 }
 
+
+
 .no-padding {
   padding: 0%;
 }
@@ -114,6 +116,8 @@
   position: relative;
   bottom: -160px;
 }
+
+// li { list-style-image: url("../../../assets/home/date.png"); } 
 
 .servicios {
   &_header {
@@ -355,7 +359,7 @@
 
   .imagen {
     &_bg {
-      height: 320px;
+      height: 365px;
     }
 
     &_title {

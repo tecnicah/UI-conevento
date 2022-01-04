@@ -74,6 +74,7 @@
                   <p style=" margin: -10px;" class="required" *ngIf="!confirmacorreo && !correo_incorrecto_confirmacion">&nbsp;</p>
                   <p class="required" *ngIf="confirmacorreo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
+                  <p class="required" *ngIf="correo_diferente_confirmacion">Correos no coinciden</p>
                 </div>
                 
 
@@ -91,7 +92,8 @@
                   <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 14px;">Contraseña</p></div>
                   <div class="input-group mb-3 margen_cero">
                     <input type="{{type}}" class="form-control" style="font-size: 12px;" placeholder="Contraseña" aria-label="Contraseña"
-                      aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass" (focus)="pass = false">
+                      aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass" (focus)="pass = false"
+                      (blur) = "validatepass();">
                     <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                       visibility
                     </span>
@@ -108,7 +110,7 @@
                   <div class="input-group mb-3 margen_cero">
                     <input type="{{type_}}" class="form-control" style="font-size: 12px;" placeholder="Confirmar contraseña"
                       (focus)="confirmapass = false" aria-label="Confirmar contraseña" aria-describedby="basic-addon1"
-                      required [(ngModel)]="data_model.confirmapass">
+                      required [(ngModel)]="data_model.confirmapass" (blur) = "validatepass();">
                     <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(1)"
                       *ngIf="!show_eye_">
                       visibility
@@ -118,8 +120,9 @@
                       visibility_off
                     </span>
                   </div>
-                  <p class="required" *ngIf="!confirmapass">&nbsp;</p>
+                  <p class="required" *ngIf="!confirmapass && !pass_invalido">&nbsp;</p>
                   <p class="required" *ngIf="confirmapass">Field is required</p>
+                  <p class="required" *ngIf="pass_invalido">contraseñas no coinciden</p>
                 </div>
 
                 <div class="flex_contenedor">
@@ -213,7 +216,8 @@
                   <div style="text-align: left;"><p style="margin-bottom: 0px; font-size: 14px;">E-mail*</p></div>
                   <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Email" aria-label="Email"
-                      (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo">
+                      (focus)="correo = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.correo"
+                      (blur)="validateEmail()">
                   </div>
                   <p class="required" *ngIf="!correo && !correo_incorrecto">&nbsp;</p>
                   <p class="required" *ngIf="correo">Field is required</p>
@@ -225,17 +229,19 @@
                   <div class="input-group mb-3 margen_cero">
                     <input type="text" class="form-control" placeholder="Confirmar email" aria-label="Email"
                       (focus)="confirmacorreo = false" aria-describedby="basic-addon1" required
-                      [(ngModel)]="data_model.confirmacorreo">
-                  </div>|
+                      [(ngModel)]="data_model.confirmacorreo" (blur)="validateEmailConfirmacion()">
+                  </div>
                   <p class="required" *ngIf="confirmacorreo">Field is required</p>
                   <p class="required" *ngIf="correo_incorrecto_confirmacion">Formato de correo incorrecto</p>
+                  <p class="required" *ngIf="correo_diferente_confirmacion">Correos no coinciden</p>
                 </div>
 
                 <div class="flex_contenedor_input">
                   <p class="title reboto-regular">Contraseña</p>
                   <div class="input-group mb-3 margen_cero">
                     <input type="{{type}}" class="form-control" placeholder="Contraseña" aria-label="Contraseña"
-                      (focus)="pass = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass">
+                      (focus)="pass = false" aria-describedby="basic-addon1" required [(ngModel)]="data_model.pass"
+                      (blur) = "validatepass();">
                     <span class="material-icons-outlined pointer icon" (click)="visibility(1)" *ngIf="!show_eye">
                       visibility
                     </span>
@@ -251,7 +257,7 @@
                   <div class="input-group mb-3 margen_cero">
                     <input type="{{type_}}" class="form-control" placeholder="Confirmar contraseña"
                       (focus)="confirmapass = false" aria-label="Confirmar contraseña" aria-describedby="basic-addon1"
-                      required [(ngModel)]="data_model.confirmapass">
+                      required [(ngModel)]="data_model.confirmapass" (blur) = "validatepass();">
                     <span class="material-icons-outlined pointer icon" (click)="visibilityConfirmar(1)"
                       *ngIf="!show_eye_">
                       visibility
@@ -261,8 +267,9 @@
                       visibility_off
                     </span>
                   </div>
-                  <p class="required" *ngIf="!confirmapass">&nbsp;</p>
+                  <p class="required" *ngIf="!confirmapass && !pass_invalido">&nbsp;</p>
                   <p class="required" *ngIf="confirmapass">Field is required</p>
+                  <p class="required" *ngIf="pass_invalido">contraseñas no coinciden</p>
                 </div>
 
                 <div class="flex_contenedor">

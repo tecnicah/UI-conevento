@@ -19,28 +19,29 @@
     
     <ul class="navbar-nav menu_li">
       <li class="d-none d-md-block">
-        <a [routerLink]="['/']"><img src="./assets/Home/logo-icon.svg" alt="" width="50%"></a>
+        <a style="cursor: pointer;" [routerLink]="['/']"><img src="./assets/Home/logo-icon.svg" alt="" width="50%"></a>
         
       </li>
       <li class="pointer nav-item">
-        <a  class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']" (click)="isCollapsed = !isCollapsed">¿COMO FUNCIONA?</a>
-        <a  class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/']">¿COMO FUNCIONA?</a>
+        <!-- <a  class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']" (click)="isCollapsed = !isCollapsed">¿COMO FUNCIONA?</a> -->
+        <a  class="nav-link d-block d-md-none menu_opciones" (click)="goDown2('comofunciona'); isCollapsed = !isCollapsed">¿COMO FUNCIONA?</a>
+        <a  class="nav-link d-none d-md-block menu_opciones" (click)="goDown2('comofunciona');">¿COMO FUNCIONA?</a>
       </li>
       <li class="pointer nav-item">
-        <a  class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']" (click)="isCollapsed = !isCollapsed">NUESTROS SERVICIOS</a>
-        <a  class="nav-link d-none d-md-block menu_opciones"[routerLink]="['/']">NUESTROS SERVICIOS</a>
+        <a  class="nav-link d-block d-md-none menu_opciones" (click)=" goDown2('nuestrosservicios');isCollapsed = !isCollapsed">NUESTROS SERVICIOS</a>
+        <a  class="nav-link d-none d-md-block menu_opciones" (click)="goDown2('nuestrosservicios');">NUESTROS SERVICIOS</a>
       </li>
       <li class="pointer nav-item">
-        <a class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']" (click)="isCollapsed = !isCollapsed">¿POR QUÉ ELEGIRNOS?</a>
-        <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/']">¿POR QUÉ ELEGIRNOS?</a>
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="goDown2('porque'); isCollapsed = !isCollapsed">¿POR QUÉ ELEGIRNOS?</a>
+        <a class="nav-link d-none d-md-block menu_opciones" (click)="goDown2('porque');">¿POR QUÉ ELEGIRNOS?</a>
       </li>
       <li class="pointer nav-item">
-        <a class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']"(click)="isCollapsed = !isCollapsed">ÚNETE A NOSOTROS</a>
-        <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/']">ÚNETE A NOSOTROS</a>
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="goDown2('unete'); isCollapsed = !isCollapsed">ÚNETE A NOSOTROS</a>
+        <a class="nav-link d-none d-md-block menu_opciones" (click)="goDown2('unete');">ÚNETE A NOSOTROS</a>
       </li>
       <li class="pointer nav-item">
-        <a class="nav-link d-block d-md-none menu_opciones" [routerLink]="['/']" (click)="isCollapsed = !isCollapsed">FAQ's</a>
-        <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/']">FAQ's</a>
+        <a class="nav-link d-block d-md-none menu_opciones" (click)="faqs(1);">FAQ's</a>
+        <a class="nav-link d-none d-md-block menu_opciones" (click)="faqs(1);" >FAQ's</a>
       </li>
       <li class="pointer nav-item menu_text_center li_final">
         <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" 

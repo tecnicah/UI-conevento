@@ -1,0 +1,51 @@
+<div class="col-md-12" style="width: 100%;">
+    <div style=" padding: 2%; float: right; ">
+        <mat-icon [mat-dialog-close]="true" style="cursor:pointer">close</mat-icon>
+    </div>
+    <div class="titulos_stepper_paga" >
+        <!-- <img src="./assets/wizard/step_tres.png" alt="" class="titulos_stepper_img">
+    &nbsp; -->
+        <span class="Reboto-medium">Preguntas Frecuentes</span>
+    </div>
+    <div class="faqs_title">
+        <!-- <img src="./assets/wizard/step_tres.png" alt="" class="titulos_stepper_img">
+    &nbsp; -->
+        <span>FAQ's</span>
+    </div>
+    <div style="padding-top: 2%; padding-right: 5%; padding-left: 5%; align-items: center; text-align: center;">
+    <ngb-accordion [closeOthers]="true" style="background-color:white;">
+        <ngb-panel *ngFor="let acc of faqs" id="acc-{{acc.id}}" title="{{acc.titulo}}" style="background-color:white;">
+          <ng-template ngbPanelContent style="justify-content: center;">
+            {{acc.descripcion}}
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+</div>
+    <!-- <div style="padding-top: 1%; padding-right: 5%; padding-left: 5%; align-items: center; text-align: center;">
+        {{faqs}} klklklklklkl
+        <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0" style="background-color:white;">
+            <div *ngFor="let item of faqs">
+                <ngb-panel title={{item.categorias}}>
+                <ng-template ngbPanelContent>
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
+                    wolf
+                    moon officia
+                    aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                    wolf
+                    moon tempor,
+                    sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim
+                    keffiyeh helvetica,
+                    craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice
+                    lomo.
+                    Leggings
+                    occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of
+                    them
+                    accusamus
+                    labore sustainable VHS.
+                </ng-template>
+            </ngb-panel>
+            </div>
+            
+        </ngb-accordion>
+    </div> -->
+</div>

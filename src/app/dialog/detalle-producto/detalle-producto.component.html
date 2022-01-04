@@ -1,7 +1,16 @@
 <div style="width: 100%;" class="d-none d-md-block">
   <div class="contenedor">
     <div class="contenedorIMG">
-      <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
+    
+      <div *ngIf="data.tipoImagenSeleccion == 'imagen'" 
+        class="imagenesTarj d-none d-md-block pointer">
+          <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
+          
+        </div>
+         <video *ngIf="data.tipoImagenSeleccion == 'video'" style="max-width: 100%;"  controls>
+          <source [src]="data.imagenSeleccion" type="video/mp4">
+          {{data.producto}}
+        </video> 
     </div>
     <div>&nbsp;</div>
     <div class="contenedorINFO">

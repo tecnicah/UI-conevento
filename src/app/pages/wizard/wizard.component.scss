@@ -74,9 +74,21 @@
 .size {
   text-align: center;
   width: 90%;
-  font-size: 10px;
+  font-size: 11px;
   padding: 2%;
 }
+
+
+.grow img{
+  transition: 1s ease;
+  }
+  
+  .grow img:hover{
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+  transition: 1s ease;
+  }
 
 
 .titulos_stepper {
@@ -147,6 +159,15 @@
 
   &_justify {
     text-align: justify !important;
+
+  }
+}
+
+.productlist{
+  font-size: 14px;
+  &_precio{
+    position: absolute; right: 10px;
+    font-size: 14px;
   }
 }
 
@@ -174,9 +195,9 @@
 
 .contenedor_cuatro {
   background-color: #F5F2F8;
-  width: 80%;
+  width: 85%;
   padding: 2%;
-  margin: 3% auto;
+  margin: 0% auto;
 }
 
 .step_final {
@@ -543,6 +564,13 @@
     background-color: transparent !important;
   }
 
+  .size {
+    text-align: center;
+    width: 90%;
+    font-size: 13px;
+    padding: 2%;
+  }
+
   .pagar {
     &__siguiente {
       width: 50% !important;
@@ -571,6 +599,14 @@
       width: 90% !important;
       margin: auto;
       font-size: 25px !important;
+    }
+
+    .productlist{
+      font-size: 12px;
+      &_precio{
+        position: absolute; right: 10px;
+        font-size: 12px;
+      }
     }
   }
 
@@ -606,6 +642,13 @@
 
   .contenedor_cuatro{
     margin: 10% auto;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .col-md-5{
+    padding-right: 5px;
+    padding-left: 5px;
   }
 
   .step_final {

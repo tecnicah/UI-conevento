@@ -9,6 +9,7 @@ import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2'
 import { AppComponent } from 'src/app/app.component';
+import { WizardLoginComponent } from 'src/app/dialog/wizard-login/wizard-login.component';
 
 //declare var paypal;
 
@@ -279,17 +280,18 @@ export class WizardComponent implements OnInit {
   }
   //*******************************************//
   //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
+  public flete: number = 0;
   public calculos() {
     this.Productos_listado.forEach((E: any) => {
       this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
     });
-    let flete = 0;
+    this.flete = 0;
     this.Productos_listado.forEach((E: any) => {
       if (E.idCategoria == 6 || E.idCategoria == 7) {
-        flete++;
+        this.flete++;
       }
     });
-    if (flete > 0) {
+    if (this.flete > 0) {
       this.Subtotal = this.Subtotal + 500;
     }
     this.IVA = this.Subtotal * 0.16;
@@ -347,13 +349,18 @@ export class WizardComponent implements OnInit {
   public pagarOpciones(type: any) {
     if (!localStorage.getItem('userData')) {
       let ancho = '';
+      let alto = "457px";
       if (type == 1) {
         ancho = '50%';
+        
       } else {
         ancho = '100%';
+        alto = "600px";
       }
-      const dialogRef = this._dialog.open(LoginComponent, {
-        width: ancho
+      
+      const dialogRef = this._dialog.open(WizardLoginComponent, {
+        width: ancho,
+        height: alto
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -599,10 +606,10 @@ export class WizardComponent implements OnInit {
       json_bd.claveSeguimientoCarrito = "Sin seguimiento carrito",
       json_bd.listaProductosEventos = this.auth.listaProductosEventos;
    // console.log("EVENTOS A GUARDAR: ====================> ", json_bd);
-    debugger;
+    //debugger;
     this.auth.service_general_post_with_url('Eventos/AddEvent', json_bd).subscribe(r => {
       if (r.success) {
-       // debugger;
+       // //debugger;
        // console.log("respuesta exitosa: ", r);
         Swal.fire({
           position: 'top-end',
@@ -611,15 +618,15 @@ export class WizardComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-      //  debugger;
-        //this.clear_memory();
+      //  //debugger;
+        this.clear_memory();
         this.error_alguardar = false;
         this.next();
         this.spinner.hide();
       }
     }, (err) => {
       this.error_alguardar = true;
-     // debugger;
+     // //debugger;
       console.log(err);
       Swal.fire({
         position: 'top-end',
@@ -630,6 +637,11 @@ export class WizardComponent implements OnInit {
       })
       this.spinner.hide();
     })
+  }
+
+  public modify_list(id: any){
+   //alert(id);
+   console.log("modify ================> ",id);
   }
 
   public clear_memory()
@@ -643,11 +655,19 @@ export class WizardComponent implements OnInit {
   }
 
    public restart_dates(){
-//debugger;
+ //debugger;
      //Display Only Date till today // 
-   var dtToday = new Date();
+
+     var someDate = new Date();
+     var duration = 5; //In Days
+    // someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
+
+     var dtToday = new Date();
+     //var duration = 2; //In Days
+     dtToday.setTime(dtToday.getTime() +  (duration * 24 * 60 * 60 * 1000));
+
    var month = (dtToday.getMonth() + 1).toString();     // getMonth() is zero-based
-   var day = (dtToday.getDate()+ 4).toString();
+   var day = (dtToday.getDate()).toString();
    var year = dtToday.getFullYear();
    //var month_ =""; var  day_ = "";
    if(parseInt(month) < 10)
@@ -760,7 +780,14 @@ export class WizardComponent implements OnInit {
       tres: "next",
       cuatro: false
     }
-    this.ngOnInit();
+
+    this.steps_css = {
+      uno: "class-view",
+      dos: "class-none",
+      tres: "class-none",
+      cuatro: "class-none"
+    }
+   // this.ngOnInit();
   }
 
   public set_datos_cuenta(){

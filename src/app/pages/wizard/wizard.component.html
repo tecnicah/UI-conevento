@@ -178,10 +178,10 @@
         <div class="col-md-4">
           <p>Fecha y hora inicio *</p>
           <div class="input-group mb-3 margen_cero">
-             <input type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
+            <input type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
               id="start" aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraInicio.errors }" formControlName="fechaHoraInicio"> 
-            
+              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraInicio.errors }" formControlName="fechaHoraInicio">
+
             <div *ngIf="submitted && f.fechaHoraInicio.errors" class="invalid-feedback">
               <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div>
             </div>
@@ -194,8 +194,8 @@
         <div class="col-md-4">
           <p>Fecha y hora final *</p>
           <div class="input-group mb-3 margen_cero">
-            <input type="datetime-local" [min]="firstFormGroup.value.fechaHoraInicio" class="form-control" placeholder="Fecha y hora final"
-              aria-label="Fecha y hora final" aria-describedby="basic-addon1"
+            <input type="datetime-local" [min]="firstFormGroup.value.fechaHoraInicio" class="form-control"
+              placeholder="Fecha y hora final" aria-label="Fecha y hora final" aria-describedby="basic-addon1"
               [ngClass]="{ 'is-invalid': submitted && f.fechaHoraFin.errors }" formControlName="fechaHoraFin">
             <div *ngIf="submitted && f.fechaHoraFin.errors" class="invalid-feedback">
               <div *ngIf="f.fechaHoraFin.errors.required">Campo requerido</div>
@@ -205,9 +205,9 @@
         <div class="col-md-4">
           <p>Gente esperada *</p>
           <div class="input-group mb-3 margen_cero">
-            <input [min]= "0" type="number" (change)="no_menor_cero();" class="form-control" placeholder="Gente esperada" aria-label="Gente esperada"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.genteEsperada.errors }"
-              formControlName="genteEsperada">
+            <input [min]="0" type="number" (change)="no_menor_cero();" class="form-control" placeholder="Gente esperada"
+              aria-label="Gente esperada" aria-describedby="basic-addon1"
+              [ngClass]="{ 'is-invalid': submitted && f.genteEsperada.errors }" formControlName="genteEsperada">
             <div *ngIf="submitted && f.genteEsperada.errors" class="invalid-feedback">
               <div *ngIf="f.genteEsperada.errors.required">Campo requerido</div>
             </div>
@@ -379,7 +379,7 @@
     <!-- <div  class="col-md-3">
       <img src="./assets/SeleccionarServicios/bi_arrow-left-short.png" alt="" class="pointer" >
     </div> -->
-    <div class="row contenedor_uno">
+    <div class="row contenedor_cuatro">
       <div class="col-md-7">
         <div class="row">
 
@@ -396,7 +396,10 @@
                 </div>
                 <img [src]="item.imagenSeleccion" alt="" class="servicios_img_principal">
                 <p class="servicios_color_texto reboto-regular">{{item.categoria}}</p>
-                <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+                <div class="grow">
+                  <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
+                </div>
+                
               </div>
               <div id="b" class="none size" style="color: #444444;">{{item.descripcion}}</div>
             </div>
@@ -431,18 +434,28 @@
 
                 <div class="servicios_justify">
                   <div *ngFor="let item of Productos_listado">
-                    <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}} 
-                      <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null" style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
-                      <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio * item.cantidadUnidades | currency}}</span>
-                    </p> 
-                    <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7" style="font-size: 14px;">
-                      1 Servicio de flete (Mobiliario)
-                      <span style="position: absolute; right: 10px; font-size: 14px;">
+                    <!-- <img style="width: 16px; cursor: pointer;" src="https://img.icons8.com/ios/50/000000/delete-sign--v1.png"/>-->
+                    <img style="width: 16px; cursor: pointer;"
+                     (click) ="modify_list(item)"
+                     src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png"/> 
+                    <span class="productlist">
+                        {{item.cantidadUnidades}} {{item.Nombre}}
+                      </span>
+                      <span  class="productlist"*ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
+                        style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
+                        <span class="productlist_precio"> {{item.Precio *
+                        item.cantidadUnidades | currency}}
+                      </span>
+                  </div>
+                  <div *ngIf="flete > 0">
+                      <img src="./assets/home-dos/ship.png" style="width: 28px;"> 
+                      <span class="productlist">
+                        &nbsp;&nbsp;Servicio de flete (Mobiliario)
+                      </span>
+                      <span class="productlist_precio">
                         $500.00
                       </span>
-                    </p>
                   </div>
-
                   <div class="separator"></div>
 
                   <div class="total">
@@ -493,7 +506,7 @@
   <div [ngClass]="steps_css.tres">
     <!----------------------------------------------------------paso 3a ------------------------------->
     <div class="container" [ngClass]="step0">
-      <div class="titulos_stepper_paga">
+      <div class="titulos_stepper">
         <img src="./assets/wizard/step_tres.png" alt="" class="titulos_stepper_img">
         &nbsp;
         <span class="Reboto-medium">Confirma y Paga</span>
@@ -506,31 +519,31 @@
               <img src="./assets/Home/date2.png" width="45px">
               Agendaste tu evento
             </p>
-           
+
             <div class="eventos_seleccionados_flex">
               <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date: 'short'}}</span></span>
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date: 'dd/MM/yyyy'}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
               <span
                 class="Reboto-medium eventos_seleccionados_titulo">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraFin | date: 'short'}}</span></span>
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraFin | date: 'dd/MM/yyyy'}}</span></span>
             </div>
           </div>
 
           <div class="eventos_seleccionados">
             <p class="Reboto-medium eventos_seleccionados_titulo" style="font-size: 18px;">
-              <img src="./assets/Home/adress1.png" width="47px">
+              <img src="./assets/Home/2898588.png" width="47px">
               En la dirección
             </p>
             <div class="eventos_seleccionados_flex">
               <span class="eventos_seleccionados_descripcion">
-                <span style="font-weight: bold;">Calle: </span> {{data_model.calleNumero}}, 
-                <span style="font-weight: bold;">Colonia: </span> {{data_model.colonia}}, 
-                <span style="font-weight: bold;">CP:</span> 
+                <span style="font-weight: bold;">Calle: </span> {{data_model.calleNumero}},
+                <span style="font-weight: bold;">Colonia: </span> {{data_model.colonia}},
+                <span style="font-weight: bold;">CP:</span>
                 <span *ngIf="data_model.cp != null">{{data_model.cp}}</span>
-                <span *ngIf="data_model.cp == null">M/A</span>, 
-                <span style="font-weight: bold;">Ciudad:</span> CDMX, 
+                <span *ngIf="data_model.cp == null">M/A</span>,
+                <span style="font-weight: bold;">Ciudad:</span> CDMX,
                 <span style="font-weight: bold;">Alcaldia:</span> {{getName(data_model.idCatMunicipio)}}
               </span>
             </div>
@@ -566,7 +579,7 @@
         <div class="col-md-5">
           <div class="servicios servicios_bgcolor">
             <img src="./assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
-  
+
             <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
               <ngb-panel id="custom-panel-1">
                 afuera
@@ -585,30 +598,34 @@
                     </button>
                   </div>
                 </ng-template>
-  
+
                 <ng-template ngbPanelContent>
-  
+
                   <div class="servicios_justify">
                     <div *ngFor="let item of Productos_listado">
-                      <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}} 
-                        <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null" style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
-                        <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio * item.cantidadUnidades | currency}}</span>
-                      </p> 
-                      <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7" style="font-size: 14px;">
-                        1 Servicio de flete (Mobiliario)
+                      <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}}
+                        <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
+                          style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
+                        <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio *
+                          item.cantidadUnidades | currency}}</span>
+                      </p>
+                      
+                    </div>
+                    <div *ngIf="flete > 0">
+                      <p class="p" style="font-size: 13px;">
+                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete (Mobiliario)
                         <span style="position: absolute; right: 10px; font-size: 14px;">
                           $500.00
                         </span>
                       </p>
                     </div>
-  
                     <div class="separator"></div>
-  
+
                     <div class="total">
                       <span class="p">Subtotal del carrito</span>
                       <span class="p">{{Subtotal | currency}}</span>
                     </div>
-  
+
                     <div class="total">
                       <span class="p">IVA</span>
                       <span class="p">{{IVA | currency}}</span>
@@ -619,14 +636,14 @@
             </ngb-accordion>
             <div class="servicios_justify" style="padding: 20px;">
               <div class="separator"></div>
-  
+
               <div class="total">
                 <span class="p Reboto-medium">Servicios</span>
                 <span class="p Reboto-medium">{{Productos_listado.length}}</span>
               </div>
-  
+
               <div class="separator"></div>
-  
+
               <div class="total">
                 <span class="pTotal Reboto-medium">Total</span>
                 <span class="p Reboto-medium">{{total | currency}}</span>
@@ -654,8 +671,31 @@
       </div>
       <div class="row contenedor_cuatro">
         <div class="col-md-7">
+          <div class="eventos_seleccionados">
+            <p class="Reboto-medium eventos_seleccionados_titulo" style="font-size: 22px;">
+              <img src="./assets/Home/evento_user.png" width="50px">
+              Monto total: {{total | currency}}
+            </p>
+
+            <div class="eventos_seleccionados_flex">
+              <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date: 'dd/MM/yyyy'}}</span></span>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span
+                class="Reboto-medium eventos_seleccionados_titulo">Servcios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                  class="eventos_seleccionados_descripcion">{{Productos_listado.length}}</span></span>
+            </div>
+            <div class="form-check">
+              
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault" style="font-weight: bold;">
+                Requiero Factura
+              </label>
+            </div>
+          </div>
           <div>
-            <p class="titleHeader Reboto-medium">¿Como quieres pagar?</p>
+            <p class="titleHeader Reboto-medium">¿Cómo quieres pagar?</p>
           </div>
 
           <div class="btn-group flex">
@@ -663,11 +703,11 @@
             
             </div> -->
             <ngx-paypal [config]="payPalConfig" class="pago_tarjeta" style=" height: auto;">
-              
+
             </ngx-paypal>
-           <div style="font-size: large; color: red; font-weight: bolder;" *ngIf="error_alguardar">
+            <div style="font-size: large; color: red; font-weight: bolder;" *ngIf="error_alguardar">
               Ha ocurrido un error al guardar el evento, por favor contacta a administración
-           </div>
+            </div>
 
 
             <div class="d-none d-md-block">
@@ -682,13 +722,13 @@
         <div class="col-md-5">
           <div class="servicios servicios_bgcolor">
             <img src="./assets/wizard/Group 121.png" alt="" class="servicios_bgcolor_img">
-  
+
             <ngb-accordion #a="ngbAccordion" activeIds="custom-panel-1">
               <ngb-panel id="custom-panel-1">
                 afuera
                 <ng-template ngbPanelHeader let-opened="opened">
                   <div class="d-flex align-items-center justify-content-between">
-                    <p class="Reboto-medium pTotal">Solicitud de servicios</p>
+                    <p class="Reboto-medium pTotal">Detalle del pedido</p>
                     <button ngbPanelToggle class="btn btn-link p-0">
                       <!--OPEN ICON-->
                       <span class="material-icons icon_color" *ngIf="!opened">
@@ -701,30 +741,39 @@
                     </button>
                   </div>
                 </ng-template>
-  
+
                 <ng-template ngbPanelContent>
-  
+
                   <div class="servicios_justify">
                     <div *ngFor="let item of Productos_listado">
-                      <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}} 
-                        <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null" style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
-                        <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio * item.cantidadUnidades | currency}}</span>
-                      </p> 
-                      <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7" style="font-size: 14px;">
+                      <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}}
+                        <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
+                          style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
+                        <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio *
+                          item.cantidadUnidades | currency}}</span>
+                      </p>
+                      <!-- <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7" style="font-size: 14px;">
                         1 Servicio de flete (Mobiliario)
+                        <span style="position: absolute; right: 10px; font-size: 14px;">
+                          $500.00
+                        </span>
+                      </p> -->
+                    </div>
+                    <div *ngIf="flete > 0">
+                      <p class="p" style="font-size: 13px;">
+                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete (Mobiliario)
                         <span style="position: absolute; right: 10px; font-size: 14px;">
                           $500.00
                         </span>
                       </p>
                     </div>
-  
                     <div class="separator"></div>
-  
+
                     <div class="total">
                       <span class="p">Subtotal del carrito</span>
                       <span class="p">{{Subtotal | currency}}</span>
                     </div>
-  
+
                     <div class="total">
                       <span class="p">IVA</span>
                       <span class="p">{{IVA | currency}}</span>
@@ -735,22 +784,22 @@
             </ngb-accordion>
             <div class="servicios_justify" style="padding: 20px;">
               <div class="separator"></div>
-  
+
               <div class="total">
                 <span class="p Reboto-medium">Servicios</span>
                 <span class="p Reboto-medium">{{Productos_listado.length}}</span>
               </div>
-  
+
               <div class="separator"></div>
-  
+
               <div class="total">
                 <span class="pTotal Reboto-medium">Total</span>
                 <span class="p Reboto-medium">{{total | currency}}</span>
               </div>
               <div class="pagar_paga_botones  d-block d-md-none" style="text-align: center;">
-              <button class="btn pagar_atras Reboto-medium"
+                <button class="btn pagar_atras Reboto-medium"
                   (click)='step = 0; step0 = "class-view"; step1 = "class-none"; '>Regresar</button>
-                </div>
+              </div>
               <!-- <div class="pagar_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
                 <button class="btn pagar_siguiente Reboto-medium" (click)="next()">Pammgar</button>
               </div> -->
@@ -785,7 +834,7 @@
       <div class="contenedor_uno_contenedor_botones ancho">
         <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="reStart();">Armar otro evento</button>
         <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
-          routerLinkActive="router-link-active">Ir al inicio</button>
+          routerLinkActive="router-link-active">Home</button>
       </div>
     </div>
   </div>

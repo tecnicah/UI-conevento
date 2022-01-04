@@ -32,13 +32,13 @@ export class AppComponent {
  }
 
   public detectaRuta(){
-    debugger;
+    //debugger;
     if(this.router.url == '/'){
       this.rutaHome = true;
-      console.log('home');
+    //  console.log('home');
     }else{
       this.rutaHome = false;
-      console.log('no es el home');
+    //  console.log('no es el home');
     }
   }
 }

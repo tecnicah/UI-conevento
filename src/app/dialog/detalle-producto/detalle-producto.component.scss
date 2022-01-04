@@ -6,12 +6,12 @@
 
 .contenedorIMG {
   width: 50%;
-  height: 500px;
-  display: flex;
+  height: auto;
+  //display: flex;
   justify-content: center;
   align-items: center;
   padding: 2%;
-
+  vertical-align: top;
   &_img {
     border-radius: 10px;
     width: 100%;

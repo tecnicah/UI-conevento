@@ -27,10 +27,18 @@ import { DetalleProductoComponent } from './dialog/detalle-producto/detalle-prod
 import { MatIconModule } from '@angular/material/icon';
 import { SwiperModule } from 'swiper/angular';
 
+
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
 import { FilterPipeModule } from 'ngx-filter-pipe';
-import { WizardLoginComponent } from './wizard-login/wizard-login.component';
+import { WizardLoginComponent } from './dialog/wizard-login/wizard-login.component';
+import { FaqsComponent } from './dialog/faqs/faqs.component';
+import { LayoutadminComponent } from './layout/layoutadmin/layoutadmin.component';
+import { HeaderadminComponent } from './layout/headeradmin/headeradmin.component';
+import { EventosadminComponent } from './pages/eventosadmin/eventosadmin.component';
+import { ViewportScroller } from "@angular/common";
+import { Component, OnInit, VERSION } from "@angular/core";
+import { Router } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -48,7 +56,11 @@ import { WizardLoginComponent } from './wizard-login/wizard-login.component';
     SeleccionarServicioComponent,
     MisEventosComponent,
     DetalleProductoComponent,
-    WizardLoginComponent
+    WizardLoginComponent,
+    FaqsComponent,
+    LayoutadminComponent,
+    HeaderadminComponent,
+    EventosadminComponent
   ],
   imports: [
     NgxPayPalModule,
@@ -71,4 +83,29 @@ import { WizardLoginComponent } from './wizard-login/wizard-login.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+  name = "Angular " + VERSION.major;
+
+  constructor(private scroller: ViewportScroller, private router: Router) {}
+  ngOnInit() {
+    this.router.navigate(["/"]);
+  }
+
+  goDown1() {
+    this.scroller.scrollToAnchor("targetRed");
+  }
+
+  goDown2() {
+    //this.scroller.scrollToAnchor("targetGreen");
+    document.getElementById("targetGreen")!.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest"
+    });
+  }
+
+  goDown3() {
+    this.router.navigate([], { fragment: "targetBlue" });
+  }
+}

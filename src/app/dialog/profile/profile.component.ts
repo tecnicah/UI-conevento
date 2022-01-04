@@ -14,7 +14,7 @@ export class ProfileComponent implements OnInit {
 
   public data_model: any = {};
 
-  constructor(public _dialog: MatDialog, public spinner: SpinnerService,public auth: HttpService, public dialogRef: MatDialogRef<ProfileComponent>) {}
+  constructor(public _dialog: MatDialog, public spinner: SpinnerService, public auth: HttpService, public dialogRef: MatDialogRef<ProfileComponent>) { }
 
   ngOnInit(): void {
     this.data_model = JSON.parse(localStorage.getItem('userData') || '{}');
@@ -46,33 +46,56 @@ export class ProfileComponent implements OnInit {
       this.show_eye_ = false;
     }
   }
+
+  public pass_invalido: boolean = false;
+
+  public validatepass() {
+    if (this.data_model.pass != this.data_model.confirmapass) {
+      this.pass_invalido = true;
+    }
+    else
+      this.pass_invalido = false;
+  }
   //**********************************************************************//
   //FUNCION PARA VALIDAR EMAIL//
   public correo_incorrecto: boolean = false;
   validateEmail() {
     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (emailRegex.test(this.data_model.correo)) {
-      console.log("FORMATO DE CORREO CORRECTO");
+      // console.log("FORMATO DE CORREO CORRECTO");
       this.correo_incorrecto = false;
     } else {
       this.correo_incorrecto = true;
-      console.log("FORMATO DE CORREO INCORRECTO");
+      //  console.log("FORMATO DE CORREO INCORRECTO");
+    }
+    if (this.data_model.confirmacorreo != this.data_model.correo) {
+      this.correo_diferente_confirmacion = true;
+    }
+    else {
+      this.correo_diferente_confirmacion = false;
     }
   }
   public correo_incorrecto_confirmacion: boolean = false;
+  public correo_diferente_confirmacion: boolean = false;
   validateEmailConfirmacion() {
     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
     if (emailRegex.test(this.data_model.confirmacorreo)) {
-      console.log("FORMATO DE CORREO CORRECTO");
+      //console.log("FORMATO DE CORREO CORRECTO");
       this.correo_incorrecto_confirmacion = false;
     } else {
       this.correo_incorrecto_confirmacion = true;
-      console.log("FORMATO DE CORREO INCORRECTO");
+      // console.log("FORMATO DE CORREO INCORRECTO");
+    }
+    if (this.data_model.confirmacorreo != this.data_model.correo) {
+      this.correo_diferente_confirmacion = true;
+    }
+    else {
+      this.correo_diferente_confirmacion = false;
     }
   }
   //**********************************************************************//
   //CERRAR SESION//
-  closeSession(){
+  closeSession() {
     localStorage.clear();
     this.dialogRef.close();
   }
@@ -115,6 +138,9 @@ export class ProfileComponent implements OnInit {
       contador++;
     }
 
+    if (this.correo_diferente_confirmacion || this.pass_invalido) {
+      contador++;
+    }
 
     if (contador == 0) {
       this.save();
@@ -124,35 +150,35 @@ export class ProfileComponent implements OnInit {
   public save(): void {
     this.spinner.show();
     setTimeout(() => {
-    this.data_model.fecha_creacion = new Date();
-    this.data_model.fecha_edicion = new Date();
-    //debugger;
-    this.auth.service_general_post_with_url('User/UpdateUser', this.data_model).subscribe(r => {
-      if (r.success) {
-        console.log("respuesta exitosa: ", r);
-       // localStorage.removeItem('userData');
-        //debugger;
-        localStorage.setItem('userData', JSON.stringify(r.result));
-       // localStorage.setItem('userData', JSON.stringify(r.result));
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Información actualizada',
-          showConfirmButton: false,
-          timer: 1500
-        })
+      this.data_model.fecha_creacion = new Date();
+      this.data_model.fecha_edicion = new Date();
+      //debugger;
+      this.auth.service_general_post_with_url('User/UpdateUser', this.data_model).subscribe(r => {
+        if (r.success) {
+          console.log("respuesta exitosa: ", r);
+          // localStorage.removeItem('userData');
+          //debugger;
+          localStorage.setItem('userData', JSON.stringify(r.result));
+          // localStorage.setItem('userData', JSON.stringify(r.result));
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Información actualizada',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.spinner.hide();
+        }
+      }, (err) => {
+        console.log("Error al guardar información: ", err);
         this.spinner.hide();
-      }
-    }, (err) => {
-      console.log("Error al guardar información: ", err);
-      this.spinner.hide();
-    })
+      })
     }, 3000);
   }
   //**********************************************************************//
-  public misEventos(type:any){
+  public misEventos(type: any) {
     let ancho = '';
-    if(type==1){ancho='50%'}else{ancho='100%'}
+    if (type == 1) { ancho = '50%' } else { ancho = '100%' }
     const dialogRef = this._dialog.open(MisEventosComponent, {
       width: ancho
     });
