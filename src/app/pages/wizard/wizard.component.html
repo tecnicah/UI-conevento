@@ -203,7 +203,7 @@
           </div>
         </div>
         <div class="col-md-4">
-          <p>Gente esperada *</p>
+          <p>Gente esperada </p>
           <div class="input-group mb-3 margen_cero">
             <input [min]="0" type="number" (change)="no_menor_cero();" class="form-control" placeholder="Gente esperada"
               aria-label="Gente esperada" aria-describedby="basic-addon1"
@@ -313,7 +313,7 @@
           </div>
         </div>
 
-        <div class="col-md-6">
+        <!-- <div class="col-md-6">
           <p>Nombre del evento (Opcional)</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Nombre del evento" aria-label="Nombre del evento"
@@ -323,7 +323,7 @@
               <div *ngIf="f.nombreEvento.errors.required">Campo requerido</div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="col-md-6">
           <p>Correo electrónico *</p>
@@ -444,7 +444,7 @@
                       <span  class="productlist"*ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
                         style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
                         <span class="productlist_precio"> {{item.Precio *
-                        item.cantidadUnidades | currency}}
+                        item.cantidadUnidades * item.cantidadHoras | currency}}
                       </span>
                   </div>
                   <div *ngIf="flete > 0">

@@ -1,0 +1,345 @@
+<div class="contenedor ux-container">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="row">
+                <div class="col-6">
+                    <br>
+                    <h1 class="Titlu-header bold" style="font-size: 22px;">Servicios</h1>
+
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="row ">
+
+                <div class="col-4 filter">
+                    <div class="form-group form-inline">
+                        Búsqueda Por Nombre: <input class="form-control ml-2" type="text"
+                            [(ngModel)]="userFilter.producto" />
+                    </div>
+                </div>
+                
+                <div class="col-2  filter">
+                    <span>Categoría *:</span>
+                    <select [(ngModel)]="id_cat" (change)="get_resultados1()">
+                        <option value=0 selected>Todos</option>
+                        <option value=1>Personal</option>	
+                        <option value=3>Talento</option>	
+                        <option value=5>Alimentos y Bebidas</option>	
+                        <option value=6>Mobiliario</option>	
+                        <option value=7>Luces y Sonido</option>	
+                    </select>
+                </div>
+                <div class="col-2 end">
+                    <button class="btn pagar_siguiente Reboto-medium" (click)="limpiarFiltros();">Limpiar
+                    </button>
+                </div>
+                <div class="col-2 end">
+                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: green;" (click)="limpiarFiltros();">
+                        Agregar
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="table-responsive" style="margin-bottom: 100px;">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    #
+                                </span>
+                            </th>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    Servicio
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Precio 
+                                </span>
+                            </th>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    Des. Corta
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Categoria
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    SKU
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Especificación
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="padding: 5px;"
+                            *ngFor="let item of resultados_p | filterBy : userFilter | paginate: { itemsPerPage: 10, currentPage: p }; let i = index ">
+                            <td>
+                                <span>{{ i + 1 + (p-1)*10 }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>{{ item.producto }}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.precioPorUnidad | currency }}
+                                
+                                &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                {{ item.descripcionCorta_lim }}&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.categoria }} &nbsp;&nbsp;
+                            </td>
+                            <td>
+                              
+                                <a style="cursor: pointer;text-decoration: underline;color: blue;"
+                                    (click)="viewdetail(item)">
+                                    {{ item.sku }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ item.especificacionEspecial }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #cuentaPostulanteModal let-modal>
+
+    <div class="modal-body col-form ux-modal">
+        <div class="">
+
+            <div class="row space-between">
+                <p class="titulo bold" style="font-size: 22px;;">Detalles Del Evento</p>
+                <span class="cerrar" aria-hidden="true" (click)="modal.dismiss('Cross click')">&times;</span>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row contenedor_uno" style="margin: 1% auto; border-radius: 10px;">
+                            <div class="col-md-9">
+                                <p class="Reboto-medium subtitle">¿Cuando será el evento?</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Fecha y hora inicio *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span> {{ eventos.fechaHoraInicio | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;{{
+                                        eventos.fechaHoraInicio |
+                                        date:'shortTime' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Fecha y hora final *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{ eventos.fechaHoraFin | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;{{
+                                            eventos.fechaHoraFin |
+                                            date:'shortTime' }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Gente esperada </p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.genteEsperada}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <p class="Reboto-medium subtitle">¿En qué lugar ?</p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>Alcaldia o municipio *</p>
+                                <span>
+                                    {{eventos.municipio}}
+                                </span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>Código postal (Opcional)</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.cp}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>Calle y numero exterior *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.calleNumero}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" style="padding-bottom: 20px;">
+                                <p>Colonia *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.colonia}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <p class="Reboto-medium subtitle">Datos de contacto</p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>Nombre del contratante *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.nombreContratane}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>Nombre del evento (Opcional)</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.nombreEvento}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>Correo electrónico *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.correo}}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <p>Teléfono fijo o celular *</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <span>
+                                        {{eventos.telefono}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p class="Reboto-medium subtitle">
+                                    Monto total: {{eventos.total | currency}} &nbsp;
+                                    <span *ngIf="eventos.flete > 0" style="color: gray; font-size: 14px; font-style: italic;">
+                                       (Incluye Flete $500.00)
+                                    </span>
+                                </p>
+                                <p class="Reboto-medium subtitle">Servicios ({{eventos.total_servicios}}): </p>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="margin-bottom: 100px;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="cursor: pointer;">
+                                            <span>
+                                                #
+                                            </span>
+                                        </th>
+                                        <th style="cursor: pointer;">
+                                            <span>
+                                                Servicio
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                                Precio Unitario
+                                            </span>
+                                        </th>
+                                        <th style="cursor: pointer;">
+                                            <span>
+                                                Elementos
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                                Horas
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                                Monto
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="padding: 5px;"
+                                        *ngFor="let _item of eventos.listaProductosEventos; let j = index ">
+                                        <td>
+                                            <span>{{ j + 1 + (_p-1)*5 }}
+            
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span>{{ _item.producto }}
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {{ _item.precioPorUnidad | currency }}&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            &nbsp;&nbsp;{{ _item.cantidadUnidades }} &nbsp;&nbsp;
+                                        </td>
+                                        <td *ngIf="_item.especificarTiempo">
+                                            &nbsp;&nbsp;{{ _item.cantidadHoras }} 
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td *ngIf="!_item.especificarTiempo">
+                                            &nbsp;&nbsp;N/A
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            &nbsp;&nbsp;
+                                                {{ _item.monto | currency  }}
+                                            &nbsp;&nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        </div>
+                    <!-- <div class="col-12">Contenedor de 7 columnna</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -4,6 +4,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SeleccionarServicioComponent } from './pages/seleccionar-servicio/seleccionar-servicio.component';
 import { WizardComponent } from './pages/wizard/wizard.component';
+import { LayoutadminComponent } from './layout/layoutadmin/layoutadmin.component';
+import { AdminEventsComponent } from './pages/admin-events/admin-events.component';
+import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
 
 const routes: Routes = [
   {
@@ -21,6 +24,21 @@ const routes: Routes = [
       {
         path: 'SeleccionarServicios/:id',
         component: SeleccionarServicioComponent,
+      }
+    ]
+  },
+  
+  {
+    path: 'admin',
+    component: LayoutadminComponent,
+    children:[
+      {
+        path: 'events',
+        component: AdminEventsComponent,
+      },
+      {
+        path: 'services',
+        component: AdminServicesComponent,
       }
     ]
   }

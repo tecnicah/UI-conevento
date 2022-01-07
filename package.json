@@ -27,6 +27,7 @@
     "bs-stepper": "^1.7.0",
     "ngp-sort-pipe": "0.0.4",
     "ngx-filter-pipe": "^2.1.2",
+    "ngx-pagination": "^5.1.1",
     "ngx-paypal": "^9.0.0",
     "ngx-spinner": "^12.0.0",
     "rxjs": "~6.6.0",

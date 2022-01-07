@@ -39,6 +39,9 @@ import { EventosadminComponent } from './pages/eventosadmin/eventosadmin.compone
 import { ViewportScroller } from "@angular/common";
 import { Component, OnInit, VERSION } from "@angular/core";
 import { Router } from "@angular/router";
+import { AdminEventsComponent } from './pages/admin-events/admin-events.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,9 @@ import { Router } from "@angular/router";
     FaqsComponent,
     LayoutadminComponent,
     HeaderadminComponent,
-    EventosadminComponent
+    EventosadminComponent,
+    AdminEventsComponent,
+    AdminServicesComponent
   ],
   imports: [
     NgxPayPalModule,
@@ -78,7 +83,8 @@ import { Router } from "@angular/router";
     MatInputModule,
     MatFormFieldModule,
     SwiperModule,
-    FilterPipeModule
+    FilterPipeModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

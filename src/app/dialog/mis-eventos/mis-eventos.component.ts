@@ -19,7 +19,8 @@ export class MisEventosComponent implements OnInit {
       if(r.result){
         this.spinner.hide();
         console.log(r.result);
-        this.eventos =  r.result;
+        console.log("value : " ,r.result);
+        this.eventos =  r.result.value;
       }
     },(err)=>{
       this.spinner.hide();

@@ -1,0 +1,60 @@
+.bg-color {
+    z-index: 99999;
+    background-color: #1E003A;
+  }
+  
+  .menu {
+    &_opciones {
+      color: rgb(11, 12, 82) !important;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  
+    &_center {
+      justify-content: center;
+    }
+  
+    &_li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 85%;
+    }
+  
+    &_text_center {
+      text-align: center;
+    }
+  
+    &_icon {
+      font-size: 30px;
+      color: white;
+    }
+  }
+  
+  .li_final {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-basis: 7%;
+  }
+  
+  .icon {
+    color: white;
+    font-size: 25px;
+  }
+  
+  .header_icon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85px;
+  }
+  
+  a{
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  
+  

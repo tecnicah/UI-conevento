@@ -1,1 +1,49 @@
-<p>headeradmin works!</p>
+
+<nav class="navbar navbar-expand-lg navbar-light" >
+    <img src="./assets/Home/logo-icon.svg" alt="" width="10%" class="d-block d-md-none">
+    <div class="d-block d-md-none">
+      <div class="header_icon">
+        <img src="./assets/Home/event-icon.svg" alt="" height="25px" width="25px" [routerLink]="['/Wizard']" routerLinkActive="router-link-active" >
+  
+        <span id="collapse" (click)="collapse.toggle()" *ngIf="isCollapsed" [attr.aria-expanded]="!isCollapsed"
+          class="navbar-toggler material-icons icon" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          menu
+        </span>
+        <span class="material-icons icon" *ngIf="!isCollapsed" (click)="isCollapsed = !isCollapsed">close</span>
+      </div>
+    </div>
+  
+    <div class="collapse navbar-collapse menu_center" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed"
+      id="navbarNav" >
+      
+      <ul class="navbar-nav menu_li">
+        <li class="d-none d-md-block">
+          <a style="cursor: pointer;"><img src="./assets/Home/logo-icon.svg" alt="" width="50%"></a>
+          
+        </li>
+        <li class="pointer nav-item">
+          <a  class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/admin/events']">EVENTOS</a>
+        </li>
+        <li class="pointer nav-item">
+          <a  class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/admin/services']">SERVICIOS</a>
+        </li>
+        <!-- <li class="pointer nav-item">
+            <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/admin/events']">CATEGORIAS</a>
+        </li> -->
+        <li class="pointer nav-item">
+           <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/admin/events']">USUARIOS</a>
+        </li>
+        <!-- <li class="pointer nav-item">
+          <a class="nav-link d-none d-md-block menu_opciones" [routerLink]="['/admin/events']">PAGOS</a>
+        </li> -->
+        <li class="pointer nav-item menu_text_center li_final">
+          
+          <img alt="" height="25px" width="25px"  src="https://img.icons8.com/external-vitaliy-gorbachev-blue-vitaly-gorbachev/60/000000/external-store-ecommerce-vitaliy-gorbachev-blue-vitaly-gorbachev.png"
+             class="d-none d-md-block" [routerLink]="['/']"  >
+  
+          <!-- <span class="material-icons menu_icon d-none d-md-block" (click)="login(1);">
+            <img alt="" height="25px" width="25px"  src="https://img.icons8.com/ultraviolet/40/000000/select-users.png"/>
+          </span> -->
+  
+        </li>

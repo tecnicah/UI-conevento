@@ -6,12 +6,30 @@
     
     <h2 mat-dialog-title class="color">Mis Eventos</h2>
     <br>
-    <div *ngFor="let item of eventos" class="card">
-      <p class="Reboto-medium">Nombre Contacto: <span>{{item.nombreContratane}} </span></p>
-      <p class="Reboto-medium">Inicio: <span>{{item.fechaHoraInicio| date: 'dd/MM/yyyy'}} </span></p>
-      <p class="Reboto-medium">Fin del evento: <span>{{item.fechaHoraFin | date: 'dd/MM/yyyy'}}</span></p>
-      <p class="Reboto-medium">Correo Contacto: <span>{{item.correo}}</span></p>
-      <p class="Reboto-medium">Dirección: <span>Calle {{item.calleNumero}}, Colonia {{item.colonia}} Código postal {{item.cp}}</span></p>
+    <!-- <div class="container" *ngFor="let item of eventos">
+      <div class="row">
+       <div class="col-5">Contenedor de 5 columnnas</div>
+       <div class="col-7">Contenedor de 7 columnna</div>
+     </div>
+   </div> -->
+
+    <div *ngFor="let item of eventos" class="container card">
+      <div class="row">
+      <div class="col-md-6">
+        <p class="Reboto-medium">Nombre Contacto: <span>{{item.nombreContratane}} </span></p>
+        <p class="Reboto-medium">Fecha del Evento: <span>{{item.fechaHoraInicio| date: 'dd/MM/yyyy'}} </span></p>
+        <p class="Reboto-medium">Monto: <span> $ {{item.total  }} </span></p>
+        <p class="Reboto-medium">Correo Contacto: <span>{{item.correo}}</span></p>
+        <p class="Reboto-medium">Dirección: <span> {{item.calleNumero}},  {{item.colonia}}, {{item.municipio}}, {{item.cp}}</span></p>
+      </div>
+      <div class="col-md-6">
+        <p class="Reboto-medium">Servicios Contratados: </p>
+         <p *ngFor="let i of item.listaProductosEventos"> 
+          &#8226; <span style="font-weight: bold;">Producto: </span> {{i.producto}}, 
+             <span style="font-weight: bold;">Cantidad: </span> {{i.cantidadUnidades}} </p> 
+         <br>
+      </div>
+    </div>
     </div>
     <div class="buttons">
       <button type="button" mat-dialog-close class=" btn bg_color">Cerrar</button>

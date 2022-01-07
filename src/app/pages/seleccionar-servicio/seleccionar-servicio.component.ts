@@ -39,7 +39,8 @@ export class SeleccionarServicioComponent implements OnInit {
 
         this.productos.forEach((E: any) => {
           for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
-            if (E.id == this.auth.listaProductosEventos[i].idCatProducto && this.auth.listaProductosEventos[i].idCategoria == this.id) {
+            if (E.id == this.auth.listaProductosEventos[i].idCatProducto 
+              && this.auth.listaProductosEventos[i].idCategoria == this.id) {
               E.cantidadUnidades = this.auth.listaProductosEventos[i].cantidadUnidades;
               E.cantidadHoras = this.auth.listaProductosEventos[i].cantidadHoras;
             }
@@ -99,7 +100,8 @@ export class SeleccionarServicioComponent implements OnInit {
     ////debugger;
     if (data) {
       //  this.productos[i].cantidadUnidades++;
-      if ((this.productos[i].cantidadUnidades < this.productos[i].maximoProductos) || (this.productos[i].maximoProductos == null)) {
+      if ((this.productos[i].cantidadUnidades < this.productos[i].maximoProductos) 
+       || (this.productos[i].maximoProductos == null)) {
         this.productos[i].cantidadUnidades++;
       }
      // this.calculosT();
@@ -135,10 +137,12 @@ export class SeleccionarServicioComponent implements OnInit {
   //FUNCION PARA AGREGAR//
   public agregar() {
    // console.log(this.productos);
+   debugger;
     this.productos.forEach((E: any) => {
       for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
-        if (E.id == this.auth.listaProductosEventos[i].idCatProducto && this.auth.listaProductosEventos[i].idCategoria == this.id) {
-          this.auth.listaProductosEventos.splice(i, 1);
+        if (E.id == this.auth.listaProductosEventos[i].idCatProducto 
+          && this.auth.listaProductosEventos[i].idCategoria == this.id) {
+               this.auth.listaProductosEventos.splice(i, 1);
         }
       }
     })
@@ -155,7 +159,8 @@ export class SeleccionarServicioComponent implements OnInit {
             "cantidadHoras": E.cantidadHoras == null ? 1 : E.cantidadHoras,
             "idCategoria": Number(this.id),
             "Nombre": E.producto,
-            "Precio": Number(E.precioPorUnidad)
+            "Precio": Number(E.precioPorUnidad),
+            "especificarTiempo": E.especificarTiempo
           }
         )
       }
@@ -288,7 +293,7 @@ export class SeleccionarServicioComponent implements OnInit {
      this.total = 0;
 
     this.auth.listaProductosEventos.forEach((E: any) => {
-      this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
+      this.total = this.total + E.Precio * E.cantidadUnidades * E.cantidadHoras;
     });
     let flete = 0;
     this.auth.listaProductosEventos.forEach((E: any) => {
@@ -297,14 +302,41 @@ export class SeleccionarServicioComponent implements OnInit {
       }
     });
     if (flete > 0) {
-      this.Subtotal = this.Subtotal + 500;
+      this.total = this.total + 500;
     }
     //debugger;
-    this.IVA = this.Subtotal * 0.16;
-    this.total = this.Subtotal + this.IVA;
+    this.Subtotal = this.total / 1.16;
+    this.IVA = this.total - this.Subtotal;
     //alert(this.total);
-    this.total = parseFloat(this.total.toFixed(2));
+    this.Subtotal = parseFloat(this.Subtotal.toFixed(2));
     //alert(this.total);
   //  console.log("Productos listado ===============>" , this.Productos_listado)
   }
+
+//   public calculosT() {
+//     //debugger;
+//     this.Subtotal = 0;
+//     this.IVA = 0;
+//     this.total = 0;
+
+//    this.auth.listaProductosEventos.forEach((E: any) => {
+//      this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
+//    });
+//    let flete = 0;
+//    this.auth.listaProductosEventos.forEach((E: any) => {
+//      if (E.idCategoria == 6 || E.idCategoria == 7) {
+//        flete++;
+//      }
+//    });
+//    if (flete > 0) {
+//      this.Subtotal = this.Subtotal + 500;
+//    }
+//    //debugger;
+//    this.IVA = this.Subtotal * 0.16;
+//    this.total = this.Subtotal + this.IVA;
+//    //alert(this.total);
+//    this.total = parseFloat(this.total.toFixed(2));
+//    //alert(this.total);
+//  //  console.log("Productos listado ===============>" , this.Productos_listado)
+//  }
 }

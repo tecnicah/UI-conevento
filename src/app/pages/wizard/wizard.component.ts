@@ -34,6 +34,7 @@ export class WizardComponent implements OnInit {
     precio: 5.5,
     imagen: "sin imagen"
   }
+  public formaPago = "No capturada";
 
   //////////// declaracion de variables golbales del componente 
 
@@ -106,7 +107,7 @@ export class WizardComponent implements OnInit {
     this.firstFormGroup = this._formBuilder.group({
       fechaHoraInicio: new FormControl(null, Validators.compose([Validators.required])),
       fechaHoraFin: ['', Validators.required],
-      genteEsperada: ['', Validators.required],
+      genteEsperada: [''],
 
       ciudad: [1, Validators.required],
       idCatMunicipio: ['', Validators.required],
@@ -131,10 +132,10 @@ export class WizardComponent implements OnInit {
            shipping_preference: "NO_SHIPPING" 
           },
         payer: {
-           email_address: 'ingarmandofranco@gmail.com',
+           email_address: this.data_model.correo,
            name: {
               given_name: this.data_model.nombreContratane,
-              surname: this.data_model.nombreEvento
+              surname: this.data_model.nombreContratane
            },
            address: {
             address_line_1: this.data_model.calleNumero,
@@ -186,6 +187,7 @@ export class WizardComponent implements OnInit {
       },
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+        this.formaPago = "PayPal"
         this.saveEvent(data.create_time, data.id);
       },
       onCancel: (data, actions) => {
@@ -281,10 +283,36 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
   public flete: number = 0;
+  // public calculos() {
+  //   this.Productos_listado.forEach((E: any) => {
+  //     this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
+  //   });
+  //   this.flete = 0;
+  //   this.Productos_listado.forEach((E: any) => {
+  //     if (E.idCategoria == 6 || E.idCategoria == 7) {
+  //       this.flete++;
+  //     }
+  //   });
+  //   if (this.flete > 0) {
+  //     this.Subtotal = this.Subtotal + 500;
+  //   }
+  //   this.IVA = this.Subtotal * 0.16;
+  //   this.total = this.Subtotal + this.IVA;
+  //   //alert(this.total);
+  //   this.total = parseFloat(this.total.toFixed(2));
+  //   //alert(this.total);
+  // //  console.log("Productos listado ===============>" , this.Productos_listado)
+  // }
+
   public calculos() {
+    this.Subtotal = 0;
+    this.IVA = 0;
+    this.total = 0;
+
     this.Productos_listado.forEach((E: any) => {
-      this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
+      this.total = this.total + E.Precio * E.cantidadUnidades * E.cantidadHoras;
     });
+
     this.flete = 0;
     this.Productos_listado.forEach((E: any) => {
       if (E.idCategoria == 6 || E.idCategoria == 7) {
@@ -292,15 +320,18 @@ export class WizardComponent implements OnInit {
       }
     });
     if (this.flete > 0) {
-      this.Subtotal = this.Subtotal + 500;
+      this.total = this.total + 500;
     }
-    this.IVA = this.Subtotal * 0.16;
-    this.total = this.Subtotal + this.IVA;
+    this.Subtotal = this.total / 1.16;
+    this.IVA = this.total - this.Subtotal;
     //alert(this.total);
-    this.total = parseFloat(this.total.toFixed(2));
+    this.Subtotal = parseFloat(this.Subtotal.toFixed(2));
     //alert(this.total);
   //  console.log("Productos listado ===============>" , this.Productos_listado)
   }
+
+
+
   //*******************************************//
   //FUNCION PARA SALVAR LA DATA DEL FORMULARIO//
 
@@ -316,7 +347,8 @@ export class WizardComponent implements OnInit {
       genteEsperada: this.firstFormGroup.value.genteEsperada,
       idCatMunicipio: this.firstFormGroup.value.idCatMunicipio,
       nombreContratane: this.firstFormGroup.value.nombreContratane,
-      nombreEvento: this.firstFormGroup.value.nombreEvento,
+    //nombreEvento: this.firstFormGroup.value.nombreEvento,
+      nombreEvento: "",
       telefono: this.firstFormGroup.value.telefono
     }
     this.auth.data_form = this.data_model;
@@ -336,7 +368,7 @@ export class WizardComponent implements OnInit {
     this.firstFormGroup.get("calleNumero")?.setValue(data.calleNumero);
     this.firstFormGroup.get("colonia")?.setValue(data.colonia);
     this.firstFormGroup.get("nombreContratane")?.setValue(data.nombreContratane);
-    this.firstFormGroup.get("nombreEvento")?.setValue(data.nombreEvento);
+   // this.firstFormGroup.get("nombreEvento")?.setValue(data.nombreEvento);
     this.firstFormGroup.get("correo")?.setValue(data.correo);
     this.firstFormGroup.get("telefono")?.setValue(data.telefono);
   //  console.log(this.firstFormGroup);
@@ -598,6 +630,12 @@ export class WizardComponent implements OnInit {
       let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
        json_bd.idUsuario = data_user.id;
     }
+    if((json_bd.genteEsperada == "") || (json_bd.genteEsperada == null))
+    {
+      json_bd.genteEsperada = 0;
+    }
+    json_bd.formaPago =  this.formaPago;
+    json_bd.total = this.total.toFixed(2).toString();
     json_bd.fechaCreacion = create_time;
     json_bd.detallesEvento = "Sin detalles",
       json_bd.fechaPago = create_time;
@@ -639,9 +677,25 @@ export class WizardComponent implements OnInit {
     })
   }
 
-  public modify_list(id: any){
-   //alert(id);
-   console.log("modify ================> ",id);
+  public modify_list(item: any){
+   //alert(id);  this.Productos_listado
+   debugger;
+   for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
+      if (item.idCatProducto == this.auth.listaProductosEventos[i].idCatProducto) {
+           this.auth.listaProductosEventos.splice(i, 1);
+      }
+  }
+
+  for (let i = 0; i < this.Productos_listado.length; i++) {
+    if (item.idCatProducto == this.Productos_listado[i].idCatProducto) {
+         this.Productos_listado.splice(i, 1);
+    }
+  }
+
+  localStorage.setItem('productos', JSON.stringify(this.auth.listaProductosEventos));
+  this.calculos();
+  this.setchecks();
+   console.log("modify ================> ",item);
   }
 
   public clear_memory()
@@ -652,6 +706,7 @@ export class WizardComponent implements OnInit {
         localStorage.removeItem('form');
         localStorage.removeItem('productos');
         localStorage.removeItem('categorias');
+        this.fillForm();
   }
 
    public restart_dates(){
