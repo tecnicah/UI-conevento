@@ -399,7 +399,7 @@
                 <div class="grow">
                   <img src="./assets/wizard/bi_info-circle.png" alt="" class="servicios_img_informacion">
                 </div>
-                
+
               </div>
               <div id="b" class="none size" style="color: #444444;">{{item.descripcion}}</div>
             </div>
@@ -435,26 +435,25 @@
                 <div class="servicios_justify">
                   <div *ngFor="let item of Productos_listado">
                     <!-- <img style="width: 16px; cursor: pointer;" src="https://img.icons8.com/ios/50/000000/delete-sign--v1.png"/>-->
-                    <img style="width: 16px; cursor: pointer;"
-                     (click) ="modify_list(item)"
-                     src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png"/> 
+                    <img style="width: 16px; cursor: pointer;" (click)="modify_list(item)"
+                      src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png" />
                     <span class="productlist">
-                        {{item.cantidadUnidades}} {{item.Nombre}}
-                      </span>
-                      <span  class="productlist"*ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
-                        style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
-                        <span class="productlist_precio"> {{item.Precio *
-                        item.cantidadUnidades * item.cantidadHoras | currency}}
-                      </span>
+                      {{item.cantidadUnidades}} {{item.Nombre}}
+                    </span>
+                    <span class="productlist" *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
+                      style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
+                    <span class="productlist_precio"> {{item.Precio *
+                      item.cantidadUnidades * item.cantidadHoras | currency}}
+                    </span>
                   </div>
                   <div *ngIf="flete > 0">
-                      <img src="./assets/home-dos/ship.png" style="width: 28px;"> 
-                      <span class="productlist">
-                        &nbsp;&nbsp;Servicio de flete (Mobiliario)
-                      </span>
-                      <span class="productlist_precio">
-                        $500.00
-                      </span>
+                    <img src="./assets/home-dos/ship.png" style="width: 28px;">
+                    <span class="productlist">
+                      &nbsp;&nbsp;Servicio de flete (Mobiliario)
+                    </span>
+                    <span class="productlist_precio">
+                      $500.00
+                    </span>
                   </div>
                   <div class="separator"></div>
 
@@ -522,12 +521,14 @@
 
             <div class="eventos_seleccionados_flex">
               <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date: 'dd/MM/yyyy'}}</span></span>
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date:
+                  'dd/MM/yyyy'}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
               <span
                 class="Reboto-medium eventos_seleccionados_titulo">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraFin | date: 'dd/MM/yyyy'}}</span></span>
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraFin | date:
+                  'dd/MM/yyyy'}}</span></span>
             </div>
           </div>
 
@@ -609,11 +610,12 @@
                         <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio *
                           item.cantidadUnidades | currency}}</span>
                       </p>
-                      
+
                     </div>
                     <div *ngIf="flete > 0">
                       <p class="p" style="font-size: 13px;">
-                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete (Mobiliario)
+                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete
+                        (Mobiliario)
                         <span style="position: absolute; right: 10px; font-size: 14px;">
                           $500.00
                         </span>
@@ -679,7 +681,8 @@
 
             <div class="eventos_seleccionados_flex">
               <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date: 'dd/MM/yyyy'}}</span></span>
+                  class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date:
+                  'dd/MM/yyyy'}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
               <span
@@ -687,9 +690,10 @@
                   class="eventos_seleccionados_descripcion">{{Productos_listado.length}}</span></span>
             </div>
             <div class="form-check">
-              
+
               <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-              <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault" style="font-weight: bold;">
+              <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
+                style="font-weight: bold;">
                 Requiero Factura
               </label>
             </div>
@@ -697,27 +701,117 @@
           <div>
             <p class="titleHeader Reboto-medium">¿Cómo quieres pagar?</p>
           </div>
-
-          <div class="btn-group flex">
-            <!-- <div #paypal class="pago_tarjeta" style=" height: auto;">  
+          <div class="container">
+            <div class="row">
+              <button class="button-8" (click)="view_pay_method('card')">
+                <img width="32px;" src="https://img.icons8.com/ultraviolet/40/000000/bank-card-back-side.png" />
+                Tarjeta
+              </button>
+              <button class="button-8" (click)="view_pay_method('paypal')">
+                <img width="30px;"
+                  src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/24/4a90e2/external-paypal-an-online-payments-system-operating-worldwide-logo-color-tal-revivo.png" />
+                Pay Pal
+              </button>
+              <button class="button-8" (click)="view_pay_method('oxxo')">
+                <img width="32px" src="https://img.icons8.com/fluency/48/000000/online-store.png" />
+                Oxxo
+              </button>
+            </div>
+          </div>
+          <!-- <div #paypal class="pago_tarjeta" style=" height: auto;">  
             
             </div> -->
-            <ngx-paypal [config]="payPalConfig" class="pago_tarjeta" style=" height: auto;">
+          <div [ngClass]="card_css.paypal">
+            <div class="container">
+              <div class="div_card_stripe">
+                <span class="p Reboto-medium">Pago PayPal </span>
+                <br>
+                <span class="p" style="font-size: 14px;">Selecciona una opción: </span>
+                <div class="div_card_stripe">
+                  <ngx-paypal [config]="payPalConfig" style=" height: auto;">
+                  </ngx-paypal>
+                  <div style="font-size: large; color: red; font-weight: bolder;" *ngIf="error_alguardar">
+                    Ha ocurrido un error al guardar el evento, por favor contacta a administración
+                  </div>
+                </div>
 
-            </ngx-paypal>
-            <div style="font-size: large; color: red; font-weight: bolder;" *ngIf="error_alguardar">
-              Ha ocurrido un error al guardar el evento, por favor contacta a administración
+
+              </div>
             </div>
 
+          </div>
+          <div class="container" [ngClass]="card_css.oxxo">
+            <div class="container">
+              <div class="div_card_stripe">
+                <span class="p Reboto-medium">Pago En Oxxo</span>
+                <br>
+                <span class="p" style="font-size: 14px;">Indicanos tus datos: </span>
+                <div class="">
+                  <form id="payment-form" style="width: 100%; padding: 3%;">
+                    <div class="form-row">
+                      <label for="name">
+                        Nombre
+                      </label>
+                      <input id="name" name="name" required class="form-control" [(ngModel)]="nombre_oxxo">
+                    </div>
 
-            <div class="d-none d-md-block">
-              <div class="pagar_paga_btn form-group">
-                <button class="btn pagar_atras Reboto-medium"
-                  (click)='step = 0; step0 = "class-view"; step1 = "class-none"; '>Regresar</button>
-                <!-- <button class="btn pagar__siguiente Reboto-medium" (click)="saveEvent(1)">Continuar</button> -->
+                    <div class="form-row">
+                      <label for="email">
+                        Email
+                      </label>
+                      <input id="email" name="email" required class="form-control" [(ngModel)]="email_oxxo">
+                    </div>
+                    <!-- Used to display form errors. -->
+                    <div id="error-message" role="alert" 
+                         style="color: red; padding-top: 2px; padding-bottom: 2px; font-size: 13px;">
+                    </div>
+                    
+                    
+                    <button id="submit-button" class="button-9" style="padding-top: 2px; font-size: 14px;"
+                            role=" button" (click)="paymentintent_params('oxxo');">
+                      <img width="35px" src="https://img.icons8.com/fluency/48/000000/online-store.png" />
+                      GENERAR VOUCHER
+                    </button>
+                    <br>
+                    <span
+                      style="margin: 1%; margin-top: 4%; text-align: center; font-style: italic; color: rgb(102, 101, 101); font-size: small;">
+                      Desarrollado por
+                    </span>
+                    <img width="33px" src="https://img.icons8.com/color/48/4a90e2/stripe.png" />
+                  </form>
+                </div>
               </div>
             </div>
           </div>
+          <div class="container eventos_seleccionados" [ngClass]="card_css.card">
+            <div class="div_card_stripe">
+              <span class="p Reboto-medium">Pago con tarjeta </span>
+              <br>
+              <span class="p" style="font-size: 14px;">Ingresa los datos de la tarjeta: </span>
+
+              <div id="card-element" style="background-color: white;" class="div_card_stripe"></div>
+              <div id="card-errors" style="color: red; padding-top: 2px; padding-bottom: 2px;"></div>
+              <button id="button" class="button-9" role="button" (click)="paymentintent_params('card');">
+                <img width="32px;" src="https://img.icons8.com/ultraviolet/40/000000/bank-card-back-side.png" />
+                PAGAR
+              </button>
+              <br>
+              <span
+                style="margin: 1%; margin-top: 4%; text-align: center; font-style: italic; color: rgb(102, 101, 101); font-size: small;">
+                Desarrollado por
+              </span>
+              <img width="33px" src="https://img.icons8.com/color/48/4a90e2/stripe.png" />
+            </div>
+          </div>
+
+          <div class="d-none d-md-block">
+            <div class="pagar_paga_btn form-group">
+              <button class="btn pagar_atras Reboto-medium"
+                (click)='step = 0; step0 = "class-view"; step1 = "class-none"; '>Regresar</button>
+              <!-- <button class="btn pagar__siguiente Reboto-medium" (click)="saveEvent(1)">Continuar</button> -->
+            </div>
+          </div>
+
         </div>
         <div class="col-md-5">
           <div class="servicios servicios_bgcolor">
@@ -761,7 +855,8 @@
                     </div>
                     <div *ngIf="flete > 0">
                       <p class="p" style="font-size: 13px;">
-                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete (Mobiliario)
+                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete
+                        (Mobiliario)
                         <span style="position: absolute; right: 10px; font-size: 14px;">
                           $500.00
                         </span>

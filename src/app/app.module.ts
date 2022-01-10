@@ -42,6 +42,8 @@ import { Router } from "@angular/router";
 import { AdminEventsComponent } from './pages/admin-events/admin-events.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
+import { StripeComponent } from './pages/stripe/stripe.component';
+
 
 @NgModule({
   declarations: [
@@ -65,7 +67,8 @@ import { AdminServicesComponent } from './pages/admin-services/admin-services.co
     HeaderadminComponent,
     EventosadminComponent,
     AdminEventsComponent,
-    AdminServicesComponent
+    AdminServicesComponent,
+    StripeComponent
   ],
   imports: [
     NgxPayPalModule,
@@ -84,7 +87,8 @@ import { AdminServicesComponent } from './pages/admin-services/admin-services.co
     MatFormFieldModule,
     SwiperModule,
     FilterPipeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -23,8 +23,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
+<!-- <script src="https://js.stripe.com/v3/"></script> -->
+
+
 <body>
+  <!-- <form id="payment-form">
+    <div id="payment-element">
+      Elements will create form elements here 
+    </div>
+    <button id="submit">Submit</button>
+    <div id="error-message">
+      <!-- Display error message to your customers here 
+    </div>
+  </form>-->
   <app-root></app-root>
-</body>
+</body> 
+
+<!-- 
 </html>
+<script>
+  const stripe = Stripe('pk_test_51JcbT7L3Jg9RumxpabSHFoQp4IhGNIIva8ZnhASqYQyxnseDFXSrD23BUfrjupwbJbWfzp3NjDWliKOSPJWOGt0o00f03HF62U');
+console.log("===============STRIPE ============",stripe);
+
+const options = {
+  clientSecret: 'pi_3KFWi4L3Jg9Rumxp1lVkyyBS_secret_jw3jl4WoItfRKHsOuxSPOjW5Z',
+  // Fully customizable with appearance API.
+  appearance: {/*...*/},
+};
+
+// Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 2
+const elements = stripe.elements(options);
+
+// Create and mount the Payment Element
+const paymentElement = elements.create('payment');
+paymentElement.mount('#payment-element');
+
+</script> -->

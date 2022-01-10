@@ -7,6 +7,7 @@ import { WizardComponent } from './pages/wizard/wizard.component';
 import { LayoutadminComponent } from './layout/layoutadmin/layoutadmin.component';
 import { AdminEventsComponent } from './pages/admin-events/admin-events.component';
 import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
+import { StripeComponent } from './pages/stripe/stripe.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,10 @@ const routes: Routes = [
         component: AdminServicesComponent,
       }
     ]
+  },
+  {
+    path: 'stripe',
+    component: StripeComponent 
   }
 ];
 

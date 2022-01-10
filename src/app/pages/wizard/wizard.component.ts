@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2'
 import { AppComponent } from 'src/app/app.component';
 import { WizardLoginComponent } from 'src/app/dialog/wizard-login/wizard-login.component';
+import { loadStripe, Stripe } from '@stripe/stripe-js';
 
 //declare var paypal;
 
@@ -102,6 +103,7 @@ export class WizardComponent implements OnInit {
   ngOnInit() {
     this.appComponent.detectaRuta();
     this.initConfigPayPal();
+    this.load_stripe_card();
     //paypal.Buttons().render(this.paypalElement.nativeElement);
     this.catalogos();
     this.firstFormGroup = this._formBuilder.group({
@@ -187,8 +189,8 @@ export class WizardComponent implements OnInit {
       },
       onClientAuthorization: (data) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        this.formaPago = "PayPal"
-        this.saveEvent(data.create_time, data.id);
+       // this.formaPago = "PayPal"
+        this.saveEvent(data.create_time, data.id, "PayPal");
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
@@ -423,6 +425,30 @@ export class WizardComponent implements OnInit {
     cuatro: "class-none"
   }
 
+  public card_css: any = {
+    tarjeta: "class-none eventos_seleccionados",
+    paypal: "class-none eventos_seleccionados",
+    oxxo: "class-none eventos_seleccionados"
+  }
+
+  public view_pay_method(option: any){
+    
+    debugger;
+    this.card_css.card = "class-none";
+    this.card_css.paypal = "class-none";
+    this.card_css.oxxo = "class-none";
+
+    if(option == "oxxo")
+      this.card_css.oxxo = "class-view eventos_seleccionados";
+    if(option == "card")
+      this.card_css.card = "class-view eventos_seleccionados";
+    if(option == "paypal")
+      this.card_css.paypal = "class-view eventos_seleccionados";
+    
+  }
+
+
+
   next() {
     if (this.steps.uno == "selected") {
       this.steps = {
@@ -620,7 +646,7 @@ export class WizardComponent implements OnInit {
  
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
-  public saveEvent(create_time: any, id: any) {
+  public saveEvent(create_time: any, id: any, metodo: string) {
      
     
     this.spinner.show();
@@ -634,7 +660,7 @@ export class WizardComponent implements OnInit {
     {
       json_bd.genteEsperada = 0;
     }
-    json_bd.formaPago =  this.formaPago;
+    json_bd.formaPago =  metodo;
     json_bd.total = this.total.toFixed(2).toString();
     json_bd.fechaCreacion = create_time;
     json_bd.detallesEvento = "Sin detalles",
@@ -657,7 +683,7 @@ export class WizardComponent implements OnInit {
           timer: 1500
         })
       //  //debugger;
-        this.clear_memory();
+      //  this.clear_memory();
         this.error_alguardar = false;
         this.next();
         this.spinner.hide();
@@ -866,5 +892,174 @@ export class WizardComponent implements OnInit {
   @HostListener('click') c_onEnterrr() {
     this.appComponent.get_sesion();
    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////// STRIPRE //////////////////////////////////////////////////////////
+
+//// CARGAR TARJETA DE STRIPE 
+
+public _clientSecret: string = "";
+private stripe: Stripe;
+public card: any;
+public error_oxxo: boolean = false;
+
+async load_stripe_card() {
+
+
+  this.stripe = await loadStripe(environment.Clavepublicable);
+  console.log(this.stripe);
+  var elements = this.stripe.elements();
+
+  this.card = elements.create('card', {
+    style: {
+      base: {
+        iconColor: '#000',
+        color: '#000',
+        fontWeight: '400',
+        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+        fontSize: '16px',
+        fontSmoothing: 'antialiased',
+        ':-webkit-autofill': {
+          color: '#fce883',
+        },
+        '::placeholder': {
+          color: '#80807E',
+        },
+      },
+      invalid: {
+        iconColor: '#FF0000',
+        color: '#FF0000',
+      },
+    },
+  });
+
+
+  this.card.mount("#card-element");
+
+  this.card.on('change', ({ error }) => {
+    let displayError = document.getElementById('card-errors');
+    if (error) {
+      displayError.textContent = error.message;
+    } else {
+      displayError.textContent = '';
+    }
+  });
+
+}
+
+
+////////////////////////////////// OBTENER SECRENT CLIET STRIPE ////////////////////////////
+public SecretDto: any = {
+  amount: 25.05 * 100,
+  method: ""
+}
+
+async paymentintent_params(method: string) {
+
+  this.spinner.show();
+  //debugger;
+  this.auth.service_general_post_with_url('Eventos/paymentintent_stripe_params', this.SecretDto).subscribe(r => {
+    if (r.success) {
+      debugger;
+      console.log("respuesta exitosa paymentintent_stripe_params ========> : ", r, r.result.client_secret);
+      this.secret_client = r.result.client_secret
+      if (method == "oxxo") {
+        this.pay_oxxo();
+      } else if (method == "card") {
+
+        this.pay_card();
+      }
+
+      this.spinner.hide();
+    }
+  }, (err) => {
+    debugger;
+    Swal.fire({
+      position: 'top-end',
+      icon: 'error',
+      title: 'Error al cargar el metodo de pago, contacta a la administración',
+      showConfirmButton: false,
+      timer: 5500
+    })
+    // this.error_alguardar = true;
+    console.log("ERROR paymentintent_stripe_params ======> ", err);
+    this.spinner.hide();
+  })
+
+}
+
+/////////////////////////////// PAGO OXXO STRIPE /////////////////////////////////////////////
+
+
+public nombre_oxxo: string = "";
+public email_oxxo: string = "";
+public secret_client = "";
+async pay_oxxo() {
+  debugger;
+   if ((this.nombre_oxxo.length > 3 ) && (this.email_oxxo.length > 4))
+   {
+     this.stripe.confirmOxxoPayment(this.secret_client,
+    {
+      payment_method: {
+        billing_details: {
+          name: this.nombre_oxxo, //document.getElementById('name').value,
+          email: this.email_oxxo // "correo@ddd.com"//document.getElementById('email').value,
+        },
+      },
+    }) // Stripe.js will open a modal to display the OXXO voucher to your customer
+    .then(function (result) {
+      console.log("result this.stripe.confirmOxxoPayment | Pago correcto OXXO =================", result);
+
+      this.saveEvent(Date.now, "id_stripe_oxxo", "paypal");
+      // This promise resolves when the customer closes the modal
+      if (result.error) {
+        // Display error to your customer
+        console.log("ERROR  this.stripe.confirmOxxoPayment =================", result.error);
+        var errorMsg = document.getElementById('error-message');
+        errorMsg.innerText = result.error.message;
+      }
+    });
+   }
+   else
+   {
+    var errorMsg = document.getElementById('error-message');
+    errorMsg.innerText = "Datos incompletos";
+   }
+  
+
+}
+
+
+////////////// card
+
+pay_card() {
+  this.stripe.confirmCardPayment(this.secret_client, {
+    payment_method: {
+      card: this.card,
+      billing_details: {
+        name: 'Jenny Rosen'
+      }
+    }
+  }).then(function (result) {
+    if (result.error) {
+      // Show error to your customer (for example, insufficient funds)
+      console.log("ERROR confirmCardPayment | Pago correcto tarjeta stripe =============>", result.error.message);
+      this.saveEvent(Date.now, "id_stripe_card", "paypal");
+    } else {
+      // The payment has been processed!
+      if (result.paymentIntent.status === 'succeeded') {
+        console.log("SUCCESS confirmCardPayment =============>", result);
+        // Show a success message to your customer
+        // There's a risk of the customer closing the window before callback
+        // execution. Set up a webhook or plugin to listen for the
+        // payment_intent.succeeded event that handles any business critical
+        // post-payment actions.
+      }
+    }
+  });
+
+}
+
 
 }
