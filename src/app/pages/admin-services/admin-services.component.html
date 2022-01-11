@@ -19,16 +19,16 @@
                             [(ngModel)]="userFilter.producto" />
                     </div>
                 </div>
-                
+
                 <div class="col-2  filter">
                     <span>Categoría *:</span>
                     <select [(ngModel)]="id_cat" (change)="get_resultados1()">
                         <option value=0 selected>Todos</option>
-                        <option value=1>Personal</option>	
-                        <option value=3>Talento</option>	
-                        <option value=5>Alimentos y Bebidas</option>	
-                        <option value=6>Mobiliario</option>	
-                        <option value=7>Luces y Sonido</option>	
+                        <option value=1>Personal</option>
+                        <option value=3>Talento</option>
+                        <option value=5>Alimentos y Bebidas</option>
+                        <option value=6>Mobiliario</option>
+                        <option value=7>Luces y Sonido</option>
                     </select>
                 </div>
                 <div class="col-2 end">
@@ -36,7 +36,8 @@
                     </button>
                 </div>
                 <div class="col-2 end">
-                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: green;" (click)="limpiarFiltros();">
+                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: green;"
+                        (click)="limpiarFiltros();">
                         Agregar
                     </button>
                 </div>
@@ -61,7 +62,7 @@
                             <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
                                 style="cursor: pointer;">
                                 <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
-                                    Precio 
+                                    Precio
                                 </span>
                             </th>
                             <th style="cursor: pointer;">
@@ -103,7 +104,7 @@
                             </td>
                             <td>
                                 &nbsp;&nbsp;{{ item.precioPorUnidad | currency }}
-                                
+
                                 &nbsp;&nbsp;
                             </td>
                             <td>
@@ -113,7 +114,7 @@
                                 &nbsp;&nbsp;{{ item.categoria }} &nbsp;&nbsp;
                             </td>
                             <td>
-                              
+
                                 <a style="cursor: pointer;text-decoration: underline;color: blue;"
                                     (click)="viewdetail(item)">
                                     {{ item.sku }}
@@ -139,131 +140,243 @@
         <div class="">
 
             <div class="row space-between">
-                <p class="titulo bold" style="font-size: 22px;;">Detalles Del Evento</p>
+                <p class="titulo bold" style="font-size: 22px;;">Producto/Servicio</p>
                 <span class="cerrar" aria-hidden="true" (click)="modal.dismiss('Cross click')">&times;</span>
             </div>
             <div class="container">
                 <div class="row">
                     <div class="col-12">
+
                         <div class="row contenedor_uno" style="margin: 1% auto; border-radius: 10px;">
-                            <div class="col-md-9">
-                                <p class="Reboto-medium subtitle">¿Cuando será el evento?</p>
-                            </div>
+
                             <div class="col-md-4">
-                                <p>Fecha y hora inicio *</p>
+                                <p>Servicio</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <span> {{ eventos.fechaHoraInicio | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;{{
-                                        eventos.fechaHoraInicio |
-                                        date:'shortTime' }}
-                                    </span>
+                                    <input type="text" class="form-control" placeholder="Nombre del servicio"
+                                        aria-label="Servicio" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <p>Fecha y hora final *</p>
+                                <p>Categoría</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{ eventos.fechaHoraFin | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;{{
-                                            eventos.fechaHoraFin |
-                                            date:'shortTime' }}
-                                    </span>
+                                    <select class="form-control" aria-label="Precio" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                        <option value=0 selected>Todos</option>
+                                        <option value=1>Personal</option>
+                                        <option value=3>Talento</option>
+                                        <option value=5>Alimentos y Bebidas</option>
+                                        <option value=6>Mobiliario</option>
+                                        <option value=7>Luces y Sonido</option>
+                                    </select>
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <p>Gente esperada </p>
+                                <p>Precio</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.genteEsperada}}
-                                    </span>
+                                    <input [min]="0" type="number" class="form-control" placeholder="Precio"
+                                        aria-label="Precio" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <p class="Reboto-medium subtitle">¿En qué lugar ?</p>
-                            </div>
-
-                            <div class="col-md-4">
-                                <p>Alcaldia o municipio *</p>
-                                <span>
-                                    {{eventos.municipio}}
-                                </span>
-                            </div>
-
-                            <div class="col-md-4">
-                                <p>Código postal (Opcional)</p>
+                                <p>Descripción corta</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.cp}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Calle y numero exterior *</p>
-                                <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.calleNumero}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6" style="padding-bottom: 20px;">
-                                <p>Colonia *</p>
-                                <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.colonia}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <p class="Reboto-medium subtitle">Datos de contacto</p>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Nombre del contratante *</p>
-                                <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.nombreContratane}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Nombre del evento (Opcional)</p>
-                                <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.nombreEvento}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Correo electrónico *</p>
-                                <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.correo}}
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <p>Teléfono fijo o celular *</p>
-                                <div class="input-group mb-3 margen_cero">
-                                    <span>
-                                        {{eventos.telefono}}
-                                    </span>
+                                    <input type="text" class="form-control" placeholder="Descripción corta"
+                                        aria-label="Descripción corta" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <p class="Reboto-medium subtitle">
-                                    Monto total: {{eventos.total | currency}} &nbsp;
-                                    <span *ngIf="eventos.flete > 0" style="color: gray; font-size: 14px; font-style: italic;">
-                                       (Incluye Flete $500.00)
-                                    </span>
-                                </p>
-                                <p class="Reboto-medium subtitle">Servicios ({{eventos.total_servicios}}): </p>
+                                <p>Descripción larga</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <!-- <input type="text" class="form-control" placeholder="Descripción larga"
+                                    aria-label="Descripción larga" aria-describedby="basic-addon1"
+                                    [ngClass]="{ 'is-invalid': 1==1 }" > -->
+                                    <textarea class="form-control" placeholder="Descripción larga"
+                                        aria-label="Descripción larga" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" name="Text1" cols="40" rows="3">
+                                    </textarea>
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>Días bloqueo antes</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Días bloqueo antes"
+                                        aria-label="días bloqueo antes" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Días bloqueo después</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control"
+                                        placeholder="Días bloqueo después" aria-label="Días bloqueo después"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>Mínimo</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Mínimo"
+                                        aria-label="Mínimo" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-4">
+                                <p>Máximo</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Máximo"
+                                        aria-label="Máximo" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Especificación especial</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input type="text" class="form-control" placeholder="Especificación"
+                                        aria-label="Especificación" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>SKU</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input type="text" class="form-control" placeholder="SKU" aria-label="SKU"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Stock</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Stock"
+                                        aria-label="Stock" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Disponibles</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" disabled class="form-control"
+                                        placeholder="Disponibles" aria-label="Disponibles"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Tipo Imagen</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <select class="form-control" aria-label="Tipo Imagen"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
+                                        <option value=1 selected>Imagen</option>
+                                        <option value=2>Video</option>
+                                    </select>
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="input-group mb-3 margen_cero">
+                                    <input class="form-control" type="checkbox" value=""
+                                        style="height: 15px; width: 15px;">
+                                    <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
+                                        style="font-weight: bold;">
+                                        Activo
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group mb-3 margen_cero">
+                                    <input class="form-control" type="checkbox" value=""
+                                        style="height: 15px; width: 15px;">
+                                    <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
+                                        style="font-weight: bold;">
+                                        Especificar tiempo
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6"></div>
+                            <div class="col-6">
+                                <div style="width: 255px; height: 208px; ">
+                                    <img style="width: 255px; height: 208px; "
+                                        src="http://34.237.214.147/back/api_conevento/Imagenes/assets/Home/imagenes-productos/Ta1.jpg" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn pagar_siguiente Reboto-medium" style="background-color: gold"
+                                    (click)="limpiarFiltros();">
+                                    <img src="https://img.icons8.com/color/48/000000/upload-to-cloud.png" width="25px"/>
+                                    Cargar Foto/Video
+                                   
+                                </button>
+
+                            </div>
+
+                            <div class="col-4">
+                                &nbsp;
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3 margen_cero" style="margin-top: 25px;">
+                                    <button class="btn pagar_siguiente Reboto-medium" style="background-color:lightblue"
+                                        (click)="limpiarFiltros();">
+                                        <img src="https://img.icons8.com/fluency/48/000000/save.png" width="25px"/>
+                                        GARDAR SERVICIO
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                &nbsp;
                             </div>
                         </div>
+
+
+                        <br><br>
                         <div class="table-responsive" style="margin-bottom: 100px;">
                             <table class="table table-condensed">
                                 <thead>
@@ -305,7 +418,7 @@
                                         *ngFor="let _item of eventos.listaProductosEventos; let j = index ">
                                         <td>
                                             <span>{{ j + 1 + (_p-1)*5 }}
-            
+
                                             </span>
                                         </td>
                                         <td>
@@ -320,7 +433,7 @@
                                             &nbsp;&nbsp;{{ _item.cantidadUnidades }} &nbsp;&nbsp;
                                         </td>
                                         <td *ngIf="_item.especificarTiempo">
-                                            &nbsp;&nbsp;{{ _item.cantidadHoras }} 
+                                            &nbsp;&nbsp;{{ _item.cantidadHoras }}
                                             &nbsp;&nbsp;
                                         </td>
                                         <td *ngIf="!_item.especificarTiempo">
@@ -329,14 +442,14 @@
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;
-                                                {{ _item.monto | currency  }}
+                                            {{ _item.monto | currency }}
                                             &nbsp;&nbsp;
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        </div>
+                    </div>
                     <!-- <div class="col-12">Contenedor de 7 columnna</div> -->
                 </div>
             </div>

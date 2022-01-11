@@ -185,10 +185,6 @@
             <div *ngIf="submitted && f.fechaHoraInicio.errors" class="invalid-feedback">
               <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div>
             </div>
-            <!-- <div *ngIf="!fecha_inicio_valid" class="invalid-feedback ng-star-inserted">
-              <div *ngIf="!fecha_inicio_valid" class="ng-star-inserted">No es mayor al jueves</div>
-            </div>
-            {{fecha_inicio_valid}} -->
           </div>
         </div>
         <div class="col-md-4">
@@ -691,7 +687,9 @@
             </div>
             <div class="form-check">
 
-              <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+              <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
+              <input class="form-check-input" 
+              type="checkbox" [(ngModel)]="req_factura">
               <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
                 style="font-weight: bold;">
                 Requiero Factura
@@ -726,7 +724,7 @@
               <div class="div_card_stripe">
                 <span class="p Reboto-medium">Pago PayPal </span>
                 <br>
-                <span class="p" style="font-size: 14px;">Selecciona una opción: </span>
+                <span class="p" style="font-size: 14px;">Utiliza tu cuenta haciendo click: </span>
                 <div class="div_card_stripe">
                   <ngx-paypal [config]="payPalConfig" style=" height: auto;">
                   </ngx-paypal>
@@ -787,7 +785,7 @@
             <div class="div_card_stripe">
               <span class="p Reboto-medium">Pago con tarjeta </span>
               <br>
-              <span class="p" style="font-size: 14px;">Ingresa los datos de la tarjeta: </span>
+              <span class="p" style="font-size: 14px;">Ingresa los datos de la tarjeta: |{{ejecutotarjeta}}|</span>
 
               <div id="card-element" style="background-color: white;" class="div_card_stripe"></div>
               <div id="card-errors" style="color: red; padding-top: 2px; padding-bottom: 2px;"></div>
@@ -804,6 +802,8 @@
             </div>
           </div>
 
+          <button id="stripe_click" style="display: none;" (click)='saveEvent(1, 1, "Stripe-CC")'>Finalizar</button>
+          <button id="stripe_click_o" style="display: none;" (click)='saveEvent(1, 1, "Stripe-OXXO")'>Finalizar</button>
           <div class="d-none d-md-block">
             <div class="pagar_paga_btn form-group">
               <button class="btn pagar_atras Reboto-medium"
@@ -927,7 +927,8 @@
       </div>
 
       <div class="contenedor_uno_contenedor_botones ancho">
-        <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="reStart();">Armar otro evento</button>
+        <button class="btn contenedor_uno_siguiente Reboto-medium" 
+        onclick="location.reload();">Armar otro evento</button>
         <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
           routerLinkActive="router-link-active">Home</button>
       </div>
