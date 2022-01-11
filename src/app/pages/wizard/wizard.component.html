@@ -750,14 +750,14 @@
                       <label for="name">
                         Nombre
                       </label>
-                      <input id="name" name="name" required class="form-control" [(ngModel)]="nombre_oxxo">
+                      <input id="name" name="name" (ngModelChange)="oxxo_Change($event)" required class="form-control" [(ngModel)]="nombre_oxxo">
                     </div>
 
                     <div class="form-row">
                       <label for="email">
                         Email
                       </label>
-                      <input id="email" name="email" required class="form-control" [(ngModel)]="email_oxxo">
+                      <input id="email" name="email" (ngModelChange)="oxxo_Change($event)"  required class="form-control" [(ngModel)]="email_oxxo">
                     </div>
                     <!-- Used to display form errors. -->
                     <div id="error-message" role="alert" 

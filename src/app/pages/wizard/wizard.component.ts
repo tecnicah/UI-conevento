@@ -120,7 +120,7 @@ export class WizardComponent implements OnInit {
     localStorage.removeItem('stripe');
     var obj = 1;
 
-   //  setInterval(this.load_stripe_card, 1000)
+    //  setInterval(this.load_stripe_card, 1000)
     setInterval(this.validate_stripe, 2000);
 
     this.appComponent.detectaRuta();
@@ -449,8 +449,6 @@ export class WizardComponent implements OnInit {
 
   }
 
-
-
   next() {
     if (this.steps.uno == "selected") {
       this.steps = {
@@ -559,8 +557,7 @@ export class WizardComponent implements OnInit {
 
   public set_stepper(step: number) {
     debugger;
-    if(this.steps_css.cuatro != "class-view")
-    {
+    if (this.steps_css.cuatro != "class-view") {
       switch (step) {
         case 1: {
           this.steps = {
@@ -592,7 +589,7 @@ export class WizardComponent implements OnInit {
               cuatro: false
             }
           }
-  
+
           break;
         }
         case 3: {
@@ -618,11 +615,10 @@ export class WizardComponent implements OnInit {
         }
       }
     }
-    else
-    {
+    else {
       console.log("ya no regreso");
     }
-    
+
 
   }
 
@@ -645,24 +641,24 @@ export class WizardComponent implements OnInit {
     let json_bd: any = this.auth.data_form;
 
     debugger;
-    if (create_time == 1){
+    if (create_time == 1) {
       create_time = json_bd.fechaHoraInicio;
       // en el servidor se pone la hora del momento , acá solo se pasa eso para qu enos e vaya vacio
     }
 
-    if (id == 1){
+    if (id == 1) {
       if (localStorage.getItem('stripe')) {
         let sesion_stripe = JSON.parse(localStorage.getItem('stripe') || '{}');
         console.log(sesion_stripe);
-      //  alert('*-*-*-*-*-*-*-**-*-**- estatus stripe: ' + sesion_stripe.paymentIntent.status);
+        //  alert('*-*-*-*-*-*-*-**-*-**- estatus stripe: ' + sesion_stripe.paymentIntent.status);
         localStorage.removeItem('stripe');
         id = sesion_stripe.paymentIntent.id
       }
-      
+
     }
 
     delete json_bd.ciudad;
-    
+
     if (localStorage.getItem('userData')) {
       let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
       json_bd.idUsuario = data_user.id;
@@ -676,11 +672,11 @@ export class WizardComponent implements OnInit {
     json_bd.req_factura = this.req_factura;
     json_bd.fechaCreacion = create_time;
     json_bd.detallesEvento = "Sin detalles",
-    json_bd.fechaPago = create_time;
+      json_bd.fechaPago = create_time;
     json_bd.referenciaPago = id;
     json_bd.pagado = true,
-    json_bd.claveSeguimientoCarrito = "Sin seguimiento carrito",
-    json_bd.listaProductosEventos = this.auth.listaProductosEventos;
+      json_bd.claveSeguimientoCarrito = "Sin seguimiento carrito",
+      json_bd.listaProductosEventos = this.auth.listaProductosEventos;
 
     // console.log("EVENTOS A GUARDAR: ====================> ", json_bd);
     this.auth.service_general_post_with_url('Eventos/AddEvent', json_bd).subscribe(r => {
@@ -692,7 +688,7 @@ export class WizardComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-          this.clear_memory();
+        this.clear_memory();
         this.error_alguardar = false;
         this.next();
         this.spinner.hide();
@@ -896,8 +892,8 @@ export class WizardComponent implements OnInit {
   }
 
   @HostListener('click', ['$event.target']) toggleDropdown(el: HTMLElement) {
-   
-   // console.log("HOST LISTENER ======================================", el.id);
+
+    // console.log("HOST LISTENER ======================================", el.id);
     this.appComponent.get_sesion();
   }
 
@@ -959,7 +955,7 @@ export class WizardComponent implements OnInit {
 
 
   ////////////////////////////////// OBTENER SECRENT CLIET STRIPE ////////////////////////////
-  
+
   public SecretDto: any = {
     amount: this.total * 1,
     method: ""
@@ -968,98 +964,106 @@ export class WizardComponent implements OnInit {
   public ejecutotarjeta: boolean = false;
   public async paymentintent_params(method: string) {
 
-    this.spinner.show();
-    debugger;
-    this.SecretDto.amount = this.total * 100;//this.total.toFixed(2),
-    this.SecretDto.method = "";
-    await this.auth.service_general_post_with_url('Eventos/paymentintent_stripe_params', this.SecretDto).subscribe(async r => {
-      if (r.success) {
-        //debugger;
-        console.log("respuesta exitosa paymentintent_stripe_params ========> : ", r, r.result.client_secret);
-        this.secret_client = r.result.client_secret
-        if (method == "oxxo") {
-          this.pay_oxxo();
-        } else if (method == "card") {
-         // debugger;
-          await this.pay_card();
-         // debugger;
-        }
-        setTimeout(() => { this.spinner.hide() }, 2500);
-      }
-    }, (err) => {
+    if ((method =='card') || ((this.nombre_oxxo.length > 3) && (this.email_oxxo.length > 4))) {
+      this.spinner.show();
       debugger;
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        title: 'Error al cargar el metodo de pago, contacta a la administración',
-        showConfirmButton: false,
-        timer: 5500
+      this.SecretDto.amount = this.total * 100;//this.total.toFixed(2),
+      this.SecretDto.method = "";
+      await this.auth.service_general_post_with_url('Eventos/paymentintent_stripe_params', this.SecretDto).subscribe(async r => {
+        if (r.success) {
+          //debugger;
+          console.log("respuesta exitosa paymentintent_stripe_params ========> : ", r, r.result.client_secret);
+          this.secret_client = r.result.client_secret
+          if (method == "oxxo") {
+            this.pay_oxxo();
+          } else if (method == "card") {
+            // debugger;
+            await this.pay_card();
+            // debugger;
+          }
+          setTimeout(() => { this.spinner.hide() }, 2500);
+        }
+      }, (err) => {
+        debugger;
+        console.log("ERROR EN paymentintent_stripe_params ============ :", err.message)
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'Error al cargar el metodo de pago, contacta a la administración',
+          showConfirmButton: false,
+          timer: 5500
+        })
+        // this.error_alguardar = true;
+        console.log("ERROR paymentintent_stripe_params ======> ", err);
+        setTimeout(() => {
+          this.spinner.hide()
+        }
+          , 2500);
       })
-      // this.error_alguardar = true;
-      console.log("ERROR paymentintent_stripe_params ======> ", err);
-      setTimeout(() => {
-        this.spinner.hide()
-      }
-        , 2500);
-    })
-
-  }
-
-  /////////////////////////////// PAGO OXXO STRIPE /////////////////////////////////////////////
-
-
-  public nombre_oxxo: string = "";
-  public email_oxxo: string = "";
-  public secret_client = "";
-  pay_oxxo() {
-    debugger;
-    if ((this.nombre_oxxo.length > 3) && (this.email_oxxo.length > 4)) {
-      this.stripe.confirmOxxoPayment(this.secret_client,
-        {
-          payment_method: {
-            billing_details: {
-              name: this.nombre_oxxo, //document.getElementById('name').value,
-              email: this.email_oxxo // "correo@ddd.com"//document.getElementById('email').value,
-            },
-          },
-        }) // Stripe.js will open a modal to display the OXXO voucher to your customer
-        .then(function (result) {
-          // This promise resolves when the customer closes the modal
-          if (result.error) {
-            // Display error to your customer
-            console.log("ERROR  this.stripe.confirmOxxoPayment =================", result.error);
-            var errorMsg = document.getElementById('error-message');
-            errorMsg.innerText = result.error.message;
-            Swal.fire({
-              position: 'top-end',
-              icon: 'warning',
-              title: 'Error al procesar el pago: ' + result.error.message,
-              showConfirmButton: false,
-              timer: 4500
-            })
-            
-          }
-          else {
-             console.log("result this.stripe.confirmOxxoPayment | Pago correcto OXXO =================", result);
-            //  this.saveEvent(Date.now, result.paymentIntent.id, "Stripe-OXXO");
-           // console.log("SUCCESS confirmCardPayment| Pago correcto tarjeta stripe =============>", result, result.paymentIntent.id);
-          
-            localStorage.setItem('stripe', JSON.stringify(result))
-            var sesion_stripe: any;
-            if (localStorage.getItem('stripe')) {
-              sesion_stripe = JSON.parse(localStorage.getItem('stripe') || '{}');
-              console.log("desde SUCCESS confirmOxxoPayment ====", sesion_stripe);
-            }          
-            var errorMsg = document.getElementById('stripe_click_o');
-            errorMsg.click();
-          }
-        });
     }
     else {
       var errorMsg = document.getElementById('error-message');
       errorMsg.innerText = "Datos incompletos";
     }
 
+    
+
+
+  }
+
+  /////////////////////////////// PAGO OXXO STRIPE /////////////////////////////////////////////
+
+  oxxo_Change(e: any) {
+    var errorMsg = document.getElementById('error-message');
+    errorMsg.innerText = "";
+  }
+
+  public nombre_oxxo: string = "";
+  public email_oxxo: string = "";
+  public secret_client = "";
+  pay_oxxo() {
+    debugger;
+
+    this.stripe.confirmOxxoPayment(this.secret_client,
+      {
+        payment_method: {
+          billing_details: {
+            name: this.nombre_oxxo, //document.getElementById('name').value,
+            email: this.email_oxxo // "correo@ddd.com"//document.getElementById('email').value,
+          },
+        },
+      }) // Stripe.js will open a modal to display the OXXO voucher to your customer
+      .then(function (result) {
+        // This promise resolves when the customer closes the modal
+        if (result.error) {
+          // Display error to your customer
+          console.log("ERROR  this.stripe.confirmOxxoPayment =================", result.error);
+          var errorMsg = document.getElementById('error-message');
+          errorMsg.innerText = result.error.message;
+          Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Error al procesar el pago: ',// + result.error.message,
+            showConfirmButton: false,
+            timer: 4500
+          })
+
+        }
+        else {
+          console.log("result this.stripe.confirmOxxoPayment | Pago correcto OXXO =================", result);
+          //  this.saveEvent(Date.now, result.paymentIntent.id, "Stripe-OXXO");
+          // console.log("SUCCESS confirmCardPayment| Pago correcto tarjeta stripe =============>", result, result.paymentIntent.id);
+
+          localStorage.setItem('stripe', JSON.stringify(result))
+          var sesion_stripe: any;
+          if (localStorage.getItem('stripe')) {
+            sesion_stripe = JSON.parse(localStorage.getItem('stripe') || '{}');
+            console.log("desde SUCCESS confirmOxxoPayment ====", sesion_stripe);
+          }
+          var errorMsg = document.getElementById('stripe_click_o');
+          errorMsg.click();
+        }
+      });
 
   }
 
@@ -1077,7 +1081,7 @@ export class WizardComponent implements OnInit {
       }
       // ,return_url: "http://localhost:4200/"
     }).then(async function (result) {
-      
+
       if (result.error) {
         // Show error to your customer (for example, insufficient funds)
         console.log("ERROR confirmCardPayment | Pago incorrecto tarjeta stripe =============>", result.error.message);
@@ -1094,13 +1098,13 @@ export class WizardComponent implements OnInit {
         // The payment has been processed!
         if (result.paymentIntent.status === 'succeeded') {
           console.log("SUCCESS confirmCardPayment| Pago correcto tarjeta stripe =============>", result, result.paymentIntent.id);
-          
+
           localStorage.setItem('stripe', JSON.stringify(result))
           var sesion_stripe: any;
           if (localStorage.getItem('stripe')) {
             sesion_stripe = JSON.parse(localStorage.getItem('stripe') || '{}');
             console.log("desde SUCCESS confirmCardPayment ====", sesion_stripe);
-          }          
+          }
           var errorMsg = document.getElementById('stripe_click');
           errorMsg.click();
           //this.ejecutotarjeta = true;
