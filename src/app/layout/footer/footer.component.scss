@@ -19,3 +19,16 @@
   font-size: 14px;
   margin: 0;
 }
+
+.mobil{
+  display: none;
+}
+
+@media only screen and (max-width: 575px) {
+  .mobil{
+    display: block;
+  }
+  .desk{
+    display: none;
+  }
+}
