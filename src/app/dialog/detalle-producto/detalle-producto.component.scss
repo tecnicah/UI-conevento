@@ -21,11 +21,11 @@
 
 .contenedorINFO {
   width: 50%;
-  height: 500px;
+  //height: 500px;
 }
 
 .title {
-  font-size: 25px !important;
+  font-size: 28px !important;
 }
 
 .subtitle {
@@ -54,10 +54,10 @@
 .botones {
   &_siguiente {
     background-color: #F6D788;
-    font-size: 18px;
+    //font-size: 18px;
     color: #1E003A;
     width: 190px;
-    height: 53px;
+    //height: 53px;
   }
 
   &_atras {

@@ -7,7 +7,9 @@ import { WizardComponent } from './pages/wizard/wizard.component';
 import { LayoutadminComponent } from './layout/layoutadmin/layoutadmin.component';
 import { AdminEventsComponent } from './pages/admin-events/admin-events.component';
 import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
-import { StripeComponent } from './pages/stripe/stripe.component';
+import { AvisoComponent } from './pages/aviso/aviso.component';
+import { TerminosComponent } from './pages/terminos/terminos.component';
+import {StripeComponent} from './pages/stripe/stripe.component'
 
 const routes: Routes = [
   {
@@ -25,6 +27,14 @@ const routes: Routes = [
       {
         path: 'SeleccionarServicios/:id',
         component: SeleccionarServicioComponent,
+      },
+      {
+        path: 'aviso',
+        component: AvisoComponent 
+      },
+      {
+        path: 'terminos',
+        component: TerminosComponent 
       }
     ]
   },

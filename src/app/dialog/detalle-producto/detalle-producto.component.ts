@@ -14,7 +14,7 @@ export class DetalleProductoComponent implements OnInit {
     console.log("DATA RECIBIDA: ", this.data);
   }
 
-  agregarCantidad(data:any){
+  agregarCantidad1(data:any){
     console.log(data);
     if(data){
       this.data.cantidadUnidades++;
@@ -25,7 +25,23 @@ export class DetalleProductoComponent implements OnInit {
     }
   }
 
-  agregarhora(data:any){
+  public agregarCantidad(data: any) {
+
+     if (data) {
+       if ((this.data.cantidadUnidades < this.data.maximoProductos) 
+        || (this.data.maximoProductos == null)) {
+         this.data.cantidadUnidades++;
+       }
+     } else {
+       if (this.data.cantidadUnidades > 0) {
+         this.data.cantidadUnidades--;
+
+       }
+     }
+     ////this.guardar();
+   }
+
+  agregarhora1(data:any){
     console.log(data);
     if(data){
       this.data.cantidadHoras++;
@@ -36,15 +52,44 @@ export class DetalleProductoComponent implements OnInit {
     }
   }
 
+  public agregarhora(data: any) {
+     if (data) {
+       this.data.cantidadHoras++;
+ 
+     } else {
+       if (this.data.cantidadHoras > this.data.minimoProductos) {
+         this.data.cantidadHoras--;
+       }
+     }
+     //this.guardar();
+   }
+
   //DETECTA SUMA O RESTA DE CONTIDADES//
-  public detectarSumaRestaCantidad(model:any){
+  public detectarSumaRestaCantidad1(model:any){
     console.log(model);
     if(model >= 0){
       this.data.cantidadUnidades = model;
     }else{
       this.data.cantidadUnidades = 0;
     }
+    //this.guardar();
   }
+
+  public detectarSumaRestaCantidad(model: any) {
+    if (model >= 0) {
+      this.data.cantidadUnidades = model;
+
+      if ((model > this.data.maximoProductos) && (this.data.maximoProductos != null)) {
+        this.data.cantidadUnidades = this.data.maximoProductos;
+      }
+    } else {
+      this.data.cantidadUnidades = 0;
+   
+    }
+    //this.guardar();
+  }
+
+
   //DETECTA SUMA O RESTA DE HORAS//
   public detectarSumaRestaHoras(model:any){
     console.log(model);
@@ -53,6 +98,7 @@ export class DetalleProductoComponent implements OnInit {
     }else{
       this.data.cantidadHoras = this.data.minimoProductos;
     }
+    //this.guardar();
   }
 
   public guardar(){

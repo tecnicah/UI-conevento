@@ -72,12 +72,6 @@ export class SeleccionarServicioComponent implements OnInit {
       this.productos[i].cantidadUnidades = 0;
      // this.calculosT();
     }
-
-    // if(model <= item.minimoProductos){
-    //   this.productos[i].cantidadHoras = model;
-    // }else{
-    //   this.productos[i].cantidadHoras = item.maximoProductos;
-    // }
     this.calculosT();
     this.agregar();
   }
@@ -140,13 +134,11 @@ export class SeleccionarServicioComponent implements OnInit {
    debugger;
     this.productos.forEach((E: any) => {
       for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
-        if (E.id == this.auth.listaProductosEventos[i].idCatProducto 
-          && this.auth.listaProductosEventos[i].idCategoria == this.id) {
+        if (E.id == this.auth.listaProductosEventos[i].idCatProducto  && this.auth.listaProductosEventos[i].idCategoria == this.id) {
                this.auth.listaProductosEventos.splice(i, 1);
         }
       }
     })
-
 
     this.productos.forEach((E: any) => {
       if (E.cantidadUnidades > 0) {
@@ -197,17 +189,21 @@ export class SeleccionarServicioComponent implements OnInit {
   detalle(type: any, item: any) {
     localStorage.setItem('detalle', JSON.stringify(item))
     let ancho = '';
+    let alto = '200%';
     if (type == 1) {
       ancho = '80%';
+      alto = '82%';
     } else {
       ancho = '100%';
     }
     const dialogRef = this._dialog.open(DetalleProductoComponent, {
       width: ancho,
+      height: alto,
       data: item
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      debugger;
       if (result.success) {
         console.log(result);
         this.guardarServiciosElegidosDetalle(result);
@@ -223,9 +219,11 @@ export class SeleccionarServicioComponent implements OnInit {
   }
 
   public guardarServiciosElegidosDetalle(result: any) {
+
+    debugger;
     console.log(this.productos);
     for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
-      if (result.idCategoriaProducto == this.auth.listaProductosEventos[i].idCatProducto && this.auth.listaProductosEventos[i].idCategoria == this.id) {
+      if (result.idCategoriaProducto == this.auth.listaProductosEventos[i].idCategoria && this.auth.listaProductosEventos[i].idCategoria == this.id) {
         this.auth.listaProductosEventos.splice(i, 1);
       }
     }
@@ -240,10 +238,10 @@ export class SeleccionarServicioComponent implements OnInit {
           "cantidadHoras": result.cantidadHoras == null ? 1 : result.cantidadHoras,
           "idCategoria": Number(this.id),
           "Nombre": result.producto,
-          "Precio": Number(result.precioPorUnidad)
+          "Precio": Number(result.precioPorUnidad),
+          "especificarTiempo": result.especificarTiempo
         });
     }
-
 
     this.productos.forEach((E: any) => {
       for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
@@ -253,6 +251,32 @@ export class SeleccionarServicioComponent implements OnInit {
         }
       }
     });
+    
+    this.auth.categorias.personal1 = false;
+    this.auth.categorias.talento3 = false;
+    this.auth.categorias.alimentos5 = false;
+    this.auth.categorias.mobiliario6 = false;
+    this.auth.categorias.luces7 = false;
+    this.auth.listaProductosEventos.forEach((E: any) => {
+      if (E.idCategoria == 1) {
+        this.auth.categorias.personal1 = true;
+      }
+      if (E.idCategoria == 3) {
+        this.auth.categorias.talento3 = true;
+      }
+      if (E.idCategoria == 5) {
+        this.auth.categorias.alimentos5 = true;
+      }
+      if (E.idCategoria == 6) {
+        this.auth.categorias.mobiliario6 = true;
+      }
+      if (E.idCategoria == 7) {
+        this.auth.categorias.luces7 = true;
+      }
+    });
+    localStorage.setItem('categorias', JSON.stringify(this.auth.categorias));
+    localStorage.setItem('productos', JSON.stringify(this.auth.listaProductosEventos));
+
     this.calculosT();
   }
   //*************************************************************************//
@@ -260,31 +284,6 @@ export class SeleccionarServicioComponent implements OnInit {
   public Subtotal = 0;
   public IVA = 0;
   public total = 0;
-
-  // public calculos() {
-  //   this.Subtotal = 0;
-  //   this.IVA = 0;
-  //   this.total = 0;
-  //   console.log("ENTRA A REALIZAR LA SUMA");
-  //   this.productos.forEach((E: any) => {
-  //     if (E.cantidadUnidades > 0) {
-  //       this.Subtotal = this.Subtotal + E.precioPorUnidad * E.cantidadUnidades;
-  //     }
-  //   });
-
-  //   let flete = 0;
-  //   this.productos.forEach((E: any) => {
-  //     if (E.idCategoriaProducto == 6 || E.idCategoriaProducto == 7) {
-  //       flete++;
-  //     }
-  //   });
-  //   if (flete > 0) {
-  //     this.Subtotal = this.Subtotal + 500;
-  //   }
-
-  //   this.IVA = this.Subtotal * 0.16;
-  //   this.total = this.Subtotal + this.IVA;
-  // }
 
   public calculosT() {
      //debugger;
@@ -313,30 +312,4 @@ export class SeleccionarServicioComponent implements OnInit {
   //  console.log("Productos listado ===============>" , this.Productos_listado)
   }
 
-//   public calculosT() {
-//     //debugger;
-//     this.Subtotal = 0;
-//     this.IVA = 0;
-//     this.total = 0;
-
-//    this.auth.listaProductosEventos.forEach((E: any) => {
-//      this.Subtotal = this.Subtotal + E.Precio * E.cantidadUnidades;
-//    });
-//    let flete = 0;
-//    this.auth.listaProductosEventos.forEach((E: any) => {
-//      if (E.idCategoria == 6 || E.idCategoria == 7) {
-//        flete++;
-//      }
-//    });
-//    if (flete > 0) {
-//      this.Subtotal = this.Subtotal + 500;
-//    }
-//    //debugger;
-//    this.IVA = this.Subtotal * 0.16;
-//    this.total = this.Subtotal + this.IVA;
-//    //alert(this.total);
-//    this.total = parseFloat(this.total.toFixed(2));
-//    //alert(this.total);
-//  //  console.log("Productos listado ===============>" , this.Productos_listado)
-//  }
 }

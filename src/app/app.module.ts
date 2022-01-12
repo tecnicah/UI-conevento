@@ -43,6 +43,8 @@ import { AdminEventsComponent } from './pages/admin-events/admin-events.componen
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
 import { StripeComponent } from './pages/stripe/stripe.component';
+import { TerminosComponent } from './pages/terminos/terminos.component';
+import { AvisoComponent } from './pages/aviso/aviso.component';
 
 
 @NgModule({
@@ -68,7 +70,9 @@ import { StripeComponent } from './pages/stripe/stripe.component';
     EventosadminComponent,
     AdminEventsComponent,
     AdminServicesComponent,
-    StripeComponent
+    StripeComponent,
+    TerminosComponent,
+    AvisoComponent
   ],
   imports: [
     NgxPayPalModule,
