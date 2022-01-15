@@ -276,10 +276,16 @@
     &_size {
       text-align: center;
       font-size: 30px;
+      
+    }
+
+    &_bg{
+      margin-top: -45%;
     }
 
     &_contenedor_hijo {
       width: 100%;
+      bottom: 100px;
     }
 
     &_img {

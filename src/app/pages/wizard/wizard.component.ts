@@ -106,7 +106,7 @@ export class WizardComponent implements OnInit {
       console.log(sesion_stripe);
       alert('*-*-*-*-*-*-*-**-*-**- estatus stripe: ' + sesion_stripe.paymentIntent.status);
       localStorage.removeItem('stripe');
-      debugger;
+      //debugger;;
     }
     else {
       sesion_stripe = null;
@@ -304,7 +304,7 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCIONES PARA SELECCION DE SERVICIOS//
   public selectServices(item: any) {
-    this.router_.navigateByUrl('SeleccionarServicios/' + item.id)
+    this.router_.navigateByUrl('SeleccionarServicios/' + item.id +"/"+ this.firstFormGroup.value.fechaHoraInicio)
   }
   //*******************************************//
   //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
@@ -435,7 +435,7 @@ export class WizardComponent implements OnInit {
 
   public view_pay_method(option: any) {
 
-    debugger;
+    //debugger;;
     this.card_css.card = "class-none";
     this.card_css.paypal = "class-none";
     this.card_css.oxxo = "class-none";
@@ -556,7 +556,7 @@ export class WizardComponent implements OnInit {
   }
 
   public set_stepper(step: number) {
-    debugger;
+    //debugger;;
     if (this.steps_css.cuatro != "class-view") {
       switch (step) {
         case 1: {
@@ -640,7 +640,7 @@ export class WizardComponent implements OnInit {
     this.spinner.show();
     let json_bd: any = this.auth.data_form;
 
-    debugger;
+    //debugger;;
     if (create_time == 1) {
       create_time = json_bd.fechaHoraInicio;
       // en el servidor se pone la hora del momento , acá solo se pasa eso para qu enos e vaya vacio
@@ -709,7 +709,7 @@ export class WizardComponent implements OnInit {
 
   public modify_list(item: any) {
     //alert(id);  this.Productos_listado
-    debugger;
+    //debugger;;
     for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
       if (item.idCatProducto == this.auth.listaProductosEventos[i].idCatProducto) {
         this.auth.listaProductosEventos.splice(i, 1);
@@ -740,7 +740,7 @@ export class WizardComponent implements OnInit {
   }
 
   public restart_dates() {
-    //debugger;
+    ////debugger;;
     //Display Only Date till today // 
 
     var someDate = new Date();
@@ -966,25 +966,25 @@ export class WizardComponent implements OnInit {
 
     if ((method =='card') || ((this.nombre_oxxo.length > 3) && (this.email_oxxo.length > 4))) {
       this.spinner.show();
-      debugger;
+      //debugger;;
       this.SecretDto.amount = this.total * 100;//this.total.toFixed(2),
       this.SecretDto.method = "";
       await this.auth.service_general_post_with_url('Eventos/paymentintent_stripe_params', this.SecretDto).subscribe(async r => {
         if (r.success) {
-          //debugger;
+          ////debugger;;
           console.log("respuesta exitosa paymentintent_stripe_params ========> : ", r, r.result.client_secret);
           this.secret_client = r.result.client_secret
           if (method == "oxxo") {
             this.pay_oxxo();
           } else if (method == "card") {
-            // debugger;
+            // //debugger;;
             await this.pay_card();
-            // debugger;
+            // //debugger;;
           }
           setTimeout(() => { this.spinner.hide() }, 2500);
         }
       }, (err) => {
-        debugger;
+        //debugger;;
         console.log("ERROR EN paymentintent_stripe_params ============ :", err.message)
         Swal.fire({
           position: 'top-end',
@@ -1022,7 +1022,7 @@ export class WizardComponent implements OnInit {
   public email_oxxo: string = "";
   public secret_client = "";
   pay_oxxo() {
-    debugger;
+    //debugger;;
 
     this.stripe.confirmOxxoPayment(this.secret_client,
       {

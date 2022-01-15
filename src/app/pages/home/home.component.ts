@@ -30,12 +30,14 @@ export class HomeComponent implements OnInit {
     window.scrollTo(0,0);
     this.appComponent.detectaRuta();
   }
-
+  public ytid= "rRcSK1As9AY";
+  
   public nosotros(type:any){
     let ancho = '';
     if(type == 1){ ancho = '70%' } else{ ancho = '100%' }
     const dialogRef = this._dialog.open(NosotrosComponent, {
       width: ancho
+     // ,height: "70%"
     });
 
     dialogRef.afterClosed().subscribe(result => {

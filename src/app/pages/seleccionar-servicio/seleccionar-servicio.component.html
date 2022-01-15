@@ -1,4 +1,12 @@
 <div class="bg_color">
+
+  <!-- <youtube-player videoId="rRcSK1As9AY" suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
+  </youtube-player>
+  | variable |
+  <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
+  </youtube-player> -->
+
+
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -32,12 +40,29 @@
           <div *ngIf="item.tipoImagenSeleccion == 'imagen'" class="imagenesTarj d-none d-md-block pointer"
             (click)="detalle(1, item)">
             <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-
           </div>
-          <video *ngIf="item.tipoImagenSeleccion == 'video'" width="255" height="210" controls>
+          <!-- <video *ngIf="item.tipoImagenSeleccion == 'video'" width="255" height="210" controls>
             <source [src]="item.imagenSeleccion" type="video/mp4">
             {{item.producto}}
-          </video>
+          </video> -->
+          <div *ngIf="item.tipoImagenSeleccion == 'video'">
+            <div class="d-block d-md-none">
+              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
+               </youtube-player>
+               <!--| dos
+              <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
+              </youtube-player> -->
+            </div>
+            <div class="d-none d-md-block"> 
+              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="210" [width]="255" [startSeconds]="4" [endSeconds]="8">
+              </youtube-player>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="item.id == 29">
+            <iframe class="videoyt"  src="{{yt}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div> -->
+          
 
           <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
             <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
@@ -77,7 +102,7 @@
           </div>
         </div>
       </div>
-
+      
 
       <!--p class="fix_color reboto-regular">Total: {{total | currency}}</p-->
       <a class="btn-wsp fab" target="_blank" (click)="back();">
@@ -86,7 +111,7 @@
       
 
     </div>
-
+   
     <!-- <div class="contenedor_uno_contenedor_botones form-group">
     <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="agregar();">Actualizar carrito</button>
   </div> -->

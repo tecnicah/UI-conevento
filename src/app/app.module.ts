@@ -45,6 +45,7 @@ import { AdminServicesComponent } from './pages/admin-services/admin-services.co
 import { StripeComponent } from './pages/stripe/stripe.component';
 import { TerminosComponent } from './pages/terminos/terminos.component';
 import { AvisoComponent } from './pages/aviso/aviso.component';
+import { YouTubePlayerModule } from "@angular/youtube-player";
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { AvisoComponent } from './pages/aviso/aviso.component';
     SwiperModule,
     FilterPipeModule,
     NgxPaginationModule,
+    YouTubePlayerModule
    
   ],
   providers: [],

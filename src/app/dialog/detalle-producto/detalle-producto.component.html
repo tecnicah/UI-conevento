@@ -5,15 +5,14 @@
   
   <div class="contenedor">
     <div class="contenedorIMG">
-
       <div *ngIf="data.tipoImagenSeleccion == 'imagen'" class="imagenesTarj d-none d-md-block pointer">
         <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
 
       </div>
-      <video *ngIf="data.tipoImagenSeleccion == 'video'" style="max-width: 100%;" controls>
-        <source [src]="data.imagenSeleccion" type="video/mp4">
-        {{data.producto}}
-      </video>
+      <div *ngIf="data.tipoImagenSeleccion == 'video'">
+          <youtube-player videoId={{data.imagenSeleccion}} [width]="425" suggestedQuality="highres"  [startSeconds]="1" >
+          </youtube-player>
+      </div>
     </div>
     <div>&nbsp;</div>
     <div class="contenedorINFO">
@@ -87,8 +86,18 @@
 <div style="width: 100%;" class="d-block d-md-none">
   <div class="row">
     <div class="col-md-12">
-      <div class="contenedorIMG">
+      <!-- <div class="contenedorIMG">
         <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
+      </div> -->
+      <div class="contenedorIMG">
+        <div *ngIf="data.tipoImagenSeleccion == 'imagen'" class="imagenesTarj d-none d-md-block pointer">
+          <img [src]="data.imagenSeleccion" alt="" class="contenedorIMG_img">
+  
+        </div>
+        <div *ngIf="data.tipoImagenSeleccion == 'video'">
+            <youtube-player videoId={{data.imagenSeleccion}} [width]="293" [height]="239" suggestedQuality="highres"  [startSeconds]="1" >
+            </youtube-player>
+        </div>
       </div>
     </div>
 

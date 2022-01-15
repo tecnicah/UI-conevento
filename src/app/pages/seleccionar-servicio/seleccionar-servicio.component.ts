@@ -22,14 +22,25 @@ export class SeleccionarServicioComponent implements OnInit {
   userFilter: any = { producto: '' };
   public productos: any = [];
   public id: any;
+  public decha_inicio: any;
   ngOnInit(): void {
+debugger;
+    const tag = document.createElement('script');
+ 
+  	tag.src = "https://www.youtube.com/iframe_api";
+ 
+  	document.body.appendChild(tag);
+
    // console.log("SERVICIOS ELEGIDOS: ", this.auth.listaProductosEventos);
     this.appComponent.detectaRuta();
     this.spinner.show();
     this.id = this.rutaActiva.snapshot.params.id;
+    this.decha_inicio = this.rutaActiva.snapshot.params.date;
    // console.log("id categoria: ", this.id);
     this.auth.service_general_get('Catalog/productos_by_Cat?id_categoria=' + this.id).subscribe(observer => {
-      if (observer.result) {
+    //  this.auth.service_general_get('Catalog/productos_by_Cat_Date?id_categoria=' + this.id +'&fecha= ' + this.decha_inicio).subscribe(observer => {
+    debugger;  
+    if (observer.result) {
         this.productos = observer.result;
         console.log("Catalogo: ", observer.result);
         this.productos.forEach((E: any) => {
@@ -51,6 +62,7 @@ export class SeleccionarServicioComponent implements OnInit {
         this.spinner.hide();
       }
     }, (err) => {
+      debugger;  
       this.spinner.hide();
       console.log(err);
     })
@@ -60,7 +72,7 @@ export class SeleccionarServicioComponent implements OnInit {
   public detectarSumaRestaCantidad(model: any, item: any, i: any) {
     // console.log(model);
     // console.log(item);
-    ////debugger;
+    //////debugger;;
     if (model >= 0) {
       this.productos[i].cantidadUnidades = model;
 
@@ -91,7 +103,7 @@ export class SeleccionarServicioComponent implements OnInit {
   //FUNCION PARA AGREGAR CANTIDADES//
   public agregarCantidad(data: any, i: any,) {
    // console.log(data);
-    ////debugger;
+    //////debugger;;
     if (data) {
       //  this.productos[i].cantidadUnidades++;
       if ((this.productos[i].cantidadUnidades < this.productos[i].maximoProductos) 
@@ -131,7 +143,7 @@ export class SeleccionarServicioComponent implements OnInit {
   //FUNCION PARA AGREGAR//
   public agregar() {
    // console.log(this.productos);
-   debugger;
+   //debugger;;
     this.productos.forEach((E: any) => {
       for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
         if (E.id == this.auth.listaProductosEventos[i].idCatProducto  && this.auth.listaProductosEventos[i].idCategoria == this.id) {
@@ -186,10 +198,15 @@ export class SeleccionarServicioComponent implements OnInit {
   //  this.back();
   }
   //*************************************************************************//
+  
+  public yt = "https://www.youtube.com/embed/rRcSK1As9AY";
+  public ytid= "rRcSK1As9AY";
+  public ytid2= "80_Cr9m-1fE";
+
   detalle(type: any, item: any) {
     localStorage.setItem('detalle', JSON.stringify(item))
     let ancho = '';
-    let alto = '200%';
+    let alto = '250%';
     if (type == 1) {
       ancho = '80%';
       alto = '82%';
@@ -203,7 +220,7 @@ export class SeleccionarServicioComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      debugger;
+      //debugger;;
       if (result.success) {
         console.log(result);
         this.guardarServiciosElegidosDetalle(result);
@@ -220,7 +237,7 @@ export class SeleccionarServicioComponent implements OnInit {
 
   public guardarServiciosElegidosDetalle(result: any) {
 
-    debugger;
+    //debugger;;
     console.log(this.productos);
     for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
       if (result.idCategoriaProducto == this.auth.listaProductosEventos[i].idCategoria && this.auth.listaProductosEventos[i].idCategoria == this.id) {
@@ -286,7 +303,7 @@ export class SeleccionarServicioComponent implements OnInit {
   public total = 0;
 
   public calculosT() {
-     //debugger;
+     ////debugger;;
      this.Subtotal = 0;
      this.IVA = 0;
      this.total = 0;
@@ -303,7 +320,7 @@ export class SeleccionarServicioComponent implements OnInit {
     if (flete > 0) {
       this.total = this.total + 500;
     }
-    //debugger;
+    ////debugger;;
     this.Subtotal = this.total / 1.16;
     this.IVA = this.total - this.Subtotal;
     //alert(this.total);

@@ -25,7 +25,7 @@ const routes: Routes = [
         component: WizardComponent,
       },
       {
-        path: 'SeleccionarServicios/:id',
+        path: 'SeleccionarServicios/:id/:date',
         component: SeleccionarServicioComponent,
       },
       {
