@@ -175,7 +175,7 @@
         <div class="col-md-9">
           <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
           <p>Fecha y hora inicio *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
@@ -187,7 +187,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
           <p>Fecha y hora final *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="datetime-local" [min]="firstFormGroup.value.fechaHoraInicio" class="form-control"
@@ -198,7 +198,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" style="display: none;">
           <p>Gente esperada </p>
           <div class="input-group mb-3 margen_cero">
             <input [min]="0" type="number" (change)="no_menor_cero();" class="form-control" placeholder="Gente esperada"
@@ -218,7 +218,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4"></div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
           <p>Ciudad *</p>
           <select class="form-select quiz_select form-control" aria-label="Default select example"
             [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }" formControlName="ciudad">
@@ -231,10 +231,11 @@
 
         <div class="col-md-4">
           <p>Alcaldia o municipio *</p>
-          <select class="form-select quiz_select form-control" aria-label="Default select example"
-            [ngClass]="{ 'is-invalid': submitted && f.idCatMunicipio.errors }" formControlName="idCatMunicipio">
+          <select plceholder="Selecciona Alcaldía" class="form-select quiz_select form-control"
+            aria-label="Default select example" [ngClass]="{ 'is-invalid': submitted && f.idCatMunicipio.errors }"
+            formControlName="idCatMunicipio">
             <option value=1>Benito Juárez</option>
-            <option value=2>Coyoacan</option>
+            <option value=2> Coyoacan</option>
             <option value=3>Magdalena Contreras </option>
             <option value=4>Venustiano Carranza</option>
             <option value=5>Cuajimalpa</option>
@@ -248,7 +249,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" style="display: none;">
           <p>Código postal (Opcional)</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Código postal" aria-label="Código postal"
@@ -272,7 +273,7 @@
           </div>
         </div>
 
-        <div class="col-md-6" style="padding-bottom: 20px;">
+        <div class="col-md-6">
           <p>Colonia *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Colonia" aria-label="Colonia"
@@ -283,31 +284,14 @@
             </div>
           </div>
         </div>
+        <div class="col-md-6">
 
-        <div class="col-md-6">
-          <p class="Reboto-medium subtitle">Datos de contacto</p>
         </div>
-        <div class="col-md-6">
-          <div *ngIf="appComponent.data_user_model_app != null" style="margin-bottom: 17px;"
-            (click)="set_datos_cuenta();">
-            <img src="./assets/Home/copy_profile.png" alt="" height="35px" width="35px" style="cursor:pointer;">
-            <span
-              style="cursor:pointer; margin-left: 5px; color: blue; font-size: 15px; font-weight: bold; text-decoration: underline;">
-              Copiar datos de tu cuenta
-            </span>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <p>Nombre del contratante *</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="text" class="form-control" placeholder="Nombre del contratante"
-              aria-label="Datos del contratante" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.nombreContratane.errors }" formControlName="nombreContratane">
-            <div *ngIf="submitted && f.nombreContratane.errors" class="invalid-feedback">
-              <div *ngIf="f.nombreContratane.errors.required">Campo requerido</div>
-            </div>
-          </div>
-        </div>
+
+
+
+
+
 
         <!-- <div class="col-md-6">
           <p>Nombre del evento (Opcional)</p>
@@ -321,32 +305,7 @@
           </div>
         </div> -->
 
-        <div class="col-md-6">
-          <p>Correo electrónico *</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
-              aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.correo.errors }"
-              [pattern]="emailRegex" formControlName="correo">
-            <div *ngIf="submitted && f.correo.errors" class="invalid-feedback">
-              <div *ngIf="f.correo.errors.required">Campo requerido</div>
-            </div>
-            <div *ngIf="f.correo.errors?.pattern" class="invalid-feedback">
-              Formato de correo incorrecto
-            </div>
-          </div>
-        </div>
 
-        <div class="col-md-6">
-          <p>Teléfono fijo o celular *</p>
-          <div class="input-group mb-3 margen_cero">
-            <input type="tel" class="form-control" placeholder="Teléfono fijo o celular"
-              aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.telefono.errors }" formControlName="telefono">
-            <div *ngIf="submitted && f.telefono.errors" class="invalid-feedback">
-              <div *ngIf="f.telefono.errors.required">Campo requerido</div>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="contenedor_uno_contenedor_botones form-group" style="justify-content: none;">
         <button class="btn contenedor_uno_siguiente Reboto-medium">
@@ -397,7 +356,7 @@
                 </div>
 
               </div>
-              <div id="b" class="none size" style="color: #444444;">{{item.descripcion}}</div>
+              <div id="b" class="none size" style="color: #444444; font-weight: bold;">{{item.descripcion}}</div>
             </div>
           </div>
         </div>
@@ -488,7 +447,7 @@
       </div>
     </div>
 
-    <div class="contenedor_uno_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
+    <div class="contenedor_uno_contenedor_botones form-group">
       <button class="btn contenedor_uno_atras Reboto-medium" (click)="after()">Regresar</button>
     </div>
 
@@ -507,8 +466,84 @@
         <span class="Reboto-medium">Confirma y Paga</span>
       </div>
 
+
       <div class="row contenedor_cuatro">
         <div class="col-md-7">
+          <div class="eventos_seleccionados">
+            <div class="col-md-12">
+              <!-- <div class="col-md-4" >
+              <div *ngIf="appComponent.data_user_model_app != null" style="margin-bottom: 17px;"
+                (click)="set_datos_cuenta();">
+                <img src="./assets/Home/copy_profile.png" alt="" height="35px" width="35px" style="cursor:pointer;">
+                <span
+                  style="cursor:pointer; margin-left: 5px; color: blue; font-size: 15px; font-weight: bold; text-decoration: underline;">
+                  Copiar de mi cuenta
+                </span>
+              </div>
+            </div> -->
+              <div class="col-md-6">
+                <p class="Reboto-medium subtitle">Datos de contacto</p>
+              </div>
+              <p>Contratante * <img src="./assets/Home/copy_profile.png"
+                  *ngIf="appComponent.data_user_model_app != null" (click)="set_datos_cuenta();" alt="" height="25px"
+                  width="25px" style="margin-left: 4px; cursor:pointer;">
+                <span (click)="set_datos_cuenta();" *ngIf="appComponent.data_user_model_app != null"
+                  style="cursor:pointer; margin-left: 2px; color: blue; font-size: 15px; font-weight: bold; text-decoration: underline;">
+                  Copiar de mi cuenta
+                </span>
+              </p>
+              <div class="input-group mb-3 margen_cero">
+                <input type="text" class="form-control" placeholder="Nombre del contratante"
+                  aria-label="Datos del contratante" aria-describedby="basic-addon1" (focusout)="validate_nombre();"
+                  [ngClass]="{ 'is-invalid': error_nombre }" [(ngModel)]="nombreContratane">
+                <div *ngIf="error_nombre" class="invalid-feedback">
+                  <div *ngIf="error_nombre">Campo incompleto</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <p>Correo electrónico *</p>
+              <div class="input-group mb-3 margen_cero">
+                <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
+                  aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': error_correo }" [pattern]="emailRegex"
+                  [(ngModel)]="correo" (focusout)="validate_correo();">
+                <div *ngIf="error_correo" class="invalid-feedback">
+                  <div *ngIf="error_correo">Campo incorrecto</div>
+                </div>
+                <!-- <div *ngIf="f.correo.errors?.pattern" class="invalid-feedback"> 
+                  Formato de correo incorrecto
+                </div>-->
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <p>Teléfono fijo o celular *</p>
+              <div class="input-group mb-3 margen_cero">
+                <input type="tel" class="form-control" placeholder="Teléfono fijo o celular"
+                  aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1"
+                  [ngClass]="{ 'is-invalid': error_telefono }" [(ngModel)]="telefono" (focusout) ="validate_telefono();">
+                <div *ngIf="error_telefono" class="invalid-feedback">
+                  <div *ngIf="error_telefono">Campo incompleto</div>
+                </div>
+              </div>
+            </div>
+            <!-- <p class="Reboto-medium eventos_seleccionados_titulo" style="font-size: 18px;">
+              <img src="./assets/Home/profile.png" width="49px">
+              Datos de contacto
+            </p>
+            <div class="eventos_seleccionados_flex">
+              <span class="Reboto-medium eventos_seleccionados_titulo">Nombre contratante <span
+                  class="eventos_seleccionados_descripcion">{{data_model.nombreContratane}}</span></span>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span class="Reboto-medium eventos_seleccionados_titulo">Correo electrónico <span
+                  class="eventos_seleccionados_descripcion">{{data_model.correo}}</span></span>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span class="Reboto-medium eventos_seleccionados_titulo">Teléfono <span
+                  class="eventos_seleccionados_descripcion">{{data_model.telefono}}</span></span>
+            </div>  -->
+          </div>
           <div class="eventos_seleccionados">
             <p class="Reboto-medium eventos_seleccionados_titulo" style="font-size: 18px;">
               <img src="./assets/Home/date2.png" width="45px">
@@ -518,13 +553,13 @@
             <div class="eventos_seleccionados_flex">
               <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                   class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date:
-                  'dd/MM/yyyy'}}</span></span>
+                  'dd/MM/yyyy - hh:mm a'}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
               <span
                 class="Reboto-medium eventos_seleccionados_titulo">Fin&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                   class="eventos_seleccionados_descripcion">{{data_model.fechaHoraFin | date:
-                  'dd/MM/yyyy'}}</span></span>
+                  'dd/MM/yyyy - hh:mm a'}}</span></span>
             </div>
           </div>
 
@@ -546,29 +581,12 @@
             </div>
           </div>
 
-          <div class="eventos_seleccionados">
-            <p class="Reboto-medium eventos_seleccionados_titulo" style="font-size: 18px;">
-              <img src="./assets/Home/profile.png" width="49px">
-              Datos de contacto
-            </p>
-            <div class="eventos_seleccionados_flex">
-              <span class="Reboto-medium eventos_seleccionados_titulo">Nombre contratante <span
-                  class="eventos_seleccionados_descripcion">{{data_model.nombreContratane}}</span></span>
-            </div>
-            <div class="eventos_seleccionados_flex">
-              <span class="Reboto-medium eventos_seleccionados_titulo">Correo electrónico <span
-                  class="eventos_seleccionados_descripcion">{{data_model.correo}}</span></span>
-            </div>
-            <div class="eventos_seleccionados_flex">
-              <span class="Reboto-medium eventos_seleccionados_titulo">Teléfono <span
-                  class="eventos_seleccionados_descripcion">{{data_model.telefono}}</span></span>
-            </div>
-          </div>
+
 
           <div class="d-none d-md-block">
             <div class="pagar_paga_btn form-group">
               <button class="btn pagar_atras Reboto-medium" (click)='back_step2()'>Regresar</button> &nbsp; &nbsp;
-              <button class="btn pagar__siguiente Reboto-medium" (click)="pagarOpciones(1)">Continuar</button>
+
             </div>
           </div>
 
@@ -600,22 +618,26 @@
 
                   <div class="servicios_justify">
                     <div *ngFor="let item of Productos_listado">
-                      <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}}
-                        <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
-                          style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
-                        <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio *
-                          item.cantidadUnidades | currency}}</span>
-                      </p>
-
+                      <!-- <img style="width: 16px; cursor: pointer;" src="https://img.icons8.com/ios/50/000000/delete-sign--v1.png"/>-->
+                      <img style="width: 16px; cursor: pointer;" *ngIf="Productos_listado.length > 1" (click)="modify_list(item)"
+                        src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png" />
+                      <span class="productlist">
+                        {{item.cantidadUnidades}} {{item.Nombre}} 
+                      </span>
+                      <span class="productlist" *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
+                        style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
+                      <span class="productlist_precio"> {{item.Precio *
+                        item.cantidadUnidades * item.cantidadHoras | currency}}
+                      </span>
                     </div>
                     <div *ngIf="flete > 0">
-                      <p class="p" style="font-size: 13px;">
-                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete
-                        (Mobiliario)
-                        <span style="position: absolute; right: 10px; font-size: 14px;">
-                          $500.00
-                        </span>
-                      </p>
+                      <img src="./assets/home-dos/ship.png" style="width: 28px;">
+                      <span class="productlist">
+                        &nbsp;&nbsp;Servicio de flete (Mobiliario)
+                      </span>
+                      <span class="productlist_precio">
+                        $500.00
+                      </span>
                     </div>
                     <div class="separator"></div>
 
@@ -646,9 +668,12 @@
                 <span class="pTotal Reboto-medium">Total</span>
                 <span class="p Reboto-medium">{{total | currency}}</span>
               </div>
-              <!-- <div class="pagar_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
-                <button class="btn pagar_siguiente Reboto-medium" (click)="next()">Pagar</button>
-              </div> -->
+              <div class="pagar_contenedor_botones form-group d-none d-md-block"
+                style="align-content: center; text-align: center; padding-top: 15px;"
+                *ngIf="Productos_listado.length != 0">
+                <!-- <button class="btn pagar_siguiente Reboto-medium" (click)="next()">Pagar</button> -->
+                <button class="btn pagar__siguiente Reboto-medium" (click)="pagarOpciones(1)">Continuar</button>
+              </div>
             </div>
             <div class="pagar_paga_botones  d-block d-md-none">
               <button class="btn pagar_atras Reboto-medium" (click)='back_step2()'>Regresar</button> &nbsp;
@@ -678,7 +703,7 @@
             <div class="eventos_seleccionados_flex">
               <span class="Reboto-medium eventos_seleccionados_titulo">Inicio&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                   class="eventos_seleccionados_descripcion">{{data_model.fechaHoraInicio | date:
-                  'dd/MM/yyyy'}}</span></span>
+                  'dd/MM/yyyy - hh:mm a'}}</span></span>
             </div>
             <div class="eventos_seleccionados_flex">
               <span
@@ -688,8 +713,7 @@
             <div class="form-check">
 
               <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> -->
-              <input class="form-check-input" 
-              type="checkbox" [(ngModel)]="req_factura">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="req_factura">
               <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
                 style="font-weight: bold;">
                 Requiero Factura
@@ -710,7 +734,7 @@
                   src="https://img.icons8.com/external-tal-revivo-color-tal-revivo/24/4a90e2/external-paypal-an-online-payments-system-operating-worldwide-logo-color-tal-revivo.png" />
                 Pay Pal
               </button>
-              <button class="button-8" (click)="view_pay_method('oxxo')">
+              <button class="button-8" (click)="view_pay_method('oxxo')" *ngIf="total <= 10000">
                 <img width="32px" src="https://img.icons8.com/fluency/48/000000/online-store.png" />
                 Oxxo
               </button>
@@ -743,30 +767,32 @@
               <div class="div_card_stripe">
                 <span class="p Reboto-medium">Pago En Oxxo</span>
                 <br>
-                <span class="p" style="font-size: 14px;">Indicanos tus datos: </span>
+                <span class="p" style="font-size: 14px;">Indicanos tus datos de pago: </span>
                 <div class="">
                   <form id="payment-form" style="width: 100%; padding: 3%;">
                     <div class="form-row">
                       <label for="name">
                         Nombre
                       </label>
-                      <input id="name" name="name" (ngModelChange)="oxxo_Change($event)" required class="form-control" [(ngModel)]="nombre_oxxo">
+                      <input id="name" name="name" (ngModelChange)="oxxo_Change($event)" required class="form-control"
+                        [(ngModel)]="nombre_oxxo">
                     </div>
 
                     <div class="form-row">
                       <label for="email">
                         Email
                       </label>
-                      <input id="email" name="email" (ngModelChange)="oxxo_Change($event)"  required class="form-control" [(ngModel)]="email_oxxo">
+                      <input id="email" name="email" (ngModelChange)="oxxo_Change($event)" required class="form-control"
+                        [(ngModel)]="email_oxxo">
                     </div>
                     <!-- Used to display form errors. -->
-                    <div id="error-message" role="alert" 
-                         style="color: red; padding-top: 2px; padding-bottom: 2px; font-size: 13px;">
+                    <div id="error-message" role="alert"
+                      style="color: red; padding-top: 2px; padding-bottom: 2px; font-size: 13px;">
                     </div>
-                    
-                    
+
+
                     <button id="submit-button" class="button-9" style="padding-top: 2px; font-size: 14px;"
-                            role=" button" (click)="paymentintent_params('oxxo');">
+                      role=" button" (click)="paymentintent_params('oxxo');">
                       <img width="35px" src="https://img.icons8.com/fluency/48/000000/online-store.png" />
                       GENERAR VOUCHER
                     </button>
@@ -840,35 +866,34 @@
 
                   <div class="servicios_justify">
                     <div *ngFor="let item of Productos_listado">
-                      <p class="p" style="font-size: 14px;">{{item.cantidadUnidades}} {{item.Nombre}}
-                        <span *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
-                          style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
-                        <span style="position: absolute; right: 10px; font-size: 14px;">{{item.Precio *
-                          item.cantidadUnidades | currency}}</span>
-                      </p>
-                      <!-- <p class="p" *ngIf="item.idCategoria == 6 || item.idCategoria == 7" style="font-size: 14px;">
-                        1 Servicio de flete (Mobiliario)
-                        <span style="position: absolute; right: 10px; font-size: 14px;">
-                          $500.00
-                        </span>
-                      </p> -->
+                      <!-- <img style="width: 16px; cursor: pointer;" src="https://img.icons8.com/ios/50/000000/delete-sign--v1.png"/>-->
+                      <img style="width: 16px; cursor: pointer;" *ngIf="Productos_listado.length > 1" (click)="modify_list(item)"
+                        src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png" />
+                      <span class="productlist">
+                        {{item.cantidadUnidades}} {{item.Nombre}}
+                      </span>
+                      <span class="productlist" *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
+                        style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
+                      <span class="productlist_precio"> {{item.Precio *
+                        item.cantidadUnidades * item.cantidadHoras | currency}}
+                      </span>
                     </div>
                     <div *ngIf="flete > 0">
-                      <p class="p" style="font-size: 13px;">
-                        <img src="./assets/home-dos/ship.png" style="width: 28px;"> &nbsp;&nbsp;Servicio de flete
-                        (Mobiliario)
-                        <span style="position: absolute; right: 10px; font-size: 14px;">
-                          $500.00
-                        </span>
-                      </p>
+                      <img src="./assets/home-dos/ship.png" style="width: 28px;">
+                      <span class="productlist">
+                        &nbsp;&nbsp;Servicio de flete (Mobiliario)
+                      </span>
+                      <span class="productlist_precio">
+                        $500.00
+                      </span>
                     </div>
                     <div class="separator"></div>
-
+  
                     <div class="total">
                       <span class="p">Subtotal del carrito</span>
                       <span class="p">{{Subtotal | currency}}</span>
                     </div>
-
+  
                     <div class="total">
                       <span class="p">IVA</span>
                       <span class="p">{{IVA | currency}}</span>
@@ -919,7 +944,7 @@
           <p class="step_final_color Reboto-medium step_final_size">¡Disfruta de tu evento!</p>
           <img src="./assets/wizard/Group 92.png" alt="" class="step_final_img">
           <p class="step_final_color Reboto-medium step_final_size_">Gracias por tu preferencia</p>
-          <p class="step_final_descripcion">Un asesor se pondrá en contacto contigo en 2 hrs. <br>
+          <p class="step_final_descripcion">Un asesor se pondrá en contacto contigo en 24 hrs. hábiles <br>
             Te acompañará y se asegurará de que tu evento sea
             un éxito.
           </p>
@@ -927,8 +952,8 @@
       </div>
 
       <div class="contenedor_uno_contenedor_botones ancho">
-        <button class="btn contenedor_uno_siguiente Reboto-medium" 
-        onclick="location.reload();">Armar otro evento</button>
+        <button class="btn contenedor_uno_siguiente Reboto-medium" onclick="location.reload();">Armar otro
+          evento</button>
         <button class="btn contenedor_uno_atras Reboto-medium" [routerLink]="['/']"
           routerLinkActive="router-link-active">Home</button>
       </div>

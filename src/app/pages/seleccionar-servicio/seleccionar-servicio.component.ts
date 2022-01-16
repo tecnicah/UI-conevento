@@ -23,10 +23,11 @@ export class SeleccionarServicioComponent implements OnInit {
   public productos: any = [];
   public id: any;
   public decha_inicio: any;
+  public ejemplo = "";
   ngOnInit(): void {
 debugger;
     const tag = document.createElement('script');
- 
+    
   	tag.src = "https://www.youtube.com/iframe_api";
  
   	document.body.appendChild(tag);
@@ -42,6 +43,7 @@ debugger;
     debugger;  
     if (observer.result) {
         this.productos = observer.result;
+        this.ejemplo = "Ej. " + this.productos[0].producto;
         console.log("Catalogo: ", observer.result);
         this.productos.forEach((E: any) => {
           E.cantidadUnidades = 0;

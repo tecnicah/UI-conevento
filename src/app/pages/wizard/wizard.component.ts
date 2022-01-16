@@ -139,10 +139,10 @@ export class WizardComponent implements OnInit {
       calleNumero: ['', Validators.required],
       colonia: ['', Validators.required],
 
-      nombreContratane: ['', Validators.required],
+      // nombreContratane: ['', Validators.required],
       nombreEvento: [''],
-      correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
-      telefono: ['', Validators.required],
+      // correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
+      // telefono: ['', Validators.required],
     });
     this.appComponent.get_sesion();
   }
@@ -304,7 +304,7 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCIONES PARA SELECCION DE SERVICIOS//
   public selectServices(item: any) {
-    this.router_.navigateByUrl('SeleccionarServicios/' + item.id +"/"+ this.firstFormGroup.value.fechaHoraInicio)
+    this.router_.navigateByUrl('SeleccionarServicios/' + item.id + "/" + this.firstFormGroup.value.fechaHoraInicio)
   }
   //*******************************************//
   //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
@@ -339,26 +339,135 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCION PARA SALVAR LA DATA DEL FORMULARIO//
 
+  public nombreContratane = "";
+  public telefono = "";
+  public correo = "";
+
   public saveForm() {
     this.data_model = {
       calleNumero: this.firstFormGroup.value.calleNumero,
       ciudad: this.firstFormGroup.value.ciudad,
       colonia: this.firstFormGroup.value.colonia,
-      correo: this.firstFormGroup.value.correo,
+      //correo: this.firstFormGroup.value.correo,
       cp: this.firstFormGroup.value.cp,
       fechaHoraFin: this.firstFormGroup.value.fechaHoraFin,
       fechaHoraInicio: this.firstFormGroup.value.fechaHoraInicio,
       genteEsperada: this.firstFormGroup.value.genteEsperada,
       idCatMunicipio: this.firstFormGroup.value.idCatMunicipio,
-      nombreContratane: this.firstFormGroup.value.nombreContratane,
+      //nombreContratane: this.firstFormGroup.value.nombreContratane,
       //nombreEvento: this.firstFormGroup.value.nombreEvento,
+      nombreContratane: this.nombreContratane == undefined ? "" : this.nombreContratane,
+      telefono: this.telefono == undefined ? "" : this.telefono,
+      correo: this.correo == undefined ? "" : this.correo,
       nombreEvento: "",
-      telefono: this.firstFormGroup.value.telefono
+      //telefono: this.firstFormGroup.value.telefono
     }
     this.auth.data_form = this.data_model;
-    //   console.log("data_model: ", this.data_model);
+    console.log("================== data_model: ", this.data_model);
     localStorage.setItem('form', JSON.stringify(this.data_model))
   }
+
+  public error_correo = false;
+  public error_telefono = false;
+  public error_nombre = false;
+
+  public validate_nombre() {
+    if (this.nombreContratane.length > 4) {
+      this.data_model.nombreContratane = this.nombreContratane;
+      this.error_nombre = false;
+    }
+    else
+      this.error_nombre = true;
+  }
+
+  public validate_telefono() {
+    if (this.telefono.length > 5) {
+      this.data_model.telefono = this.telefono;
+      this.error_telefono = false;
+    }
+    else
+      this.error_telefono = true;
+  }
+
+  public validate_correo() {
+    debugger
+    // var hhh = this.emailRegex.match(String(this.correo).toLowerCase());
+    var valreg = this.correo.toLowerCase().match(this.emailRegex);
+
+    if ((this.correo.length > 5) && (valreg != null)) {
+      this.data_model.correo = this.correo;
+      this.error_correo = false;
+    }
+    else
+      this.error_correo = true;
+  }
+
+  public saveContacto(type: any) {
+    debugger;
+
+    var valreg = this.correo.toLowerCase().match(this.emailRegex);
+
+    if ((this.correo.length > 5) && (valreg != null)) {
+      this.data_model.correo = this.correo;
+      this.error_correo = false;
+      localStorage.setItem('form', JSON.stringify(this.data_model))
+    }
+    else
+      this.error_correo = true;
+
+    if (this.telefono.length > 5) {
+      this.data_model.telefono = this.telefono;
+      this.error_telefono = false;
+      localStorage.setItem('form', JSON.stringify(this.data_model))
+    }
+    else
+      this.error_telefono = true;
+
+    if (this.nombreContratane.length > 4) {
+      this.data_model.nombreContratane = this.nombreContratane;
+      this.error_nombre = false;
+      localStorage.setItem('form', JSON.stringify(this.data_model))
+    }
+    else
+      this.error_nombre = true;
+
+    if (!this.error_correo && !this.error_telefono && !this.error_nombre) {
+      console.log("===================== si jala");
+
+      if (!localStorage.getItem('userData')) {
+        let ancho = '';
+        let alto = "457px";
+        if (type == 1) {
+          ancho = '50%';
+
+        } else {
+          ancho = '100%';
+          alto = "600px";
+        }
+
+        const dialogRef = this._dialog.open(WizardLoginComponent, {
+          width: ancho,
+          height: alto
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.step = 1;
+          this.step0 = 'class-none';
+          this.step1 = 'class-view';
+        })
+
+      } else {
+        this.step = 1;
+        this.step0 = 'class-none';
+        this.step1 = 'class-view';
+      }
+    }
+    else {
+      console.log("====================== no jala")
+    }
+
+  }
+
   //*******************************************//
   //FUNCION PARA LLENAR EL FORMULAARIO//
   public fillForm() {
@@ -371,11 +480,17 @@ export class WizardComponent implements OnInit {
     this.firstFormGroup.get("cp")?.setValue(data.cp);
     this.firstFormGroup.get("calleNumero")?.setValue(data.calleNumero);
     this.firstFormGroup.get("colonia")?.setValue(data.colonia);
-    this.firstFormGroup.get("nombreContratane")?.setValue(data.nombreContratane);
-    // this.firstFormGroup.get("nombreEvento")?.setValue(data.nombreEvento);
-    this.firstFormGroup.get("correo")?.setValue(data.correo);
-    this.firstFormGroup.get("telefono")?.setValue(data.telefono);
     //  console.log(this.firstFormGroup);
+    // this.firstFormGroup.get("nombreEvento")?.setValue(data.nombreEvento);
+
+    this.correo = data.correo == undefined ? "" : data.correo;
+    this.telefono = data.telefono == undefined ? "" : data.telefono;
+    this.nombreContratane = data.nombreContratane == undefined ? "" : data.nombreContratane;
+
+    //this.firstFormGroup.get("correo")?.setValue(data.correo);
+    //this.firstFormGroup.get("telefono")?.setValue(data.telefono);
+    //this.firstFormGroup.get("nombreContratane")?.setValue(data.nombreContratane);
+    console.log("sesion de formulario ==========", data, this.telefono)
   }
   //*******************************************//
   //FUNCIONES PARA PASO 3//
@@ -383,34 +498,10 @@ export class WizardComponent implements OnInit {
   public step0 = 'class-view';
   public step1 = 'class-none';
   public pagarOpciones(type: any) {
-    if (!localStorage.getItem('userData')) {
-      let ancho = '';
-      let alto = "457px";
-      if (type == 1) {
-        ancho = '50%';
-
-      } else {
-        ancho = '100%';
-        alto = "600px";
-      }
-
-      const dialogRef = this._dialog.open(WizardLoginComponent, {
-        width: ancho,
-        height: alto
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        this.step = 1;
-        this.step0 = 'class-none';
-        this.step1 = 'class-view';
-      })
-    } else {
-      this.step = 1;
-      this.step0 = 'class-none';
-      this.step1 = 'class-view';
-    }
-
+    this.saveContacto(type);
   }
+
+
   //*******************************************//
   //FUNCIONES PARA CONTROL DE STEPPER//
   public steps: any = {
@@ -882,13 +973,15 @@ export class WizardComponent implements OnInit {
       this.data_model.nombreContratane = data_.nombres + ' ' + data_.apellidos;
       this.data_model.telefono = data_.telefono;
 
-      this.auth.data_form = this.data_model;
-      this.firstFormGroup.get("nombreContratane")?.setValue(data_.nombres + ' ' + data_.apellidos);
-      //this.firstFormGroup.get("nombreEvento")?.setValue(data.nombreEvento);
-      this.firstFormGroup.get("correo")?.setValue(data_.correo);
-      this.firstFormGroup.get("telefono")?.setValue(data_.telefono);
+      this.nombreContratane = data_.nombres + ' ' + data_.apellidos;
+      this.correo = data_.correo;
+      this.telefono = data_.telefono;
+      // this.auth.data_form = this.data_model;
+      // this.firstFormGroup.get("nombreContratane")?.setValue(data_.nombres + ' ' + data_.apellidos);
+      // this.firstFormGroup.get("correo")?.setValue(data_.correo);
+      // this.firstFormGroup.get("telefono")?.setValue(data_.telefono);
     }
-    //    alert(':)');
+
   }
 
   @HostListener('click', ['$event.target']) toggleDropdown(el: HTMLElement) {
@@ -964,7 +1057,7 @@ export class WizardComponent implements OnInit {
   public ejecutotarjeta: boolean = false;
   public async paymentintent_params(method: string) {
 
-    if ((method =='card') || ((this.nombre_oxxo.length > 3) && (this.email_oxxo.length > 4))) {
+    if ((method == 'card') || ((this.nombre_oxxo.length > 3) && (this.email_oxxo.length > 4))) {
       this.spinner.show();
       //debugger;;
       this.SecretDto.amount = this.total * 100;//this.total.toFixed(2),
@@ -1006,7 +1099,7 @@ export class WizardComponent implements OnInit {
       errorMsg.innerText = "Datos incompletos";
     }
 
-    
+
 
 
   }
