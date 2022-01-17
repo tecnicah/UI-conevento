@@ -175,26 +175,33 @@
         <div class="col-md-9">
           <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
-        <div class="col-md-5">
-          <p>Fecha y hora inicio *</p>
+        <div class="col-md-5"> 
+          
+          <p>Evento Inicia* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_}})</span></p>
           <div class="input-group mb-3 margen_cero">
-            <input type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
+            <input (change)="compare_inicio_date();" type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
               id="start" aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraInicio.errors }" formControlName="fechaHoraInicio">
+              [ngClass]="{ 'is-invalid': (submitted && f.fechaHoraInicio.errors) || f_inicio_error }" formControlName="fechaHoraInicio">
 
-            <div *ngIf="submitted && f.fechaHoraInicio.errors" class="invalid-feedback">
-              <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div>
+            <div *ngIf="(submitted && f.fechaHoraInicio.errors)" class="invalid-feedback">
+              <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div> 
+            </div>
+            <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
+              <div >Fecha mínima {{min_date_}}</div>
             </div>
           </div>
         </div>
         <div class="col-md-5">
-          <p>Fecha y hora final *</p>
+          <p>Evento Termina* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_2}})</span></p>
           <div class="input-group mb-3 margen_cero">
-            <input type="datetime-local" [min]="firstFormGroup.value.fechaHoraInicio" class="form-control"
+            <input (change)="compare_fin_date();" type="datetime-local" [min]="firstFormGroup.value.fechaHoraInicio" class="form-control"
               placeholder="Fecha y hora final" aria-label="Fecha y hora final" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': submitted && f.fechaHoraFin.errors }" formControlName="fechaHoraFin">
+              [ngClass]="{ 'is-invalid': (submitted && f.fechaHoraFin.errors) || f_fin_error }" formControlName="fechaHoraFin">
             <div *ngIf="submitted && f.fechaHoraFin.errors" class="invalid-feedback">
               <div *ngIf="f.fechaHoraFin.errors.required">Campo requerido</div>
+            </div>
+            <div *ngIf="f_fin_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
+              <div >Fecha mínima {{min_date_}}</div>
             </div>
           </div>
         </div>

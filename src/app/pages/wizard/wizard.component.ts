@@ -830,6 +830,10 @@ export class WizardComponent implements OnInit {
     this.fillForm();
   }
 
+  public min_date_ = "";
+  public min_date_2 ="";
+  public dtToday:Date = null;
+  public date_inicio_test:Date = null; 
   public restart_dates() {
     ////debugger;;
     //Display Only Date till today // 
@@ -838,13 +842,13 @@ export class WizardComponent implements OnInit {
     var duration = 5; //In Days
     // someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
 
-    var dtToday = new Date();
+    this.dtToday = new Date();
     //var duration = 2; //In Days
-    dtToday.setTime(dtToday.getTime() + (duration * 24 * 60 * 60 * 1000));
+    this.dtToday.setTime(this.dtToday.getTime() + (duration * 24 * 60 * 60 * 1000));
 
-    var month = (dtToday.getMonth() + 1).toString();     // getMonth() is zero-based
-    var day = (dtToday.getDate()).toString();
-    var year = dtToday.getFullYear();
+    var month = (this.dtToday.getMonth() + 1).toString();     // getMonth() is zero-based
+    var day = (this.dtToday.getDate()).toString();
+    var year = this.dtToday.getFullYear();
     //var month_ =""; var  day_ = "";
     if (parseInt(month) < 10)
       month = '0' + month.toString();
@@ -852,9 +856,43 @@ export class WizardComponent implements OnInit {
       day = '0' + day.toString();
 
     var maxDate = year + '-' + month + '-' + day + "T00:01";
+    this.min_date_ = day+"/"+month+"/"+year;
+    this.min_date_2 = day+"/"+month+"/"+year;
     document.getElementById("start")?.setAttribute('min', maxDate);
     var xxx = document.getElementById("start")?.getAttribute("min");
     // $('#dateID').attr('max', maxDate);
+  }
+
+  public f_inicio_error: boolean = false ;
+  public compare_inicio_date()
+  {
+    debugger;
+     this.date_inicio_test = new Date(this.firstFormGroup.value.fechaHoraInicio);
+    if(this.date_inicio_test < this.dtToday){
+      this.f_inicio_error = true;
+      this.firstFormGroup.get('fechaHoraInicio')?.setValue(null);
+    }
+    else
+    {
+      
+      this.f_inicio_error = false;
+    }
+  }
+
+  public f_fin_error: boolean = false ;
+  public compare_fin_date()
+  {
+    debugger;
+     this.date_inicio_test = new Date(this.firstFormGroup.value.fechaHoraFin);
+    if(this.date_inicio_test < this.dtToday){
+      this.f_fin_error = true;
+      this.firstFormGroup.get("fechaHoraFin")?.setValue(null);
+    }
+    else
+    {
+      
+      this.f_fin_error = false;
+    }
   }
 
   public no_menor_cero() {
