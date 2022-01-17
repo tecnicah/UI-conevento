@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-light" [ngClass]="{'bg-color': appComponent.rutaHome==true, 'bg-color_none': appComponent.rutaHome==false}">
-  <img src="./assets/Home/logo-icon.svg" alt="" width="10%" class="d-block d-md-none">
+  <img src="./assets/Home/logo-icon.svg" [routerLink]="['/']" alt="" width="10%" class="d-block d-md-none">
   <div class="d-block d-md-none">
     <div class="header_icon">
       <img src="./assets/Home/event-icon.svg" style="padding-top: 0.05rem;" alt="" height="25px" width="25px" [routerLink]="['/Wizard']" routerLinkActive="router-link-active" >
