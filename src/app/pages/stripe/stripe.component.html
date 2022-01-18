@@ -28,7 +28,35 @@
 </form>
 <!----------------------------- TARJETAS DE CREDITO Y TARJETAS DE DEBITO --------------- -->
 
-
+<div clas="col-md-12">{{fechamat}}
+    <div class="col-md-6"> 
+      <mat-form-field appearance="fill" style="width: 160px;">
+        <mat-label>Inicia*</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)] ="fechamat" > 
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 80px;">
+        <mat-label>Hora</mat-label>
+        <select matNativeControl required>
+          <option value="volvo">00</option>
+          <option value="saab">01</option>
+          <option value="mercedes">02</option>
+          <option value="audi">03</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 80px;">
+        <mat-label>Minutos</mat-label>
+        <select matNativeControl required>
+          <option value="volvo">00</option>
+          <option value="saab">15</option>
+          <option value="mercedes">30</option>
+          <option value="audi">45</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-6"> 
+  </div>
 
 <!-- 
 <ngb-accordion [closeOthers]="true" activeIds="static-1">

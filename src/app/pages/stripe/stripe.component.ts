@@ -160,7 +160,7 @@ export class StripeComponent implements OnInit {
 
 
 //// CARGAR TARJETA DE STRIPE 
-
+ public fechamat ;
   public _clientSecret: string = "";
   private stripe: Stripe;
   public card: any;

@@ -26,7 +26,8 @@ import { MisEventosComponent } from './dialog/mis-eventos/mis-eventos.component'
 import { DetalleProductoComponent } from './dialog/detalle-producto/detalle-producto.component';
 import { MatIconModule } from '@angular/material/icon';
 import { SwiperModule } from 'swiper/angular';
-
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -93,8 +94,9 @@ import { YouTubePlayerModule } from "@angular/youtube-player";
     SwiperModule,
     FilterPipeModule,
     NgxPaginationModule,
-    YouTubePlayerModule
-   
+    YouTubePlayerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

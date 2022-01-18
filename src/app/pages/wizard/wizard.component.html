@@ -163,20 +163,18 @@
   <!--------------------------------------------- paso 1-------------------------------------->
 
   <div class="container" [ngClass]="steps_css.uno">
-
     <div class="titulos_stepper">
       <img src="./assets/wizard/step_uno.png" alt="" class="titulos_stepper_img">
       &nbsp;
       <span class="Reboto-medium">Agenda tu evento</span>
     </div>
-
     <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
       <div class="row contenedor_uno" style="margin: 1% auto; border-radius: 10px;">
         <div class="col-md-9">
           <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
-        <div class="col-md-5"> 
-          
+        
+        <div class="col-md-6"> 
           <p>Evento Inicia* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_}})</span></p>
           <div class="input-group mb-3 margen_cero">
             <input (change)="compare_inicio_date();" type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
@@ -189,7 +187,7 @@
             <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
               <div >Fecha mínima {{min_date_}}</div>
             </div>
-          </div>
+          </div> 
         </div>
         <div class="col-md-5">
           <p>Evento Termina* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_2}})</span></p>
@@ -323,6 +321,7 @@
       </div>
     </form>
   </div>
+  
 
   <!-----------------------------------------paso 2---------------------------------------->
   <!-----------------------------------------paso 2---------------------------------------->
@@ -351,7 +350,7 @@
                 <div class="radio">
                   <span class="span_select" style="color: #666666;" *ngIf="item.numproductos.length > 0">
                     {{item.numproductos.length}} Elementos
-                    eleccionados</span>
+                    Seleccionados</span>
                   <div class="radio_circle">
                     <img src="./assets/wizard/Vector.svg" alt="" *ngIf="item.checked" class="radio_img">
                   </div>
@@ -363,7 +362,7 @@
                 </div>
 
               </div>
-              <div id="b" class="none size" style="color: #444444; font-weight: bold;">{{item.descripcion}}</div>
+              <div id="b" class="none size" style="color: #444444; font-weight: bolder;">{{item.descripcion}}</div>
             </div>
           </div>
         </div>
@@ -714,7 +713,7 @@
             </div>
             <div class="eventos_seleccionados_flex">
               <span
-                class="Reboto-medium eventos_seleccionados_titulo">Servcios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                class="Reboto-medium eventos_seleccionados_titulo">Servicios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
                   class="eventos_seleccionados_descripcion">{{Productos_listado.length}}</span></span>
             </div>
             <div class="form-check">
@@ -818,7 +817,7 @@
             <div class="div_card_stripe">
               <span class="p Reboto-medium">Pago con tarjeta </span>
               <br>
-              <span class="p" style="font-size: 14px;">Ingresa los datos de la tarjeta: |{{ejecutotarjeta}}|</span>
+              <span class="p" style="font-size: 14px;">Ingresa los datos de la tarjeta: </span>
 
               <div id="card-element" style="background-color: white;" class="div_card_stripe"></div>
               <div id="card-errors" style="color: red; padding-top: 2px; padding-bottom: 2px;"></div>

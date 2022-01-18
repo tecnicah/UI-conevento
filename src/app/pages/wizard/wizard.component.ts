@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component , ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivationStart, Router } from '@angular/router';
@@ -106,7 +106,7 @@ export class WizardComponent implements OnInit {
       console.log(sesion_stripe);
       alert('*-*-*-*-*-*-*-**-*-**- estatus stripe: ' + sesion_stripe.paymentIntent.status);
       localStorage.removeItem('stripe');
-      //debugger;;
+      ////debugger;;
     }
     else {
       sesion_stripe = null;
@@ -403,7 +403,7 @@ export class WizardComponent implements OnInit {
   }
 
   public saveContacto(type: any) {
-    debugger;
+    //debugger;
 
     var valreg = this.correo.toLowerCase().match(this.emailRegex);
 
@@ -464,6 +464,8 @@ export class WizardComponent implements OnInit {
     }
     else {
       console.log("====================== no jala")
+      window.scrollTo(100, 360);
+      console.log("NO ESTA COMPLETOS LOS DATOS DE PERFIL");
     }
 
   }
@@ -526,7 +528,7 @@ export class WizardComponent implements OnInit {
 
   public view_pay_method(option: any) {
 
-    //debugger;;
+    ////debugger;;
     this.card_css.card = "class-none";
     this.card_css.paypal = "class-none";
     this.card_css.oxxo = "class-none";
@@ -647,7 +649,7 @@ export class WizardComponent implements OnInit {
   }
 
   public set_stepper(step: number) {
-    //debugger;;
+    ////debugger;;
     if (this.steps_css.cuatro != "class-view") {
       switch (step) {
         case 1: {
@@ -731,7 +733,7 @@ export class WizardComponent implements OnInit {
     this.spinner.show();
     let json_bd: any = this.auth.data_form;
 
-    //debugger;;
+    ////debugger;;
     if (create_time == 1) {
       create_time = json_bd.fechaHoraInicio;
       // en el servidor se pone la hora del momento , acá solo se pasa eso para qu enos e vaya vacio
@@ -800,7 +802,7 @@ export class WizardComponent implements OnInit {
 
   public modify_list(item: any) {
     //alert(id);  this.Productos_listado
-    //debugger;;
+    ////debugger;;
     for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
       if (item.idCatProducto == this.auth.listaProductosEventos[i].idCatProducto) {
         this.auth.listaProductosEventos.splice(i, 1);
@@ -830,16 +832,18 @@ export class WizardComponent implements OnInit {
     this.fillForm();
   }
 
+  public fechamat ;
+  public sas;
   public min_date_ = "";
   public min_date_2 ="";
   public dtToday:Date = null;
   public date_inicio_test:Date = null; 
   public restart_dates() {
-    ////debugger;;
+    //////debugger;;
     //Display Only Date till today // 
 
     var someDate = new Date();
-    var duration = 5; //In Days
+    var duration = 4; //In Days
     // someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
 
     this.dtToday = new Date();
@@ -866,9 +870,9 @@ export class WizardComponent implements OnInit {
   public f_inicio_error: boolean = false ;
   public compare_inicio_date()
   {
-    debugger;
+    //debugger;
      this.date_inicio_test = new Date(this.firstFormGroup.value.fechaHoraInicio);
-    if(this.date_inicio_test < this.dtToday){
+    if(this.date_inicio_test <= this.dtToday){
       this.f_inicio_error = true;
       this.firstFormGroup.get('fechaHoraInicio')?.setValue(null);
     }
@@ -882,9 +886,9 @@ export class WizardComponent implements OnInit {
   public f_fin_error: boolean = false ;
   public compare_fin_date()
   {
-    debugger;
+    //debugger;
      this.date_inicio_test = new Date(this.firstFormGroup.value.fechaHoraFin);
-    if(this.date_inicio_test < this.dtToday){
+    if(this.date_inicio_test <= this.dtToday){
       this.f_fin_error = true;
       this.firstFormGroup.get("fechaHoraFin")?.setValue(null);
     }
@@ -1097,25 +1101,25 @@ export class WizardComponent implements OnInit {
 
     if ((method == 'card') || ((this.nombre_oxxo.length > 3) && (this.email_oxxo.length > 4))) {
       this.spinner.show();
-      //debugger;;
+      ////debugger;;
       this.SecretDto.amount = this.total * 100;//this.total.toFixed(2),
       this.SecretDto.method = "";
       await this.auth.service_general_post_with_url('Eventos/paymentintent_stripe_params', this.SecretDto).subscribe(async r => {
         if (r.success) {
-          ////debugger;;
+          //////debugger;;
           console.log("respuesta exitosa paymentintent_stripe_params ========> : ", r, r.result.client_secret);
           this.secret_client = r.result.client_secret
           if (method == "oxxo") {
             this.pay_oxxo();
           } else if (method == "card") {
-            // //debugger;;
+            // ////debugger;;
             await this.pay_card();
-            // //debugger;;
+            // ////debugger;;
           }
           setTimeout(() => { this.spinner.hide() }, 2500);
         }
       }, (err) => {
-        //debugger;;
+        ////debugger;;
         console.log("ERROR EN paymentintent_stripe_params ============ :", err.message)
         Swal.fire({
           position: 'top-end',
@@ -1153,7 +1157,7 @@ export class WizardComponent implements OnInit {
   public email_oxxo: string = "";
   public secret_client = "";
   pay_oxxo() {
-    //debugger;;
+    ////debugger;;
 
     this.stripe.confirmOxxoPayment(this.secret_client,
       {
