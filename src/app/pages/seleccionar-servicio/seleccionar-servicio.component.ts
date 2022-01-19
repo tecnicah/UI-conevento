@@ -25,7 +25,7 @@ export class SeleccionarServicioComponent implements OnInit {
   public decha_inicio: any;
   public ejemplo = "";
   ngOnInit(): void {
-debugger;
+//debugger;
     const tag = document.createElement('script');
     
   	tag.src = "https://www.youtube.com/iframe_api";
@@ -40,7 +40,7 @@ debugger;
    // console.log("id categoria: ", this.id);
     this.auth.service_general_get('Catalog/productos_by_Cat?id_categoria=' + this.id).subscribe(observer => {
     //  this.auth.service_general_get('Catalog/productos_by_Cat_Date?id_categoria=' + this.id +'&fecha= ' + this.decha_inicio).subscribe(observer => {
-    debugger;  
+  //  debugger;  
     if (observer.result) {
         this.productos = observer.result;
         this.ejemplo = "Ej. " + this.productos[0].producto;
@@ -71,28 +71,29 @@ debugger;
   }
   //*************************************************************************//
   //DETECTA SUMA O RESTA DE CONTIDADES//
-  public detectarSumaRestaCantidad(model: any, item: any, i: any) {
-    // console.log(model);
-    // console.log(item);
-    //////debugger;;
+  public detectarSumaRestaCantidad(model: any, item: any, _id: any) {
+    debugger;
+    var producto_sel = this.productos.filter(x => x.id == _id)[0];
+    var i = this.productos.indexOf(producto_sel);
+
     if (model >= 0) {
       this.productos[i].cantidadUnidades = model;
 
       if ((model > this.productos[i].maximoProductos) && (this.productos[i].maximoProductos != null)) {
         this.productos[i].cantidadUnidades = this.productos[i].maximoProductos;
       }
-      //this.calculosT();
     } else {
       this.productos[i].cantidadUnidades = 0;
-     // this.calculosT();
     }
-    this.calculosT();
+    
     this.agregar();
+    this.calculosT();
   }
   //DETECTA SUMA O RESTA DE HORAS//
-  public detectarSumaRestaHoras(model: any, item: any, i: any) {
-    // console.log(model);
-    // console.log(item);
+  public detectarSumaRestaHoras(model: any, item: any, _id: any) {
+    var producto_sel = this.productos.filter(x => x.id == _id)[0];
+    var i = this.productos.indexOf(producto_sel);
+
     if (model >= item.minimoProductos) {
       this.productos[i].cantidadHoras = model;
     } else {
@@ -103,28 +104,28 @@ debugger;
     
   }
   //FUNCION PARA AGREGAR CANTIDADES//
-  public agregarCantidad(data: any, i: any,) {
-   // console.log(data);
-    //////debugger;;
+  public agregarCantidad(data: any, _id: any,) {
+    debugger;
+    var producto_sel = this.productos.filter(x => x.id == _id)[0];
+    var i = this.productos.indexOf(producto_sel);
     if (data) {
-      //  this.productos[i].cantidadUnidades++;
       if ((this.productos[i].cantidadUnidades < this.productos[i].maximoProductos) 
-       || (this.productos[i].maximoProductos == null)) {
+           || (this.productos[i].maximoProductos == null)) {
         this.productos[i].cantidadUnidades++;
       }
-     // this.calculosT();
     } else {
       if (this.productos[i].cantidadUnidades > 0) {
         this.productos[i].cantidadUnidades--;
-      //  this.calculosT();
       }
     }
     this.agregar();
     this.calculosT();
   }
   //FUNCION PARA AGREGAR HORAS//
-  public agregarhora(data: any, i: any, item: any) {
-   // console.log(data);
+  public agregarhora(data: any, _id: any, item: any) {
+    var producto_sel = this.productos.filter(x => x.id == _id)[0];
+    var i = this.productos.indexOf(producto_sel);
+
     if (data) {
       this.productos[i].cantidadHoras++;
 

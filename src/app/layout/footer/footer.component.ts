@@ -20,7 +20,7 @@ export class FooterComponent implements OnInit {
     // with the window.open() function
     const url = this.router.serializeUrl(this.router.createUrlTree(['/terminos'])
     );
-    window.open("https://my.premierds.com/test/terminos", '_blank');
+    window.open("https://www.conevento.com/terminos", '_blank');
    // window.open(url, '_blank');
   }
 
@@ -30,7 +30,7 @@ export class FooterComponent implements OnInit {
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['/aviso'])
     );
-    window.open("https://my.premierds.com/test/aviso", '_blank');
+    window.open("https://www.conevento.com/aviso", '_blank');
    // window.open(url, '_blank');
   }
 }

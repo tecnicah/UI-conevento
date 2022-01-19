@@ -2,6 +2,22 @@
   background-color: #F5F2F8;
 }
 
+
+.date1{
+  display: block;
+}
+
+.calle{
+  width: 45%;
+}
+
+
+
+
+:host ::ng-deep .mat-form-field-flex {
+  background: #fff;
+}
+
 .stepper {
   &_padding {
     padding: 5% 5% 5% 5%;
@@ -558,8 +574,26 @@
     padding: 0px;
   }
 
+  .col-md-5{
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  .calle{
+    width: 50%;
+  }
+  
+
+.date1{
+  padding: 0%;
+}
+
   .contenedor_uno {
     width: 100%;
+    padding-right: 0%;
+    padding-left: 2%;
+    margin-left: 0%;
+    margin-right:0%;
   }
 
   .steps-container {
@@ -650,10 +684,10 @@
     padding-left: 5px;
   }
 
-  .col-md-5{
-    padding-right: 5px;
-    padding-left: 5px;
-  }
+  // .col-md-5{
+  //   padding-right: 5px;
+  //   padding-left: 5px;
+  // }
 
   .step_final {
     margin-bottom: 20px;

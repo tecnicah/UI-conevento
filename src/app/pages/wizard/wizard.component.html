@@ -174,24 +174,115 @@
           <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
         
-        <div class="col-md-6"> 
-          <p>Evento Inicia* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_}})</span></p>
+        <div class="col-md-6 date1" > 
+          <!-- <p>Evento Inicia* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_}})</span></p> -->
           <div class="input-group mb-3 margen_cero">
-            <input (change)="compare_inicio_date();" type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
+            <!-- <input (change)="compare_inicio_date();" type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
               id="start" aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
-              [ngClass]="{ 'is-invalid': (submitted && f.fechaHoraInicio.errors) || f_inicio_error }" formControlName="fechaHoraInicio">
+              [ngClass]="{ 'is-invalid': (submitted && f.fechaHoraInicio.errors) || f_inicio_error }" formControlName="fechaHoraInicio"> -->
+           
+              <mat-form-field appearance="fill"  style="width: 150px;">
+                <mat-label>Incio*</mat-label>
+                <input  matInput [matDatepicker]="picker" [min] = "dtToday" [(ngModel)] ="fechamat" formControlName="fechaHoraInicio"> 
+                <mat-datepicker-toggle matSuffix [for]="picker" style='width: 2em' ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
+                <div >Fecha mínima {{min_date_}}</div>
+              </div>
+              <mat-form-field appearance="fill"  style="width: 76px; padding-left: 7px;">
+                <mat-label>Hora</mat-label>
+                <select matNativeControl required formControlName="horaInicio">
+                  <option value="00" selected>00</option>
+                  <option value="00">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">11</option>
+                  <option value="13">13</option>
+                  <option value="14">14</option>
+                  <option value="15">15</option>
+                  <option value="16">16</option>
+                  <option value="17">17</option>
+                  <option value="18">18</option>
+                  <option value="19">19</option>
+                  <option value="20">20</option>
+                  <option value="21">21</option>
+                  <option value="22">22</option>
+                  <option value="23">23</option>
+                </select>
+              </mat-form-field>
+              <mat-form-field appearance="fill"  style="width: 75px; padding-left: 7px;">
+                <mat-label>Min.</mat-label>
+                <select matNativeControl required formControlName="minInicio">
+                  <option value="00" selected>00</option>
+                  <option value="15">15</option>
+                  <option value="30">30</option>
+                  <option value="45">45</option>
+                </select>
+              </mat-form-field>
 
-            <div *ngIf="(submitted && f.fechaHoraInicio.errors)" class="invalid-feedback">
-              <div *ngIf="f.fechaHoraInicio.errors.required">Campo requerido</div> 
-            </div>
+            
             <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
               <div >Fecha mínima {{min_date_}}</div>
             </div>
           </div> 
         </div>
-        <div class="col-md-5">
-          <p>Evento Termina* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_2}})</span></p>
-          <div class="input-group mb-3 margen_cero">
+        <div class="col-md-6 date1">
+          <mat-form-field appearance="fill"  style="width: 150px;">
+            <mat-label>Fin*</mat-label>
+            <input matInput [matDatepicker]="picker1" [min] = "fechamat" 
+            [(ngModel)] ="fechamatfin" formControlName="fechaHoraFin"> 
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="fill"  style="width: 76px;  padding-left: 7px;">
+            <mat-label>Hora</mat-label>
+            <select matNativeControl required formControlName="horaFin">
+              <option value="00" selected>00</option>
+              <option value="00">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">11</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>
+          </mat-form-field>
+          <mat-form-field appearance="fill"  style="width: 75px;  padding-left: 7px;">
+            <mat-label>Min.</mat-label>
+            <select matNativeControl required formControlName="minFin">
+              <option value="00" selected>00</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="45">45</option>
+            </select>
+          </mat-form-field>
+          <!-- <p>Evento Termina* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_2}})</span></p> -->
+          <!-- <div class="input-group mb-3 margen_cero">
             <input (change)="compare_fin_date();" type="datetime-local" [min]="firstFormGroup.value.fechaHoraInicio" class="form-control"
               placeholder="Fecha y hora final" aria-label="Fecha y hora final" aria-describedby="basic-addon1"
               [ngClass]="{ 'is-invalid': (submitted && f.fechaHoraFin.errors) || f_fin_error }" formControlName="fechaHoraFin">
@@ -201,7 +292,7 @@
             <div *ngIf="f_fin_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
               <div >Fecha mínima {{min_date_}}</div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="col-md-4" style="display: none;">
           <p>Gente esperada </p>
@@ -224,19 +315,25 @@
         <div class="col-md-4"></div>
 
         <div class="col-md-2">
-          <p>Ciudad *</p>
+          <!-- <p>Ciudad *</p>
           <select class="form-select quiz_select form-control" aria-label="Default select example"
             [ngClass]="{ 'is-invalid': submitted && f.ciudad.errors }" formControlName="ciudad">
             <option value=1 selected>CDMX</option>
           </select>
           <div *ngIf="submitted && f.ciudad.errors" class="invalid-feedback">
             <div *ngIf="f.ciudad.errors.required">Campo requerido</div>
-          </div>
+          </div> -->
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Ciudad</mat-label>
+            <select matNativeControl required formControlName="ciudad">
+              <option value=1 selected>CDMX</option>
+            </select>
+          </mat-form-field>
         </div>
 
         <div class="col-md-4">
-          <p>Alcaldia o municipio *</p>
-          <select plceholder="Selecciona Alcaldía" class="form-select quiz_select form-control"
+          <!--<p>Alcaldia o municipio *</p>
+           <select plceholder="Selecciona Alcaldía" class="form-select quiz_select form-control"
             aria-label="Default select example" [ngClass]="{ 'is-invalid': submitted && f.idCatMunicipio.errors }"
             formControlName="idCatMunicipio">
             <option value=1>Benito Juárez</option>
@@ -251,7 +348,21 @@
           </select>
           <div *ngIf="submitted && f.idCatMunicipio.errors" class="invalid-feedback">
             <div *ngIf="f.idCatMunicipio.errors.required">Campo requerido</div>
-          </div>
+          </div> -->
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Selecciona Alcaldía</mat-label>
+            <select matNativeControl required formControlName="idCatMunicipio">
+            <option value=1>Benito Juárez</option>
+            <option value=2>Coyoacan</option>
+            <option value=3>Magdalena Contreras </option>
+            <option value=4>Venustiano Carranza</option>
+            <option value=5>Cuajimalpa</option>
+            <option value=6>Alvaro Obregón</option>
+            <option value=7>Azcapotzalco</option>
+            <option value=8>Cuahutemoc</option>
+            <option value=9>Tlapan</option>
+            </select>
+          </mat-form-field>
         </div>
 
         <div class="col-md-4" style="display: none;">
@@ -266,8 +377,8 @@
           </div>
         </div>
 
-        <div class="col-md-6">
-          <p>Calle y numero exterior *</p>
+        <div class="col-md-5" >
+          <!-- <p>Calle y numero exterior *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Calle y numero exterior"
               aria-label="Calle y numero exterior" aria-describedby="basic-addon1"
@@ -275,11 +386,15 @@
             <div *ngIf="submitted && f.calleNumero.errors" class="invalid-feedback">
               <div *ngIf="f.calleNumero.errors.required">Campo requerido</div>
             </div>
-          </div>
+          </div> -->
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Calle y numero exterior.</mat-label>
+            <input matInput placeholder="Calle y numero exterior." required formControlName="calleNumero">
+          </mat-form-field>
         </div>
 
         <div class="col-md-6">
-          <p>Colonia *</p>
+          <!-- <p>Colonia *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Colonia" aria-label="Colonia"
               aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.colonia.errors }"
@@ -287,16 +402,15 @@
             <div *ngIf="submitted && f.colonia.errors" class="invalid-feedback">
               <div *ngIf="f.colonia.errors.required">Campo requerido</div>
             </div>
-          </div>
+          </div> -->
+          <mat-form-field appearance="fill" style="width: 100%;">
+            <mat-label>Colonia</mat-label>
+            <input matInput placeholder="Colonia" required formControlName="colonia">
+          </mat-form-field>
         </div>
         <div class="col-md-6">
 
         </div>
-
-
-
-
-
 
         <!-- <div class="col-md-6">
           <p>Nombre del evento (Opcional)</p>
@@ -446,7 +560,7 @@
               <span class="p Reboto-medium">{{total | currency}}</span>
             </div>
             <div class="pagar_contenedor_botones form-group" *ngIf="Productos_listado.length != 0">
-              <button class="btn pagar_siguiente Reboto-medium" (click)="next();">Continuar</button>
+              <button class="btn pagar_siguiente Reboto-medium" (click)="next_validate_total();">Continuar</button>
             </div>
           </div>
         </div>

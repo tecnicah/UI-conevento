@@ -27,7 +27,7 @@ import { DetalleProductoComponent } from './dialog/detalle-producto/detalle-prod
 import { MatIconModule } from '@angular/material/icon';
 import { SwiperModule } from 'swiper/angular';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -47,7 +47,20 @@ import { StripeComponent } from './pages/stripe/stripe.component';
 import { TerminosComponent } from './pages/terminos/terminos.component';
 import { AvisoComponent } from './pages/aviso/aviso.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+  parse: {
+      dateInput: 'LL'
+  },
+  display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'YYYY'
+  }
+};
 
 @NgModule({
   declarations: [
@@ -98,9 +111,11 @@ import { YouTubePlayerModule } from "@angular/youtube-player";
     MatDatepickerModule,
     MatNativeDateModule
   ],
-  providers: [],
+  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent]
 })
+
+
 export class AppModule { 
 
   name = "Angular " + VERSION.major;
@@ -127,3 +142,5 @@ export class AppModule {
     this.router.navigate([], { fragment: "targetBlue" });
   }
 }
+
+
