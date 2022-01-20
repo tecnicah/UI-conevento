@@ -1,9 +1,10 @@
 export const environment = {
   production: true,
-  API_URL: 'https://my.premierds.com/API-conevento/api/',
+  //API_URL: 'https://my.premierds.com/API-conevento/api/',
 
   //  API_URL: 'http://34.237.214.147/back/api_conevento/api/',
   images_path: "http://34.237.214.147/back/api_conevento/api/",
+  API_URL: 'https://localhost:44382/api/',
  // clientId: "Abuwu5AU5gDm9Zbuqyby145mPlJbr7wJFQBxOiQJOXPW1_sKfnHgrD7UY7UVUdSvlqe6dseZFLvTL8BI", // sandboxpaypal
  clientId: "AekAQW9Jhb5bgRxZzOpVlC1QlEPoGO4Cg7BAEzHcu0yK3tg6K6fQ6AGFOYgXTcl83xb2ntNRcjs_kPEj",
  url_base: "http://34.237.214.147/front/conevento/",

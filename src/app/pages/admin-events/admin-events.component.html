@@ -255,10 +255,10 @@
                             </div>
 
                             <div class="col-md-6">
-                                <p>Nombre del evento (Opcional)</p>
+                                <p>Requiere Factura</p>
                                 <div class="input-group mb-3 margen_cero">
                                     <span>
-                                        {{eventos.nombreEvento}}
+                                        {{eventos.reqFactura}}
                                     </span>
                                 </div>
                             </div>
@@ -298,10 +298,11 @@
                             </div>
                             <div class="col-md-12">
                                 <p class="Reboto-medium subtitle">
-                                    Monto total: {{eventos.total | currency}} &nbsp;
+                                    Monto total: {{eventos.total | currency}} &nbsp;  
                                     <span *ngIf="eventos.flete > 0" style="color: gray; font-size: 14px; font-style: italic;">
                                        (Incluye Flete $500.00)
-                                    </span>
+                                    </span> &nbsp; &nbsp;  
+                                    
                                 </p>
                                 <p class="Reboto-medium subtitle">Servicios ({{eventos.total_servicios}}): </p>
                             </div>
