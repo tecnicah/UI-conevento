@@ -10,6 +10,7 @@ import { AdminServicesComponent } from './pages/admin-services/admin-services.co
 import { AvisoComponent } from './pages/aviso/aviso.component';
 import { TerminosComponent } from './pages/terminos/terminos.component';
 import {StripeComponent} from './pages/stripe/stripe.component'
+import { AdminUsersComponent } from './pages/admin-users/admin-users.component'
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
       {
         path: 'services',
         component: AdminServicesComponent,
+      },
+      {
+        path: 'users',
+        component: AdminUsersComponent,
       }
     ]
   },

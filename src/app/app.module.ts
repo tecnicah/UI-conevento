@@ -49,6 +49,7 @@ import { AvisoComponent } from './pages/aviso/aviso.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -87,7 +88,8 @@ export const MY_FORMATS = {
     AdminServicesComponent,
     StripeComponent,
     TerminosComponent,
-    AvisoComponent
+    AvisoComponent,
+    AdminUsersComponent
   ],
   imports: [
     NgxPayPalModule,

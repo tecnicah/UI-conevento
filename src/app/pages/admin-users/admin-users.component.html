@@ -1,0 +1,446 @@
+<div class="contenedor ux-container">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="row">
+                <div class="col-6">
+                    <br>
+                    <h1 class="Titlu-header bold" style="font-size: 22px;">Usuarios</h1>
+
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="row ">
+
+                <div class="col-4 filter">
+                    <div class="form-group form-inline">
+                        Búsqueda Por Nombre: <input class="form-control ml-2" type="text"
+                            [(ngModel)]="userFilter.producto" />
+                    </div>
+                </div>
+
+                <!-- <div class="col-2  filter">
+                    <span>Categoría *:</span>
+                    <select [(ngModel)]="id_cat" (change)="get_resultados1()">
+                        <option value=0 selected>Todos</option>
+                        <option value=1>Personal</option>
+                        <option value=3>Talento</option>
+                        <option value=5>Alimentos y Bebidas</option>
+                        <option value=6>Mobiliario</option>
+                        <option value=7>Luces y Sonido</option>
+                    </select>
+                </div> -->
+                <div class="col-2 end">
+                    <button class="btn pagar_siguiente Reboto-medium" (click)="limpiarFiltros();">Limpiar
+                    </button>
+                </div>
+                <div class="col-2 end">
+                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: green;"
+                        (click)="limpiarFiltros();">
+                        Agregar
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="table-responsive" style="margin-bottom: 100px;">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    #
+                                </span>
+                            </th>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    Nombre
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Apellido 
+                                </span>
+                            </th>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    Correo
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Telefono
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Ultimo Evento
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    # Eventos
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="padding: 5px;"
+                            *ngFor="let item of resultados_p | filterBy : userFilter | paginate: { itemsPerPage: 10, currentPage: p }; let i = index ">
+                            <td>
+                                <span>{{ i + 1 + (p-1)*10 }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>{{ item.producto }}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.precioPorUnidad | currency }}
+
+                                &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                {{ item.descripcionCorta_lim }}&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.categoria }} &nbsp;&nbsp;
+                            </td>
+                            <td>
+
+                                <a style="cursor: pointer;text-decoration: underline;color: blue;"
+                                    (click)="viewdetail(item)">
+                                    {{ item.sku }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ item.especificacionEspecial }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #cuentaPostulanteModal let-modal>
+
+    <div class="modal-body col-form ux-modal">
+        <div class="">
+
+            <div class="row space-between">
+                <p class="titulo bold" style="font-size: 22px;;">Producto/Servicio</p>
+                <span class="cerrar" aria-hidden="true" (click)="modal.dismiss('Cross click')">&times;</span>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="row contenedor_uno" style="margin: 1% auto; border-radius: 10px;">
+
+                            <div class="col-md-4">
+                                <p>Servicio| {{servicio.producto}}</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input type="text" class="form-control" placeholder="Nombre del servicio"
+                                        aria-label="Servicio" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.producto" > 
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Categoría</p> 
+                                <div class="input-group mb-3 margen_cero">
+                                    <select class="form-control" aria-label="Precio" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.idCategoriaProducto">
+                                        <option value=1>Personal</option>
+                                        <option value=3>Talento</option>
+                                        <option value=5>Alimentos y Bebidas</option>
+                                        <option value=6 selected>Mobiliario</option>
+                                        <option value=7>Luces y Sonido</option>
+                                    </select>
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Precio</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Precio"
+                                        aria-label="Precio" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.precio">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <p>Descripción corta</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input type="text" class="form-control" placeholder="Descripción corta"
+                                        aria-label="Descripción corta" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.descripcionCorta">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <p>Descripción larga</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <!-- <input type="text" class="form-control" placeholder="Descripción larga"
+                                    aria-label="Descripción larga" aria-describedby="basic-addon1"
+                                    [ngClass]="{ 'is-invalid': 1==1 }" > -->
+                                    <textarea class="form-control" placeholder="Descripción larga"
+                                        aria-label="Descripción larga" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" name="Text1" cols="40" rows="3" [ngModel] = "servicio.descripcionLarga">
+                                    </textarea>
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>Días bloqueo antes</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Días bloqueo antes"
+                                        aria-label="días bloqueo antes" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.diasBloqueoAntes">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Días bloqueo después</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control"
+                                        placeholder="Días bloqueo después" aria-label="Días bloqueo después"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.diasBloqueoDespues">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <p>Mínimo</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Ingresa Mínimo"
+                                        aria-label="Mínimo" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.minimoProductos">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-4">
+                                <p>Máximo</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Ingresa Máximo"
+                                        aria-label="Máximo" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.maximoProductos">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Especificación especial</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input type="text" class="form-control" placeholder="Especificación"
+                                        aria-label="Especificación" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.especificacionEspecial">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>SKU</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input type="text" class="form-control" placeholder="SKU" aria-label="SKU"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.sku">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p>Stock</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" class="form-control" placeholder="Ingresa Stock"
+                                        aria-label="Stock" aria-describedby="basic-addon1"
+                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.stockInicial">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p>Tipo Imagen</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <select class="form-control" aria-label="Tipo Imagen"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.tipoImagenSeleccion">
+                                        <option value="imagen" selected>Imagen</option>
+                                        <option value="video">Video</option>
+                                    </select>
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-2">
+                                <div class="input-group mb-3 margen_cero">
+                                    <input class="form-control" type="checkbox" value=""
+                                        style="height: 15px; width: 15px;">
+                                    <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
+                                        style="font-weight: bold;">
+                                        Activo
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group mb-3 margen_cero">
+                                    <input class="form-control" type="checkbox" value=""
+                                        style="height: 15px; width: 15px;">
+                                    <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
+                                        style="font-weight: bold;">
+                                        Especificar tiempo
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12"></div>
+                            <div class="col-6">
+                                <div style="width: 255px; height: 208px; ">
+                                    <img style="width: 255px; height: 208px; "
+                                        src="{{servicio.imagenSeleccion}}" />
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn pagar_siguiente Reboto-medium" style="background-color: gold"
+                                    (click)="limpiarFiltros();">
+                                    <img src="https://img.icons8.com/color/48/000000/upload-to-cloud.png" width="25px"/>
+                                    Cargar Foto/Video
+                                   
+                                </button>
+
+                            </div>
+
+                            <div class="col-4">
+                                &nbsp;
+                            </div>
+                            <div class="col-4">
+                                <div class="input-group mb-3 margen_cero" style="margin-top: 25px;">
+                                    <button class="btn pagar_siguiente Reboto-medium" style="background-color:lightblue"
+                                        (click)="limpiarFiltros();">
+                                        <img src="https://img.icons8.com/fluency/48/000000/save.png" width="25px"/>
+                                        GARDAR SERVICIO
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                &nbsp;
+                            </div>
+                        </div>
+
+
+                        <br><br>
+                        <div class="table-responsive" style="margin-bottom: 100px;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th style="cursor: pointer;">
+                                            <span>
+                                                #
+                                            </span>
+                                        </th>
+                                        <th style="cursor: pointer;">
+                                            <span>
+                                                Servicio
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                                Precio Unitario
+                                            </span>
+                                        </th>
+                                        <th style="cursor: pointer;">
+                                            <span>
+                                                Elementos
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                                Horas
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                                Monto
+                                            </span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="padding: 5px;"
+                                        *ngFor="let _item of servicio.listaProductosEventos; let j = index ">
+                                        <td>
+                                            <span>{{ j + 1 + (_p-1)*5 }}
+
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span>{{ _item.producto }}
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </span>
+                                        </td>
+                                        <td>
+                                            {{ _item.precioPorUnidad | currency }}&nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            &nbsp;&nbsp;{{ _item.cantidadUnidades }} &nbsp;&nbsp;
+                                        </td>
+                                        <td *ngIf="_item.especificarTiempo">
+                                            &nbsp;&nbsp;{{ _item.cantidadHoras }}
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td *ngIf="!_item.especificarTiempo">
+                                            &nbsp;&nbsp;N/A
+                                            &nbsp;&nbsp;
+                                        </td>
+                                        <td>
+                                            &nbsp;&nbsp;
+                                            {{ _item.monto | currency }}
+                                            &nbsp;&nbsp;
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- <div class="col-12">Contenedor de 7 columnna</div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
