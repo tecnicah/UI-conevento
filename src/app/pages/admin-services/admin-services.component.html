@@ -83,6 +83,12 @@
                                 </span>
                             </th>
                             <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                            style="cursor: pointer;">
+                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                Calendario
+                            </span>
+                        </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
                                 style="cursor: pointer;">
                                 <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
                                     Especificación
@@ -119,6 +125,11 @@
                                     (click)="viewdetail(item)">
                                     {{ item.sku }}
                                 </a>
+                            </td>
+                            <td style="cursor: pointer;">
+                               <a [routerLink]="['/admin/calendar-services/'+item.id]" target="blank">
+                                <mat-icon>calendar_today</mat-icon>
+                               </a>
                             </td>
                             <td>
                                 {{ item.especificacionEspecial }}

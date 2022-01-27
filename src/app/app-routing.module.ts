@@ -9,14 +9,15 @@ import { AdminEventsComponent } from './pages/admin-events/admin-events.componen
 import { AdminServicesComponent } from './pages/admin-services/admin-services.component';
 import { AvisoComponent } from './pages/aviso/aviso.component';
 import { TerminosComponent } from './pages/terminos/terminos.component';
-import {StripeComponent} from './pages/stripe/stripe.component'
+import { StripeComponent } from './pages/stripe/stripe.component'
 import { AdminUsersComponent } from './pages/admin-users/admin-users.component'
+import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component'
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    children:[
+    children: [
       {
         path: '',
         component: HomeComponent,
@@ -31,19 +32,19 @@ const routes: Routes = [
       },
       {
         path: 'aviso',
-        component: AvisoComponent 
+        component: AvisoComponent
       },
       {
         path: 'terminos',
-        component: TerminosComponent 
+        component: TerminosComponent
       }
     ]
   },
-  
+
   {
     path: 'admin',
     component: LayoutadminComponent,
-    children:[
+    children: [
       {
         path: 'events',
         component: AdminEventsComponent,
@@ -55,12 +56,16 @@ const routes: Routes = [
       {
         path: 'users',
         component: AdminUsersComponent,
+      },
+      {
+        path: 'calendar-services/:id',
+        component: CalendarServiciosComponent,
       }
     ]
   },
   {
     path: 'stripe',
-    component: StripeComponent 
+    component: StripeComponent
   }
 ];
 
