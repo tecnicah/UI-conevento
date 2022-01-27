@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +28,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { SwiperModule } from 'swiper/angular';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -47,8 +49,12 @@ import { StripeComponent } from './pages/stripe/stripe.component';
 import { TerminosComponent } from './pages/terminos/terminos.component';
 import { AvisoComponent } from './pages/aviso/aviso.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component';
+import { UtilsModule } from '../app/utils/module';
 
 export const MY_FORMATS = {
   parse: {
@@ -87,7 +93,8 @@ export const MY_FORMATS = {
     AdminServicesComponent,
     StripeComponent,
     TerminosComponent,
-    AvisoComponent
+    AvisoComponent,
+    CalendarServiciosComponent
   ],
   imports: [
     NgxPayPalModule,
@@ -109,10 +116,15 @@ export const MY_FORMATS = {
     NgxPaginationModule,
     YouTubePlayerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    UtilsModule,
+    MatRadioModule,
+    MatCheckboxModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 
 

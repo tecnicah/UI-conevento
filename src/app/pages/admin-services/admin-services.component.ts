@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import { HttpService } from 'src/app/HttpRequest/http.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponent } from 'src/app/app.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -156,6 +156,7 @@ debugger;
       })
 
   }
+
 
   ///////////////////VARIABLES NUEVAS //////////////////////////////////////////////
 page = 1;
