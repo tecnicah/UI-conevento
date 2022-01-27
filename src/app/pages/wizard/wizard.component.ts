@@ -399,7 +399,10 @@ export class WizardComponent implements OnInit {
       this.error_nombre = true;
   }
 
+
+  
   public validate_telefono() {
+    debugger;
     if (this.telefono.length > 5) {
       this.data_model.telefono = this.telefono;
       this.error_telefono = false;
@@ -889,6 +892,7 @@ export class WizardComponent implements OnInit {
     // this.fillForm();
   }
 
+  public inputReadonly = true ;
   public fechamat;
   public fechamatfin;
   public sas;

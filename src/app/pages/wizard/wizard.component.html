@@ -173,77 +173,78 @@
         <div class="col-md-9">
           <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
         </div>
-        
-        <div class="col-md-6 date1" > 
+
+        <div class="col-md-6 date1">
           <!-- <p>Evento Inicia* &nbsp;<span style="color: #666666; font-style: italic; font-size: 13px;">(F. Mínima: {{min_date_}})</span></p> -->
           <div class="input-group mb-3 margen_cero">
             <!-- <input (change)="compare_inicio_date();" type="datetime-local" class="form-control" placeholder="Fecha de inicio" (change)="method_name()"
               id="start" aria-label="Fecha y hora inicio" aria-describedby="basic-addon1"
               [ngClass]="{ 'is-invalid': (submitted && f.fechaHoraInicio.errors) || f_inicio_error }" formControlName="fechaHoraInicio"> -->
-           
-              <mat-form-field appearance="fill"  style="width: 150px;">
-                <mat-label>Incio*</mat-label>
-                <input  matInput [matDatepicker]="picker" [min] = "dtToday" [(ngModel)] ="fechamat" formControlName="fechaHoraInicio"> 
-                <mat-datepicker-toggle matSuffix [for]="picker" style='width: 2em' ></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-              <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
-                <div >Fecha mínima {{min_date_}}</div>
-              </div>
-              <mat-form-field appearance="fill"  style="width: 76px; padding-left: 7px;">
-                <mat-label>Hora</mat-label>
-                <select matNativeControl required formControlName="horaInicio">
-                  <option value="00" selected>00</option>
-                  <option value="00">01</option>
-                  <option value="02">02</option>
-                  <option value="03">03</option>
-                  <option value="04">04</option>
-                  <option value="05">05</option>
-                  <option value="06">06</option>
-                  <option value="07">07</option>
-                  <option value="08">08</option>
-                  <option value="09">09</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                  <option value="16">16</option>
-                  <option value="17">17</option>
-                  <option value="18">18</option>
-                  <option value="19">19</option>
-                  <option value="20">20</option>
-                  <option value="21">21</option>
-                  <option value="22">22</option>
-                  <option value="23">23</option>
-                </select>
-              </mat-form-field>
-              <mat-form-field appearance="fill"  style="width: 75px; padding-left: 7px;">
-                <mat-label>Min.</mat-label>
-                <select matNativeControl required formControlName="minInicio">
-                  <option value="00" selected>00</option>
-                  <option value="15">15</option>
-                  <option value="30">30</option>
-                  <option value="45">45</option>
-                </select>
-              </mat-form-field>
 
-            
+            <mat-form-field appearance="fill" style="width: 150px;">
+              <mat-label>Incio*</mat-label>
+              <input matInput [matDatepicker]="picker" [readonly]="inputReadonly" [min]="dtToday" [(ngModel)]="fechamat"
+                formControlName="fechaHoraInicio">
+              <mat-datepicker-toggle matSuffix [for]="picker" style='width: 2em'></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
             <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
-              <div >Fecha mínima {{min_date_}}</div>
+              <div>Fecha mínima {{min_date_}}</div>
             </div>
-          </div> 
+            <mat-form-field appearance="fill" style="width: 76px; padding-left: 7px;">
+              <mat-label>Hora</mat-label>
+              <select matNativeControl required formControlName="horaInicio">
+                <option value="00" selected>00</option>
+                <option value="00">01</option>
+                <option value="02">02</option>
+                <option value="03">03</option>
+                <option value="04">04</option>
+                <option value="05">05</option>
+                <option value="06">06</option>
+                <option value="07">07</option>
+                <option value="08">08</option>
+                <option value="09">09</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 75px; padding-left: 7px;">
+              <mat-label>Min.</mat-label>
+              <select matNativeControl required formControlName="minInicio">
+                <option value="00" selected>00</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+              </select>
+            </mat-form-field>
+
+
+            <div *ngIf="f_inicio_error" style="width: 100%;  margin-top: 0.25rem; font-size: 80%; color: #dc3545;">
+              <div>Fecha mínima {{min_date_}}</div>
+            </div>
+          </div>
         </div>
         <div class="col-md-6 date1">
-          <mat-form-field appearance="fill"  style="width: 150px;">
+          <mat-form-field appearance="fill" style="width: 150px;">
             <mat-label>Fin*</mat-label>
-            <input matInput [matDatepicker]="picker1" [min] = "fechamat" 
-            [(ngModel)] ="fechamatfin" formControlName="fechaHoraFin"> 
+            <input matInput [matDatepicker]="picker1" [min]="fechamat" [readonly]="inputReadonly"
+              [(ngModel)]="fechamatfin" formControlName="fechaHoraFin">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
-          <mat-form-field appearance="fill"  style="width: 76px;  padding-left: 7px;">
+          <mat-form-field appearance="fill" style="width: 76px;  padding-left: 7px;">
             <mat-label>Hora</mat-label>
             <select matNativeControl required formControlName="horaFin">
               <option value="00" selected>00</option>
@@ -272,7 +273,7 @@
               <option value="23">23</option>
             </select>
           </mat-form-field>
-          <mat-form-field appearance="fill"  style="width: 75px;  padding-left: 7px;">
+          <mat-form-field appearance="fill" style="width: 75px;  padding-left: 7px;">
             <mat-label>Min.</mat-label>
             <select matNativeControl required formControlName="minFin">
               <option value="00" selected>00</option>
@@ -352,16 +353,16 @@
           <mat-form-field appearance="fill" style="width: 100%;">
             <mat-label>Selecciona Alcaldía</mat-label>
             <select matNativeControl required formControlName="idCatMunicipio">
-            <option value=1>Benito Juárez</option>
-            <option value=2>Coyoacan</option>
-            <option value=3>Magdalena Contreras </option>
-            <option value=4>Venustiano Carranza</option>
-            <option value=5>Cuajimalpa</option>
-            <option value=6>Alvaro Obregón</option>
-            <option value=7>Azcapotzalco</option>
-            <option value=8>Cuahutemoc</option>
-            <option value=9>Tlapan</option>
-            <option value=10>Miguel Hidalgo</option>
+              <option value=1>Benito Juárez</option>
+              <option value=2>Coyoacan</option>
+              <option value=3>Magdalena Contreras </option>
+              <option value=4>Venustiano Carranza</option>
+              <option value=5>Cuajimalpa</option>
+              <option value=6>Alvaro Obregón</option>
+              <option value=7>Azcapotzalco</option>
+              <option value=8>Cuahutemoc</option>
+              <option value=9>Tlapan</option>
+              <option value=10>Miguel Hidalgo</option>
             </select>
           </mat-form-field>
         </div>
@@ -378,7 +379,7 @@
           </div>
         </div>
 
-        <div class="col-md-5" >
+        <div class="col-md-5">
           <!-- <p>Calle y numero exterior *</p>
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="Calle y numero exterior"
@@ -436,7 +437,7 @@
       </div>
     </form>
   </div>
-  
+
 
   <!-----------------------------------------paso 2---------------------------------------->
   <!-----------------------------------------paso 2---------------------------------------->
@@ -524,7 +525,8 @@
                   </div>
                   <div *ngIf="flete > 0">
                     <!-- <img src="./assets/home-dos/ship.png" style="width: 28px;"> -->
-                    <img style="width: 28px;" src="https://img.icons8.com/external-vitaliy-gorbachev-blue-vitaly-gorbachev/60/4a90e2/external-truck-ecommerce-vitaliy-gorbachev-blue-vitaly-gorbachev.png"/>
+                    <img style="width: 28px;"
+                      src="https://img.icons8.com/external-vitaliy-gorbachev-blue-vitaly-gorbachev/60/4a90e2/external-truck-ecommerce-vitaliy-gorbachev-blue-vitaly-gorbachev.png" />
                     <span class="productlist">
                       &nbsp;&nbsp;Servicio de flete (Mobiliario)
                     </span>
@@ -606,47 +608,72 @@
               <div class="col-md-6">
                 <p class="Reboto-medium subtitle">Datos de contacto</p>
               </div>
-              <p>Contratante * <img src="./assets/Home/copy_profile.png"
-                  *ngIf="appComponent.data_user_model_app != null" (click)="set_datos_cuenta();" alt="" height="25px"
-                  width="25px" style="margin-left: 4px; cursor:pointer;">
+              <p><img src="./assets/Home/copy_profile.png" *ngIf="appComponent.data_user_model_app != null"
+                  (click)="set_datos_cuenta();" alt="" height="25px" width="25px"
+                  style="margin-left: 4px; cursor:pointer;">
                 <span (click)="set_datos_cuenta();" *ngIf="appComponent.data_user_model_app != null"
                   style="cursor:pointer; margin-left: 2px; color: blue; font-size: 15px; font-weight: bold; text-decoration: underline;">
                   Copiar de mi cuenta
                 </span>
               </p>
-              <div class="input-group mb-3 margen_cero">
+              <!-- <div class="input-group mb-3 margen_cero">
                 <input type="text" class="form-control" placeholder="Nombre del contratante"
                   aria-label="Datos del contratante" aria-describedby="basic-addon1" (focusout)="validate_nombre();"
                   [ngClass]="{ 'is-invalid': error_nombre }" [(ngModel)]="nombreContratane">
                 <div *ngIf="error_nombre" class="invalid-feedback">
                   <div *ngIf="error_nombre">Campo incompleto</div>
                 </div>
+              </div> -->
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Nombre del Contratante*</mat-label>
+                <input matInput placeholder="Nombre del contratante*" (focusout)="validate_nombre();"
+                  [ngClass]="{ 'is-invalid': error_nombre }" [(ngModel)]="nombreContratane">
+              </mat-form-field>
+              <div *ngIf="error_nombre" class="erorr" style="margin-top: -15px;">
+                <div *ngIf="error_nombre">Campo incompleto</div>
               </div>
             </div>
             <div class="col-md-12">
-              <p>Correo electrónico *</p>
-              <div class="input-group mb-3 margen_cero">
-                <input type="text" class="form-control" placeholder="Correo electrónico" aria-label="Correo electrónico"
-                  aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': error_correo }" [pattern]="emailRegex"
-                  [(ngModel)]="correo" (focusout)="validate_correo();">
-                <div *ngIf="error_correo" class="invalid-feedback">
-                  <div *ngIf="error_correo">Campo incorrecto</div>
-                </div>
-                <!-- <div *ngIf="f.correo.errors?.pattern" class="invalid-feedback"> 
-                  Formato de correo incorrecto
-                </div>-->
+
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Correo electrónico*</mat-label>
+                <input matInput placeholder="Correo electrónico *" [ngClass]="{ 'is-invalid': error_correo }"
+                  [pattern]="emailRegex" [(ngModel)]="correo" (focusout)="validate_correo();">
+              </mat-form-field>
+              <div *ngIf="error_correo" class="erorr" style="margin-top: -15px;">
+                <div *ngIf="error_correo">Campo incorrecto</div>
               </div>
+
             </div>
 
             <div class="col-md-12">
-              <p>Teléfono fijo o celular *</p>
-              <div class="input-group mb-3 margen_cero">
-                <input type="tel" class="form-control" placeholder="Teléfono fijo o celular"
-                  aria-label="Teléfono fijo o celular" aria-describedby="basic-addon1"
-                  [ngClass]="{ 'is-invalid': error_telefono }" [(ngModel)]="telefono" (focusout) ="validate_telefono();">
+            
+              <!-- <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Teléfono fijo o celular*</mat-label>
+                <input matInput type="tel" 
+                  placeholder="Teléfono fijo o celular"
+                  onKeyPress="if(this.value.length==12) return false;"
+                  [ngClass]="{ 'is-invalid': error_telefono }" 
+                  [(ngModel)]="telefono" 
+                  (focusout)="validate_telefono();">
                 <div *ngIf="error_telefono" class="invalid-feedback">
                   <div *ngIf="error_telefono">Campo incompleto</div>
                 </div>
+              </mat-form-field> -->
+
+              <mat-form-field appearance="fill" style="width: 100%;">
+                <mat-label>Teléfono fijo o celular*</mat-label>
+                <input type="tel" matInput #message maxlength="12"
+                  onKeyPress="if(this.value.length==12) return false;"
+                   placeholder="Teléfono fijo o celular *"
+                  [ngClass]="{ 'is-invalid': error_telefono }"
+                   [(ngModel)]="telefono" 
+                   (focusout)="validate_telefono();">
+                <!-- <mat-hint align="start"><strong>Don't disclose personal info</strong> </mat-hint> -->
+                <mat-hint align="end">{{message.value.length}} / 12</mat-hint>
+              </mat-form-field>
+              <div *ngIf="error_telefono" class="erorr" style="margin-top: -15px;">
+                <div *ngIf="error_telefono">Campo incompleto</div>
               </div>
             </div>
             <!-- <p class="Reboto-medium eventos_seleccionados_titulo" style="font-size: 18px;">
@@ -741,10 +768,11 @@
                   <div class="servicios_justify">
                     <div *ngFor="let item of Productos_listado">
                       <!-- <img style="width: 16px; cursor: pointer;" src="https://img.icons8.com/ios/50/000000/delete-sign--v1.png"/>-->
-                      <img style="width: 16px; cursor: pointer;" *ngIf="Productos_listado.length > 1" (click)="modify_list(item)"
+                      <img style="width: 16px; cursor: pointer;" *ngIf="Productos_listado.length > 1"
+                        (click)="modify_list(item)"
                         src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png" />
                       <span class="productlist">
-                        {{item.cantidadUnidades}} {{item.Nombre}} 
+                        {{item.cantidadUnidades}} {{item.Nombre}}
                       </span>
                       <span class="productlist" *ngIf="item.cantidadHoras != null && item.especificarTiempo != null"
                         style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
@@ -839,7 +867,12 @@
               <label class="Reboto-medium eventos_seleccionados_titulo" for="flexCheckDefault"
                 style="font-weight: bold;">
                 Requiero Factura
-              </label>
+              </label> 
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span *ngIf="req_factura"  style="font-style: italic; font-size:13px; color: gray;">
+                Un asesor de Conevento te contactará en menos de 24hrs
+              </span>
             </div>
           </div>
           <div>
@@ -989,7 +1022,8 @@
                   <div class="servicios_justify">
                     <div *ngFor="let item of Productos_listado">
                       <!-- <img style="width: 16px; cursor: pointer;" src="https://img.icons8.com/ios/50/000000/delete-sign--v1.png"/>-->
-                      <img style="width: 16px; cursor: pointer;" *ngIf="Productos_listado.length > 1" (click)="modify_list(item)"
+                      <img style="width: 16px; cursor: pointer;" *ngIf="Productos_listado.length > 1"
+                        (click)="modify_list(item)"
                         src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png" />
                       <span class="productlist">
                         {{item.cantidadUnidades}} {{item.Nombre}}
@@ -1010,12 +1044,12 @@
                       </span>
                     </div>
                     <div class="separator"></div>
-  
+
                     <div class="total">
                       <span class="p">Subtotal del carrito</span>
                       <span class="p">{{Subtotal | currency}}</span>
                     </div>
-  
+
                     <div class="total">
                       <span class="p">IVA</span>
                       <span class="p">{{IVA | currency}}</span>
