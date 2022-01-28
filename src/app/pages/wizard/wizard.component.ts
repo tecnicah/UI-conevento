@@ -237,42 +237,59 @@ export class WizardComponent implements OnInit {
     if (localStorage.getItem('categorias')) {
       this.auth.categorias = JSON.parse(localStorage.getItem('categorias') || '{}');
     }
+
+    ////aqui hay que editar
     if (localStorage.getItem('form')) {
       this.data_model = JSON.parse(localStorage.getItem('form') || '{}');
       this.auth.data_form = JSON.parse(localStorage.getItem('form') || '{}');
       this.steps = {
-        uno: "complete",
-        dos: "selected",
+        uno: "selected",
+        dos: "next",
         tres: "next",
         cuatro: false
       }
       this.steps_css = {
-        uno: "class-none",
-        dos: "class-view",
+        uno: "class-view",
+        dos: "class-none",
         tres: "class-none",
         cuatro: "class-none"
       }
+
+      // this.steps = {
+      //   uno: "complete",
+      //   dos: "selected",
+      //   tres: "next",
+      //   cuatro: false
+      // }
+      // this.steps_css = {
+      //   uno: "class-none",
+      //   dos: "class-view",
+      //   tres: "class-none",
+      //   cuatro: "class-none"
+      // }
     }
 
     if (localStorage.getItem('productos')) {
       this.Productos_listado = JSON.parse(localStorage.getItem('productos') || '{}');
       this.auth.listaProductosEventos = JSON.parse(localStorage.getItem('productos') || '{}');
       if (this.Productos_listado.length != 0) {
-        this.steps = {
-          uno: "complete",
-          dos: "selected",
-          tres: "next",
-          cuatro: false
-        }
-        this.steps_css = {
-          uno: "class-none",
-          dos: "class-view",
-          tres: "class-none",
-          cuatro: "class-none"
-        }
+        // this.steps = {
+        //   uno: "complete",
+        //   dos: "selected",
+        //   tres: "next",
+        //   cuatro: false
+        // }
+        // this.steps_css = {
+        //   uno: "class-none",
+        //   dos: "class-view",
+        //   tres: "class-none",
+        //   cuatro: "class-none"
+        // }
         this.calculos();
       }
     }
+    ////aqui hay que editar
+
     this.setNumProductos();
     this.setchecks();
 
@@ -400,7 +417,7 @@ export class WizardComponent implements OnInit {
   }
 
 
-  
+
   public validate_telefono() {
     debugger;
     if (this.telefono.length > 5) {
@@ -426,7 +443,7 @@ export class WizardComponent implements OnInit {
   }
 
   public validate_correo() {
-   // debugger
+    // debugger
     //var valreg = this.correo.toLowerCase().match(this.emailRegex);
     var valida = this.validarEmail(this.correo);
 
@@ -439,7 +456,7 @@ export class WizardComponent implements OnInit {
   }
 
   public saveContacto(type: any) {
-   // debugger;
+    // debugger;
 
     var valreg = this.correo.toLowerCase().match(this.emailRegex);
     var valida = this.validarEmail(this.correo);
@@ -468,7 +485,7 @@ export class WizardComponent implements OnInit {
       this.error_nombre = true;
 
     if (!this.error_correo && !this.error_telefono && !this.error_nombre) {
-     // console.log("===================== si jala");
+      // console.log("===================== si jala");
 
       if (!localStorage.getItem('userData')) {
         let ancho = '';
@@ -499,18 +516,37 @@ export class WizardComponent implements OnInit {
       }
     }
     else {
-     // console.log("====================== no jala")
+      // console.log("====================== no jala")
       window.scrollTo(100, 360);
       console.log("NO ESTA COMPLETOS LOS DATOS DE PERFIL");
     }
 
   }
 
+
+  do_click_form() {
+    console.log("Lista de prodictos========================: ", JSON.stringify(this.auth.listaProductosEventos));
+    debugger;
+    this.get_disponibility()
+    //document.getElementById('idformbtu').click();
+  }
+
+
   //*******************************************//
   //FUNCION PARA LLENAR EL FORMULAARIO//
   public fillForm() {
     let data = JSON.parse(localStorage.getItem('form') || '{}')
-    this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(data.fechaHoraInicio.substring(0, 10)));
+    var _fi: any = new Date(data.fechaHoraInicio.substring(0, 10));
+    _fi.setTime(_fi.getTime() + (2 * 24 * 60 * 60 * 1000));
+    var month = (_fi.getMonth() + 1).toString();     // getMonth() is zero-based
+    var day = (_fi.getDate()).toString();
+    var year = _fi.getFullYear();
+    if (parseInt(month) < 10) month = '0' + month.toString();
+    if (parseInt(day) < 10) day = '0' + day.toString();
+    var maxDate = year + '-' + month + '-' + day;
+
+    // this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(data.fechaHoraInicio.substring(0, 10)));
+    this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(maxDate));
     this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(data.fechaHoraFin.substring(0, 10)));
     this.firstFormGroup.get("genteEsperada")?.setValue(data.genteEsperada);
     this.firstFormGroup.get("ciudad")?.setValue(data.ciudad);
@@ -689,7 +725,8 @@ export class WizardComponent implements OnInit {
     }
   }
 
-  public back_step2() {
+
+  public back_step2a() {
     this.steps = {
       uno: "complete",
       dos: "selected",
@@ -699,6 +736,34 @@ export class WizardComponent implements OnInit {
     this.steps_css = {
       uno: "class-none",
       dos: "class-view",
+      tres: "class-none",
+      cuatro: "class-none"
+    }
+  }
+
+  public back_step2() {
+    // this.steps = {
+    //   uno: "complete",
+    //   dos: "selected",
+    //   tres: "next",
+    //   cuatro: false
+    // }
+    // this.steps_css = {
+    //   uno: "class-none",
+    //   dos: "class-view",
+    //   tres: "class-none",
+    //   cuatro: "class-none"
+    // }
+
+    this.steps = {
+      uno: "selected",
+      dos: "next",
+      tres: "next",
+      cuatro: false
+    }
+    this.steps_css = {
+      uno: "class-view",
+      dos: "class-none",
       tres: "class-none",
       cuatro: "class-none"
     }
@@ -777,6 +842,41 @@ export class WizardComponent implements OnInit {
 
     this.auth.data_form = this.data_model;
     this.firstFormGroup.get("fechaHoraFin")?.setValue(null);
+  }
+
+
+  //****************************************** */
+  // Validacion de siponibilidad 
+
+  public _dtolista: any = {
+    ListaProductosEventos: null,
+    Fecha: null
+  }
+
+
+  public async get_disponibility(): Promise<any> {
+
+    debugger;
+    this.spinner.show();
+
+    
+
+    this._dtolista.ListaProductosEventos = this.Productos_listado;
+    this._dtolista.Fecha = this.data_model.fechaHoraInicio;
+
+     console.log("Lista a validar: ====================> ", this._dtolista);
+    this.auth.service_general_post_with_url('Catalog/Productos_by_id_date', this._dtolista).subscribe(r => {
+      if (r.success) {
+        console.log("resultado dispo Ok : ==================== ", r);
+
+        this.spinner.hide();
+      }
+    }, (err) => {
+
+      console.log("Resultado err dispo: =======================", err);
+
+      this.spinner.hide();
+    })
   }
 
   //*******************************************//
@@ -892,7 +992,7 @@ export class WizardComponent implements OnInit {
     // this.fillForm();
   }
 
-  public inputReadonly = true ;
+  public inputReadonly = true;
   public fechamat;
   public fechamatfin;
   public sas;
