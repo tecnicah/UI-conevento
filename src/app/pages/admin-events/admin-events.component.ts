@@ -66,12 +66,16 @@ export class AdminEventsComponent implements OnInit {
     }, 3000);
   }
 
+  public opencalendario(){
+    
+  }
 
   public limpiarFiltros() {
     this.fechaInicial = "";
     this.fechaFinal = "";
     this.id_municipio = 0;
     this.profesion = "";
+    this.get_resultados();
   }
 
   viewdetail(item: any) {

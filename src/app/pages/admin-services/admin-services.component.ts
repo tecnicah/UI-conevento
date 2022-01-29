@@ -132,6 +132,7 @@ debugger;
     this.id_municipio = 0;
     this.id_cat = 0;
     this.profesion ="";
+    this.get_resultados();
   }
 
   viewdetail(item: any){

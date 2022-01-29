@@ -12,6 +12,7 @@ import { TerminosComponent } from './pages/terminos/terminos.component';
 import { StripeComponent } from './pages/stripe/stripe.component'
 import { AdminUsersComponent } from './pages/admin-users/admin-users.component'
 import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component'
+import { CalendarEventsComponent} from './pages/calendar-events/calendar-events.component'
 
 const routes: Routes = [
   {
@@ -60,6 +61,10 @@ const routes: Routes = [
       {
         path: 'calendar-services/:id',
         component: CalendarServiciosComponent,
+      },
+      {
+        path: 'calendar-events/:id',
+        component: CalendarEventsComponent,
       }
     ]
   },
