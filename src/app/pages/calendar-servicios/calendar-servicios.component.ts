@@ -107,7 +107,6 @@ export class CalendarServiciosComponent implements OnInit {
 
   modalData: {
     action: string;
-    event: CalendarEvent;
   };
 
   fecha_evento: any[] = [];
@@ -145,7 +144,14 @@ export class CalendarServiciosComponent implements OnInit {
       this.formModal = fb.group({
         dateEvent: ['', Validators.required],
         dateStart: [''], 
-        dateEnd: ['']
+        dateEnd: [''],
+        lunesEvent: [false],
+        martesEvent: [false],
+        miercolesEvent: [false],
+        juevesEvent: [false],
+        viernesEvent: [false],
+        sabadoEvent: [false],
+        domingoEvent: [false],
       });
     }
   
@@ -171,7 +177,7 @@ export class CalendarServiciosComponent implements OnInit {
   }
 
   viewObjectCalendar(eventos){
-    console.log(eventos);
+    //console.log(eventos);
     eventos.forEach(element => {
       this.events.push({
         start: startOfDay(new Date(element.fechaHoraInicio)),
@@ -188,7 +194,8 @@ export class CalendarServiciosComponent implements OnInit {
       });  
     });
 
-    eventos.forEach(element => {
+    let _eventsBlock: any = []
+    eventos.forEach((element, index) => {
       if(element.nombreEvento == "No disponible individual")
       {
         this.eventsBlock.push({
@@ -197,6 +204,20 @@ export class CalendarServiciosComponent implements OnInit {
           end: element.fechaHoraFin
         });
       }
+      if(element.nombreEvento == "No disponible recurrente")
+      {
+        _eventsBlock.push({
+          title: element.nombreEvento,
+          start: element.fechaHoraInicio,
+          end: element.fechaHoraFin
+        });
+      }
+    });
+debugger;
+    this.eventsBlock.push({
+      title: _eventsBlock[0].title,
+      start: _eventsBlock[0].start,
+      end: _eventsBlock[_eventsBlock.length -1].end
     });
    console.log(this.eventsBlock);
   }
@@ -230,22 +251,60 @@ export class CalendarServiciosComponent implements OnInit {
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized');
+    //this.handleEvent('Dropped or resized');
   }
-  handleEvent(action: string): void {
-    // this.modalData = { event, action };
+  handleEvent(action: string, event): void {
+    console.log(event);
+    this.modalData = { action };
     this.formModal.controls.dateEvent.setValue("1");
     this.modal.open(this.modalContent, { size: 'lg' });
+    if(this.modalData.action == "Edit"){
+      if(event.title == "No disponible individual"){
+        this.formModal.controls.dateEvent.setValue("2");
+        this.formModal.controls.dateStart.setValue(event.start);
+        this.formModal.controls.dateEnd.setValue(event.end);
+      }
+
+      if(event.title == "No disponible recurrente"){
+        this.formModal.controls.dateEvent.setValue("1");
+      }
+    }
   }
 
   addEvent(type): void {
-
     switch(type) {
-      case 1:
-        let fechaIni = new Date();
-        let fechaFin = fechaIni.setDate(fechaIni.getDate() + 183);
+      case "1":
+        this._eventos.push({
+          id: 0,
+          nombreEvento: 'No disponible recurrente',
+          fechaHoraInicio: this.formModal.controls.dateStart.value,
+          fechaHoraFin: this.formModal.controls.dateEnd.value,
+          idCatMunicipio: 1,
+          calleNumero: "",
+          colonia: "",
+          fechaCreacion: new Date(),
+          listaProductosEventos: [{
+            id: 0,
+            cantidadHoras: 1000,
+            cantidadUnidades: 1000,
+            idCatProducto: parseInt(this._route.snapshot.paramMap.get('id')),
+            idEvento: 0
+          }]
+        });
+        console.log(this._eventos);
+        this.auth.service_general_post_with_url('Eventos/AddEventAdmin?type=1&lunes='+this.formModal.controls.lunesEvent.value+'&martes='+this.formModal.controls.martesEvent.value+'&miercoles='+this.formModal.controls.miercolesEvent.value+'&jueves='+this.formModal.controls.juevesEvent.value+'&viernes='+this.formModal.controls.viernesEvent.value+'&sabado='+this.formModal.controls.sabadoEvent.value+'domingo='+this.formModal.controls.domingoEvent.value+'',this._eventos)
+        .subscribe(r => {
+          console.log(r);
+          if (r.success) {
+            this.events = [];
+            this.viewEvents();
+            
+          }
+        }, (err) => {
+         
+        });
         break;
-      case 2:
+      case "2":
         this._eventos.push({
           id: 0,
           nombreEvento: 'No disponible individual',
@@ -263,10 +322,8 @@ export class CalendarServiciosComponent implements OnInit {
             idEvento: 0
           }]
         });
-        break;
-      default:
         console.log(this._eventos);
-        this.auth.service_general_post_with_url('Eventos/AddEventAdmin',this._eventos)
+        this.auth.service_general_post_with_url('Eventos/AddEventAdmin?type=2',this._eventos)
         .subscribe(r => {
           console.log(r);
           if (r.success) {
@@ -277,7 +334,9 @@ export class CalendarServiciosComponent implements OnInit {
         }, (err) => {
          
         });
-    }
+        break;
+      default:
+   }
 
 
     // this.events = [
@@ -313,11 +372,15 @@ beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
   renderEvent.body.forEach((day) => {
     const dayOfMonth = day.isToday;
     let evento:any = day.events;
-    console.log(evento);
+    //console.log(evento);
     evento.forEach(element => {
       if(element.title == 'No disponible individual')
       {
-        day.cssClass = 'bg-pink';
+        day.cssClass = 'bg-noavailable';
+      }
+      if(element.title == 'No disponible recurrente')
+      {
+        day.cssClass = 'bg-available';
       }
     });
     // if (dayOfMonth > 5 && dayOfMonth < 10 && day.inMonth) {

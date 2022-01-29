@@ -91,12 +91,21 @@
               </div>
               
               <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
+              <div class="container-icon">
+                <mat-icon style="color:#0162CC">brightness_1</mat-icon> 
+                <span>No disponible individual</span> 
+                &nbsp;&nbsp;&nbsp;
+                <mat-icon style="color: #1E90FF;">brightness_1</mat-icon> 
+                <span>No disponible recurrente</span> 
+            </div>
+             
+              <br /><br />
               
-              <br /><br /><br />
+              <br />
               
               <h3>
                 Fechas bloqueadas
-                <button class="btn btn-primary float-right" (click)="handleEvent('Clicked')">
+                <button class="btn btn-primary float-right" (click)="handleEvent('Clicked', null)">
                   Nueva fecha
                 </button>
                 <div class="clearfix"></div>
@@ -116,6 +125,7 @@
                   <tbody>
                     <tr *ngFor="let event of eventsBlock">
                       <td>
+                       
                           {{event.title}}
                         <!-- <input
                           type="text"
@@ -153,7 +163,7 @@
                         /> -->
                       </td>
                       <td>
-                        <mat-icon (click)="deleteEvent(event)">edit</mat-icon>
+                        <mat-icon (click)="handleEvent('Edit', event)" style="cursor: pointer;">edit</mat-icon>
                         <!-- <button class="btn btn-danger" (click)="deleteEvent(event)">
                           Editar
                         </button> -->
@@ -189,12 +199,14 @@
         <br>
         <section class="example-section">
             <mat-checkbox
+                formControlName="lunesEvent"
                 class="example-margin"
                 [labelPosition]="labelPosition"
                 [disabled]="disabled">
               L
             </mat-checkbox>
             <mat-checkbox
+                formControlName="martesEvent"
                 class="example-margin"
                 [labelPosition]="labelPosition"
                 [disabled]="disabled">
@@ -256,9 +268,15 @@
         <button type="button" class="btn btn-outline-secondary" (click)="close()">
             Cancelar
         </button>
-        <button type="button" class="btn btn-outline-secondary" (click)="addEvent(formModal.value.dateEvent); close()">
+        <button type="button" class="btn btn-outline-secondary" (click)="addEvent(formModal.value.dateEvent); close()"
+            *ngIf="modalData.action=='Clicked'">
             Guardar
-      </button>
+        </button>
+        <button type="button" class="btn btn-outline-secondary" (click)="addEvent(formModal.value.dateEvent); close()"
+            *ngIf="modalData.action=='Edit'">
+            Guardar
+        </button>
+        
     </div>
     </form>
   </ng-template>
