@@ -869,20 +869,3 @@ table thead {
   height: 100vh;
   background-color: #000;
 }
-
-.cal-month-view .bg-available,
-.cal-week-view .cal-day-columns .bg-available,
-.cal-day-view .bg-available {
-  background-color: #1E90FF !important;
-}
-
-.cal-month-view .bg-noavailable,
-.cal-week-view .cal-day-columns .bg-noavailable,
-.cal-day-view .bg-noavailable {
-  background-color: #0162CC !important;
-}
-
-.container-icon {
-  display: flex;
-  align-items: center;
-}
