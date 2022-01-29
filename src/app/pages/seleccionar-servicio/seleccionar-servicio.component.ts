@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
@@ -18,6 +18,29 @@ import { Pipe, PipeTransform } from '@angular/core'
 })
 export class SeleccionarServicioComponent implements OnInit {
 
+  arr: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  totalCards: number = 162;//this.arr.length;
+  currentPage: number = 1;
+  pagePosition: string = "0%";
+  cardsPerPage: number;
+  totalPages: number;
+  overflowWidth: string;
+  cardWidth: string;
+  containerWidth: number;
+  @ViewChild("container", { static: true, read: ElementRef })
+  container: ElementRef;
+  @HostListener("window:resize") windowResize() {
+    let newCardsPerPage = this.getCardsPerPage();
+    if (newCardsPerPage != this.cardsPerPage) {
+      this.cardsPerPage = newCardsPerPage;
+      this.initializeSlider();
+      if (this.currentPage > this.totalPages) {
+        this.currentPage = this.totalPages;
+        this.populatePagePosition();
+      }
+    }
+  }
+  
   constructor(public appComponent: AppComponent, public spinner: SpinnerService, private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
   userFilter: any = { producto: '' };
   public productos: any = [];
@@ -26,6 +49,7 @@ export class SeleccionarServicioComponent implements OnInit {
   public ejemplo = "";
   ngOnInit(): void {
 //debugger;
+    
     const tag = document.createElement('script');
     
   	tag.src = "https://www.youtube.com/iframe_api";
@@ -61,6 +85,9 @@ export class SeleccionarServicioComponent implements OnInit {
         });
         this.calculosT();
         console.log(this.productos);
+        this.totalCards = this.productos.length;
+        this.cardsPerPage = this.getCardsPerPage();
+        this.initializeSlider();
         this.spinner.hide();
       }
     }, (err) => {
@@ -68,6 +95,29 @@ export class SeleccionarServicioComponent implements OnInit {
       this.spinner.hide();
       console.log(err);
     })
+  }
+
+  initializeSlider() {
+    this.totalPages = Math.ceil(this.totalCards / this.cardsPerPage);
+    this.overflowWidth = `calc(${this.totalPages * 100}% + ${this.totalPages *
+      10}px)`;
+    this.cardWidth = `calc((${100 / this.totalPages}% - ${this.cardsPerPage *
+      10}px) / ${this.cardsPerPage})`;
+  }
+
+  getCardsPerPage() {
+    console.log(this.container.nativeElement.offsetWidth, 200);
+    return Math.floor(this.container.nativeElement.offsetWidth / 250);
+  }
+
+  changePage(incrementor) {
+    this.currentPage += incrementor;
+    this.populatePagePosition();
+  }
+
+  populatePagePosition() {
+    this.pagePosition = `calc(${-100 * (this.currentPage - 1)}% - ${10 *
+      (this.currentPage - 1)}px)`;
   }
   //*************************************************************************//
   //DETECTA SUMA O RESTA DE CONTIDADES//

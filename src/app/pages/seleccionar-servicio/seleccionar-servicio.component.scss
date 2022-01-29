@@ -41,7 +41,7 @@
 
 .tarjeta {
   &_contenedor_principal {
-    margin: 10% 0% 20% 0%;
+    margin: 0;
     position: relative;
   }
 
@@ -297,3 +297,96 @@
 
 
 ////////////////////////////@at-root
+
+.w-100 {
+  width: 100%!important;
+}
+
+.containerCarousel {
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.cards {
+  width: calc(100% - 80px);
+  overflow: hidden;
+}
+
+.overflow {
+  position: relative;
+  transition: left 0.5s ease-in-out;
+}
+
+.card {
+  height: auto;
+  background-color: transparent;
+  border-radius: 0;
+  display: inline-block;
+  margin-right: 10px;
+  position: relative;
+}
+
+.no-right-margin {
+  margin-right: 0px;
+}
+
+// .card span {
+//   font-size:48px;
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
+.left,
+.right {
+  height: 30px;
+  width: 30px;
+  border: solid #1E003A;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left.disabled{
+  border: solid #CCC;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  // border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  left: 0;
+}
+
+.right.disabled {
+  border: solid #CCC;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  // border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  right: 0;
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  // border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  left: 0;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  // border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  right: 0;
+}
