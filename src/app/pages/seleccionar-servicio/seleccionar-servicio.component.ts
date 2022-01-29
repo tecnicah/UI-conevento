@@ -18,8 +18,7 @@ import { Pipe, PipeTransform } from '@angular/core'
 })
 export class SeleccionarServicioComponent implements OnInit {
 
-  arr: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  totalCards: number = 162;//this.arr.length;
+  totalCards: number = 0;//this.arr.length;
   currentPage: number = 1;
   pagePosition: string = "0%";
   cardsPerPage: number;
@@ -62,39 +61,42 @@ export class SeleccionarServicioComponent implements OnInit {
     this.id = this.rutaActiva.snapshot.params.id;
     this.decha_inicio = this.rutaActiva.snapshot.params.date;
    // console.log("id categoria: ", this.id);
+   setTimeout(() => {
     this.auth.service_general_get('Catalog/productos_by_Cat?id_categoria=' + this.id).subscribe(observer => {
-    //  this.auth.service_general_get('Catalog/productos_by_Cat_Date?id_categoria=' + this.id +'&fecha= ' + this.decha_inicio).subscribe(observer => {
-  //  debugger;  
-    if (observer.result) {
-        this.productos = observer.result;
-        this.ejemplo = "Ej. " + this.productos[0].producto;
-        console.log("Catalogo: ", observer.result);
-        this.productos.forEach((E: any) => {
-          E.cantidadUnidades = 0;
-          E.cantidadHoras = E.minimoProductos;
-        });
-
-        this.productos.forEach((E: any) => {
-          for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
-            if (E.id == this.auth.listaProductosEventos[i].idCatProducto 
-              && this.auth.listaProductosEventos[i].idCategoria == this.id) {
-              E.cantidadUnidades = this.auth.listaProductosEventos[i].cantidadUnidades;
-              E.cantidadHoras = this.auth.listaProductosEventos[i].cantidadHoras;
+      //  this.auth.service_general_get('Catalog/productos_by_Cat_Date?id_categoria=' + this.id +'&fecha= ' + this.decha_inicio).subscribe(observer => {
+    //  debugger;  
+      if (observer.result) {
+          this.productos = observer.result;
+          this.ejemplo = "Ej. " + this.productos[0].producto;
+          console.log("Catalogo: ", observer.result);
+          this.productos.forEach((E: any) => {
+            E.cantidadUnidades = 0;
+            E.cantidadHoras = E.minimoProductos;
+          });
+  
+          this.productos.forEach((E: any) => {
+            for (let i = 0; i < this.auth.listaProductosEventos.length; i++) {
+              if (E.id == this.auth.listaProductosEventos[i].idCatProducto 
+                && this.auth.listaProductosEventos[i].idCategoria == this.id) {
+                E.cantidadUnidades = this.auth.listaProductosEventos[i].cantidadUnidades;
+                E.cantidadHoras = this.auth.listaProductosEventos[i].cantidadHoras;
+              }
             }
-          }
-        });
-        this.calculosT();
-        console.log(this.productos);
-        this.totalCards = this.productos.length;
-        this.cardsPerPage = this.getCardsPerPage();
-        this.initializeSlider();
+          });
+          this.calculosT();
+          console.log(this.productos);
+          this.totalCards = this.productos.length;
+          this.cardsPerPage = this.getCardsPerPage();
+          this.initializeSlider();
+          this.spinner.hide();
+        }
+      }, (err) => {
+        debugger;  
         this.spinner.hide();
-      }
-    }, (err) => {
-      debugger;  
-      this.spinner.hide();
-      console.log(err);
-    })
+        console.log(err);
+      })
+   }, 3000);
+   
   }
 
   initializeSlider() {
