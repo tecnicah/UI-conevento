@@ -14,6 +14,7 @@ import { AppComponent } from 'src/app/app.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { LoadedImage } from 'ngx-image-cropper/lib/interfaces';
 
 export interface servicio {
    id: number;
@@ -194,14 +195,16 @@ handleEvenCrop(action: string, event): void {
 }
 
 fileChangeEvent(event: any): void {
+  console.log(event);
   this.imageChangedEvent = event;
 }
 imageCropped(event: ImageCroppedEvent) {
   //this.data.image = event.base64;
-  console.log(event.base64);
+  console.log(event);
 }
-imageLoaded() {
+imageLoaded(image: LoadedImage) {
   // show cropper
+  console.log(image);
 }
 cropperReady(event) {
   // cropper ready

@@ -648,7 +648,7 @@
                                     [alignImage]="'left'"
                                     format="png"
                                     (imageCropped)="imageCropped($event)"
-                                    (imageLoaded)="imageLoaded()"
+                                    (imageLoaded)="imageLoaded($event)"
                                     (cropperReady)="cropperReady($event)"
                                     (loadImageFailed)="loadImageFailed()">
                                 </image-cropper>
