@@ -13,6 +13,7 @@ import { WizardLoginComponent } from 'src/app/dialog/wizard-login/wizard-login.c
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { observable } from 'rxjs';
 import { DateAdapter } from '@angular/material/core';
+import { DisponibilidadComponent } from 'src/app/dialog/disponibilidad/disponibilidad.component';
 
 
 //declare var paypal;
@@ -311,8 +312,9 @@ export class WizardComponent implements OnInit {
       console.log("NO ESTA COMPLETO: ", this.firstFormGroup.invalid);
       return;
     }
-    this.saveForm();
-    this.next();
+    this.get_disponibility(this._type_);
+    //this.saveForm();
+    //this.next();
   }
   //*******************************************//
   //FUNCIONES PARA SELECCION DE SERVICIOS//
@@ -524,11 +526,55 @@ export class WizardComponent implements OnInit {
   }
 
 
-  do_click_form() {
+  detalle(type: any, item: any) {
+    localStorage.setItem('detalle', JSON.stringify(item))
+    let ancho = '';
+    let alto = '250%';
+    if (type == 1) {
+      ancho = '60%';
+      alto = '50%';
+    } else {
+      ancho = '100%';
+    }
+    const dialogRef = this._dialog.open(DisponibilidadComponent, {
+      width: ancho,
+      // height: alto,
+      data: item
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //debugger;;
+      if (result.success) {
+        console.log(result);
+        this.steps = {
+          uno: "selected",
+          dos: "next",
+          tres: "next",
+          cuatro: false
+        }
+        this.steps_css = {
+          uno: "class-view",
+          dos: "class-none",
+          tres: "class-none",
+          cuatro: "class-none"
+        }
+        window.scrollTo(0, 100);
+        // this.guardarServiciosElegidosDetalle(result);
+      } else if (!result.success) {
+        
+      }
+
+    })
+  }
+
+ public _type_: any ;
+  do_click_form(type: number) {
     console.log("Lista de prodictos========================: ", JSON.stringify(this.auth.listaProductosEventos));
-    debugger;
-    this.get_disponibility()
-    //document.getElementById('idformbtu').click();
+    //debugger;
+    //this.get_disponibility(type);
+    //this.detalle(this.dd, this.data_model);
+    this._type_ = type;
+    document.getElementById('idformbtu').click();
   }
 
 
@@ -536,6 +582,7 @@ export class WizardComponent implements OnInit {
   //FUNCION PARA LLENAR EL FORMULAARIO//
   public fillForm() {
     let data = JSON.parse(localStorage.getItem('form') || '{}')
+    
     var _fi: any = new Date(data.fechaHoraInicio.substring(0, 10));
     _fi.setTime(_fi.getTime() + (2 * 24 * 60 * 60 * 1000));
     var month = (_fi.getMonth() + 1).toString();     // getMonth() is zero-based
@@ -544,10 +591,23 @@ export class WizardComponent implements OnInit {
     if (parseInt(month) < 10) month = '0' + month.toString();
     if (parseInt(day) < 10) day = '0' + day.toString();
     var maxDate = year + '-' + month + '-' + day;
+    
+    var _fi_: any = new Date(data.fechaHoraFin.substring(0, 10));
+    _fi_.setTime(_fi_.getTime() + (2 * 24 * 60 * 60 * 1000));
+    var _month = (_fi_.getMonth() + 1).toString();     // getMonth() is zero-based
+    var _day = (_fi_.getDate()).toString();
+    var _year = _fi_.getFullYear();
+    if (parseInt(_month) < 10) _month = '0' + _month.toString();
+    if (parseInt(_day) < 10) _day = '0' + _day.toString();
+    var _maxDate = _year + '-' + _month + '-' + _day;
+
+
+
 
     // this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(data.fechaHoraInicio.substring(0, 10)));
     this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(maxDate));
-    this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(data.fechaHoraFin.substring(0, 10)));
+    // this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(data.fechaHoraFin.substring(0, 10)));
+    this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(_maxDate));
     this.firstFormGroup.get("genteEsperada")?.setValue(data.genteEsperada);
     this.firstFormGroup.get("ciudad")?.setValue(data.ciudad);
     this.firstFormGroup.get("idCatMunicipio")?.setValue(data.idCatMunicipio);
@@ -570,6 +630,8 @@ export class WizardComponent implements OnInit {
     //this.firstFormGroup.get("nombreContratane")?.setValue(data.nombreContratane);
     console.log("sesion de formulario ==========", data, this.telefono)
   }
+  
+  
   //*******************************************//
   //FUNCIONES PARA PASO 3//
   public step = 0;
@@ -723,6 +785,7 @@ export class WizardComponent implements OnInit {
         cuatro: "class-none"
       }
     }
+    window.scrollTo(0, 100);
   }
 
 
@@ -767,6 +830,7 @@ export class WizardComponent implements OnInit {
       tres: "class-none",
       cuatro: "class-none"
     }
+    window.scrollTo(0, 100);
   }
 
   public set_stepper(step: number) {
@@ -832,7 +896,7 @@ export class WizardComponent implements OnInit {
     else {
       console.log("ya no regreso");
     }
-
+    window.scrollTo(0, 100);
 
   }
 
@@ -854,21 +918,28 @@ export class WizardComponent implements OnInit {
   }
 
 
-  public async get_disponibility(): Promise<any> {
+  public async get_disponibility(type: number): Promise<any> {
 
-    debugger;
+    // debugger;
     this.spinner.show();
 
-    
+
 
     this._dtolista.ListaProductosEventos = this.Productos_listado;
     this._dtolista.Fecha = this.data_model.fechaHoraInicio;
 
-     console.log("Lista a validar: ====================> ", this._dtolista);
+    console.log("Lista a validar: ====================> ", this._dtolista);
     this.auth.service_general_post_with_url('Catalog/Productos_by_id_date', this._dtolista).subscribe(r => {
       if (r.success) {
-        console.log("resultado dispo Ok : ==================== ", r);
-
+        console.log("resultado dispo Ok : ==================== ", r.result);
+        if(r.result.length > 0)
+        {
+          this.detalle(type, r.result);
+        }
+        else{ // no hay bronca con al disponibilidad y la fecha
+          this.saveForm();
+          this.next();
+        }
         this.spinner.hide();
       }
     }, (err) => {
@@ -878,6 +949,7 @@ export class WizardComponent implements OnInit {
       this.spinner.hide();
     })
   }
+  
 
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//

@@ -56,6 +56,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component';
 import { UtilsModule } from '../app/utils/module';
+import { DisponibilidadComponent } from './dialog/disponibilidad/disponibilidad.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -96,7 +97,8 @@ export const MY_FORMATS = {
     TerminosComponent,
     AvisoComponent,
     AdminUsersComponent,
-    CalendarServiciosComponent
+    CalendarServiciosComponent,
+    DisponibilidadComponent
   ],
   imports: [
     NgxPayPalModule,

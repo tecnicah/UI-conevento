@@ -61,7 +61,8 @@
               </div>
             </div>
           </span>
-          <div class="info" (click)="set_stepper(3);">
+          <!-- <div class="info" (click)="set_stepper(3);"> -->
+            <div class="info">
             <span class="Reboto-medium">3.- Confirma y paga</span><br>
             Elige la opción de pago <br>
             de manera segura
@@ -128,7 +129,8 @@
               </div>
             </div>
           </span>
-          <div class="info" (click)="set_stepper(3);">
+          <!-- <div class="info" (click)="set_stepper(3);"> -->
+            <div class="info">
             <span class="Reboto-medium">3.- Confirma y paga</span>
           </div>
         </div>
@@ -532,13 +534,13 @@
 
               <button class="btn pagar__siguiente Reboto-medium" 
               style="height: auto; font-size: 16px;"
-              (click)="do_click_form();">
+              (click)="do_click_form(2);">
               Validar Disponibilidad</button>
             </div>
             <div class="d-none d-md-block" style=" margin-top: 15%; align-items: center; text-align: center;">
               <button class="btn pagar__siguiente Reboto-medium" 
               style="height: auto; font-size: 16px;"
-              (click)="do_click_form();">Validar Disponibilidad</button>
+              (click)="do_click_form(1);">Validar Disponibilidad</button>
             </div>
           </div>
         </div>
