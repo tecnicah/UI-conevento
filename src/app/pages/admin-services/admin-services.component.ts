@@ -1,8 +1,8 @@
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Component, OnInit, ViewChild, PipeTransform, Pipe } from '@angular/core';
+import { Component, OnInit, ViewChild, PipeTransform, Pipe, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe, DecimalPipe, formatDate } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -13,23 +13,72 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AppComponent } from 'src/app/app.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+
+export interface servicio {
+   id: number;
+   producto:string;
+   descripcionCorta:string;
+   descripcionLarga:string;
+   idSubcategoriaProductos:number;
+   idCategoriaProducto:number;
+   precioPorUnidad:number;
+   diasBloqueoAntes:number;
+   diasBloqueoDespues:number;
+   idCatTipoUnidad:number;
+   minimoProductos:number;
+   imagenSeleccion:string;
+   activo:true;
+   especificarTiempo:boolean;
+   tipoImagenSeleccion:string;
+   maximoProductos:number;
+   especificacionEspecial:string;
+   sku:string;
+   stockInicial:number;
+}
 
 @Component({
   selector: 'app-admin-services',
   templateUrl: './admin-services.component.html',
   styleUrls: ['./admin-services.component.scss'],
-  providers: [DecimalPipe]
+  providers: [DecimalPipe],
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminServicesComponent implements OnInit {
-
+  formModal: FormGroup;
+  imageChangedEvent: any = '';
+  //croppedImage: any = '';
+  LoadedImage: any = '';
   constructor(pipe: DecimalPipe, private modalService: NgbModal
     , public spinner: SpinnerService, private _formBuilder: FormBuilder
     , public auth: HttpService, public router_: Router, public _dialog: MatDialog
-    , public appComponent:AppComponent) {
+    , public appComponent:AppComponent,
+    public fb: FormBuilder) {
+      this.formModal = fb.group({
+        producto: ['', Validators.required],
+        descripcionCorta: [''], 
+        descripcionLarga: [''],
+        idSubcategoriaProductos: [''],
+        idCategoriaProducto: [''],
+        precioPorUnidad: [''],
+        diasBloqueoAntes: [''],
+        diasBloqueoDespues: [''],
+        idCatTipoUnidad: [''],
+        minimoProductos: [''],
+        imagenSeleccion: [''],
+        activo: [true],
+        especificarTiempo: [''],
+        tipoImagenSeleccion: [],
+        maximoProductos: [''],
+        especificacionEspecial: [''],
+        sku: [''],
+        stockInicial: [''],
+      });
     }
-    
-@ViewChild('cuentaPostulanteModal', { static: true }) cuentaPostulanteModal: NgbModal | undefined;
-modal: NgbModalRef | undefined;
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+  @ViewChild('modalContentCrop', { static: true }) modalContentCrop: TemplateRef<any>;
+  @ViewChild('cuentaPostulanteModal', { static: true }) cuentaPostulanteModal: NgbModal | undefined;
+  modal: NgbModalRef | undefined;
 
   ngOnInit(): void {
  this.catalogos();
@@ -40,6 +89,7 @@ modal: NgbModalRef | undefined;
 //*******************************************// 
   //CATALOGOS//
   public categorias: any = [];
+  public subcategorias: any = [];
   public catalogos() {
     this.spinner.show();
     this.auth.service_general_get('Catalog/Cat_Categorias').subscribe(observer => {
@@ -73,10 +123,20 @@ modal: NgbModalRef | undefined;
       }
     }, (err) => {
       console.log(err);
-    })
-    this.spinner.hide();
+    });
   }
 
+  getSubcategoria(id){
+    console.log(id);
+    this.auth.service_general_get('Catalog/Get_Cat_SubCategorias?id='+id).subscribe(observer => {
+      if (observer.result) {
+        this.subcategorias = observer.result;
+      }
+    }, (err) => {
+      console.log(err);
+    });
+    this.spinner.hide();
+  }
 
 /////////////////////////////////////////////////////
 //////////////////// BUSQUEDA //////////////////////
@@ -125,7 +185,31 @@ debugger;
     }, 3000);
 }
 
- 
+handleEvent(action: string, event): void {
+  this.modalService.open(this.modalContent, { size: 'lg' });
+}
+
+handleEvenCrop(action: string, event): void {
+  this.modalService.open(this.modalContentCrop, { size: 'lg' });
+}
+
+fileChangeEvent(event: any): void {
+  this.imageChangedEvent = event;
+}
+imageCropped(event: ImageCroppedEvent) {
+  //this.data.image = event.base64;
+  console.log(event.base64);
+}
+imageLoaded() {
+  // show cropper
+}
+cropperReady(event) {
+  // cropper ready
+}
+loadImageFailed() {
+  // show message
+}
+
   public limpiarFiltros() {
     this.fechaInicial = "";
     this.fechaFinal = "";

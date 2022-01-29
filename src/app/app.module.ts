@@ -31,6 +31,8 @@ import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -59,6 +61,7 @@ import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-
 import { UtilsModule } from '../app/utils/module';
 import { DisponibilidadComponent } from './dialog/disponibilidad/disponibilidad.component';
 import { CalendarEventsComponent } from './pages/calendar-events/calendar-events.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 export const MY_FORMATS = {
   parse: {
@@ -128,7 +131,11 @@ export const MY_FORMATS = {
     UtilsModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    MatSelectModule,
+    ImageCropperModule
+    
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
