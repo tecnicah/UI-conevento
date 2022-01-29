@@ -312,8 +312,9 @@ export class WizardComponent implements OnInit {
       console.log("NO ESTA COMPLETO: ", this.firstFormGroup.invalid);
       return;
     }
+    this.saveForm();
     this.get_disponibility(this._type_);
-    //this.saveForm();
+    
     //this.next();
   }
   //*******************************************//
@@ -920,7 +921,7 @@ export class WizardComponent implements OnInit {
 
   public async get_disponibility(type: number): Promise<any> {
 
-    // debugger;
+     debugger;
     this.spinner.show();
 
 
