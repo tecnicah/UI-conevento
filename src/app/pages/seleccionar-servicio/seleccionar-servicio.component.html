@@ -34,78 +34,81 @@
           </div>
         </div>
       </div>
+      <!-- <div class="col-12">
+        <app-slide-carousel-general [title]="'Personal'" [item]="productos"></app-slide-carousel-general>
+      </div>
+      <div class="col-12">
+        <app-slide-carousel-general [title]="'Personal'" [item]="productos"></app-slide-carousel-general>
+      </div> -->
+      <!-- <div class="col-12">
+        <app-slide-carousel-general></app-slide-carousel-general>
+      </div>
+      <div class="col-12">
+        <app-slide-carousel-general></app-slide-carousel-general>
+      </div> -->
       <div class="col-md-12">
-        <section class="pt-5 pb-5">
+        <!-- <section class="pt-1 pb-1">
+          <p class="Reboto-medium titulo" *ngIf="id==1">Personal</p>
+          <p class="Reboto-medium titulo" *ngIf="id==3">Talento</p> 
+          <p class="Reboto-medium titulo" *ngIf="id==7">Luces y Sonido</p>
+          <p class="Reboto-medium titulo" *ngIf="id==5">Bebidas (mayores de 18 años)</p> 
+        </section> -->
+        <section class="pt-1 pb-1">
           <div class="containerCarousel" #container>
             <div class="left" *ngIf="totalPages > 1" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}"></div>
             <div class="cards" [ngClass]="{'w-100': totalPages === 1}">
               <div class="overflow" [ngStyle]="{'width': overflowWidth, 'left': pagePosition}">
                 <div class="card" *ngFor="let item of productos | filterBy: userFilter; let i = index " [ngStyle]="{'width': cardWidth}">
-                  <div class="tarjeta_contenedor_principal">
-                    <div *ngIf="item.tipoImagenSeleccion == 'imagen'" class="imagenesTarj d-none d-md-block pointer"
-                      (click)="detalle(1, item)">
-                      <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-                    </div>
-                    <!-- <video *ngIf="item.tipoImagenSeleccion == 'video'" width="255" height="210" controls>
-                      <source [src]="item.imagenSeleccion" type="video/mp4">
-                      {{item.producto}}
-                    </video> -->
-                    <div *ngIf="item.tipoImagenSeleccion == 'video'">
+                  <mat-card class="example-card">
+                    <div *ngIf="item.tipoImagenSeleccion == 'video'" style="padding-bottom: 10px; margin-top: -16px">
                       <div class="d-block d-md-none">
-                        <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
+                        <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="8">
                          </youtube-player>
-                         <!--| dos
-                        <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
-                        </youtube-player> -->
                       </div>
                       <div class="d-none d-md-block"> 
-                        <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="210" [width]="255" [startSeconds]="4" [endSeconds]="8">
+                        <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="202" [width]="249" [startSeconds]="4" [endSeconds]="8">
                         </youtube-player>
                       </div>
                     </div>
           
-                    <!-- <div *ngIf="item.id == 29">
-                      <iframe class="videoyt"  src="{{yt}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div> -->
-                    
-          
-                    <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
-                      <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
+                    <div *ngIf="item.tipoImagenSeleccion == 'imagen'" class="pointer" (click)="detalle(2, item)">
+                      <img mat-card-image [src]="item.imagenSeleccion" alt="">
                     </div>
-          
-                    <div class="tarjeta_contendor" style="padding-top: 2%; padding-bottom: 1%;">
-                      <p class="Reboto-medium sizes_20 pointer d-none d-md-block" style="margin-bottom: 0px;"
-                        (click)="detalle(1, item)">{{item.producto}}</p>
-                      <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;"
-                        (click)="detalle(2, item)">{{item.producto}}</p>
-                      <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-                          class="tarjeta_color sizes_14" *ngIf="item.especificacionEspecial" style="font-style: italic;">
-                          {{item.especificacionEspecial}}</span>
-                      </p>
-                      <p class="tarjeta_justificado sizes_14">
-                        {{item.descripcionCorta}}
-                      </p>
-                      <div class="tarjeta_center sizes_14">Cantidad</div>
-                      <div class="tarjeta_footer">
-                        <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                          (click)="agregarCantidad(false, item.id);">
-                        <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-                          [(ngModel)]="item.cantidadUnidades"
-                          (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, item.id);'>
-                        <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
-                          (click)="agregarCantidad(true, item.id);" alt="" class="pointer">
+                    <mat-card-content>
+                      <div>
+                        <p class="Reboto-medium sizes_18 pointer d-none d-md-block" style="margin-bottom: 0px; height: 50px;"
+                          (click)="detalle(1, item)">{{item.producto}}</p>
+                        <p class="Reboto-medium sizes_18 pointer d-block d-md-none" style="margin-bottom: 0px; height: 50px"
+                          (click)="detalle(2, item)">{{item.producto}}</p>
+                        <p class="Reboto-medium sizes_16" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
+                            class="tarjeta_color sizes_12" *ngIf="item.especificacionEspecial" style="font-style: italic;">
+                            {{item.especificacionEspecial}}</span>
+                        </p>
+                        <p class="tarjeta_justificado sizes_12">
+                          {{item.descripcionCorta}}
+                        </p>
+                        <div class="tarjeta_center sizes_12">Cantidad</div>
+                        <div class="tarjeta_footer">
+                          <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+                            (click)="agregarCantidad(false, item.id);">
+                          <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
+                            [(ngModel)]="item.cantidadUnidades"
+                            (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, item.id);'>
+                          <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
+                            (click)="agregarCantidad(true, item.id);" alt="" class="pointer">
+                        </div>
+                        <div *ngIf="item.especificarTiempo" class="sizes_12 tarjeta_center">Cantidad de horas</div>
+                        <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
+                          <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+                            (click)="agregarhora(false, item.id, item);">
+                          <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
+                            (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)">
+                          <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
+                            (click)="agregarhora(true, item.id, item);">
+                        </div>
                       </div>
-                      <div *ngIf="item.especificarTiempo" class="sizes_14 tarjeta_center">Cantidad de horas</div>
-                      <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
-                        <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                          (click)="agregarhora(false, item.id, item);">
-                        <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
-                          (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)">
-                        <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
-                          (click)="agregarhora(true, item.id, item);">
-                      </div>
-                    </div>
-                  </div>
+                    </mat-card-content>
+                  </mat-card>
                 </div>
               </div>
             </div>
@@ -114,157 +117,6 @@
           </div>
         </section>
       </div>
-
-      <div class="col-md-12">
-        <section class="pt-5 pb-5">
-          <div class="containerCarousel" #container>
-            <div class="left" *ngIf="totalPages > 1" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}"></div>
-            <div class="cards" [ngClass]="{'w-100': totalPages === 1}">
-              <div class="overflow" [ngStyle]="{'width': overflowWidth, 'left': pagePosition}">
-                <div class="card" *ngFor="let item of productos | filterBy: userFilter; let i = index " [ngStyle]="{'width': cardWidth}">
-                  <div class="tarjeta_contenedor_principal">
-                    <div *ngIf="item.tipoImagenSeleccion == 'imagen'" class="imagenesTarj d-none d-md-block pointer"
-                      (click)="detalle(1, item)">
-                      <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-                    </div>
-                    <!-- <video *ngIf="item.tipoImagenSeleccion == 'video'" width="255" height="210" controls>
-                      <source [src]="item.imagenSeleccion" type="video/mp4">
-                      {{item.producto}}
-                    </video> -->
-                    <div *ngIf="item.tipoImagenSeleccion == 'video'">
-                      <div class="d-block d-md-none">
-                        <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
-                         </youtube-player>
-                         <!--| dos
-                        <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
-                        </youtube-player> -->
-                      </div>
-                      <div class="d-none d-md-block"> 
-                        <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="210" [width]="255" [startSeconds]="4" [endSeconds]="8">
-                        </youtube-player>
-                      </div>
-                    </div>
-          
-                    <!-- <div *ngIf="item.id == 29">
-                      <iframe class="videoyt"  src="{{yt}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div> -->
-                    
-          
-                    <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
-                      <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-                    </div>
-          
-                    <div class="tarjeta_contendor" style="padding-top: 2%; padding-bottom: 1%;">
-                      <p class="Reboto-medium sizes_20 pointer d-none d-md-block" style="margin-bottom: 0px;"
-                        (click)="detalle(1, item)">{{item.producto}}</p>
-                      <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;"
-                        (click)="detalle(2, item)">{{item.producto}}</p>
-                      <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-                          class="tarjeta_color sizes_14" *ngIf="item.especificacionEspecial" style="font-style: italic;">
-                          {{item.especificacionEspecial}}</span>
-                      </p>
-                      <p class="tarjeta_justificado sizes_14">
-                        {{item.descripcionCorta}}
-                      </p>
-                      <div class="tarjeta_center sizes_14">Cantidad</div>
-                      <div class="tarjeta_footer">
-                        <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                          (click)="agregarCantidad(false, item.id);">
-                        <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-                          [(ngModel)]="item.cantidadUnidades"
-                          (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, item.id);'>
-                        <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
-                          (click)="agregarCantidad(true, item.id);" alt="" class="pointer">
-                      </div>
-                      <div *ngIf="item.especificarTiempo" class="sizes_14 tarjeta_center">Cantidad de horas</div>
-                      <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
-                        <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                          (click)="agregarhora(false, item.id, item);">
-                        <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
-                          (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)">
-                        <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
-                          (click)="agregarhora(true, item.id, item);">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="right" *ngIf="totalPages > 1" (click)="currentPage != totalPages && changePage(+1)"
-              [ngClass]="{'disabled':currentPage === totalPages}"></div>
-          </div>
-        </section>
-      </div>
-      
-
-      <div class="col-md-3" *ngFor="let item of productos | filterBy: userFilter; let i = index ">
-        <div class="tarjeta_contenedor_principal">
-          <div *ngIf="item.tipoImagenSeleccion == 'imagen'" class="imagenesTarj d-none d-md-block pointer"
-            (click)="detalle(1, item)">
-            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-          </div>
-          <!-- <video *ngIf="item.tipoImagenSeleccion == 'video'" width="255" height="210" controls>
-            <source [src]="item.imagenSeleccion" type="video/mp4">
-            {{item.producto}}
-          </video> -->
-          <div *ngIf="item.tipoImagenSeleccion == 'video'">
-            <div class="d-block d-md-none">
-              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="1000">
-               </youtube-player>
-               <!--| dos
-              <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
-              </youtube-player> -->
-            </div>
-            <div class="d-none d-md-block"> 
-              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="210" [width]="255" [startSeconds]="4" [endSeconds]="1000">
-              </youtube-player>
-            </div>
-          </div>
-
-          <!-- <div *ngIf="item.id == 29">
-            <iframe class="videoyt"  src="{{yt}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div> -->
-          
-
-          <div class="imagenesTarj d-block d-md-none pointer" (click)="detalle(2, item)">
-            <img [src]="item.imagenSeleccion" alt="" class="tarjeta_img">
-          </div>
-
-          <div class="tarjeta_contendor" style="padding-top: 2%; padding-bottom: 1%;">
-            <p class="Reboto-medium sizes_20 pointer d-none d-md-block" style="margin-bottom: 0px;"
-              (click)="detalle(1, item)">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_20 pointer d-block d-md-none" style="margin-bottom: 0px;"
-              (click)="detalle(2, item)">{{item.producto}}</p>
-            <p class="Reboto-medium sizes_18" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-                class="tarjeta_color sizes_14" *ngIf="item.especificacionEspecial" style="font-style: italic;">
-                {{item.especificacionEspecial}}</span>
-            </p>
-            <p class="tarjeta_justificado sizes_14">
-              {{item.descripcionCorta}}
-            </p>
-            <div class="tarjeta_center sizes_14">Cantidad</div>
-            <div class="tarjeta_footer">
-              <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                (click)="agregarCantidad(false, item.id);">
-              <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-                [(ngModel)]="item.cantidadUnidades"
-                (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, item.id);'>
-              <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
-                (click)="agregarCantidad(true, item.id);" alt="" class="pointer">
-            </div>
-            <div *ngIf="item.especificarTiempo" class="sizes_14 tarjeta_center">Cantidad de horas</div>
-            <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
-              <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                (click)="agregarhora(false, item.id, item);">
-              <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
-                (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)">
-              <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
-                (click)="agregarhora(true, item.id, item);">
-            </div>
-          </div>
-        </div>
-      </div>
-      
 
       <!--p class="fix_color reboto-regular">Total: {{total | currency}}</p-->
       <a class="btn-wsp fab" target="_blank" (click)="back();">

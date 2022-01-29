@@ -30,6 +30,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCardModule} from '@angular/material/card';
 
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -126,7 +127,8 @@ export const MY_FORMATS = {
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     UtilsModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatCardModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],

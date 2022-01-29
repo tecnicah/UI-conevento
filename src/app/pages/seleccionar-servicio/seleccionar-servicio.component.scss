@@ -57,6 +57,7 @@
   &_justificado {
     text-align: justify;
     color: rgba(0, 0, 0, 0.56);
+    height: 50px;
   }
 
   &_center {
@@ -151,8 +152,16 @@
     font-size: 18px;
   }
 
+  &_16 {
+    font-size: 16px;
+  }
+
   &_14 {
     font-size: 14px;
+  }
+
+  &_12 {
+    font-size: 12px;
   }
 }
 
@@ -321,7 +330,6 @@
 .card {
   height: auto;
   background-color: transparent;
-  border-radius: 0;
   display: inline-block;
   margin-right: 10px;
   position: relative;
@@ -389,4 +397,21 @@
   display: inline-block;
   padding: 3px;
   right: 0;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+
+.class-hide{
+  display: none;
+}
+
+.class-show{
+  display: block;
 }
