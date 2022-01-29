@@ -161,25 +161,26 @@
                         <div class="row contenedor_uno" style="margin: 1% auto; border-radius: 10px;">
 
                             <div class="col-md-4">
-                                <p>Servicio| {{servicio.producto}}</p>
+                                <p>Servicio</p>
                                 <div class="input-group mb-3 margen_cero">
                                     <input type="text" class="form-control" placeholder="Nombre del servicio"
                                         aria-label="Servicio" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.producto" > 
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <p>Categoría</p> 
+                                <p>Categoría</p>
                                 <div class="input-group mb-3 margen_cero">
                                     <select class="form-control" aria-label="Precio" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.idCategoriaProducto">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
+                                        <option value=0 selected>Todos</option>
                                         <option value=1>Personal</option>
                                         <option value=3>Talento</option>
                                         <option value=5>Alimentos y Bebidas</option>
-                                        <option value=6 selected>Mobiliario</option>
+                                        <option value=6>Mobiliario</option>
                                         <option value=7>Luces y Sonido</option>
                                     </select>
                                     <div *ngIf="1==1" class="invalid-feedback">
@@ -192,7 +193,7 @@
                                 <div class="input-group mb-3 margen_cero">
                                     <input [min]="0" type="number" class="form-control" placeholder="Precio"
                                         aria-label="Precio" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.precio">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -204,7 +205,7 @@
                                 <div class="input-group mb-3 margen_cero">
                                     <input type="text" class="form-control" placeholder="Descripción corta"
                                         aria-label="Descripción corta" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.descripcionCorta">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -218,7 +219,7 @@
                                     [ngClass]="{ 'is-invalid': 1==1 }" > -->
                                     <textarea class="form-control" placeholder="Descripción larga"
                                         aria-label="Descripción larga" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" name="Text1" cols="40" rows="3" [ngModel] = "servicio.descripcionLarga">
+                                        [ngClass]="{ 'is-invalid': 1==1 }" name="Text1" cols="40" rows="3">
                                     </textarea>
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
@@ -231,7 +232,7 @@
                                 <div class="input-group mb-3 margen_cero">
                                     <input [min]="0" type="number" class="form-control" placeholder="Días bloqueo antes"
                                         aria-label="días bloqueo antes" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.diasBloqueoAntes">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -242,7 +243,7 @@
                                 <div class="input-group mb-3 margen_cero">
                                     <input [min]="0" type="number" class="form-control"
                                         placeholder="Días bloqueo después" aria-label="Días bloqueo después"
-                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.diasBloqueoDespues">
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -252,9 +253,9 @@
                             <div class="col-md-4">
                                 <p>Mínimo</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <input [min]="0" type="number" class="form-control" placeholder="Ingresa Mínimo"
+                                    <input [min]="0" type="number" class="form-control" placeholder="Mínimo"
                                         aria-label="Mínimo" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.minimoProductos">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -266,9 +267,9 @@
                             <div class="col-md-4">
                                 <p>Máximo</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <input [min]="0" type="number" class="form-control" placeholder="Ingresa Máximo"
+                                    <input [min]="0" type="number" class="form-control" placeholder="Máximo"
                                         aria-label="Máximo" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.maximoProductos">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -279,7 +280,7 @@
                                 <div class="input-group mb-3 margen_cero">
                                     <input type="text" class="form-control" placeholder="Especificación"
                                         aria-label="Especificación" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.especificacionEspecial">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -289,7 +290,7 @@
                                 <p>SKU</p>
                                 <div class="input-group mb-3 margen_cero">
                                     <input type="text" class="form-control" placeholder="SKU" aria-label="SKU"
-                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.sku">
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
@@ -298,21 +299,32 @@
                             <div class="col-md-4">
                                 <p>Stock</p>
                                 <div class="input-group mb-3 margen_cero">
-                                    <input [min]="0" type="number" class="form-control" placeholder="Ingresa Stock"
+                                    <input [min]="0" type="number" class="form-control" placeholder="Stock"
                                         aria-label="Stock" aria-describedby="basic-addon1"
-                                        [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.stockInicial">
+                                        [ngClass]="{ 'is-invalid': 1==1 }">
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
+                                <p>Disponibles</p>
+                                <div class="input-group mb-3 margen_cero">
+                                    <input [min]="0" type="number" disabled class="form-control"
+                                        placeholder="Disponibles" aria-label="Disponibles"
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
+                                    <div *ngIf="1==1" class="invalid-feedback">
+                                        <div *ngIf="1==1">Campo requerido</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <p>Tipo Imagen</p>
                                 <div class="input-group mb-3 margen_cero">
                                     <select class="form-control" aria-label="Tipo Imagen"
-                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }" [ngModel] = "servicio.tipoImagenSeleccion">
-                                        <option value="imagen" selected>Imagen</option>
-                                        <option value="video">Video</option>
+                                        aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': 1==1 }">
+                                        <option value=1 selected>Imagen</option>
+                                        <option value=2>Video</option>
                                     </select>
                                     <div *ngIf="1==1" class="invalid-feedback">
                                         <div *ngIf="1==1">Campo requerido</div>
@@ -340,11 +352,11 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-12"></div>
+                            <div class="col-md-6"></div>
                             <div class="col-6">
                                 <div style="width: 255px; height: 208px; ">
                                     <img style="width: 255px; height: 208px; "
-                                        src="{{servicio.imagenSeleccion}}" />
+                                        src="http://34.237.214.147/back/api_conevento/Imagenes/assets/Home/imagenes-productos/Ta1.jpg" />
                                 </div>
                             </div>
                             <div class="col-6">
@@ -414,7 +426,7 @@
                                 </thead>
                                 <tbody>
                                     <tr style="padding: 5px;"
-                                        *ngFor="let _item of servicio.listaProductosEventos; let j = index ">
+                                        *ngFor="let _item of eventos.listaProductosEventos; let j = index ">
                                         <td>
                                             <span>{{ j + 1 + (_p-1)*5 }}
 

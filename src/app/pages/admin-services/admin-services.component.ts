@@ -135,7 +135,6 @@ debugger;
   }
 
   viewdetail(item: any){
-    
     this.get_detalle_evento(item.id);
   }
 
@@ -143,21 +142,13 @@ debugger;
    
       let data_user = JSON.parse(localStorage.getItem('userData') || '{}');
       this.spinner.show();
-      this.auth.service_general_post_with_url('Catalog/productos_by_id_navigate?id='+ id, '').subscribe(r => {
+      this.auth.service_general_post_with_url('Eventos/GetEventDtailById?id_='+ id, '').subscribe(r => {
         if(r.result){
-          debugger;
           this.spinner.hide();
-          if(r.result.length > 0)
-          {
-            console.log("POP UP | value servicio/producto ================== > : " ,r.result);
-            this.servicio =  r.result[0];
-            this.modal = this.modalService.open(this.cuentaPostulanteModal, { scrollable: true, size: 'lg' });
-          }
-          else
-          {
-            console.log("No trajo resultados el clik en el sku " ,r.result);
-          }
-         
+         // console.log(r.result);
+          console.log("POP UP | value evento ================== > : " ,r.result.value);
+          this.eventos =  r.result.value;
+          this.modal = this.modalService.open(this.cuentaPostulanteModal, { scrollable: true, size: 'lg' });
         }
       },(err)=>{
         this.spinner.hide();
@@ -173,7 +164,7 @@ pageSize = 4;
 public data_model: any = {};
 countries$: any =  [] ;
 filter = new FormControl('');
-public servicio :any;
+public eventos:any = [];
 public resultados :any = [];
 public resultados_p: any = [];
 

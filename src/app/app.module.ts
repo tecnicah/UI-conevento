@@ -51,12 +51,10 @@ import { AvisoComponent } from './pages/aviso/aviso.component';
 import { YouTubePlayerModule } from "@angular/youtube-player";
 import { MAT_DATE_FORMATS } from '@angular/material/core';
 import { MomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { AdminUsersComponent } from './pages/admin-users/admin-users.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component';
 import { UtilsModule } from '../app/utils/module';
-import { DisponibilidadComponent } from './dialog/disponibilidad/disponibilidad.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -96,9 +94,7 @@ export const MY_FORMATS = {
     StripeComponent,
     TerminosComponent,
     AvisoComponent,
-    AdminUsersComponent,
-    CalendarServiciosComponent,
-    DisponibilidadComponent
+    CalendarServiciosComponent
   ],
   imports: [
     NgxPayPalModule,

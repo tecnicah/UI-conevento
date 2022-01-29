@@ -39,12 +39,8 @@
 
                 <div class="flex_contenedor_input">
                   <div class="input-group mb-3">
-                    
-                    <select [(ngModel)]="this.data_model.medio" class="form-control" aria-label="Default select example" placeholder="Como prefieres que te contactemos"
-                        required>
-                      <option value="telefono" selected>Prefiero contacto télefono</option>
-                      <option value="correo" >Prefiero contacto correo</option>
-                    </select>
+                    <input type="text" class="form-control" [(ngModel)]="this.data_model.medio" placeholder="Como prefieres que te contactemos"
+                      aria-label="Como prefieres que te contactemos" aria-describedby="basic-addon1" required>
                   </div>
                 </div>
 
@@ -66,7 +62,7 @@
 
 
                 <div class="flex_contenedor">
-                  <button type="button" (click)="save();" class="btn flex_button">Enviar</button>
+                  <button type="button" (click)="save();" class="btn flex_button">Guardar</button>
                 </div>
 
               </div>

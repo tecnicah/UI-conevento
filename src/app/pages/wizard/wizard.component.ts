@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component , ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivationStart, Router } from '@angular/router';
@@ -13,7 +13,6 @@ import { WizardLoginComponent } from 'src/app/dialog/wizard-login/wizard-login.c
 import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { observable } from 'rxjs';
 import { DateAdapter } from '@angular/material/core';
-import { DisponibilidadComponent } from 'src/app/dialog/disponibilidad/disponibilidad.component';
 
 
 //declare var paypal;
@@ -22,7 +21,7 @@ import { DisponibilidadComponent } from 'src/app/dialog/disponibilidad/disponibi
   selector: 'app-wizard',
   templateUrl: './wizard.component.html',
   styleUrls: ['./wizard.component.scss']
-  // , providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] }]
+ // , providers: [{ provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },{ provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] }]
 })
 
 
@@ -60,7 +59,7 @@ export class WizardComponent implements OnInit {
 
   constructor(private dateAdapter: DateAdapter<Date>, public spinner: SpinnerService, private _formBuilder: FormBuilder
     , public auth: HttpService, public router_: Router, public _dialog: MatDialog, public appComponent: AppComponent) {
-    this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
+      this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy
   }
   //*******************************************// 
   //CATALOGOS//
@@ -123,11 +122,14 @@ export class WizardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     localStorage.removeItem('stripe');
     var obj = 1;
+
+    //  setInterval(this.load_stripe_card, 1000)
     setInterval(this.validate_stripe, 2000);
 
     this.appComponent.detectaRuta();
     this.initConfigPayPal();
     this.load_stripe_card();
+    //paypal.Buttons().render(this.paypalElement.nativeElement);
     this.catalogos();
     this.firstFormGroup = this._formBuilder.group({
       fechaHoraInicio: new FormControl(null, Validators.compose([Validators.required])),
@@ -142,7 +144,11 @@ export class WizardComponent implements OnInit {
       cp: [''],
       calleNumero: ['', Validators.required],
       colonia: ['', Validators.required],
+
+      // nombreContratane: ['', Validators.required],
       nombreEvento: [''],
+      // correo: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
+      // telefono: ['', Validators.required],
     });
     this.appComponent.get_sesion();
   }
@@ -151,6 +157,7 @@ export class WizardComponent implements OnInit {
     this.payPalConfig = {
       currency: 'MXN',
       clientId: environment.clientId,
+      //advanced: { extraQueryParams: [ { name: "disable-funding", value:"credit,card"} ] } ,
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         application_context: {
           shipping_preference: "NO_SHIPPING"
@@ -238,59 +245,42 @@ export class WizardComponent implements OnInit {
     if (localStorage.getItem('categorias')) {
       this.auth.categorias = JSON.parse(localStorage.getItem('categorias') || '{}');
     }
-
-    ////aqui hay que editar
     if (localStorage.getItem('form')) {
       this.data_model = JSON.parse(localStorage.getItem('form') || '{}');
       this.auth.data_form = JSON.parse(localStorage.getItem('form') || '{}');
       this.steps = {
-        uno: "selected",
-        dos: "next",
+        uno: "complete",
+        dos: "selected",
         tres: "next",
         cuatro: false
       }
       this.steps_css = {
-        uno: "class-view",
-        dos: "class-none",
+        uno: "class-none",
+        dos: "class-view",
         tres: "class-none",
         cuatro: "class-none"
       }
-
-      // this.steps = {
-      //   uno: "complete",
-      //   dos: "selected",
-      //   tres: "next",
-      //   cuatro: false
-      // }
-      // this.steps_css = {
-      //   uno: "class-none",
-      //   dos: "class-view",
-      //   tres: "class-none",
-      //   cuatro: "class-none"
-      // }
     }
 
     if (localStorage.getItem('productos')) {
       this.Productos_listado = JSON.parse(localStorage.getItem('productos') || '{}');
       this.auth.listaProductosEventos = JSON.parse(localStorage.getItem('productos') || '{}');
       if (this.Productos_listado.length != 0) {
-        // this.steps = {
-        //   uno: "complete",
-        //   dos: "selected",
-        //   tres: "next",
-        //   cuatro: false
-        // }
-        // this.steps_css = {
-        //   uno: "class-none",
-        //   dos: "class-view",
-        //   tres: "class-none",
-        //   cuatro: "class-none"
-        // }
+        this.steps = {
+          uno: "complete",
+          dos: "selected",
+          tres: "next",
+          cuatro: false
+        }
+        this.steps_css = {
+          uno: "class-none",
+          dos: "class-view",
+          tres: "class-none",
+          cuatro: "class-none"
+        }
         this.calculos();
       }
     }
-    ////aqui hay que editar
-
     this.setNumProductos();
     this.setchecks();
 
@@ -298,6 +288,7 @@ export class WizardComponent implements OnInit {
       this.fillForm();
     }
     this.restart_dates();
+    //this.get_sesion();
     this.spinner.hide();
   }
 
@@ -312,9 +303,9 @@ export class WizardComponent implements OnInit {
       console.log("NO ESTA COMPLETO: ", this.firstFormGroup.invalid);
       return;
     }
-    this.get_disponibility(this._type_);
-    //this.saveForm();
-    //this.next();
+    // console.log(this.firstFormGroup);
+    this.saveForm();
+    this.next();
   }
   //*******************************************//
   //FUNCIONES PARA SELECCION DE SERVICIOS//
@@ -345,7 +336,10 @@ export class WizardComponent implements OnInit {
     }
     this.Subtotal = this.total / 1.16;
     this.IVA = this.total - this.Subtotal;
+    //alert(this.total);
     this.Subtotal = parseFloat(this.Subtotal.toFixed(2));
+    //alert(this.total);
+    //  console.log("Productos listado ===============>" , this.Productos_listado)
   }
 
   //*******************************************//
@@ -379,29 +373,35 @@ export class WizardComponent implements OnInit {
       //telefono: this.firstFormGroup.value.telefono
     }
 
-    this.data_model.fechaHoraInicio = this.dato_to_string(this.data_model.fechaHoraInicio, this.data_model.horaInicio, this.data_model.minInicio);
-    this.data_model.fechaHoraFin = this.dato_to_string(this.data_model.fechaHoraFin, this.data_model.horaFin, this.data_model.minFin);
+
+
+   // debugger;
+    //'2017-03-07T10:00:00'
+    this.data_model.fechaHoraInicio  = this.dato_to_string(this.data_model.fechaHoraInicio, this.data_model.horaInicio, this.data_model.minInicio);
+    this.data_model.fechaHoraFin = this.dato_to_string(this.data_model.fechaHoraFin,this.data_model.horaFin,this.data_model.minFin);
     this.auth.data_form = this.data_model;
-    //console.log("================== data_model: ", this.data_model);
+    console.log("================== data_model: ", this.data_model);
     localStorage.setItem('form', JSON.stringify(this.data_model))
   }
 
 
-  public dato_to_string(dtToday: any, horas: string, minutos: string): String {
+  public dato_to_string(dtToday: any, horas: string, minutos: string): String{
     debugger;
-    if (Object.prototype.toString.call(dtToday) === "[object Date]") { }
-    else {
-      var r = dtToday.substring(0, 10);
-      dtToday = new Date(dtToday.substring(0, 10));
+    if (Object.prototype.toString.call(dtToday) === "[object Date]")
+    { }
+    else{
+      var r = dtToday.substring(0,10);
+      dtToday = new Date(dtToday.substring(0,10));
     }
-    var month = (dtToday.getMonth() + 1).toString();
+    var month = (dtToday.getMonth() + 1).toString();     
     var day = (dtToday.getDate()).toString();
     var year = dtToday.getFullYear();
     if (parseInt(month) < 10)
       month = '0' + month.toString();
     if (parseInt(day) < 10)
       day = '0' + day.toString();
-    var date = year + '-' + month + '-' + day + "T" + horas + ":" + minutos;
+
+    var date = year + '-' + month + '-' + day + "T"+ horas+ ":" + minutos;
     return date;
   }
 
@@ -418,10 +418,7 @@ export class WizardComponent implements OnInit {
       this.error_nombre = true;
   }
 
-
-
   public validate_telefono() {
-    debugger;
     if (this.telefono.length > 5) {
       this.data_model.telefono = this.telefono;
       this.error_telefono = false;
@@ -430,26 +427,12 @@ export class WizardComponent implements OnInit {
       this.error_telefono = true;
   }
 
-
-  public validarEmail(valor): any {
-    var valida = false;
-    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)) {
-      // alert("La dirección de email " + valor + " es correcta!.");
-      valida = true;
-    } else {
-      //  alert("La dirección de email es incorrecta!.");
-      valida = false;
-    }
-
-    return valida
-  }
-
   public validate_correo() {
-    // debugger
-    //var valreg = this.correo.toLowerCase().match(this.emailRegex);
-    var valida = this.validarEmail(this.correo);
+    debugger
+    // var hhh = this.emailRegex.match(String(this.correo).toLowerCase());
+    var valreg = this.correo.toLowerCase().match(this.emailRegex);
 
-    if ((this.correo.length > 5) && (valida)) {
+    if ((this.correo.length > 5) && (valreg != null)) {
       this.data_model.correo = this.correo;
       this.error_correo = false;
     }
@@ -458,11 +441,11 @@ export class WizardComponent implements OnInit {
   }
 
   public saveContacto(type: any) {
-    // debugger;
+    debugger;
 
     var valreg = this.correo.toLowerCase().match(this.emailRegex);
-    var valida = this.validarEmail(this.correo);
-    if ((this.correo.length > 5) && (valida)) {
+
+    if ((this.correo.length > 5) && (valreg != null)) {
       this.data_model.correo = this.correo;
       this.error_correo = false;
       localStorage.setItem('form', JSON.stringify(this.data_model))
@@ -487,7 +470,7 @@ export class WizardComponent implements OnInit {
       this.error_nombre = true;
 
     if (!this.error_correo && !this.error_telefono && !this.error_nombre) {
-      // console.log("===================== si jala");
+      console.log("===================== si jala");
 
       if (!localStorage.getItem('userData')) {
         let ancho = '';
@@ -518,96 +501,19 @@ export class WizardComponent implements OnInit {
       }
     }
     else {
-      // console.log("====================== no jala")
+      console.log("====================== no jala")
       window.scrollTo(100, 360);
       console.log("NO ESTA COMPLETOS LOS DATOS DE PERFIL");
     }
 
   }
 
-
-  detalle(type: any, item: any) {
-    localStorage.setItem('detalle', JSON.stringify(item))
-    let ancho = '';
-    let alto = '250%';
-    if (type == 1) {
-      ancho = '60%';
-      alto = '50%';
-    } else {
-      ancho = '100%';
-    }
-    const dialogRef = this._dialog.open(DisponibilidadComponent, {
-      width: ancho,
-      // height: alto,
-      data: item
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      //debugger;;
-      if (result.success) {
-        console.log(result);
-        this.steps = {
-          uno: "selected",
-          dos: "next",
-          tres: "next",
-          cuatro: false
-        }
-        this.steps_css = {
-          uno: "class-view",
-          dos: "class-none",
-          tres: "class-none",
-          cuatro: "class-none"
-        }
-        window.scrollTo(0, 100);
-        // this.guardarServiciosElegidosDetalle(result);
-      } else if (!result.success) {
-        
-      }
-
-    })
-  }
-
- public _type_: any ;
-  do_click_form(type: number) {
-    console.log("Lista de prodictos========================: ", JSON.stringify(this.auth.listaProductosEventos));
-    //debugger;
-    //this.get_disponibility(type);
-    //this.detalle(this.dd, this.data_model);
-    this._type_ = type;
-    document.getElementById('idformbtu').click();
-  }
-
-
   //*******************************************//
   //FUNCION PARA LLENAR EL FORMULAARIO//
   public fillForm() {
     let data = JSON.parse(localStorage.getItem('form') || '{}')
-    
-    var _fi: any = new Date(data.fechaHoraInicio.substring(0, 10));
-    _fi.setTime(_fi.getTime() + (2 * 24 * 60 * 60 * 1000));
-    var month = (_fi.getMonth() + 1).toString();     // getMonth() is zero-based
-    var day = (_fi.getDate()).toString();
-    var year = _fi.getFullYear();
-    if (parseInt(month) < 10) month = '0' + month.toString();
-    if (parseInt(day) < 10) day = '0' + day.toString();
-    var maxDate = year + '-' + month + '-' + day;
-    
-    var _fi_: any = new Date(data.fechaHoraFin.substring(0, 10));
-    _fi_.setTime(_fi_.getTime() + (2 * 24 * 60 * 60 * 1000));
-    var _month = (_fi_.getMonth() + 1).toString();     // getMonth() is zero-based
-    var _day = (_fi_.getDate()).toString();
-    var _year = _fi_.getFullYear();
-    if (parseInt(_month) < 10) _month = '0' + _month.toString();
-    if (parseInt(_day) < 10) _day = '0' + _day.toString();
-    var _maxDate = _year + '-' + _month + '-' + _day;
-
-
-
-
-    // this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(data.fechaHoraInicio.substring(0, 10)));
-    this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(maxDate));
-    // this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(data.fechaHoraFin.substring(0, 10)));
-    this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(_maxDate));
+    this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(data.fechaHoraInicio.substring(0,10)));
+    this.firstFormGroup.get("fechaHoraFin")?.setValue(new Date(data.fechaHoraFin.substring(0,10)));
     this.firstFormGroup.get("genteEsperada")?.setValue(data.genteEsperada);
     this.firstFormGroup.get("ciudad")?.setValue(data.ciudad);
     this.firstFormGroup.get("idCatMunicipio")?.setValue(data.idCatMunicipio);
@@ -630,8 +536,6 @@ export class WizardComponent implements OnInit {
     //this.firstFormGroup.get("nombreContratane")?.setValue(data.nombreContratane);
     console.log("sesion de formulario ==========", data, this.telefono)
   }
-  
-  
   //*******************************************//
   //FUNCIONES PARA PASO 3//
   public step = 0;
@@ -680,11 +584,11 @@ export class WizardComponent implements OnInit {
 
   }
 
-  next_validate_total() {
-    if (this.total >= 600) {
+  next_validate_total(){
+    if(this.total >= 600){
       this.next();
     }
-    else {
+    else{
 
       Swal.fire({
         position: 'top-end',
@@ -785,11 +689,9 @@ export class WizardComponent implements OnInit {
         cuatro: "class-none"
       }
     }
-    window.scrollTo(0, 100);
   }
 
-
-  public back_step2a() {
+  public back_step2() {
     this.steps = {
       uno: "complete",
       dos: "selected",
@@ -802,35 +704,6 @@ export class WizardComponent implements OnInit {
       tres: "class-none",
       cuatro: "class-none"
     }
-  }
-
-  public back_step2() {
-    // this.steps = {
-    //   uno: "complete",
-    //   dos: "selected",
-    //   tres: "next",
-    //   cuatro: false
-    // }
-    // this.steps_css = {
-    //   uno: "class-none",
-    //   dos: "class-view",
-    //   tres: "class-none",
-    //   cuatro: "class-none"
-    // }
-
-    this.steps = {
-      uno: "selected",
-      dos: "next",
-      tres: "next",
-      cuatro: false
-    }
-    this.steps_css = {
-      uno: "class-view",
-      dos: "class-none",
-      tres: "class-none",
-      cuatro: "class-none"
-    }
-    window.scrollTo(0, 100);
   }
 
   public set_stepper(step: number) {
@@ -896,7 +769,7 @@ export class WizardComponent implements OnInit {
     else {
       console.log("ya no regreso");
     }
-    window.scrollTo(0, 100);
+
 
   }
 
@@ -908,56 +781,13 @@ export class WizardComponent implements OnInit {
     this.firstFormGroup.get("fechaHoraFin")?.setValue(null);
   }
 
-
-  //****************************************** */
-  // Validacion de siponibilidad 
-
-  public _dtolista: any = {
-    ListaProductosEventos: null,
-    Fecha: null
-  }
-
-
-  public async get_disponibility(type: number): Promise<any> {
-
-    // debugger;
-    this.spinner.show();
-
-
-
-    this._dtolista.ListaProductosEventos = this.Productos_listado;
-    this._dtolista.Fecha = this.data_model.fechaHoraInicio;
-
-    console.log("Lista a validar: ====================> ", this._dtolista);
-    this.auth.service_general_post_with_url('Catalog/Productos_by_id_date', this._dtolista).subscribe(r => {
-      if (r.success) {
-        console.log("resultado dispo Ok : ==================== ", r.result);
-        if(r.result.length > 0)
-        {
-          this.detalle(type, r.result);
-        }
-        else{ // no hay bronca con al disponibilidad y la fecha
-          this.saveForm();
-          this.next();
-        }
-        this.spinner.hide();
-      }
-    }, (err) => {
-
-      console.log("Resultado err dispo: =======================", err);
-
-      this.spinner.hide();
-    })
-  }
-  
-
   //*******************************************//
   //FUNCIONES PARA GUARDAR EL EVENTO//
 
   public req_factura: boolean = false;
   public async saveEvent(create_time: any, id: any, metodo: string): Promise<any> {
 
-    debugger;
+debugger;
     this.spinner.show();
     let json_bd: any = this.data_model;//this.auth.data_form;
 
@@ -1061,17 +891,16 @@ export class WizardComponent implements OnInit {
     localStorage.removeItem('productos');
     localStorage.removeItem('categorias');
     localStorage.removeItem('stripe');
-    // this.fillForm();
+   // this.fillForm();
   }
 
-  public inputReadonly = true;
-  public fechamat;
-  public fechamatfin;
+  public fechamat ;
+  public fechamatfin ;
   public sas;
   public min_date_ = "";
-  public min_date_2 = "";
-  public dtToday: Date = null;
-  public date_inicio_test: Date = null;
+  public min_date_2 ="";
+  public dtToday:Date = null;
+  public date_inicio_test:Date = null; 
   public restart_dates() {
     //////debugger;;
     //Display Only Date till today // 
@@ -1094,46 +923,51 @@ export class WizardComponent implements OnInit {
       day = '0' + day.toString();
 
     var maxDate = year + '-' + month + '-' + day + "T00:01";
-    this.min_date_ = day + "/" + month + "/" + year;
-    this.min_date_2 = day + "/" + month + "/" + year;
+    this.min_date_ = day+"/"+month+"/"+year;
+    this.min_date_2 = day+"/"+month+"/"+year;
     document.getElementById("start")?.setAttribute('min', maxDate);
     var xxx = document.getElementById("start")?.getAttribute("min");
     // $('#dateID').attr('max', maxDate);
   }
 
-  public f_inicio_error: boolean = false;
-  public compare_inicio_date() {
+  public f_inicio_error: boolean = false ;
+  public compare_inicio_date()
+  {
     debugger;
 
     var ffin = this.firstFormGroup.value.fechaHoraInicio;
 
-    if (Object.prototype.toString.call(ffin) === "[object Date]") { }
-    else {
-      var r = ffin.substring(0, 10);
-      ffin = new Date(ffin.substring(0, 10));
+    if (Object.prototype.toString.call(ffin) === "[object Date]")
+    { }
+    else{
+      var r = ffin.substring(0,10);
+      ffin = new Date(ffin.substring(0,10));
     }
 
-    this.date_inicio_test = new Date(ffin);
-    if (this.date_inicio_test <= this.dtToday) {
+     this.date_inicio_test = new Date(ffin);
+    if(this.date_inicio_test <= this.dtToday){
       this.f_inicio_error = true;
-      // this.firstFormGroup.get('fechaHoraInicio')?.setValue(null);
+     // this.firstFormGroup.get('fechaHoraInicio')?.setValue(null);
     }
-    else {
-
+    else
+    {
+      
       this.f_inicio_error = false;
     }
   }
 
-  public f_fin_error: boolean = false;
-  public compare_fin_date() {
+  public f_fin_error: boolean = false ;
+  public compare_fin_date()
+  {
     //debugger;
-    this.date_inicio_test = new Date(this.firstFormGroup.value.fechaHoraFin);
-    if (this.date_inicio_test <= this.dtToday) {
+     this.date_inicio_test = new Date(this.firstFormGroup.value.fechaHoraFin);
+    if(this.date_inicio_test <= this.dtToday){
       this.f_fin_error = true;
       this.firstFormGroup.get("fechaHoraFin")?.setValue(null);
     }
-    else {
-
+    else
+    {
+      
       this.f_fin_error = false;
     }
   }

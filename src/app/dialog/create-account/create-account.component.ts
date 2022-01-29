@@ -58,11 +58,12 @@ export class CreateAccountComponent implements OnInit {
   public correo_diferente_confirmacion: boolean = false;
   validateEmail() {
     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-   // if (emailRegex.test(this.data_model.correo)) {
-    if (this.validarEmail(this.data_model.correo)) {
+    if (emailRegex.test(this.data_model.correo)) {
+      //  console.log("FORMATO DE CORREO CORRECTO");
       this.correo_incorrecto = false;
     } else {
       this.correo_incorrecto = true;
+      //  console.log("FORMATO DE CORREO INCORRECTO");
     }
     if (this.data_model.confirmacorreo != this.data_model.correo) {
       this.correo_diferente_confirmacion = true;
@@ -72,25 +73,10 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
-
-  public validarEmail(valor): any {
-    var valida = false;
-    if (/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(valor)) {
-      // alert("La dirección de email " + valor + " es correcta!.");
-      valida = true;
-    } else {
-      //  alert("La dirección de email es incorrecta!.");
-      valida = false;
-    }
-
-    return valida
-  }
-
   public correo_incorrecto_confirmacion: boolean = false;
   validateEmailConfirmacion() {
     let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
-   // if (emailRegex.test(this.data_model.confirmacorreo)) {
-    if (this.validarEmail(this.data_model.correo)) {
+    if (emailRegex.test(this.data_model.confirmacorreo)) {
       //  console.log("FORMATO DE CORREO CORRECTO");
       this.correo_incorrecto_confirmacion = false;
     } else {
@@ -160,8 +146,7 @@ export class CreateAccountComponent implements OnInit {
       this.data_model.fecha_edicion = new Date();
       this.auth.service_general_post_with_url('User/AddUser', this.data_model).subscribe(r => {
         if (r.success) {
-          debugger;
-         //console.log("respuesta exitosa: ", r);
+          console.log("respuesta exitosa: ", r);
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -172,24 +157,14 @@ export class CreateAccountComponent implements OnInit {
           this.dialogRef.close();
           this.spinner.hide();
         }
-        else{ //Message
-          Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            title: 'Ups! '+ r.message,
-            showConfirmButton: false,
-            timer: 2300
-          })
-        }
       }, (err) => {
-        debugger;
         console.log("Error al guardar información: ", err);
         Swal.fire({
           position: 'top-end',
           icon: 'error',
-          title: 'Ups! ' + err.error.message,
+          title: 'Ha ocurrido un error, intenta de nuevo',
           showConfirmButton: false,
-          timer: 3800
+          timer: 1800
         })
         this.dialogRef.close();
         this.spinner.hide();
