@@ -47,11 +47,17 @@
                     </select>
                 </div>
                 <div class="col-2 end">
-                    <button class="btn pagar_siguiente Reboto-medium" (click)="limpiarFiltros();">Limpiar
-                        <!-- <span
-                            class="material-icons">
-                            delete
-                        </span> -->
+                    <button class="btn pagar_siguiente Reboto-medium" (click)="opencalendario();">
+                        <a [routerLink]="['/admin/calendar-events/1']" target="blank" style="color: honeydew;">
+                            Ver <mat-icon>calendar_today</mat-icon>
+                        </a>
+                    </button>
+                    &nbsp;&nbsp;
+                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: goldenrod;"
+                        (click)="limpiarFiltros();">
+                        Limpiar <mat-icon>
+                            autorenew
+                        </mat-icon>
                     </button>
                 </div>
             </div>
@@ -189,8 +195,8 @@
                                 <div class="input-group mb-3 margen_cero">
                                     <span>
                                         {{ eventos.fechaHoraFin | date: 'dd/MM/yyyy'}}&nbsp;&nbsp;{{
-                                            eventos.fechaHoraFin |
-                                            date:'shortTime' }}
+                                        eventos.fechaHoraFin |
+                                        date:'shortTime' }}
                                     </span>
                                 </div>
                             </div>
@@ -298,11 +304,12 @@
                             </div>
                             <div class="col-md-12">
                                 <p class="Reboto-medium subtitle">
-                                    Monto total: {{eventos.total | currency}} &nbsp;  
-                                    <span *ngIf="eventos.flete > 0" style="color: gray; font-size: 14px; font-style: italic;">
-                                       (Incluye Flete $500.00)
-                                    </span> &nbsp; &nbsp;  
-                                    
+                                    Monto total: {{eventos.total | currency}} &nbsp;
+                                    <span *ngIf="eventos.flete > 0"
+                                        style="color: gray; font-size: 14px; font-style: italic;">
+                                        (Incluye Flete $500.00)
+                                    </span> &nbsp; &nbsp;
+
                                 </p>
                                 <p class="Reboto-medium subtitle">Servicios ({{eventos.total_servicios}}): </p>
                             </div>
@@ -348,7 +355,7 @@
                                         *ngFor="let _item of eventos.listaProductosEventos; let j = index ">
                                         <td>
                                             <span>{{ j + 1 + (_p-1)*5 }}
-            
+
                                             </span>
                                         </td>
                                         <td>
@@ -363,7 +370,7 @@
                                             &nbsp;&nbsp;{{ _item.cantidadUnidades }} &nbsp;&nbsp;
                                         </td>
                                         <td *ngIf="_item.especificarTiempo">
-                                            &nbsp;&nbsp;{{ _item.cantidadHoras }} 
+                                            &nbsp;&nbsp;{{ _item.cantidadHoras }}
                                             &nbsp;&nbsp;
                                         </td>
                                         <td *ngIf="!_item.especificarTiempo">
@@ -372,15 +379,15 @@
                                         </td>
                                         <td>
                                             &nbsp;&nbsp;
-                                                {{ _item.monto | currency  }}
+                                            {{ _item.monto | currency }}
                                             &nbsp;&nbsp;
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                         </div>
-                        </div>
+                    </div>
                     <!-- <div class="col-12">Contenedor de 7 columnna</div> -->
                 </div>
             </div>

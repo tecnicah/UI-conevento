@@ -30,8 +30,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatCardModule} from '@angular/material/card';
-import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
 
 //external
 import { NgxPayPalModule } from 'ngx-paypal';
@@ -59,7 +57,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component';
 import { UtilsModule } from '../app/utils/module';
 import { DisponibilidadComponent } from './dialog/disponibilidad/disponibilidad.component';
-import { SlideCarouselGeneralComponent } from './componentUtils/slide-carousel-general/slide-carousel-general.component';
+import { CalendarEventsComponent } from './pages/calendar-events/calendar-events.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -102,7 +100,7 @@ export const MY_FORMATS = {
     AdminUsersComponent,
     CalendarServiciosComponent,
     DisponibilidadComponent,
-    SlideCarouselGeneralComponent
+    CalendarEventsComponent
   ],
   imports: [
     NgxPayPalModule,
@@ -128,9 +126,7 @@ export const MY_FORMATS = {
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     UtilsModule,
     MatRadioModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MdbCarouselModule
+    MatCheckboxModule
   ],
   providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],

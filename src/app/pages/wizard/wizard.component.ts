@@ -107,14 +107,14 @@ export class WizardComponent implements OnInit {
     var sesion_stripe: any;
     if (localStorage.getItem('stripe')) {
       sesion_stripe = JSON.parse(localStorage.getItem('stripe') || '{}');
-      console.log(sesion_stripe);
-      alert('*-*-*-*-*-*-*-**-*-**- estatus stripe: ' + sesion_stripe.paymentIntent.status);
-      localStorage.removeItem('stripe');
+     // console.log(sesion_stripe);
+     // alert('*-*-*-*-*-*-*-**-*-**- estatus stripe: ' + sesion_stripe.paymentIntent.status);
+     // localStorage.removeItem('stripe');
       ////debugger;;
     }
     else {
       sesion_stripe = null;
-      console.log("sesion_stripe vacia");
+     // console.log("sesion_stripe vacia");
     }
   }
 
