@@ -209,14 +209,14 @@
           </video> -->
           <div *ngIf="item.tipoImagenSeleccion == 'video'">
             <div class="d-block d-md-none">
-              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
+              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="1000">
                </youtube-player>
                <!--| dos
               <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
               </youtube-player> -->
             </div>
             <div class="d-none d-md-block"> 
-              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="210" [width]="255" [startSeconds]="4" [endSeconds]="8">
+              <youtube-player videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="210" [width]="255" [startSeconds]="4" [endSeconds]="1000">
               </youtube-player>
             </div>
           </div>

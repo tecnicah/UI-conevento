@@ -17,7 +17,7 @@ export class NosotrosComponent implements OnInit {
     this.data_model.nombres = "";
     this.data_model.telefono = "";
     this.data_model.correo = "";
-    this.data_model.medio = "";
+    this.data_model.medio = "telefono";
     this.data_model.servicios = "";
   }
 
