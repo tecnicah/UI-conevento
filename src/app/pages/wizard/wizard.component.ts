@@ -319,7 +319,7 @@ export class WizardComponent implements OnInit {
   //*******************************************//
   //FUNCIONES PARA SELECCION DE SERVICIOS//
   public selectServices(item: any) {
-    this.router_.navigateByUrl('SeleccionarServicios/' + item.id + "/" + this.data_model.fechaHoraInicio)
+    this.router_.navigateByUrl('SeleccionarServicios/' + item.id)
   }
   //*******************************************//
   //FUNCION PARA SACAR IVA, TOTAL Y SUBTOTAL//
