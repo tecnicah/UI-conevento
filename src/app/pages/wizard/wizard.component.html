@@ -334,14 +334,14 @@
                 <mat-form-field appearance="fill" style="width: 150px;">
                   <mat-label>Fin*</mat-label>
                   <input matInput [matDatepicker]="picker1" [min]="fechamat" [readonly]="inputReadonly"
-                    [(ngModel)]="fechamatfin" formControlName="fechaHoraFin" (ngModelChange)="set_horas_fin();">
+                    [(ngModel)]="fechamatfin" formControlName="fechaHoraFin" (dateChange)="set_horas_fin();">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field appearance="fill" style="width: 76px;  padding-left: 7px;">
                   <mat-label>Horas</mat-label>
                   <select matNativeControl required formControlName="horaFin">
-                    <option *ngFor="let item of horas_fin" value="item.value">{{ item.id }}</option>
+                    <option *ngFor="let item of horas_fin" [value]="item.value">{{ item.id }}</option>
                   </select>
                 </mat-form-field>
                 <mat-form-field appearance="fill" style="width: 75px;  padding-left: 7px;">

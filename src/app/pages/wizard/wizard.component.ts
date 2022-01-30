@@ -64,17 +64,11 @@ export class WizardComponent implements OnInit {
   this.horas_fin = []
   let i_ = 0;
 
-  //var dateini = this.dato_to_string(this.data_model.fechaHoraInicio, this.data_model.horaInicio, this.data_model.minInicio);
-  //var dateini = this.dato_to_string(this.data_model.fechaHoraInicio, this.data_model.horaInicio, this.data_model.minInicio);
-  
-  //fechaHoraFin: this.firstFormGroup.value.fechaHoraFin,
-  //fechaHoraInicio: this.firstFormGroup.value.fechaHoraInicio,
-
-
   if(this.firstFormGroup.value.fechaHoraFin <= this.firstFormGroup.value.fechaHoraInicio)
   {
     i_ = Number(this.firstFormGroup.value.horaInicio);
-    i_ = i_+1
+    if(i_ < 23)
+       i_ = i_+ 1
 
     if(typeof this.fechamat === 'undefined')
     i_ = 24;
@@ -91,12 +85,41 @@ export class WizardComponent implements OnInit {
 
    var it = {value: _value, id: _value }
   this.horas_fin.push(it)
+  if(i == i_)
+  {
+debugger;
+this.firstFormGroup.get("horaFin")?.setValue(_value);
+  }
+    
  }
-
+ 
 //console.log("horas ==========", this.horas_fin)
  }
 
-  public horas_fin = [];
+  public horas_fin = [{ value:"00" ,id:"00" },
+  { value:"00" ,id:"01" },
+  { value:"02" ,id:"02" },
+  { value:"03" ,id:"03" },
+  { value:"04" ,id:"04" },
+  { value:"05" ,id:"05" },
+  { value:"06" ,id:"06" },
+  { value:"07" ,id:"07" },
+  { value:"08" ,id:"08" },
+  { value:"09" ,id:"09" },
+  { value:"10" ,id:"10" },
+  { value:"11" ,id:"11" },
+  { value:"12" ,id:"12" },
+  { value:"13" ,id:"13" },
+  { value:"14" ,id:"14" },
+  { value:"15" ,id:"15" },
+  { value:"16" ,id:"16" },
+  { value:"17" ,id:"17" },
+  { value:"18" ,id:"18" },
+  { value:"19" ,id:"19" },
+  { value:"20" ,id:"20" },
+  { value:"21" ,id:"21" },
+  { value:"22" ,id:"22" },
+  { value:"23" ,id:"23" }];
   
   
 
@@ -399,6 +422,7 @@ export class WizardComponent implements OnInit {
   public correo = "";
 
   public saveForm() {
+    debugger;
     this.data_model = {
       calleNumero: this.firstFormGroup.value.calleNumero,
       ciudad: this.firstFormGroup.value.ciudad,
@@ -645,7 +669,7 @@ export class WizardComponent implements OnInit {
     var _maxDate = _year + '-' + _month + '-' + _day;
 
 
-
+   debugger;
 
     // this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(data.fechaHoraInicio.substring(0, 10)));
     this.firstFormGroup.get('fechaHoraInicio')?.setValue(new Date(maxDate));
