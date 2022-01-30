@@ -373,6 +373,8 @@ export class SlideCarouselGeneralComponent implements OnInit {
    this.Subtotal = parseFloat(this.Subtotal.toFixed(2));
    //alert(this.total);
  //  console.log("Productos listado ===============>" , this.Productos_listado)
+   this.appComponent.total = this.total;
+   //this.appComponent.getTotal();
  }
 
 }
