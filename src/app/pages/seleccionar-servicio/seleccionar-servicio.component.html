@@ -1,11 +1,5 @@
 <div class="bg_color">
 
-  <!-- <youtube-player videoId="rRcSK1As9AY" suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
-  </youtube-player>
-  | variable |
-  <youtube-player videoId={{ytid}} suggestedQuality="highres" [height]="239" [width]="293" [startSeconds]="4" [endSeconds]="8">
-  </youtube-player> -->
-
   <div class="container">
     <div class="row">
       <div class="col-md-12">
@@ -19,9 +13,6 @@
       <div class="col-md-4">
         <p class="Reboto-medium titulo">Elige que necesitas</p>
       </div>
-      <!-- <div class="col-md-3">
-            <img src="./assets/SeleccionarServicios/bi_arrow-left-short.png" alt="" class="pointer" (click)="back();">
-          </div> -->
 
       <div class="col-md-12">
         <div class="col-md-3">
@@ -34,101 +25,65 @@
           </div>
         </div>
       </div>
-      <!-- <div class="col-12">
-        <app-slide-carousel-general [title]="'Personal'" [item]="productos"></app-slide-carousel-general>
-      </div>
-      <div class="col-12">
-        <app-slide-carousel-general [title]="'Personal'" [item]="productos"></app-slide-carousel-general>
-      </div> -->
-      <!-- <div class="col-12">
-        <app-slide-carousel-general></app-slide-carousel-general>
-      </div>
-      <div class="col-12">
-        <app-slide-carousel-general></app-slide-carousel-general>
-      </div> -->
-      <div class="col-md-12">
-        <!-- <section class="pt-1 pb-1">
-          <p class="Reboto-medium titulo" *ngIf="id==1">Personal</p>
-          <p class="Reboto-medium titulo" *ngIf="id==3">Talento</p> 
-          <p class="Reboto-medium titulo" *ngIf="id==7">Luces y Sonido</p>
-          <p class="Reboto-medium titulo" *ngIf="id==5">Bebidas (mayores de 18 años)</p> 
-        </section> -->
-        <section class="pt-1 pb-1">
-          <div class="containerCarousel" #container>
-            <div class="left" *ngIf="totalPages > 1" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}"></div>
-            <div class="cards" [ngClass]="{'w-100': totalPages === 1}">
-              <div class="overflow" [ngStyle]="{'width': overflowWidth, 'left': pagePosition}">
-                <div class="card" *ngFor="let item of productos | filterBy: userFilter; let i = index " [ngStyle]="{'width': cardWidth}">
-                  <mat-card class="example-card">
-                    <div *ngIf="item.tipoImagenSeleccion == 'video'" style="padding-bottom: 10px; margin-top: -16px">
-                      <div class="d-block d-md-none">
-                        <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="8">
-                         </youtube-player>
-                      </div>
-                      <div class="d-none d-md-block"> 
-                        <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="202" [width]="249" [startSeconds]="4" [endSeconds]="8">
-                        </youtube-player>
-                      </div>
-                    </div>
-          
-                    <div *ngIf="item.tipoImagenSeleccion == 'imagen'" class="pointer" (click)="detalle(2, item)">
-                      <img mat-card-image [src]="item.imagenSeleccion" alt="">
-                    </div>
-                    <mat-card-content>
-                      <div>
-                        <p class="Reboto-medium sizes_18 pointer d-none d-md-block" style="margin-bottom: 0px; height: 50px;"
-                          (click)="detalle(1, item)">{{item.producto}}</p>
-                        <p class="Reboto-medium sizes_18 pointer d-block d-md-none" style="margin-bottom: 0px; height: 50px"
-                          (click)="detalle(2, item)">{{item.producto}}</p>
-                        <p class="Reboto-medium sizes_16" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-                            class="tarjeta_color sizes_12" *ngIf="item.especificacionEspecial" style="font-style: italic;">
-                            {{item.especificacionEspecial}}</span>
-                        </p>
-                        <p class="tarjeta_justificado sizes_12">
-                          {{item.descripcionCorta}}
-                        </p>
-                        <div class="tarjeta_center sizes_12">Cantidad</div>
-                        <div class="tarjeta_footer">
-                          <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                            (click)="agregarCantidad(false, item.id);">
-                          <input class="tarjeta_input" type="number" placeholder="Numero de meseros" value='0'
-                            [(ngModel)]="item.cantidadUnidades"
-                            (change)='detectarSumaRestaCantidad(item.cantidadUnidades, item, item.id);'>
-                          <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
-                            (click)="agregarCantidad(true, item.id);" alt="" class="pointer">
-                        </div>
-                        <div *ngIf="item.especificarTiempo" class="sizes_12 tarjeta_center">Cantidad de horas</div>
-                        <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
-                          <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                            (click)="agregarhora(false, item.id, item);">
-                          <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
-                            (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)">
-                          <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
-                            (click)="agregarhora(true, item.id, item);">
-                        </div>
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-              </div>
-            </div>
-            <div class="right" *ngIf="totalPages > 1" (click)="currentPage != totalPages && changePage(+1)"
-              [ngClass]="{'disabled':currentPage === totalPages}"></div>
-          </div>
-        </section>
+      <div class="col-12" *ngIf="id==1">
+        <app-slide-carousel-general [titulo]="'Personal'"></app-slide-carousel-general>
       </div>
 
-      <!--p class="fix_color reboto-regular">Total: {{total | currency}}</p-->
+      <div class="col-12" *ngIf="id==3">
+        <app-slide-carousel-general [titulo]="'Talento'"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==5">
+        <app-slide-carousel-general [titulo]="'Bebidas (mayores de 18 años)'" [idCategoria]="0" [idSubCategoria]="11"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==5">
+        <app-slide-carousel-general [titulo]="'Mesas y Sillas'" [idCategoria]="0" [idSubCategoria]="12"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Periqueras y Barras'" [idCategoria]="0" [idSubCategoria]="2"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Salas, Sillones, Bancos y Puffs'" [idCategoria]="0" [idSubCategoria]="3"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Cristaleria y Vajillas'" [idCategoria]="0" [idSubCategoria]="4"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Carpas y Tarimas'" [idCategoria]="0" [idSubCategoria]="5"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Baños'" [idCategoria]="0" [idSubCategoria]="6"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Calentadores'" [idCategoria]="0" [idSubCategoria]="7"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Decoración'" [idCategoria]="0" [idSubCategoria]="8"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==6">
+        <app-slide-carousel-general [titulo]="'Berger'" [idCategoria]="0" [idSubCategoria]="10"></app-slide-carousel-general>
+      </div>
+
+      <div class="col-12" *ngIf="id==7">
+        <app-slide-carousel-general [titulo]="'Luces y sonido'"></app-slide-carousel-general>
+      </div>
+
       <a class="btn-wsp fab" target="_blank" (click)="back();">
-        <img style="width: 32px;" src="https://img.icons8.com/color/48/000000/circled-chevron-left--v1.png"/> Total: {{total | currency}}
+        <img style="width: 32px;" src="https://img.icons8.com/color/48/000000/circled-chevron-left--v1.png"/> Total: {{0 | currency}}
       </a>
       
 
     </div>
    
-    <!-- <div class="contenedor_uno_contenedor_botones form-group">
-    <button class="btn contenedor_uno_siguiente Reboto-medium" (click)="agregar();">Actualizar carrito</button>
-  </div> -->
     <div class="contenedor_uno_contenedor_botones form-group">
       <button class="btn contenedor_uno_atras Reboto-medium" (click)='back();'>Regresar</button>
     </div>
