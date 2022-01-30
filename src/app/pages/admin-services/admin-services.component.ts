@@ -15,6 +15,11 @@ import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { LoadedImage } from 'ngx-image-cropper/lib/interfaces';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 export interface servicio {
    id: number;
@@ -36,6 +41,7 @@ export interface servicio {
    especificacionEspecial:string;
    sku:string;
    stockInicial:number;
+   image: string;
 }
 
 @Component({
@@ -46,6 +52,9 @@ export interface servicio {
   encapsulation: ViewEncapsulation.None
 })
 export class AdminServicesComponent implements OnInit {
+  action_modal: string;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   formModal: FormGroup;
   imageChangedEvent: any = '';
   //croppedImage: any = '';
@@ -53,9 +62,10 @@ export class AdminServicesComponent implements OnInit {
   constructor(pipe: DecimalPipe, private modalService: NgbModal
     , public spinner: SpinnerService, private _formBuilder: FormBuilder
     , public auth: HttpService, public router_: Router, public _dialog: MatDialog
-    , public appComponent:AppComponent,
+    , public appComponent:AppComponent, private _snackBar: MatSnackBar,
     public fb: FormBuilder) {
       this.formModal = fb.group({
+        id: [0],
         producto: ['', Validators.required],
         descripcionCorta: [''], 
         descripcionLarga: [''],
@@ -69,11 +79,12 @@ export class AdminServicesComponent implements OnInit {
         imagenSeleccion: [''],
         activo: [true],
         especificarTiempo: [''],
-        tipoImagenSeleccion: [],
+        tipoImagenSeleccion: [''],
         maximoProductos: [''],
         especificacionEspecial: [''],
         sku: [''],
         stockInicial: [''],
+        image: null,
       });
     }
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
@@ -127,6 +138,14 @@ export class AdminServicesComponent implements OnInit {
     });
   }
 
+  openSnackBar(texto) {
+    this._snackBar.open(texto, 'Cerrar', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 2000
+    });
+  }
+
   getSubcategoria(id){
     console.log(id);
     this.auth.service_general_get('Catalog/Get_Cat_SubCategorias?id='+id).subscribe(observer => {
@@ -139,6 +158,57 @@ export class AdminServicesComponent implements OnInit {
     this.spinner.hide();
   }
 
+  save(){
+    this.spinner.show();
+    console.log(JSON.stringify(this.formModal.value));
+    this.auth.service_general_post_with_url('Catalog/CreateProductoServicios', this.formModal.value).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        console.log(observer);
+        this.openSnackBar("Servicio creado correctamente");
+        this.get_resultados1();
+        this.formModal.reset();
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
+
+  edit(){
+    this.spinner.show();
+    console.log(JSON.stringify(this.formModal.value));
+    this.auth.service_general_put_with_url('Catalog/UpdateProductoServicios', this.formModal.value).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        console.log(observer);
+        this.openSnackBar("Servicio editado correctamente");
+        this.get_resultados1();
+        this.formModal.reset();
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
+
+  getdatabyEdit(id){
+    this.spinner.show();
+    this.auth.service_general_get('Catalog/Get_Cat_CategoriasById?id_categoria='+id).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        // this.formModal.controls.image.setValue('');
+        this.formModal.patchValue(observer.result[0]);
+        this.handleEvent("edit", '');
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
 /////////////////////////////////////////////////////
 //////////////////// BUSQUEDA //////////////////////
 
@@ -187,19 +257,22 @@ debugger;
 }
 
 handleEvent(action: string, event): void {
+  this.action_modal = action;
   this.modalService.open(this.modalContent, { size: 'lg' });
 }
 
 handleEvenCrop(action: string, event): void {
+
   this.modalService.open(this.modalContentCrop, { size: 'lg' });
 }
 
 fileChangeEvent(event: any): void {
-  console.log(event);
+  console.log(event.path[0].files[0].name);
+  this.formModal.controls.imagenSeleccion.setValue(event.path[0].files[0].name);
   this.imageChangedEvent = event;
 }
 imageCropped(event: ImageCroppedEvent) {
-  //this.data.image = event.base64;
+  this.formModal.controls.image.setValue(event.base64.split(',')[1]);
   console.log(event);
 }
 imageLoaded(image: LoadedImage) {
@@ -211,6 +284,10 @@ cropperReady(event) {
 }
 loadImageFailed() {
   // show message
+}
+
+closeModal(){
+  this.formModal.controls.imagenSeleccion.setValue('');
 }
 
   public limpiarFiltros() {

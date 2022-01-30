@@ -861,3 +861,7 @@ table thead {
 .cdk-global-overlay-wrapper, .cdk-overlay-container {
   z-index: 99999 !important;
 }
+
+.example-card {
+  max-width: 400px;
+}

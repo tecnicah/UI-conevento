@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-2 end">
                     <button mat-raised-button style="background-color: #008000;color: #fff;"
-                    (click)="handleEvent('Edit', '')">
+                    (click)="handleEvent('add', '')">
                         Agregar
                         <mat-icon>add</mat-icon>
                     </button>
@@ -97,6 +97,12 @@
                                     Especificación
                                 </span>
                             </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'Editar'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Editar
+                                </span>
+                        </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -137,6 +143,11 @@
                             <td>
                                 {{ item.especificacionEspecial }}
                             </td>
+                            <td style="cursor: pointer;">
+                                <a (click)="getdatabyEdit(item.id);">
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                             </td>
                         </tr>
                     </tbody>
                 </table>
@@ -516,7 +527,7 @@
                     <div class="col-4">
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Precio por unidad</mat-label>
-                            <input matInput type="number" placeholder="Precio por unidad" formControlName="precioPorUnidad">
+                            <input matInput type="number" min="0" placeholder="Precio por unidad" formControlName="precioPorUnidad">
                         </mat-form-field>
                       </div>
                 </div>
@@ -524,13 +535,13 @@
                 <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Dias de bloque antes</mat-label>
-                        <input matInput type="number" placeholder="Dias de bloque antes" formControlName="diasBloqueoAntes">
+                        <input matInput type="number" min="0" placeholder="Dias de bloque antes" formControlName="diasBloqueoAntes">
                     </mat-form-field>
                   </div>
                   <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Dias de bloque despues</mat-label>
-                        <input matInput type="number" placeholder="Dias de bloque despues" formControlName="diasBloqueoDespues">
+                        <input matInput type="number" min="0" placeholder="Dias de bloque despues" formControlName="diasBloqueoDespues">
                     </mat-form-field>
                   </div>
                   <div class="col-4">
@@ -548,13 +559,13 @@
                 <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Minimo producto</mat-label>
-                        <input matInput type="number" placeholder="Minimo producto" formControlName="minimoProductos">
+                        <input matInput type="number" min="0" placeholder="Minimo producto" formControlName="minimoProductos">
                     </mat-form-field>
                 </div>
                 <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Maximo producto</mat-label>
-                        <input matInput type="number" placeholder="Minimo producto" formControlName="minimoProductos">
+                        <input matInput type="number" min="0" placeholder="Minimo producto" formControlName="minimoProductos">
                     </mat-form-field>
                 </div>
                   <div class="col-4">
@@ -572,7 +583,7 @@
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Imagen</mat-label>
                         <input matInput type="text" placeholder="Imagen" formControlName="imagenSeleccion">
-                        <mat-icon matSuffix (click)="handleEvenCrop('Click','')">cloud_upload</mat-icon>
+                        <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
                         <!-- <input type="file" style="display:none;" id="file-input" name="file-input" (change)="fileChangeEvent($event)" >
                         <label for="file-input">
                           <mat-icon>cloud_upload</mat-icon>
@@ -609,8 +620,11 @@
             <button type="button" class="btn btn-outline-secondary" (click)="close()">
                 Cancelar
             </button>
-            <button type="button" class="btn btn-outline-secondary">
+            <button type="button" class="btn btn-outline-secondary" *ngIf="action_modal=='add'" (click)="save(); close()">
                 Guardar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" *ngIf="action_modal=='edit'" (click)="edit(); close()">
+                Editar
             </button>
         </div>
     </form>
@@ -629,14 +643,17 @@
                 <div class="row">
                   <div class="col-12">
                     <input type="file" style="display:none;" id="file-input" name="file-input" (change)="fileChangeEvent($event)" >
-                        <label for="file-input">
-                        <span>Click en el icono para seleccionar una imagen<br><mat-icon>cloud_upload</mat-icon></span>
-                        </label>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <label for="file-input">
+                                <h3>Click en el icono para seleccionar una imagen<br><mat-icon>cloud_upload</mat-icon></h3>
+                            </label>
                         
+                        </div>
+                    </div>  
                         <mat-grid-list cols="1" rows="1" rowHeight="400px">
                             <mat-grid-tile>
                                 <mat-card class="example-card">
-                            
                                 <image-cropper
                                     [imageChangedEvent]="imageChangedEvent"
                                     [maintainAspectRatio]="true"
@@ -662,10 +679,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" (click)="close()">
+            <button type="button" class="btn btn-outline-secondary" (click)="closeModal(); close()">
                 Cancelar
             </button>
-            <button type="button" class="btn btn-outline-secondary">
+            <button type="button" class="btn btn-outline-secondary" (click)="close()">
                 Guardar
             </button>
         </div>

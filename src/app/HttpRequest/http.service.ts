@@ -29,6 +29,10 @@ export class HttpService {
     return this.http.post(this.url_api + url, parametros, { headers: this.headers });
   }
 
+  service_general_put_with_url(url:any, parametros:any): Observable<any> {
+    return this.http.put(this.url_api + url, parametros, { headers: this.headers });
+  }
+
   public service_general_get(url:any): Observable<any> {
     return this.http.get(this.url_api + url, { headers: this.headers });
   }

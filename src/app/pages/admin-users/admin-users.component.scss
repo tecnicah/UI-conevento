@@ -825,3 +825,19 @@ table thead {
       padding-bottom: 20px;
     }
   }
+
+  .close {
+    width: 22px;
+    height: 22px;
+    color: gray;
+    border-radius: 100%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .example-full-width {
+    width: 100%;
+  }
+  
