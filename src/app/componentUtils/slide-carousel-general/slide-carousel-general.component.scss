@@ -351,6 +351,7 @@
 .right {
   height: 30px;
   width: 30px;
+  cursor: pointer;
   border: solid #1E003A;
   position: absolute;
   top: 50%;
@@ -358,6 +359,8 @@
 }
 
 .left.disabled{
+  height: 30px;
+  width: 30px;
   border: solid #CCC;
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
@@ -366,9 +369,12 @@
   display: inline-block;
   padding: 3px;
   left: 0;
+  z-index: 1000;
 }
 
 .right.disabled {
+  height: 30px;
+  width: 30px;
   border: solid #CCC;
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
@@ -377,6 +383,7 @@
   display: inline-block;
   padding: 3px;
   right: 0;
+  z-index: 1000;
 }
 
 .left {

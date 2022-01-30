@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'conevento';
   total = 0;
-
+  filter = '';
+  arrFilter: any[] = [];
+  _userFilter: any = { producto: '' };
   constructor(public router:Router){
     
   }

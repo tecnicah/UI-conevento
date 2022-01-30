@@ -20,7 +20,7 @@
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="{{ejemplo}}"
               aria-label="Calle y numero exterior" aria-describedby="basic-addon1" [(ngModel)]="userFilter.producto"
-              name="filterpost">
+              name="filterpost" (ngModelChange)="setFilter();">
             {{userFilter.name}}
           </div>
         </div>
@@ -42,7 +42,7 @@
       </div>
 
       <div class="col-12" *ngIf="id==6">
-        <app-slide-carousel-general [titulo]="'Periqueras y Barras'" [idCategoria]="0" [idSubCategoria]="2"></app-slide-carousel-general>
+        <app-slide-carousel-general [titulo]="'Periqueras y Barras'" [idCategoria]="0" [idSubCategoria]="2" [filter]="userFilter.producto"></app-slide-carousel-general>
       </div>
 
       <div class="col-12" *ngIf="id==6">

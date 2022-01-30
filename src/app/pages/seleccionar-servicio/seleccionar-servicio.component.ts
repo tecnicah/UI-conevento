@@ -40,6 +40,14 @@ export class SeleccionarServicioComponent implements OnInit {
    // console.log("id categoria: ", this.id);
 
   }
+
+  setFilter(){
+    //debugger;
+    this.appComponent._userFilter = this.userFilter;
+    debugger;
+    this.appComponent.arrFilter.filter(x => x.productos == this.userFilter) ;
+  }
+
   public back() {
     window.history.back();
   }
