@@ -58,6 +58,48 @@ export class WizardComponent implements OnInit {
   public error_alguardar: boolean = false;
 
 
+ set_horas_fin(){
+
+  debugger;
+  this.horas_fin = []
+  let i_ = 0;
+
+  //var dateini = this.dato_to_string(this.data_model.fechaHoraInicio, this.data_model.horaInicio, this.data_model.minInicio);
+  //var dateini = this.dato_to_string(this.data_model.fechaHoraInicio, this.data_model.horaInicio, this.data_model.minInicio);
+  
+  //fechaHoraFin: this.firstFormGroup.value.fechaHoraFin,
+  //fechaHoraInicio: this.firstFormGroup.value.fechaHoraInicio,
+
+
+  if(this.firstFormGroup.value.fechaHoraFin <= this.firstFormGroup.value.fechaHoraInicio)
+  {
+    i_ = Number(this.firstFormGroup.value.horaInicio);
+    i_ = i_+1
+
+    if(typeof this.fechamat === 'undefined')
+    i_ = 24;
+  }
+
+ for(var i = i_; i<= 23; i++)
+ {
+  let _value;
+  
+   if(i< 10)
+      _value = "0"+ i.toString();
+   else
+      _value = i.toString();
+
+   var it = {value: _value, id: _value }
+  this.horas_fin.push(it)
+ }
+
+//console.log("horas ==========", this.horas_fin)
+ }
+
+  public horas_fin = [];
+  
+  
+
   constructor(private dateAdapter: DateAdapter<Date>, public spinner: SpinnerService, private _formBuilder: FormBuilder
     , public auth: HttpService, public router_: Router, public _dialog: MatDialog, public appComponent: AppComponent) {
     this.dateAdapter.setLocale('en-GB'); //dd/MM/yyyy

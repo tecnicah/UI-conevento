@@ -48,7 +48,8 @@
           </div>
         </div>
         <div class="col-2 step no-padding">
-          <span class="header" (click)="set_stepper(3);"
+          <!-- <span class="header" (click)="set_stepper(3);" -->
+          <span class="header" 
             [ngClass]="{'selected': steps.tres == 'selected', 'ready': steps.tres == 'complete', 'next': steps.tres == 'next'}">
             <span class="material-icons complete">
               check_circle
@@ -116,7 +117,8 @@
           </div>
         </div>
         <div class="col-3 step no-padding">
-          <span class="header" (click)="set_stepper(3);"
+          <!-- <span class="header" (click)="set_stepper(3);" -->
+            <span class="header" 
             [ngClass]="{'selected': steps.tres == 'selected', 'ready': steps.tres == 'complete', 'next': steps.tres == 'next'}">
             <span class="material-icons complete">
               check_circle
@@ -147,7 +149,7 @@
   <!--------------------------------------------- paso 1-------------------------------------->
   <div class="container" [ngClass]="steps_css.uno">
     <div class="titulos_stepper">
-      <img src="./assets/wizard/step_dos.png" alt="" class="titulos_stepper_img">
+      <img src="./assets/wizard/step_uno.png" alt="" class="titulos_stepper_img">
       &nbsp;
       <span class="Reboto-medium">Elige tus servicios</span>
     </div>
@@ -259,7 +261,7 @@
   <!-----------------------------------------paso 2---------------------------------------->
   <div class="container" [ngClass]="steps_css.dos">
     <div class="titulos_stepper">
-      <img src="./assets/wizard/step_uno.png" alt="" class="titulos_stepper_img">
+      <img src="./assets/wizard/step_dos.png" alt="" class="titulos_stepper_img">
       &nbsp;
       <span class="Reboto-medium">Agenda tu evento</span>
     </div>
@@ -276,7 +278,7 @@
                   <mat-form-field appearance="fill" style="width: 150px;">
                     <mat-label>Incio*</mat-label>
                     <input matInput [matDatepicker]="picker" [readonly]="inputReadonly" [min]="dtToday"
-                      [(ngModel)]="fechamat" formControlName="fechaHoraInicio">
+                      [(ngModel)]="fechamat" formControlName="fechaHoraInicio" >
                     <mat-datepicker-toggle matSuffix [for]="picker" style='width: 2em'></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
@@ -286,7 +288,7 @@
                   </div>
                   <mat-form-field appearance="fill" style="width: 76px; padding-left: 7px;">
                     <mat-label>Hora</mat-label>
-                    <select matNativeControl required formControlName="horaInicio">
+                    <select matNativeControl required formControlName="horaInicio" (change)="set_horas_fin();">
                       <option value="00" selected>00</option>
                       <option value="00">01</option>
                       <option value="02">02</option>
@@ -332,37 +334,14 @@
                 <mat-form-field appearance="fill" style="width: 150px;">
                   <mat-label>Fin*</mat-label>
                   <input matInput [matDatepicker]="picker1" [min]="fechamat" [readonly]="inputReadonly"
-                    [(ngModel)]="fechamatfin" formControlName="fechaHoraFin">
+                    [(ngModel)]="fechamatfin" formControlName="fechaHoraFin" (ngModelChange)="set_horas_fin();">
                   <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
                 <mat-form-field appearance="fill" style="width: 76px;  padding-left: 7px;">
-                  <mat-label>Hora</mat-label>
+                  <mat-label>Horas</mat-label>
                   <select matNativeControl required formControlName="horaFin">
-                    <option value="00" selected>00</option>
-                    <option value="00">01</option>
-                    <option value="02">02</option>
-                    <option value="03">03</option>
-                    <option value="04">04</option>
-                    <option value="05">05</option>
-                    <option value="06">06</option>
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
+                    <option *ngFor="let item of horas_fin" value="item.value">{{ item.id }}</option>
                   </select>
                 </mat-form-field>
                 <mat-form-field appearance="fill" style="width: 75px;  padding-left: 7px;">
@@ -376,15 +355,6 @@
                 </mat-form-field>
               </div>
               <div class="col-md-4" style="display: none;">
-                <!-- <p>Gente esperada </p>
-              <div class="input-group mb-3 margen_cero">
-                <input [min]="0" type="number" (change)="no_menor_cero();" class="form-control"
-                  placeholder="Gente esperada" aria-label="Gente esperada" aria-describedby="basic-addon1"
-                  [ngClass]="{ 'is-invalid': submitted && f.genteEsperada.errors }" formControlName="genteEsperada">
-                <div *ngIf="submitted && f.genteEsperada.errors" class="invalid-feedback">
-                  <div *ngIf="f.genteEsperada.errors.required">Campo requerido</div>
-                </div>
-              </div> -->
               </div>
               <div class="col-md-12" style="padding-bottom: 20px;">
               </div>
@@ -417,17 +387,6 @@
                   </select>
                 </mat-form-field>
               </div>
-              <!-- <div class="col-md-4" style="display: none;">
-              <p>Código postal (Opcional)</p>
-              <div class="input-group mb-3 margen_cero">
-                <input type="text" class="form-control" placeholder="Código postal" aria-label="Código postal"
-                  aria-describedby="basic-addon1" [ngClass]="{ 'is-invalid': submitted && f.cp.errors }"
-                  formControlName="cp">
-                <div *ngIf="submitted && f.cp.errors" class="invalid-feedback">
-                  <div *ngIf="f.cp.errors.required">Campo requerido</div>
-                </div>
-              </div>
-            </div> -->
               <div class="col-md-12">
                 <mat-form-field appearance="fill" style="width: 100%;">
                   <mat-label>Calle y numero exterior.</mat-label>
@@ -762,7 +721,7 @@
               </label>
             </div>
             <div class="eventos_seleccionados_flex">
-              <span *ngIf="req_factura" style="font-style: italic; font-size:13px; color: gray;">
+              <span  style="font-style: italic; font-size:13px; color: gray;">
                 Un asesor de Conevento te contactará en menos de 24hrs
               </span>
             </div>
