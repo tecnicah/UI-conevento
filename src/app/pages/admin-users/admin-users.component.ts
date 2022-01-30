@@ -1,8 +1,8 @@
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Component, OnInit, ViewChild, PipeTransform, Pipe } from '@angular/core';
+import { Component, OnInit, ViewChild, PipeTransform, Pipe, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe, DecimalPipe, formatDate } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -13,6 +13,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppComponent } from 'src/app/app.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
+export interface servicio {
+  id: number;
+  nombres:string;
+  apellidos:string;
+  telefono:string;
+  correo:string;
+  pass:string;
+}
+
 
 @Component({
   selector: 'app-admin-users',
@@ -20,11 +35,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./admin-users.component.scss']
 })
 export class AdminUsersComponent implements OnInit {
-
+  formModal: FormGroup;
+  action_modal: string;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   constructor( private modalService: NgbModal
     , public spinner: SpinnerService, private _formBuilder: FormBuilder
     , public auth: HttpService, public router_: Router, public _dialog: MatDialog
-    , public appComponent:AppComponent) {
+    , public appComponent:AppComponent,private _snackBar: MatSnackBar,
+    public fb: FormBuilder) {
+      this.formModal = fb.group({
+        id: [0],
+        nombres: [''],
+        apellidos: [''],
+        telefono: [''],
+        correo: [''],
+        pass: ['']
+      });
     }
     
 @ViewChild('cuentaPostulanteModal', { static: true }) cuentaPostulanteModal: NgbModal | undefined;
@@ -109,10 +137,10 @@ public get_resultados(){
 
 public get_resultados1(){
   this.spinner.show();
-  setTimeout(() => {
-  
-debugger;
-     this.auth.service_general_post_with_url('Catalog/productos_by_cateid_navigate?id_cat=' +this.id_cat, '').subscribe(r => {
+
+    setTimeout(() => {
+      debugger;
+     this.auth.service_general_get('User/GetUserAll').subscribe(r => {
        if (r.success) {
          this.resultados_p = r.result;
          console.log("respuesta service_general_post_with_url: ", this.resultados_p);
@@ -122,16 +150,14 @@ debugger;
        console.log("Error al consultar información service_general_post_with_url: ", err);
        this.spinner.hide();
      })
-    }, 3000);
+     this.spinner.hide();
+    }, 100);
 }
 
  
   public limpiarFiltros() {
-    this.fechaInicial = "";
-    this.fechaFinal = "";
-    this.id_municipio = 0;
-    this.id_cat = 0;
-    this.profesion ="";
+    this.userFilter.nombres = "";
+    this.get_resultados1();
   }
 
   viewdetail(item: any){
@@ -166,6 +192,53 @@ debugger;
 
   }
 
+  handleEvent(action: string, event): void {
+    this.action_modal = action;
+    this.modalService.open(this.modalContent, { size: 'lg' });
+  }
+
+  openSnackBar(texto) {
+    this._snackBar.open(texto, 'Cerrar', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 2000
+    });
+  }
+
+  getdatabyEdit(id){
+    this.spinner.show();
+    this.auth.service_general_get('User/GetUserById?id='+id).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        // this.formModal.controls.image.setValue('');
+        this.formModal.patchValue(observer.result[0]);
+        this.handleEvent("edit", '');
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
+
+  edit(){
+    this.spinner.show();
+    console.log(JSON.stringify(this.formModal.value));
+    this.auth.service_general_post_with_url('User/UpdateUser', this.formModal.value).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        console.log(observer);
+        this.openSnackBar("Usuario editado correctamente");
+        this.get_resultados1();
+        this.formModal.reset();
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+    //api/User/UpdateUser
+  }
   ///////////////////VARIABLES NUEVAS //////////////////////////////////////////////
 page = 1;
 pageSize = 4;
@@ -218,7 +291,7 @@ sort(key) {
   public paisId: number = 0;
   public ofertas: number = 0;
   public ciudad = '';
-  public userFilter: any = { producto: '' };
+  public userFilter: any = { nombres: '' };
   public paisIddos: number = 0;
   public ciudaddos = '';
   //public gender: '';

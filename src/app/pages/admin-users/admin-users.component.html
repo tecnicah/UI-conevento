@@ -5,7 +5,7 @@
                 <div class="col-6">
                     <br>
                     <h1 class="Titlu-header bold" style="font-size: 22px;">Usuarios</h1>
-
+                    
                 </div>
             </div>
             <div class="row">
@@ -16,38 +16,16 @@
                 <div class="col-4 filter">
                     <div class="form-group form-inline">
                         Búsqueda Por Nombre: <input class="form-control ml-2" type="text"
-                            [(ngModel)]="userFilter.producto" />
+                            [(ngModel)]="userFilter.nombres" />
                     </div>
                 </div>
-
-                <!-- <div class="col-2  filter">
-                    <span>Categoría *:</span>
-                    <select [(ngModel)]="id_cat" (change)="get_resultados1()">
-                        <option value=0 selected>Todos</option>
-                        <option value=1>Personal</option>
-                        <option value=3>Talento</option>
-                        <option value=5>Alimentos y Bebidas</option>
-                        <option value=6>Mobiliario</option>
-                        <option value=7>Luces y Sonido</option>
-                    </select>
-                </div> -->
                 <div class="col-2 end">
-                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: goldenrod;"
-                        (click)="limpiarFiltros();">
-                        Limpiar <mat-icon>
-                            autorenew
-                        </mat-icon>
+                    <button mat-raised-button style="background-color: #DAA51F; color: #fff;"
+                    (click)="limpiarFiltros();">
+                    Limpiar <mat-icon>refresh</mat-icon>
                     </button>
+                    
                 </div>
-                <!-- <div class="col-2 end">
-                    <button class="btn pagar_siguiente Reboto-medium" style="background-color: green;"
-                        (click)="limpiarFiltros();">
-                        Agregar
-                        <mat-icon>
-                            add
-                        </mat-icon>
-                    </button>
-                </div> -->
             </div>
             <div class="row">
                 <br>
@@ -74,27 +52,22 @@
                             </th>
                             <th style="cursor: pointer;">
                                 <span>
+                                    Teléfono
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
                                     Correo
                                 </span>
                             </th>
-                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
-                                style="cursor: pointer;">
-                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
-                                    Telefono
-                                </span>
-                            </th>
-                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
-                                style="cursor: pointer;">
-                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
-                                    Ultimo Evento
-                                </span>
-                            </th>
-                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
-                                style="cursor: pointer;">
-                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
-                                    # Eventos
-                                </span>
-                            </th>
+                           
+                            <th (click)="sort('country')" [class.active-sort]="key === 'Editar'"
+                            style="cursor: pointer;">
+                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                Editar
+                            </span>
+                    </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,31 +78,27 @@
                                 </span>
                             </td>
                             <td>
-                                <span>{{ item.producto }}
+                                <span>{{ item.nombres }}
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </span>
                             </td>
                             <td>
-                                &nbsp;&nbsp;{{ item.precioPorUnidad | currency }}
+                                &nbsp;&nbsp;{{ item.apellidos }}
 
                                 &nbsp;&nbsp;
                             </td>
                             <td>
-                                {{ item.descripcionCorta_lim }}&nbsp;&nbsp;
+                                {{ item.telefono }}&nbsp;&nbsp;
                             </td>
                             <td>
-                                &nbsp;&nbsp;{{ item.categoria }} &nbsp;&nbsp;
+                                &nbsp;&nbsp;{{ item.correo }} &nbsp;&nbsp;
                             </td>
-                            <td>
-
-                                <a style="cursor: pointer;text-decoration: underline;color: blue;"
-                                    (click)="viewdetail(item)">
-                                    {{ item.sku }}
+                           
+                            <td style="cursor: pointer;">
+                                <a (click)="getdatabyEdit(item.id);">
+                                    <mat-icon>edit</mat-icon>
                                 </a>
-                            </td>
-                            <td>
-                                {{ item.especificacionEspecial }}
-                            </td>
+                             </td>
                         </tr>
                     </tbody>
                 </table>
@@ -451,3 +420,60 @@
         </div>
     </div>
 </ng-template>
+
+<ng-template #modalContent let-close="close">
+    <form [formGroup]="formModal">
+        <div class="modal-header">
+        <h5 class="modal-title">Editar usuario</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                  <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre" formControlName="nombres">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput placeholder="Apellido" formControlName="apellidos">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput placeholder="Teléfono" formControlName="telefono">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                      <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-label>Correo</mat-label>
+                          <input matInput placeholder="Correo" formControlName="correo">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-4">
+                      <mat-form-field class="example-full-width" appearance="fill">
+                          <mat-label>Contraseña</mat-label>
+                          <input matInput placeholder="Contraseña" formControlName="pass">
+                      </mat-form-field>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="close()">
+                Cancelar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" *ngIf="action_modal=='edit'" (click)="edit(); close()">
+                Editar
+            </button>
+        </div>
+    </form>
+  </ng-template>

@@ -1,8 +1,8 @@
 import { NgxPaginationModule } from 'ngx-pagination';
-import { Component, OnInit, ViewChild, PipeTransform, Pipe } from '@angular/core';
+import { Component, OnInit, ViewChild, PipeTransform, Pipe, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe, DecimalPipe, formatDate } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -13,23 +13,84 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { AppComponent } from 'src/app/app.component';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { LoadedImage } from 'ngx-image-cropper/lib/interfaces';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
+
+export interface servicio {
+   id: number;
+   producto:string;
+   descripcionCorta:string;
+   descripcionLarga:string;
+   idSubcategoriaProductos:number;
+   idCategoriaProducto:number;
+   precioPorUnidad:number;
+   diasBloqueoAntes:number;
+   diasBloqueoDespues:number;
+   idCatTipoUnidad:number;
+   minimoProductos:number;
+   imagenSeleccion:string;
+   activo:true;
+   especificarTiempo:boolean;
+   tipoImagenSeleccion:string;
+   maximoProductos:number;
+   especificacionEspecial:string;
+   sku:string;
+   stockInicial:number;
+   image: string;
+}
 
 @Component({
   selector: 'app-admin-services',
   templateUrl: './admin-services.component.html',
   styleUrls: ['./admin-services.component.scss'],
-  providers: [DecimalPipe]
+  providers: [DecimalPipe],
+  encapsulation: ViewEncapsulation.None
 })
 export class AdminServicesComponent implements OnInit {
-
+  action_modal: string;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'right';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  formModal: FormGroup;
+  imageChangedEvent: any = '';
+  //croppedImage: any = '';
+  LoadedImage: any = '';
   constructor(pipe: DecimalPipe, private modalService: NgbModal
     , public spinner: SpinnerService, private _formBuilder: FormBuilder
     , public auth: HttpService, public router_: Router, public _dialog: MatDialog
-    , public appComponent:AppComponent) {
+    , public appComponent:AppComponent, private _snackBar: MatSnackBar,
+    public fb: FormBuilder) {
+      this.formModal = fb.group({
+        id: [0],
+        producto: ['', Validators.required],
+        descripcionCorta: [''], 
+        descripcionLarga: [''],
+        idSubcategoriaProductos: [''],
+        idCategoriaProducto: [''],
+        precioPorUnidad: [''],
+        diasBloqueoAntes: [''],
+        diasBloqueoDespues: [''],
+        idCatTipoUnidad: [''],
+        minimoProductos: [''],
+        imagenSeleccion: [''],
+        activo: [true],
+        especificarTiempo: [''],
+        tipoImagenSeleccion: [''],
+        maximoProductos: [''],
+        especificacionEspecial: [''],
+        sku: [''],
+        stockInicial: [''],
+        image: null,
+      });
     }
-    
-@ViewChild('cuentaPostulanteModal', { static: true }) cuentaPostulanteModal: NgbModal | undefined;
-modal: NgbModalRef | undefined;
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+  @ViewChild('modalContentCrop', { static: true }) modalContentCrop: TemplateRef<any>;
+  @ViewChild('cuentaPostulanteModal', { static: true }) cuentaPostulanteModal: NgbModal | undefined;
+  modal: NgbModalRef | undefined;
 
   ngOnInit(): void {
  this.catalogos();
@@ -40,6 +101,7 @@ modal: NgbModalRef | undefined;
 //*******************************************// 
   //CATALOGOS//
   public categorias: any = [];
+  public subcategorias: any = [];
   public catalogos() {
     this.spinner.show();
     this.auth.service_general_get('Catalog/Cat_Categorias').subscribe(observer => {
@@ -73,11 +135,80 @@ modal: NgbModalRef | undefined;
       }
     }, (err) => {
       console.log(err);
-    })
+    });
+  }
+
+  openSnackBar(texto) {
+    this._snackBar.open(texto, 'Cerrar', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: 2000
+    });
+  }
+
+  getSubcategoria(id){
+    console.log(id);
+    this.auth.service_general_get('Catalog/Get_Cat_SubCategorias?id='+id).subscribe(observer => {
+      if (observer.result) {
+        this.subcategorias = observer.result;
+      }
+    }, (err) => {
+      console.log(err);
+    });
     this.spinner.hide();
   }
 
+  save(){
+    this.spinner.show();
+    console.log(JSON.stringify(this.formModal.value));
+    this.auth.service_general_post_with_url('Catalog/CreateProductoServicios', this.formModal.value).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        console.log(observer);
+        this.openSnackBar("Servicio creado correctamente");
+        this.get_resultados1();
+        this.formModal.reset();
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
 
+  edit(){
+    this.spinner.show();
+    console.log(JSON.stringify(this.formModal.value));
+    this.auth.service_general_put_with_url('Catalog/UpdateProductoServicios', this.formModal.value).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        console.log(observer);
+        this.openSnackBar("Servicio editado correctamente");
+        this.get_resultados1();
+        this.formModal.reset();
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
+
+  getdatabyEdit(id){
+    this.spinner.show();
+    this.auth.service_general_get('Catalog/Get_Cat_CategoriasById?id_categoria='+id).subscribe(observer => {
+    console.log(observer);
+      if (observer.success) {
+        // this.formModal.controls.image.setValue('');
+        this.formModal.patchValue(observer.result[0]);
+        this.handleEvent("edit", '');
+      }
+    }, (err) => {
+      console.log(err);
+      this.openSnackBar(err);
+    });
+    this.spinner.hide();
+  }
 /////////////////////////////////////////////////////
 //////////////////// BUSQUEDA //////////////////////
 
@@ -125,7 +256,40 @@ debugger;
     }, 3000);
 }
 
- 
+handleEvent(action: string, event): void {
+  this.action_modal = action;
+  this.modalService.open(this.modalContent, { size: 'lg' });
+}
+
+handleEvenCrop(action: string, event): void {
+
+  this.modalService.open(this.modalContentCrop, { size: 'lg' });
+}
+
+fileChangeEvent(event: any): void {
+  console.log(event.path[0].files[0].name);
+  this.formModal.controls.imagenSeleccion.setValue(event.path[0].files[0].name);
+  this.imageChangedEvent = event;
+}
+imageCropped(event: ImageCroppedEvent) {
+  this.formModal.controls.image.setValue(event.base64.split(',')[1]);
+  console.log(event);
+}
+imageLoaded(image: LoadedImage) {
+  // show cropper
+  console.log(image);
+}
+cropperReady(event) {
+  // cropper ready
+}
+loadImageFailed() {
+  // show message
+}
+
+closeModal(){
+  this.formModal.controls.imagenSeleccion.setValue('');
+}
+
   public limpiarFiltros() {
     this.fechaInicial = "";
     this.fechaFinal = "";
