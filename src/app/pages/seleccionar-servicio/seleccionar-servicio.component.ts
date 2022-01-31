@@ -38,8 +38,26 @@ export class SeleccionarServicioComponent implements OnInit {
     this.id = this.rutaActiva.snapshot.params.id;
     this.decha_inicio = this.rutaActiva.snapshot.params.date;
    // console.log("id categoria: ", this.id);
+   if(this.id == 1)
+   this.ejemplo = "Ej. Mesero";
+   if(this.id == 3)
+   this.ejemplo = "Ej. Mariachis";
+   if(this.id == 5)
+   this.ejemplo = "Ej. Paquete Diviertas"
+   if(this.id == 6)
+   this.ejemplo = "Ej. Periquera"
+   if(this.id == 7)
+   this.ejemplo = "Ej. Bocina"
 
   }
+
+  setFilter(){
+    //debugger;
+    this.appComponent._userFilter = this.userFilter;
+    debugger;
+    this.appComponent.arrFilter.filter(x => x.productos == this.userFilter) ;
+  }
+
   public back() {
     window.history.back();
   }

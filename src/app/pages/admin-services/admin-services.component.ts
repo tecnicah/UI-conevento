@@ -67,10 +67,10 @@ export class AdminServicesComponent implements OnInit {
       this.formModal = fb.group({
         id: [0],
         producto: ['', Validators.required],
-        descripcionCorta: [''], 
-        descripcionLarga: [''],
+        descripcionCorta: ['', Validators.required], 
+        descripcionLarga: ['', Validators.required],
         idSubcategoriaProductos: [''],
-        idCategoriaProducto: [''],
+        idCategoriaProducto: ['', Validators.required],
         precioPorUnidad: [''],
         diasBloqueoAntes: [''],
         diasBloqueoDespues: [''],
@@ -81,7 +81,7 @@ export class AdminServicesComponent implements OnInit {
         especificarTiempo: [''],
         tipoImagenSeleccion: [''],
         maximoProductos: [''],
-        especificacionEspecial: [''],
+        especificacionEspecial: ['', Validators.required],
         sku: [''],
         stockInicial: [''],
         image: null,
@@ -159,24 +159,32 @@ export class AdminServicesComponent implements OnInit {
   }
 
   save(){
+    debugger;
     this.spinner.show();
     console.log(JSON.stringify(this.formModal.value));
-    this.auth.service_general_post_with_url('Catalog/CreateProductoServicios', this.formModal.value).subscribe(observer => {
-    console.log(observer);
-      if (observer.success) {
+    if(this.formModal.valid){
+      this.auth.service_general_post_with_url('Catalog/CreateProductoServicios', this.formModal.value).subscribe(observer => {
         console.log(observer);
-        this.openSnackBar("Servicio creado correctamente");
-        this.get_resultados1();
-        this.formModal.reset();
-      }
-    }, (err) => {
-      console.log(err);
-      this.openSnackBar(err);
-    });
-    this.spinner.hide();
+          if (observer.success) {
+            console.log(observer);
+            this.openSnackBar("Servicio creado correctamente");
+            this.get_resultados1();
+            this.formModal.reset();
+          }
+        }, (err) => {
+          console.log(err);
+          this.openSnackBar(err);
+        });
+        this.spinner.hide();
+    }
+    else{
+      this.openSnackBar("Por favor valida los campos en rojo");
+      this.spinner.hide();
+    }
   }
 
   edit(){
+    
     this.spinner.show();
     console.log(JSON.stringify(this.formModal.value));
     this.auth.service_general_put_with_url('Catalog/UpdateProductoServicios', this.formModal.value).subscribe(observer => {
@@ -195,6 +203,7 @@ export class AdminServicesComponent implements OnInit {
   }
 
   getdatabyEdit(id){
+    this.formModal.reset(this.formModal.value);
     this.spinner.show();
     this.auth.service_general_get('Catalog/Get_Cat_CategoriasById?id_categoria='+id).subscribe(observer => {
     console.log(observer);

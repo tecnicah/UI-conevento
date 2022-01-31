@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'conevento';
-
-
+  total = 0;
+  filter = '';
+  arrFilter: any[] = [];
+  _userFilter: any = { producto: '' };
   constructor(public router:Router){
     
   }
@@ -40,5 +42,9 @@ export class AppComponent {
       this.rutaHome = false;
     //  console.log('no es el home');
     }
+  }
+
+  public getTotal(){
+    return this.total;
   }
 }

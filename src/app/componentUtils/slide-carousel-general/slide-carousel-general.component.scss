@@ -19,6 +19,10 @@
   font-size: 30px;
 }
 
+.subtitulo {
+  font-size: 25px;
+}
+
 .imagenesTarj {
   position: relative;
 }
@@ -152,6 +156,10 @@
     font-size: 18px;
   }
 
+  &_17 {
+    font-size: 17px;
+  }
+
   &_16 {
     font-size: 16px;
   }
@@ -162,6 +170,10 @@
 
   &_12 {
     font-size: 12px;
+  }
+
+  &_13 {
+    font-size: 13px;
   }
 }
 
@@ -241,6 +253,11 @@
     margin-left: 7%;
   }
 
+  .subtitulo {
+    font-size: 20px!important;
+    margin-left: 7%;
+  }
+
   .tarjeta {
     &_contenedor_principal {
       margin: 10% auto 10% auto !important;
@@ -267,6 +284,13 @@
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
     z-index: 100;
     transition: all 300ms ease;
+  }
+
+  .sizes {
+    
+    &_13 {
+      font-size: 16px;
+    }
   }
 }
 
@@ -351,6 +375,7 @@
 .right {
   height: 30px;
   width: 30px;
+  cursor: pointer;
   border: solid #1E003A;
   position: absolute;
   top: 50%;
@@ -358,6 +383,8 @@
 }
 
 .left.disabled{
+  height: 30px;
+  width: 30px;
   border: solid #CCC;
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
@@ -366,9 +393,12 @@
   display: inline-block;
   padding: 3px;
   left: 0;
+  z-index: 1000;
 }
 
 .right.disabled {
+  height: 30px;
+  width: 30px;
   border: solid #CCC;
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
@@ -377,6 +407,7 @@
   display: inline-block;
   padding: 3px;
   right: 0;
+  z-index: 1000;
 }
 
 .left {

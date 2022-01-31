@@ -17,10 +17,11 @@ export class SlideCarouselGeneralComponent implements OnInit {
   @Input() idCategoria = 0;
   @Input() idSubCategoria = 0;
   @Input() titulo = "";
+  @Input() filter = "";
   public productos: any = [];
   public ejemplo = "";
   public id: any;
-  userFilter: any = { producto: '' };
+  userFilter: any = { producto:  this.appComponent.filter};
 
   //Carousel
   totalCards: number = 0;//this.arr.length;
@@ -47,6 +48,7 @@ export class SlideCarouselGeneralComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.idCategoria);
     console.log(this.idSubCategoria);
+    console.log(this.filter);
     this.id = this.rutaActiva.snapshot.params.id;
     this.auth.service_general_get('Catalog/productos_by_Cat?id_categoria=' + this.id).subscribe(observer => {
       //  this.auth.service_general_get('Catalog/productos_by_Cat_Date?id_categoria=' + this.id +'&fecha= ' + this.decha_inicio).subscribe(observer => {
@@ -73,7 +75,8 @@ export class SlideCarouselGeneralComponent implements OnInit {
           if(this.idSubCategoria != 0){
             this.productos = this.productos.filter(x => x.idSubcategoriaProductos == this.idSubCategoria);
           }
-          debugger;
+          
+          //debugger;
           this.calculosT();
           console.log(this.productos);
           this.totalCards = this.productos.length;
@@ -373,6 +376,8 @@ export class SlideCarouselGeneralComponent implements OnInit {
    this.Subtotal = parseFloat(this.Subtotal.toFixed(2));
    //alert(this.total);
  //  console.log("Productos listado ===============>" , this.Productos_listado)
+   this.appComponent.total = this.total;
+   //this.appComponent.getTotal();
  }
 
 }

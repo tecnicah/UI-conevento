@@ -20,7 +20,7 @@
           <div class="input-group mb-3 margen_cero">
             <input type="text" class="form-control" placeholder="{{ejemplo}}"
               aria-label="Calle y numero exterior" aria-describedby="basic-addon1" [(ngModel)]="userFilter.producto"
-              name="filterpost">
+              name="filterpost" (ngModelChange)="setFilter();">
             {{userFilter.name}}
           </div>
         </div>
@@ -34,15 +34,15 @@
       </div>
 
       <div class="col-12" *ngIf="id==5">
-        <app-slide-carousel-general [titulo]="'Bebidas (mayores de 18 años)'" [idCategoria]="0" [idSubCategoria]="11"></app-slide-carousel-general>
+        <app-slide-carousel-general [titulo]="'Bebidas'" [idCategoria]="0" [idSubCategoria]="11"></app-slide-carousel-general>
       </div>
 
       <div class="col-12" *ngIf="id==5">
-        <app-slide-carousel-general [titulo]="'Mesas y Sillas'" [idCategoria]="0" [idSubCategoria]="12"></app-slide-carousel-general>
+        <app-slide-carousel-general [titulo]="'Comida'" [idCategoria]="0" [idSubCategoria]="12"></app-slide-carousel-general>
       </div>
 
       <div class="col-12" *ngIf="id==6">
-        <app-slide-carousel-general [titulo]="'Periqueras y Barras'" [idCategoria]="0" [idSubCategoria]="2"></app-slide-carousel-general>
+        <app-slide-carousel-general [titulo]="'Periqueras y Barras'" [idCategoria]="0" [idSubCategoria]="2" [filter]="userFilter.producto"></app-slide-carousel-general>
       </div>
 
       <div class="col-12" *ngIf="id==6">
@@ -78,7 +78,7 @@
       </div>
 
       <a class="btn-wsp fab" target="_blank" (click)="back();">
-        <img style="width: 32px;" src="https://img.icons8.com/color/48/000000/circled-chevron-left--v1.png"/> Total: {{0 | currency}}
+        <img style="width: 32px;" src="https://img.icons8.com/color/48/000000/circled-chevron-left--v1.png"/> Total: {{appComponent.total | currency}}
       </a>
       
 

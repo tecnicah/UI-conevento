@@ -1,22 +1,23 @@
-<section class="pt-1 pb-1">
-    <p class="Reboto-medium titulo">{{titulo}}</p>
+
+<section class="pt-1 pb-1" [ngClass]="{'class-hide': productos.length === 0}">
+    <p class="Reboto-medium subtitulo">{{titulo}}</p>
   </section>
   <section class="pt-1 pb-1">
     <div class="containerCarousel" #container>
-      <div class="left" *ngIf="totalPages > 1" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}">
-      </div>
-      <div *ngIf="totalPages == 1" style="padding-left: 40px;"></div>
-      <div class="cards" [ngClass]="{'w-100': totalPages === 1}">
+      
+      <div class="cards">
+        <div class="left" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}">
+        </div>
         <div class="overflow" [ngStyle]="{'width': overflowWidth, 'left': pagePosition}">
-          <div class="card" *ngFor="let item of productos | filterBy: userFilter; let i = index " [ngStyle]="{'width': cardWidth}">
-            <mat-card class="example-card">
+          <div class="card" *ngFor="let item of productos | filterBy: appComponent._userFilter; let i = index " [ngStyle]="{'width': cardWidth}">
+            <mat-card class="example-card" *ngIf="item.producto.length > 0">
               <div *ngIf="item.tipoImagenSeleccion == 'video'" style="padding-bottom: 10px; margin-top: -16px">
                 <div class="d-block d-md-none">
-                  <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="8">
+                  <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="1000">
                    </youtube-player>
                 </div>
                 <div class="d-none d-md-block"> 
-                  <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="202" [width]="249" [startSeconds]="4" [endSeconds]="8">
+                  <youtube-player class="mat-card-image" videoId={{item.imagenSeleccion}} suggestedQuality="highres" [height]="202" [width]="249" [startSeconds]="4" [endSeconds]="1000">
                   </youtube-player>
                 </div>
               </div>
@@ -30,8 +31,8 @@
                     (click)="detalle(1, item)">{{item.producto}}</p>
                   <p class="Reboto-medium sizes_18 pointer d-block d-md-none" style="margin-bottom: 0px; height: 50px"
                     (click)="detalle(2, item)">{{item.producto}}</p>
-                  <p class="Reboto-medium sizes_16" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
-                      class="tarjeta_color sizes_12" *ngIf="item.especificacionEspecial" style="font-style: italic;">
+                    <p class="Reboto-medium sizes_16" style="margin-bottom: 5px;">{{item.precioPorUnidad | currency}}&nbsp;<span
+                      class=" sizes_13" *ngIf="item.especificacionEspecial" style="font-style: normal;">
                       {{item.especificacionEspecial}}</span>
                   </p>
                   <p class="tarjeta_justificado sizes_12">
@@ -47,24 +48,42 @@
                     <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png"
                       (click)="agregarCantidad(true, item.id);" alt="" class="pointer">
                   </div>
-                  <div *ngIf="item.especificarTiempo" class="sizes_12 tarjeta_center">Cantidad de horas</div>
-                  <div class="tarjeta_footer" *ngIf="item.especificarTiempo">
-                    <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
-                      (click)="agregarhora(false, item.id, item);">
-                    <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
-                      (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)">
-                    <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
-                      (click)="agregarhora(true, item.id, item);">
-                  </div>
-                </div>
+                  <div class="sizes_12 tarjeta_center">Cantidad de horas</div>
+                        <div class="tarjeta_footer">
+                            <img src="./assets/SeleccionarServicios/carbon_subtract-alt.png" alt="" class="pointer"
+                                (click)="agregarhora(false, item.id, item);" *ngIf="item.especificarTiempo">
+                            <input class="tarjeta_input" type="number" placeholder="Numero de horas" [(ngModel)]="item.cantidadHoras"
+                                (change)="detectarSumaRestaHoras(item.cantidadHoras, item, item.id)" *ngIf="item.especificarTiempo">
+                            <img src="./assets/SeleccionarServicios/ant-design_plus-circle-outlined.png" alt="" class="pointer"
+                                (click)="agregarhora(true, item.id, item);" *ngIf="item.especificarTiempo">
+                            
+                            <img *ngIf="!item.especificarTiempo" width="33" height="32" src="https://img.icons8.com/material-sharp/24/ffffff/connection-status-off.png"/>
+                            <span *ngIf="!item.especificarTiempo">Por Evento</span>
+                            <img *ngIf="!item.especificarTiempo" width="33" height="32" src="https://img.icons8.com/material-sharp/24/ffffff/connection-status-off.png"/>
+                        </div>
+                        <!-- <div class="tarjeta_footer" *ngIf="!item.especificarTiempo">
+                            
+                            <input class="tarjeta_input" type="number" placeholder="Por evento" [disabled]="true">
+                            
+                        </div> -->
+                  
+                    </div>
               </mat-card-content>
             </mat-card>
+
+            <mat-card class="example-card" *ngIf="item.producto.length == 0">
+               
+                <img mat-card-image [src]="" alt="">
+                <mat-card-content>
+                  <p>no hay productos</p>
+                </mat-card-content>
+              </mat-card>
+            
           </div>
         </div>
-      </div>
-      <div class="right" *ngIf="totalPages > 1" (click)="currentPage != totalPages && changePage(+1)"
+        <div class="right" (click)="currentPage != totalPages && changePage(+1)"
         [ngClass]="{'disabled':currentPage === totalPages}">
-      <div *ngIf="totalPages == 1" style="padding-right: 300px;"></div>
     </div>
+      </div>
     </div>
   </section>
