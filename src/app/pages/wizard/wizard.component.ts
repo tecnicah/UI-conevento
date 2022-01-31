@@ -812,6 +812,7 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
   }
 
   after() {
+    debugger;
     if (this.steps.uno == "complete") {
       this.steps = {
         uno: "selected",

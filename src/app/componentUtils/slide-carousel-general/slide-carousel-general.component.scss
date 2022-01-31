@@ -19,6 +19,10 @@
   font-size: 30px;
 }
 
+.subtitulo {
+  font-size: 25px;
+}
+
 .imagenesTarj {
   position: relative;
 }
@@ -152,6 +156,10 @@
     font-size: 18px;
   }
 
+  &_17 {
+    font-size: 17px;
+  }
+
   &_16 {
     font-size: 16px;
   }
@@ -162,6 +170,10 @@
 
   &_12 {
     font-size: 12px;
+  }
+
+  &_13 {
+    font-size: 13px;
   }
 }
 
@@ -241,6 +253,11 @@
     margin-left: 7%;
   }
 
+  .subtitulo {
+    font-size: 20px!important;
+    margin-left: 7%;
+  }
+
   .tarjeta {
     &_contenedor_principal {
       margin: 10% auto 10% auto !important;
@@ -267,6 +284,13 @@
     box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
     z-index: 100;
     transition: all 300ms ease;
+  }
+
+  .sizes {
+    
+    &_13 {
+      font-size: 16px;
+    }
   }
 }
 
