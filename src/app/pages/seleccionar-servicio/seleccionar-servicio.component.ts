@@ -9,20 +9,38 @@ import { NgpSortModule } from "ngp-sort-pipe";
 import { FilterPipeModule } from 'ngx-filter-pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Pipe, PipeTransform } from '@angular/core'
+import { FilterService } from 'src/app/HttpRequest/service.filter.service'
 
 @Component({
   selector: 'app-seleccionar-servicio',
   templateUrl: './seleccionar-servicio.component.html',
   styleUrls: ['./seleccionar-servicio.component.scss']
 })
+
 export class SeleccionarServicioComponent implements OnInit {
   
-  constructor(public appComponent: AppComponent, public spinner: SpinnerService, private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
+  constructor(public appComponent: AppComponent, 
+    public spinner: SpinnerService, 
+    private rutaActiva: ActivatedRoute, 
+    public auth: HttpService, 
+    public _dialog: MatDialog,
+    private filterService: FilterService) { }
   userFilter: any = { producto: '' };
   public productos: any = [];
   public id: any;
   public decha_inicio: any;
   public ejemplo = "";
+
+  @HostListener('click')
+  click() {
+    this.filterService.toggle(this.userFilter.producto);
+  }
+
+  limpiarfiltro(){
+    this.userFilter.producto = "";
+    this.filterService.toggle("reset");
+  }
+
   ngOnInit(): void {
 //debugger;
     
@@ -53,7 +71,7 @@ export class SeleccionarServicioComponent implements OnInit {
 
   setFilter(){
     //debugger;
-    this.appComponent._userFilter = this.userFilter;
+    this.appComponent._userFilter = this.userFilter.producto;
     debugger;
     this.appComponent.arrFilter.filter(x => x.productos == this.userFilter) ;
   }

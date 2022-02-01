@@ -173,8 +173,11 @@
                   <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Producto</mat-label>
-                        <input #producto maxlength="40" matInput placeholder="Producto" formControlName="producto">
+                        <input #producto maxlength="40" matInput placeholder="Producto" formControlName="producto" required>
                         <mat-hint align="end">{{producto.value.length}} / 40</mat-hint>
+                        <mat-error *ngIf="formModal.controls.producto.invalid && !formModal.controls.producto.value">
+                            You must provide a <strong>name</strong>
+                        </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-8">
@@ -237,29 +240,19 @@
                   </div>
                   <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Tipo unidad</mat-label>
-                        <mat-select formControlName="idCatTipoUnidad">
-                          <mat-option value="1">Horas</mat-option>
-                          <mat-option value="2">Unidad</mat-option>
-                          <mat-option value="2">Kilos</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                  </div>
-               </div>
-               <div class="row">
-                <div class="col-4">
-                    <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Minimo producto</mat-label>
                         <input matInput type="number" min="0" placeholder="Minimo producto" formControlName="minimoProductos">
                     </mat-form-field>
                 </div>
-                <div class="col-4">
+               </div>
+               <div class="row">
+                <div class="col-6">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Maximo producto</mat-label>
                         <input matInput type="number" min="0" placeholder="Minimo producto" formControlName="minimoProductos">
                     </mat-form-field>
                 </div>
-                  <div class="col-4">
+                  <div class="col-6">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Tipo imagen</mat-label>
                         <mat-select formControlName="tipoImagenSeleccion">
@@ -270,19 +263,27 @@
                   </div>
                </div> 
                <div class="row">
-                <div class="col-4">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Imagen</mat-label>
-                        <input matInput type="text" placeholder="Imagen" formControlName="imagenSeleccion">
-                        <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
-                        <!-- <input type="file" style="display:none;" id="file-input" name="file-input" (change)="fileChangeEvent($event)" >
-                        <label for="file-input">
-                          <mat-icon>cloud_upload</mat-icon>
-                        </label> -->
-                        <!-- <input #file type="file" [hidden]="true" accept="image/*" (change)="fileChangeEvent($event)">
-                        <mat-icon matSuffix (click)="file.click()">cloud_upload</mat-icon> -->
-                    </mat-form-field>
-                  </div>
+                <div class="col-4" *ngIf="formModal.controls.tipoImagenSeleccion.value == 'imagen'">
+                    <div class="col-12" *ngIf="formModal.controls.imagenSeleccion.value == null">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Imagen</mat-label>
+                            <input matInput type="text" placeholder="Imagen" formControlName="imagenSeleccion">
+                            <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
+                        </mat-form-field>
+                    </div>
+                      <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null">
+                        <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
+                            <img mat-card-image src="{{formModal.controls.imagenSeleccion.value}}" alt="formModal.controls.imagenSeleccion.value">
+                        </mat-card>
+                      </div>
+                </div>
+                <div class="col-4" *ngIf="formModal.controls.tipoImagenSeleccion.value == 'video'">
+                    <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
+                        <youtube-player videoId={{formModal.controls.imagenSeleccion.value}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="1000">
+                        </youtube-player>
+                    </mat-card>
+                </div>
+
                   <div class="col-8">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Especificaciones especiales</mat-label>

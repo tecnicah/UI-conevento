@@ -1,10 +1,12 @@
-import { Component, HostListener, ViewChild, ElementRef, OnInit, Input } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef, OnInit, Input, HostBinding } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
 import { DetalleProductoComponent } from 'src/app/dialog/detalle-producto/detalle-producto.component';
+import { Subscription } from 'rxjs';
+import { FilterService } from 'src/app/HttpRequest/service.filter.service'
 
 @Component({
   selector: 'app-slide-carousel-general',
@@ -12,13 +14,21 @@ import { DetalleProductoComponent } from 'src/app/dialog/detalle-producto/detall
   styleUrls: ['./slide-carousel-general.component.scss']
 })
 export class SlideCarouselGeneralComponent implements OnInit {
+  isOpen: string = '';
 
-  constructor(public appComponent: AppComponent, public spinner: SpinnerService, private rutaActiva: ActivatedRoute, public auth: HttpService, public _dialog: MatDialog) { }
+  constructor(public appComponent: AppComponent, 
+    public spinner: SpinnerService, 
+    private rutaActiva: ActivatedRoute, 
+    public auth: HttpService, 
+    public _dialog: MatDialog,
+    private filterService: FilterService) { }
   @Input() idCategoria = 0;
   @Input() idSubCategoria = 0;
   @Input() titulo = "";
   @Input() filter = "";
+  suscription: Subscription;
   public productos: any = [];
+  public reset: any = [];
   public ejemplo = "";
   public id: any;
   userFilter: any = { producto:  this.appComponent.filter};
@@ -45,6 +55,7 @@ export class SlideCarouselGeneralComponent implements OnInit {
       }
     }
   }
+
   ngOnInit(): void {
     console.log(this.idCategoria);
     console.log(this.idSubCategoria);
@@ -76,6 +87,7 @@ export class SlideCarouselGeneralComponent implements OnInit {
             this.productos = this.productos.filter(x => x.idSubcategoriaProductos == this.idSubCategoria);
           }
           
+          this.reset = this.productos;
           //debugger;
           this.calculosT();
           console.log(this.productos);
@@ -88,9 +100,21 @@ export class SlideCarouselGeneralComponent implements OnInit {
         debugger;  
         this.spinner.hide();
         console.log(err);
-      })
-  }
+    });
 
+    this.filterService.change.subscribe(isOpen => {
+      console.log(isOpen);
+      console.log(this.reset);
+      if(isOpen == "reset"){
+        this.productos = this.reset;
+      }
+      else{
+        this.productos = this.productos.filter(el => el.producto.toLowerCase().indexOf(isOpen.toLowerCase()) !== -1);
+      }
+      //console.log(this.productos.filter(el => el.producto.toLowerCase().indexOf(isOpen.toLowerCase()) !== -1));
+    });
+  }
+  
   initializeSlider() {
     this.totalPages = Math.ceil(this.totalCards / this.cardsPerPage);
     this.overflowWidth = `calc(${this.totalPages * 100}% + ${this.totalPages *

@@ -15,13 +15,14 @@
       </div>
 
       <div class="col-md-12">
-        <div class="col-md-3">
+        <div class="col-md-6">
           <p>¿ Qué estas buscando?</p>
-          <div class="input-group mb-3 margen_cero">
+          <div class="input-group mb-6 margen_cero">
             <input type="text" class="form-control" placeholder="{{ejemplo}}"
               aria-label="Calle y numero exterior" aria-describedby="basic-addon1" [(ngModel)]="userFilter.producto"
-              name="filterpost" (ngModelChange)="setFilter();">
+              name="filterpost" (ngModelChange)="click();">
             {{userFilter.name}}
+            <button class="btn animate_boton" (click)="limpiarfiltro()">limpiar filtro</button>
           </div>
         </div>
       </div>

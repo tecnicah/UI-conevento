@@ -166,7 +166,7 @@ export class CalendarServiciosComponent implements OnInit {
   viewEvents(){
     this.auth.service_general_get('Eventos/CalendarEventByServicio?id=' + this._route.snapshot.paramMap.get('id'))
     .subscribe(r => {
-      //console.log(r);
+      console.log(r);
       if (r.success) {
        this.fecha_evento=r.result.value;
         this.viewObjectCalendar(this.fecha_evento);
@@ -182,7 +182,11 @@ export class CalendarServiciosComponent implements OnInit {
       this.events.push({
         start: startOfDay(new Date(element.fechaHoraInicio)),
         end: endOfDay(new Date(element.fechaHoraFin)),
-        title: element.nombreEvento == '' ? element.producto : element.nombreEvento,
+        //title: element.nombreEvento == '' ? element.producto : element.nombreEvento,
+        title: "Contratante: " + element.usuario + ", " + " Agendado de " 
+        + element.fechaHoraInicio.substring(0, 10) + " "+ element.fechaHoraInicio.substring(11, 16) + "hrs." +
+        " a " +element.fechaHoraFin.substring(0, 10) + " "+ element.fechaHoraFin.substring(11, 16)+ "hrs. "  +
+        "Días bloqueados antes: " + element.diasBloqueoAntes + " - Días bloqueados despues: " + element.diasBloqueoDespues,
         color: colors.red,
         actions: this.actions,
         allDay: true,

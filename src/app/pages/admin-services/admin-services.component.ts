@@ -74,7 +74,7 @@ export class AdminServicesComponent implements OnInit {
         precioPorUnidad: [''],
         diasBloqueoAntes: [''],
         diasBloqueoDespues: [''],
-        idCatTipoUnidad: [''],
+        idCatTipoUnidad: [1],
         minimoProductos: [''],
         imagenSeleccion: [''],
         activo: [true],
@@ -93,9 +93,10 @@ export class AdminServicesComponent implements OnInit {
   modal: NgbModalRef | undefined;
 
   ngOnInit(): void {
- this.catalogos();
+    this.formModal.reset();
+    this.catalogos();
  //this.get_resultados();
- this.get_resultados1();
+    this.get_resultados1();
   }
   
 //*******************************************// 
@@ -160,6 +161,7 @@ export class AdminServicesComponent implements OnInit {
 
   save(){
     debugger;
+    console.log(this.formModal);
     this.spinner.show();
     console.log(JSON.stringify(this.formModal.value));
     if(this.formModal.valid){
@@ -203,12 +205,13 @@ export class AdminServicesComponent implements OnInit {
   }
 
   getdatabyEdit(id){
-    this.formModal.reset(this.formModal.value);
+    //this.formModal.reset(this.formModal.value);
     this.spinner.show();
     this.auth.service_general_get('Catalog/Get_Cat_CategoriasById?id_categoria='+id).subscribe(observer => {
     console.log(observer);
       if (observer.success) {
         // this.formModal.controls.image.setValue('');
+        console.log(this.formModal.controls.imagenSeleccion.value);
         this.formModal.patchValue(observer.result[0]);
         this.handleEvent("edit", '');
       }
@@ -266,7 +269,13 @@ debugger;
 }
 
 handleEvent(action: string, event): void {
+  console.log(this.formModal.value);
   this.action_modal = action;
+  //this.formModal.controls.imagenSeleccion.setValue(action);
+  if(action == 'add'){
+    this.formModal.reset();
+  }
+
   this.modalService.open(this.modalContent, { size: 'lg' });
 }
 

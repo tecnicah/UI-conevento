@@ -65,6 +65,7 @@ import { DisponibilidadComponent } from './dialog/disponibilidad/disponibilidad.
 import { CalendarEventsComponent } from './pages/calendar-events/calendar-events.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { SlideCarouselGeneralComponent } from './componentUtils/slide-carousel-general/slide-carousel-general.component'
+import { FilterService } from './HttpRequest/service.filter.service'
 
 export const MY_FORMATS = {
   parse: {
@@ -142,7 +143,7 @@ export const MY_FORMATS = {
     MatGridListModule,
     MatSnackBarModule
   ],
-  providers: [ { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
+  providers: [ FilterService, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
