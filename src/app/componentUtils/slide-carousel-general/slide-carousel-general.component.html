@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="right" (click)="currentPage != totalPages && changePage(+1)"
-        [ngClass]="{'disabled':currentPage === totalPages}">
+        [ngClass]="{'disabled':currentPage === totalPages}" [ngClass]="{'class-hide': productos.length === 0}">
     </div>
       </div>
     </div>
