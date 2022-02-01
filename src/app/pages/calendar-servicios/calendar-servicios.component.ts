@@ -187,7 +187,7 @@ export class CalendarServiciosComponent implements OnInit {
         + element.fechaHoraInicio.substring(0, 10) + " "+ element.fechaHoraInicio.substring(11, 16) + "hrs." +
         " a " +element.fechaHoraFin.substring(0, 10) + " "+ element.fechaHoraFin.substring(11, 16)+ "hrs. "  +
         "Días bloqueados antes: " + element.diasBloqueoAntes + " - Días bloqueados despues: " + element.diasBloqueoDespues +
-        "Cantidad de unidades: " + element.cantidadUnidades + " - Cantidad de horas: " + element.cantidadHoras == null ? "N/A" : element.diasBloqueoDespues,
+        ", Cantidad de unidades: " + (element.cantidadUnidades == null ? 'N/A': element.cantidadUnidades)  + " - Cantidad de horas: " + (element.cantidadHoras == null ? "N/A" : element.diasBloqueoDespues),
         color: colors.red,
         actions: this.actions,
         allDay: true,
