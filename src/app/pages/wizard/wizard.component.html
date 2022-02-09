@@ -221,7 +221,7 @@
                       &nbsp;&nbsp;Servicio de flete (Mobiliario)
                     </span>
                     <span class="productlist_precio">
-                      $500.00
+                      $850.00
                     </span>
                   </div>
                   <div class="separator"></div>
@@ -364,27 +364,18 @@
 
               <div class="col-md-5">
                 <mat-form-field appearance="fill" style="width: 100%;">
-                  <mat-label>Ciudad</mat-label>
-                  <select matNativeControl required formControlName="ciudad">
-                    <option value=1 selected>CDMX</option>
-                  </select>
+                  <mat-label>Selecciona una ciudad</mat-label>
+                  <mat-select disableRipple required placeholder="Ciudad" formControlName="ciudad" (selectionChange)="getMunicipio();">
+                    <mat-option *ngFor="let item of estados" value={{item.id}}>{{item.estado}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-7">
                 <mat-form-field appearance="fill" style="width: 100%;">
                   <mat-label>Selecciona Alcaldía</mat-label>
-                  <select matNativeControl required formControlName="idCatMunicipio">
-                    <option value=1>Benito Juárez</option>
-                    <option value=2>Coyoacan</option>
-                    <option value=3>Magdalena Contreras </option>
-                    <option value=4>Venustiano Carranza</option>
-                    <option value=5>Cuajimalpa</option>
-                    <option value=6>Alvaro Obregón</option>
-                    <option value=7>Azcapotzalco</option>
-                    <option value=8>Cuahutémoc</option>
-                    <option value=9>Tlapan</option>
-                    <option value=10>Miguel Hidalgo</option>
-                  </select>
+                  <mat-select  required formControlName="idCatMunicipio">
+                    <mat-option *ngFor="let item of municipios" [value]=item.id>{{item.municipio}}</mat-option>
+                  </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-md-12">
@@ -456,7 +447,7 @@
                       &nbsp;&nbsp;Servicio de flete (Mobiliario)
                     </span>
                     <span class="productlist_precio">
-                      $500.00
+                      $850.00
                     </span>
                   </div>
                   <div class="separator"></div>
@@ -647,7 +638,7 @@
                         &nbsp;&nbsp;Servicio de flete (Mobiliario)
                       </span>
                       <span class="productlist_precio">
-                        $500.00
+                        $850.00
                       </span>
                     </div>
                     <div class="separator"></div>
@@ -875,7 +866,7 @@
                         &nbsp;&nbsp;Servicio de flete (Mobiliario)
                       </span>
                       <span class="productlist_precio">
-                        $500.00
+                        $850.00
                       </span>
                     </div>
                     <div class="separator"></div>

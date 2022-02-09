@@ -34,6 +34,8 @@ export class WizardComponent implements OnInit {
   public submitted = false;
   public isLinear = false;
   public Productos_listado: any = [];
+  public estados: any[] = [];
+  public municipios: any[] = [];
   public emailRegex = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   producto = {
     descripcion: "es algo descriptitvo",
@@ -210,6 +212,26 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
       nombreEvento: [''],
     });
     this.appComponent.get_sesion();
+
+    this.getEstados();
+  }
+
+  getEstados(){
+    this.auth.service_general_get('Catalog/Get_Estados').subscribe(observer => {
+      if (observer.success) {
+        this.estados = observer.result;
+      }
+    });
+  }
+
+  getMunicipio(){
+    console.log('OKK');
+    console.log(this.firstFormGroup.controls.ciudad.value);
+    this.auth.service_general_get('Catalog/Get_MunicipioByEstadoId?IdEstado='+this.firstFormGroup.controls.ciudad.value).subscribe(observer => {
+      if (observer.success) {
+        this.municipios = observer.result;
+      }
+    });
   }
 
   private initConfigPayPal(): void {
@@ -407,7 +429,7 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
       }
     });
     if (this.flete > 0) {
-      this.total = this.total + 500;
+      this.total = this.total + 850;
     }
     this.Subtotal = this.total / 1.16;
     this.IVA = this.total - this.Subtotal;
