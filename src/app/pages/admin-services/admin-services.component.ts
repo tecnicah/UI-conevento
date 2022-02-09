@@ -186,9 +186,12 @@ export class AdminServicesComponent implements OnInit {
   }
 
   edit(){
-    
+    debugger;
     this.spinner.show();
     console.log(JSON.stringify(this.formModal.value));
+    var _image = this.formModal.controls.imagenSeleccion.value;
+    //"https://my.premierds.com/API-conevento/Imagenes/assets/Home/imagenes-productos/ME.jpg"
+    this.formModal.controls.imagenSeleccion.setValue(_image.split('Imagenes/')[1])
     this.auth.service_general_put_with_url('Catalog/UpdateProductoServicios', this.formModal.value).subscribe(observer => {
     console.log(observer);
       if (observer.success) {
@@ -212,6 +215,7 @@ export class AdminServicesComponent implements OnInit {
       if (observer.success) {
         // this.formModal.controls.image.setValue('');
         console.log(this.formModal.controls.imagenSeleccion.value);
+        this.getSubcategoria(observer.result[0].idCategoriaProducto)
         this.formModal.patchValue(observer.result[0]);
         this.handleEvent("edit", '');
       }

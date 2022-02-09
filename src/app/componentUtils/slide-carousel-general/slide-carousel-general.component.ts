@@ -82,7 +82,7 @@ export class SlideCarouselGeneralComponent implements OnInit {
               }
             }
           });
-
+debugger;
           if(this.idSubCategoria != 0){
             this.productos = this.productos.filter(x => x.idSubcategoriaProductos == this.idSubCategoria);
           }
