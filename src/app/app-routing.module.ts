@@ -13,6 +13,7 @@ import { StripeComponent } from './pages/stripe/stripe.component'
 import { AdminUsersComponent } from './pages/admin-users/admin-users.component'
 import { CalendarServiciosComponent } from './pages/calendar-servicios/calendar-servicios.component'
 import { CalendarEventsComponent} from './pages/calendar-events/calendar-events.component'
+import { AdminCuponesComponent } from './pages/admin-cupones/admin-cupones.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
       {
         path: 'services',
         component: AdminServicesComponent,
+      },
+      {
+        path: 'cupones',
+        component: AdminCuponesComponent,
       },
       {
         path: 'users',

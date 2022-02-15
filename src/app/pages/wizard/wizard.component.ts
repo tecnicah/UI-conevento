@@ -43,7 +43,9 @@ export class WizardComponent implements OnInit {
     imagen: "sin imagen"
   }
   public formaPago = "No capturada";
-
+  _cupon = new FormControl('');
+  mensaje: string = "";
+  cuponResult: any[] = [];
   //////////// declaracion de variables golbales del componente 
 
   public payPalConfig?: IPayPalConfig;
@@ -161,7 +163,7 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
         });
         // console.log(this.categorias);
         this.initSettings();
-
+        this.spinner.hide();
       }
     }, (err) => {
       console.log(err);
@@ -204,8 +206,8 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
       minInicio: ["00", Validators.required],
       horaFin: ["00", Validators.required],
       minFin: ["00", Validators.required],
-      ciudad: [1, Validators.required],
-      idCatMunicipio: [1, Validators.required],
+      ciudad: [0, Validators.required],
+      idCatMunicipio: [0, Validators.required],
       cp: [''],
       calleNumero: ['', Validators.required],
       colonia: ['', Validators.required],
@@ -214,6 +216,34 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
     this.appComponent.get_sesion();
 
     this.getEstados();
+    setTimeout(() => {
+      this.getMunicipio();
+    }, 3000);
+  }
+
+  validaCupon(){
+    let userId = null;
+    let json_bd;
+    if (localStorage.getItem('userData')) {
+      json_bd = JSON.parse(localStorage.getItem('userData') || '{}');
+      userId = json_bd.id;
+    }
+    
+    this.auth.service_general_get('Cupon/ValidateCoupon?cupon='+this._cupon.value+'&userId='+userId).subscribe(observer => {
+      if (observer.success) {
+        this.mensaje = observer.message;
+        this.cuponResult = observer.result;
+        this.data_model.idCupon = this.cuponResult[0].id;
+        this.calculos();
+      }
+    });
+  }
+  
+  deleteCupon(){
+    this.mensaje = "Borrar cupon";
+    this.cuponResult[0].montoPesos = 0;
+    this._cupon.reset();
+    this.calculos();
   }
 
   getEstados(){
@@ -225,8 +255,8 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
   }
 
   getMunicipio(){
-    console.log('OKK');
-    console.log(this.firstFormGroup.controls.ciudad.value);
+    //console.log('OKK');
+    //console.log(this.firstFormGroup.controls.ciudad.value);
     this.auth.service_general_get('Catalog/Get_MunicipioByEstadoId?IdEstado='+this.firstFormGroup.controls.ciudad.value).subscribe(observer => {
       if (observer.success) {
         this.municipios = observer.result;
@@ -320,6 +350,11 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
   public total = 0;
   public Subtotal = 0;
   public IVA = 0;
+  public totalCupon = 0;
+  public typeCupon = 0;
+  public porcentajeCupon = 0;
+  public totalCuponPesos = 0;
+
   public initSettings() {
 
     if (localStorage.getItem('categorias')) {
@@ -417,7 +452,11 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
     this.Subtotal = 0;
     this.IVA = 0;
     this.total = 0;
-
+    
+    this.totalCupon = this.cuponResult[0]?.montoPesos == null ? 0 : this.cuponResult[0]?.montoPesos;
+    this.typeCupon = this.cuponResult[0]?.type == null ? 0 : this.cuponResult[0]?.type;
+    this.porcentajeCupon = this.cuponResult[0]?.montoPorcentaje == null ? 0 : this.cuponResult[0]?.montoPorcentaje;
+    
     this.Productos_listado.forEach((E: any) => {
       this.total = this.total + E.Precio * E.cantidadUnidades * E.cantidadHoras;
     });
@@ -431,6 +470,19 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
     if (this.flete > 0) {
       this.total = this.total + 850;
     }
+
+    if(this.typeCupon == 1)
+    {
+      this.total = this.total - this.totalCupon;
+      this.totalCuponPesos = this.totalCupon;
+    }
+
+    if(this.typeCupon == 2)
+    {
+      this.totalCuponPesos = ((this.porcentajeCupon * this.total) / 100);
+      this.total = this.total - ((this.porcentajeCupon * this.total) / 100);
+    }
+    
     this.Subtotal = this.total / 1.16;
     this.IVA = this.total - this.Subtotal;
     this.Subtotal = parseFloat(this.Subtotal.toFixed(2));
@@ -446,6 +498,7 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
   public saveForm() {
     debugger;
     this.data_model = {
+      idCupon: null,
       calleNumero: this.firstFormGroup.value.calleNumero,
       ciudad: this.firstFormGroup.value.ciudad,
       colonia: this.firstFormGroup.value.colonia,
@@ -1092,8 +1145,9 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
     json_bd.pagado = true,
       json_bd.claveSeguimientoCarrito = "Sin seguimiento carrito",
       json_bd.listaProductosEventos = this.auth.listaProductosEventos;
-
-    // console.log("EVENTOS A GUARDAR: ====================> ", json_bd);
+      console.log(JSON.stringify(json_bd));
+    console.log("EVENTOS A GUARDAR: ====================> ", json_bd);
+    
     this.auth.service_general_post_with_url('Eventos/AddEvent', json_bd).subscribe(r => {
       if (r.success) {
         Swal.fire({

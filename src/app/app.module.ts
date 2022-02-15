@@ -65,7 +65,8 @@ import { DisponibilidadComponent } from './dialog/disponibilidad/disponibilidad.
 import { CalendarEventsComponent } from './pages/calendar-events/calendar-events.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { SlideCarouselGeneralComponent } from './componentUtils/slide-carousel-general/slide-carousel-general.component'
-import { FilterService } from './HttpRequest/service.filter.service'
+import { FilterService } from './HttpRequest/service.filter.service';
+import { AdminCuponesComponent } from './pages/admin-cupones/admin-cupones.component'
 
 export const MY_FORMATS = {
   parse: {
@@ -109,7 +110,8 @@ export const MY_FORMATS = {
     CalendarServiciosComponent,
     DisponibilidadComponent,
     CalendarEventsComponent,
-    SlideCarouselGeneralComponent
+    SlideCarouselGeneralComponent,
+    AdminCuponesComponent
   ],
   imports: [
     NgxPayPalModule,

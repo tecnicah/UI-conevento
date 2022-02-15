@@ -1,0 +1,252 @@
+<div class="contenedor ux-container">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="row">
+                <div class="col-6">
+                    <br>
+                    <h1 class="Titlu-header bold" style="font-size: 22px;">Servicios</h1>
+
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="row ">
+
+                <div class="col-8 filter">
+                    <div class="form-group form-inline">
+                        Búsqueda Por Nombre: <input class="form-control ml-2" type="text"
+                            [(ngModel)]="userFilter.nombre" />
+                    </div>
+                </div>
+
+                <div class="col-2 end">
+                    <button mat-raised-button style="background-color: #DAA51F; color: #fff;"
+                    (click)="limpiarFiltros();">
+                    Limpiar <mat-icon>refresh</mat-icon>
+                </button>
+                </div>
+                <div class="col-2 end">
+                    <button mat-raised-button style="background-color: #008000;color: #fff;"
+                    (click)="handleEvent('add', '')">
+                        Agregar
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <br>
+            </div>
+            <div class="table-responsive" style="margin-bottom: 100px;">
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    #
+                                </span>
+                            </th>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    Nombre
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Fecha inicial
+                                </span>
+                            </th>
+                            <th style="cursor: pointer;">
+                                <span>
+                                    Fecha final
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Número de cupones
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                            style="cursor: pointer;">
+                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                Cupones Ocupados
+                            </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Cupones Restantes
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Monto
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                            style="cursor: pointer;">
+                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                Porcentaje
+                            </span>
+                        </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Estatus
+                                </span>
+                            </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'Editar'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Editar
+                                </span>
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="padding: 5px;"
+                            *ngFor="let item of resultados_p | filterBy : userFilter | paginate: { itemsPerPage: 10, currentPage: p }; let i = index ">
+                            <td>
+                                <span>{{ i + 1 + (p-1)*10 }}
+                                </span>
+                            </td>
+                            <td>
+                                <span>{{ item.nombre }}
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </span>
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{item.fechaInicial}}&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                {{ item.fechaFinal }}&nbsp;&nbsp;
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.numeroCupones }} &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.cuponesOcupados }} &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.cuponesRestantes }} &nbsp;&nbsp;
+                            </td>
+                            <td>
+
+                                &nbsp;&nbsp;{{ item.montoPesos | currency }} &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                &nbsp;&nbsp;{{ item.montoPorcentaje }}% &nbsp;&nbsp;
+                            </td>
+                            <td>
+                                <mat-checkbox class="example-margin"
+                                    [checked]="item.estatus" [disabled]="true">
+                                </mat-checkbox>
+                                
+                            </td>
+                            <td style="cursor: pointer;">
+                                <a (click)="getdatabyEdit(item.id);">
+                                    <mat-icon>edit</mat-icon>
+                                </a>
+                             </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="center">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalContent let-close="close">
+    <form [formGroup]="formModal">
+        <div class="modal-header">
+        <h5 class="modal-title">Agregar cupon</h5>
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                  <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Cupón/Clave</mat-label>
+                        <input #nombre maxlength="40" matInput placeholder="Cupón" formControlName="nombre" required>
+                        <mat-hint align="end">{{nombre.value.length}} / 40</mat-hint>
+                        <mat-error *ngIf="formModal.controls.nombre.invalid && !formModal.controls.nombre.value">
+                            You must provide a <strong>name</strong>
+                        </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-5">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Fecha inicio / Fecha final</mat-label>
+                        <mat-date-range-input [formGroup]="formModal" [rangePicker]="picker">
+                          <input matStartDate formControlName="fechaInicial" placeholder="Fecha inicial">
+                          <input matEndDate formControlName="fechaFinal" placeholder="Fecha final">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                  </div>
+                  <div class="col-3">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>No. cupones</mat-label>
+                        <input matInput type="number" min="0" placeholder="Número de cupones" formControlName="numeroCupones">
+                    </mat-form-field>
+                  </div>
+                </div>
+               <div class="row">
+                
+                  <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Monto Pesos</mat-label>
+                        <input matInput type="number" min="0" placeholder="Monto pesos" formControlName="montoPesos">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>% de compra</mat-label>
+                        <input matInput type="number" min="0" placeholder="Monto porcentaje" formControlName="montoPorcentaje">
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Elige el tipo de cupon</mat-label>
+                        <mat-select formControlName="type">
+                          <mat-option [value]="1">
+                            Por Monto
+                          </mat-option>
+                          <mat-option [value]="2">
+                            Por Porcentaje
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-4">
+                    <mat-checkbox class="example-margin" formControlName="estatus"
+                    [checked]="true">
+                    Activo
+                </mat-checkbox>
+                </div>
+               </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" (click)="close()">
+                Cancelar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" *ngIf="action_modal=='add'" (click)="save();">
+                Guardar
+            </button>
+            <button type="button" class="btn btn-outline-secondary" *ngIf="action_modal=='edit'" (click)="edit(); close()">
+                Editar
+            </button>
+        </div>
+    </form>
+  </ng-template>

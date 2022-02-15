@@ -18,8 +18,13 @@
            <img width="30px" src="https://img.icons8.com/ios-glyphs/30/ffffff/circled-chevron-down.png"/>
            <!-- <img width="22px" src="https://img.icons8.com/material-sharp/24/ffffff/circled-chevron-right.png"/> -->
           </p> 
-         
-          <button type="button" class="btn home_boton " (click)="wizard()">Arma tu evento</button>
+        
+          <button type="button" class="btn home_boton " (click)="wizard()">
+            <span style="font-size:19px;width: 100%;display: block;">
+              Arma tu evento
+            </span> 
+            <div style="font-size:12px;">Haz clic aquí</div>
+          </button>
           <!-- <img src="./assets/home-dos/chevron-down.png" alt="" class="home_arrow"> -->
         </div>
       </div>
@@ -85,7 +90,7 @@
       <div class="row">
 
         <div class="col-md-4">
-          <div>
+          <div style="cursor: pointer;" routerLink="/SeleccionarServicios/1">
             <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/servicios_uno.png');">
               <span class="texto_tarjetas">Personal</span>
             </div>
@@ -111,7 +116,7 @@
         </div>
 
         <div class="col-md-4">
-          <div>
+          <div style="cursor: pointer;" routerLink="/SeleccionarServicios/3">
             <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/talento.png');">
              
               <span class="texto_tarjetas">Talento</span>
@@ -142,7 +147,7 @@
         </div>
 
         <div class="col-md-4">
-          <div>
+          <div style="cursor: pointer;" routerLink="/SeleccionarServicios/6">
             <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/mobiliario.png');">
               <span class="texto_tarjetas">Mobiliario</span>
             </div>
@@ -172,7 +177,7 @@
         </div>
 
         <div class="col-md-4">
-          <div>
+          <div style="cursor: pointer;" routerLink="/SeleccionarServicios/5">
             <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/bebidas.png');">
               <span class="texto_tarjetas">Bebidas y Alimentos</span>
             </div>
@@ -198,7 +203,7 @@
         </div>
 
         <div class="col-md-4">
-          <div>
+          <div style="cursor: pointer;" routerLink="/SeleccionarServicios/7">
             <div class="servicios_header_tarjeta" style="background-image: url('./assets/home-dos/luces.png');">
               <span class="texto_tarjetas">Luces y Sonido</span>
             </div>

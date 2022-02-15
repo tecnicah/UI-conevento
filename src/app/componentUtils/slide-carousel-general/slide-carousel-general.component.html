@@ -6,7 +6,7 @@
     <div class="containerCarousel" #container>
       
       <div class="cards">
-        <div class="left" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}" [ngClass]="{'class-hide': productos.length === 0}">
+        <div class="left" (click)="currentPage != 1 && changePage(-1)" [ngClass]="{'disabled':currentPage === 1}" [ngClass]="{'class-hide': productos.length < 2}">
         </div>
         <div class="overflow" [ngStyle]="{'width': overflowWidth, 'left': pagePosition}">
           <div class="card" *ngFor="let item of productos | filterBy: appComponent._userFilter; let i = index " [ngStyle]="{'width': cardWidth}">
@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="right" (click)="currentPage != totalPages && changePage(+1)"
-        [ngClass]="{'disabled':currentPage === totalPages}" [ngClass]="{'class-hide': productos.length === 0}">
+        [ngClass]="{'disabled':currentPage === totalPages}" [ngClass]="{'class-hide': productos.length < 2}">
     </div>
       </div>
     </div>

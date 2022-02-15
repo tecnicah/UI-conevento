@@ -107,12 +107,25 @@
                                     Monto
                                 </span>
                             </th>
+                            <th (click)="sort('cupon')" [class.active-sort]="key === 'cupon'"
+                            style="cursor: pointer;">
+                            <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                Cupon
+                            </span>
+                            </th>
+                            <th (click)="sort('montoCupon')" [class.active-sort]="key === 'montoCupon'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Monto Cupón
+                                </span>
+                            </th>
                             <th (click)="sort('country')" [class.active-sort]="key === 'telefono'"
                                 style="cursor: pointer;">
                                 <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
                                     Forma Pago
                                 </span>
                             </th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -150,6 +163,12 @@
                             </td>
                             <td>
                                 {{ item.total | currency }}
+                            </td>
+                            <td>
+                                {{ item.cupon }}
+                            </td>
+                            <td>
+                                {{ item.cuponMonto | currency }}
                             </td>
                             <td>
                                 {{ item.formaPago }}
@@ -307,9 +326,12 @@
                                     Monto total: {{eventos.total | currency}} &nbsp;
                                     <span *ngIf="eventos.flete > 0"
                                         style="color: gray; font-size: 14px; font-style: italic;">
-                                        (Incluye Flete $500.00)
+                                        (Incluye Flete $850.00)
                                     </span> &nbsp; &nbsp;
 
+                                </p>
+                                <p class="Reboto-medium subtitle" *ngIf="eventos.cupon != null">
+                                    Cupón: {{eventos.cupon}} - {{eventos.cuponMonto | currency}} 
                                 </p>
                                 <p class="Reboto-medium subtitle">Servicios ({{eventos.total_servicios}}): </p>
                             </div>

@@ -274,7 +274,7 @@
                 <p class="Reboto-medium subtitle">¿Cuando será el momento de tu evento?</p>
               </div>
               <div class="col-md-6 date1">
-                <div class="input-group mb-3 margen_cero">
+                <div class="mb-3 margen_cero">
                   <mat-form-field appearance="fill" style="width: 150px;">
                     <mat-label>Incio*</mat-label>
                     <input matInput [matDatepicker]="picker" [readonly]="inputReadonly" [min]="dtToday"
@@ -716,6 +716,21 @@
                 Un asesor de Conevento te contactará en menos de 24hrs
               </span>
             </div>
+            <br>
+            <div>
+              <p class="Reboto-medium eventos_seleccionados_titulo" style="font-weight: bold;">¿Cuentas con un cupón?</p>
+            </div>
+            <div class="input-group mb-6 margen_cero">
+              <input type="text" class="form-control" [formControl]="_cupon" placeholder="Ingresa el cupón"
+              aria-label="Calle y numero exterior" aria-describedby="basic-addon1"
+              name="filterpost">
+              <button class="btn animate_boton" (click)="validaCupon()">Aplicar</button>
+            </div>
+            <div class="eventos_seleccionados_flex">
+              <span  style="font-style: italic; font-size:13px; color: gray;">
+                {{mensaje}}
+              </span>
+            </div>
           </div>
           <div>
             <p class="titleHeader Reboto-medium">¿Cómo quieres pagar?</p>
@@ -858,6 +873,16 @@
                         style="font-style: italic;"> ({{item.cantidadHoras}} hrs)</span>
                       <span class="productlist_precio"> {{item.Precio *
                         item.cantidadUnidades * item.cantidadHoras | currency}}
+                      </span>
+                    </div>
+                    <div *ngIf="mensaje == 'Cupon valido'">
+                      <img style="width: 16px; cursor: pointer;"
+                        (click)="deleteCupon()"
+                        src="https://img.icons8.com/material-outlined/64/000000/trash--v1.png" />
+                      <span class="productlist"
+                        style="font-style: italic;"> Cupón</span>
+                      <span class="productlist_precio">
+                        -{{ totalCuponPesos| currency}}
                       </span>
                     </div>
                     <div *ngIf="flete > 0">

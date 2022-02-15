@@ -56,7 +56,7 @@ export class AdminEventsComponent implements OnInit {
       this.auth.service_general_post_with_url('Eventos/GetServicesDetailByfilter', this.data_model).subscribe(r => {
         if (r.success) {
           this.resultados = r.result.value;
-          //  console.log("respuesta exitosa: ", r.result, this.resultados);
+          console.log("respuesta exitosa: ", r.result, this.resultados);
           this.spinner.hide();
         }
       }, (err) => {

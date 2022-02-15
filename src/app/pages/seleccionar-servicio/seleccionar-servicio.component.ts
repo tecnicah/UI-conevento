@@ -1,6 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { HttpService } from 'src/app/HttpRequest/http.service';
 import { SpinnerService } from 'src/app/Spinner/spinner.service';
@@ -24,7 +24,8 @@ export class SeleccionarServicioComponent implements OnInit {
     private rutaActiva: ActivatedRoute, 
     public auth: HttpService, 
     public _dialog: MatDialog,
-    private filterService: FilterService) { }
+    private filterService: FilterService,
+    private _router: Router) { }
   userFilter: any = { producto: '' };
   public productos: any = [];
   public id: any;
@@ -77,6 +78,7 @@ export class SeleccionarServicioComponent implements OnInit {
   }
 
   public back() {
-    window.history.back();
+    //window.history.back();
+    this._router.navigate(['/Wizard']);
   }
 }
