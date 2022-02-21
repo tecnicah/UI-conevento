@@ -271,7 +271,14 @@
                             <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
                         </mat-form-field>
                     </div>
-                      <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null">
+                    <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='add'">
+                        <!-- <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
+                            <img mat-card-image src="{{formModal.controls.image.value}}" alt="formModal.controls.imagenSeleccion.value">
+                        </mat-card> -->
+                        {{formModal.controls.imagenSeleccion.value}}
+                        <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
+                      </div>
+                      <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='edit'">
                         <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
                             <img mat-card-image src="{{formModal.controls.imagenSeleccion.value}}" alt="formModal.controls.imagenSeleccion.value">
                         </mat-card>

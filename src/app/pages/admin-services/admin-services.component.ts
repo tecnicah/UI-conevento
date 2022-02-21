@@ -93,7 +93,7 @@ export class AdminServicesComponent implements OnInit {
   modal: NgbModalRef | undefined;
 
   ngOnInit(): void {
-    this.formModal.reset();
+    //this.formModal.reset();
     this.catalogos();
  //this.get_resultados();
     this.get_resultados1();
@@ -162,6 +162,9 @@ export class AdminServicesComponent implements OnInit {
   save(){
     debugger;
     console.log(this.formModal);
+    this.formModal.controls.id.setValue(0);
+    this.formModal.controls.idCatTipoUnidad.setValue(1);
+    this.formModal.controls.activo.setValue(true);
     this.spinner.show();
     console.log(JSON.stringify(this.formModal.value));
     if(this.formModal.valid){
