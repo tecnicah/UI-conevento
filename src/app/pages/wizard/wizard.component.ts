@@ -1221,7 +1221,7 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
     //Display Only Date till today // 
 
     var someDate = new Date();
-    var duration = 4; //In Days
+    var duration = 3; //In Days
     // someDate.setTime(someDate.getTime() +  (duration * 24 * 60 * 60 * 1000));
 
     this.dtToday = new Date();
