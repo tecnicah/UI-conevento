@@ -468,7 +468,7 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
       }
     });
     if (this.flete > 0) {
-      this.total = this.total + 850;
+      this.total = this.total + 650;
     }
 
     if(this.typeCupon == 1)

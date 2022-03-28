@@ -391,7 +391,7 @@ debugger;
      }
    });
    if (flete > 0) {
-     this.total = this.total + 850;
+     this.total = this.total + 650;
    }
    ////debugger;;
    this.Subtotal = this.total / 1.16;
