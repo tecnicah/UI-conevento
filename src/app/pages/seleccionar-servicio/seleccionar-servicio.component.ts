@@ -81,4 +81,9 @@ export class SeleccionarServicioComponent implements OnInit {
     //window.history.back();
     this._router.navigate(['/Wizard']);
   }
+
+  public next(){
+    this._router.navigate(['/Wizard']);
+    localStorage.setItem('step', JSON.stringify(2));
+  }
 }

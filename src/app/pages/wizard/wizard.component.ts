@@ -420,6 +420,15 @@ this.firstFormGroup.get("horaFin")?.setValue(_value);
       this.fillForm();
     }
     this.restart_dates();
+      if ("step" in localStorage) {  
+      // alert('yes');
+       localStorage.removeItem('step');
+       this.next_validate_total();
+       } 
+       else {
+         //  alert('no');
+      }
+
     this.spinner.hide();
   }
 
