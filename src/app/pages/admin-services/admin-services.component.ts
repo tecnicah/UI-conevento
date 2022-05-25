@@ -66,6 +66,7 @@ export class AdminServicesComponent implements OnInit {
     public fb: FormBuilder) {
       this.formModal = fb.group({
         id: [0],
+        orden: [''],
         producto: ['', Validators.required],
         descripcionCorta: ['', Validators.required], 
         descripcionLarga: ['', Validators.required],
@@ -193,8 +194,10 @@ export class AdminServicesComponent implements OnInit {
     this.spinner.show();
     console.log(JSON.stringify(this.formModal.value));
     var _image = this.formModal.controls.imagenSeleccion.value;
-    //"https://my.premierds.com/API-conevento/Imagenes/assets/Home/imagenes-productos/ME.jpg"
-    this.formModal.controls.imagenSeleccion.setValue(_image.split('Imagenes/')[1])
+    if(this.formModal.controls.tipoImagenSeleccion.value == 'imagen'){
+      this.formModal.controls.imagenSeleccion.setValue(_image.split('Imagenes/')[1])
+    }
+    
     this.auth.service_general_put_with_url('Catalog/UpdateProductoServicios', this.formModal.value).subscribe(observer => {
     console.log(observer);
       if (observer.success) {
@@ -327,6 +330,29 @@ closeModal(){
   viewdetail(item: any){
     
     this.get_detalle_evento(item.id);
+  }
+
+  setActive(event, item){
+    console.log(event.checked);
+      console.log(item);
+      ///api/Catalog/ActiveService?id=219&active=false
+      this.spinner.show();
+      this.auth.service_general_post_with_url('Catalog/ActiveService?id='+ item.id + '&active=' + event.checked, '').subscribe(r => {
+        if(r){
+          debugger;
+          if(event.checked){
+            this.openSnackBar("Servicio activado");
+          }
+          else{
+            this.openSnackBar("Servicio desactivado");
+          }
+
+          this.spinner.hide();   
+        }
+      },(err)=>{
+        this.spinner.hide();
+        console.log(err);
+      });
   }
 
   get_detalle_evento(id: number){

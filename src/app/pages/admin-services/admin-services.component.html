@@ -97,6 +97,12 @@
                                     Especificación
                                 </span>
                             </th>
+                            <th (click)="sort('country')" [class.active-sort]="key === 'activar'"
+                                style="cursor: pointer;">
+                                <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
+                                    Activar/Desactivar
+                                </span>
+                            </th>
                             <th (click)="sort('country')" [class.active-sort]="key === 'Editar'"
                                 style="cursor: pointer;">
                                 <span class="sort" [class.normal]="!reverse" [class.reverse]="reverse">
@@ -144,6 +150,11 @@
                                 {{ item.especificacionEspecial }}
                             </td>
                             <td style="cursor: pointer;">
+                                <mat-checkbox class="example-margin"
+                                    [checked]="item.activo" (change)="setActive($event, item)">
+                                </mat-checkbox>
+                             </td>
+                            <td style="cursor: pointer;">
                                 <a (click)="getdatabyEdit(item.id);">
                                     <mat-icon>edit</mat-icon>
                                 </a>
@@ -170,6 +181,12 @@
         <div class="modal-body">
             <div class="container">
                 <div class="row">
+                  <div class="col-2">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Orden</mat-label>
+                            <input type="number" matInput placeholder="Orden" formControlName="orden">
+                        </mat-form-field>
+                  </div>
                   <div class="col-4">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Producto</mat-label>
@@ -180,7 +197,7 @@
                         </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-8">
+                  <div class="col-6">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Descripción corta</mat-label>
                         <input #descCorta maxlength="100" matInput placeholder="Descripcion corta" formControlName="descripcionCorta">
@@ -263,35 +280,50 @@
                   </div>
                </div> 
                <div class="row">
-                <div class="col-4" *ngIf="formModal.controls.tipoImagenSeleccion.value == 'imagen'">
-                    <div class="col-12" *ngIf="formModal.controls.imagenSeleccion.value == null">
+                <div class="col-6" *ngIf="formModal.controls.tipoImagenSeleccion.value == 'imagen'">
+                    <div class="col-12" *ngIf="formModal.controls.imagenSeleccion.value == null" style="padding: 0 !important;">
                         <mat-form-field class="example-full-width" appearance="fill">
                             <mat-label>Imagen</mat-label>
                             <input matInput type="text" placeholder="Imagen" formControlName="imagenSeleccion">
                             <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
                         </mat-form-field>
                     </div>
-                    <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='add'">
+                    <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='add'" style="padding: 0 !important;">
                         <!-- <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
                             <img mat-card-image src="{{formModal.controls.image.value}}" alt="formModal.controls.imagenSeleccion.value">
                         </mat-card> -->
                         {{formModal.controls.imagenSeleccion.value}}
                         <mat-icon matSuffix (click)="handleEvenCrop('Click','')" *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'video'">cloud_upload</mat-icon>
                       </div>
-                      <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='edit'">
+                      <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='edit'" style="padding: 0 !important;">
                         <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
                             <img mat-card-image src="{{formModal.controls.imagenSeleccion.value}}" alt="formModal.controls.imagenSeleccion.value">
                         </mat-card>
                       </div>
                 </div>
-                <div class="col-4" *ngIf="formModal.controls.tipoImagenSeleccion.value == 'video'">
-                    <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
+                <div class="col-6" *ngIf="formModal.controls.tipoImagenSeleccion.value == 'video'">
+                    <div class="col-12" style="padding: 0 !important;">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Código de Video</mat-label>
+                            <input matInput type="text" placeholder="Video" formControlName="imagenSeleccion">
+                            <mat-icon matSuffix *ngIf="formModal.controls.tipoImagenSeleccion.value!= 'imagen'">video_library</mat-icon>
+                        </mat-form-field>
                         <youtube-player videoId={{formModal.controls.imagenSeleccion.value}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="1000">
                         </youtube-player>
-                    </mat-card>
+                    </div>
+                 
+                      <!-- <div class="col-12 p-2" *ngIf="formModal.controls.imagenSeleccion.value != null && action_modal=='edit'">
+                        <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
+                            <img mat-card-image src="{{formModal.controls.imagenSeleccion.value}}" alt="formModal.controls.imagenSeleccion.value">
+                        </mat-card>
+                      </div> -->
+                    <!-- <mat-card class="example-card" (click)="handleEvenCrop('Click','')">    
+                        <youtube-player videoId={{formModal.controls.imagenSeleccion.value}} suggestedQuality="highres" [height]="235" [width]="290" [startSeconds]="4" [endSeconds]="1000">
+                        </youtube-player>
+                    </mat-card> -->
                 </div>
 
-                  <div class="col-8">
+                  <div class="col-6">
                     <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Especificaciones especiales</mat-label>
                         <input matInput #especificaciones maxlength="22" type="text" placeholder="Especificaciones especiales" formControlName="especificacionEspecial">

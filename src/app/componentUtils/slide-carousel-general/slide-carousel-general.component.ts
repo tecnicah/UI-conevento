@@ -103,15 +103,21 @@ debugger;
     });
 
     this.filterService.change.subscribe(isOpen => {
-      console.log(isOpen);
-      console.log(this.reset);
-      if(isOpen == "reset"){
-        this.productos = this.reset;
-      }
-      else{
-        this.productos = this.productos.filter(el => el.producto.toLowerCase().indexOf(isOpen.toLowerCase()) !== -1);
-      }
+      //debugger;
+      //console.log(isOpen);
+      //console.log(this.reset);
+      this.productos = this.reset;
+      this.productos = this.productos.filter(el => el.producto.toLowerCase().indexOf(isOpen.toLowerCase()) !== -1);
+      console.log(this.productos);
+      // if(isOpen == "reset"){
+      //   this.productos = this.reset;
+      // }
+      // else{
+      //   this.productos = this.productos.filter(el => el.producto.toLowerCase().indexOf(isOpen.toLowerCase()) !== -1);
+      //   console.log(this.productos);
+      // }
       //console.log(this.productos.filter(el => el.producto.toLowerCase().indexOf(isOpen.toLowerCase()) !== -1));
+      console.log(this.productos);
     });
   }
   
